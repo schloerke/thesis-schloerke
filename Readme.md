@@ -7,6 +7,7 @@
   * √ Get template
   * √ Get repo
   * Chapter - ggduo
+
 * Sept 13-19 (Week 7)
   * Chapter - ggduo
 * Sept 20-26 (Week 6)
