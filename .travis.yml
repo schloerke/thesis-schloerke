@@ -1,22 +1,27 @@
+
 before_install:
-- "sudo apt-get update && sudo apt-get install --no-install-recommends texlive-fonts-recommended texlive-latex-extra texlive-fonts-extra texlive-latex-recommended dvipng"
+  - "sudo apt-get update && sudo apt-get install --no-install-recommends texlive-fonts-recommended texlive-latex-extra texlive-fonts-extra texlive-latex-recommended dvipng"
+
 script:
-- mkdir _build
-- pdflatex -output-directory _build schloerke_b_thesis.tex
-- pdflatex -output-directory _build tex/your_file_2.tex
-deploy:
-  provider: releases
-  api_key:
-    secure: [YOUR KEY]
-  file:
-  - _build/your_file_1.pdf
-  - _build/your_file_2.pdf
-  skip_cleanup: true
-  on:
-    tags: true
+  - pdflatex -output-directory _build schloerke_b_thesis.tex
+
+# deploy:
+#   provider: releases
+#   api_key:
+#     secure: [YOUR KEY]
+#   file:
+#   - _build/schloerke_b_thesis.pdf
+#   skip_cleanup: true
+#   on:
+#     tags: true
 deploy:
   provider: pages
   skip_cleanup: true
-  github_token: $GITHUB_TOKEN # Set in travis-ci.org dashboard
+  github_token: $GITHUB_PAT # Set in travis-ci.org dashboard
+  local_dir: _build
   on:
     branch: master
+
+env:
+  global:
+    - secure: "AbVVuwHjSCKVWlbl0Cnweejw0SgRvW9kMmODfosNTQYcxxAnC53bZm1UJj0iGz/bz77fmPA0eE/KvAsgBAZAQpXCeed8pMKC343ujUA38OWS2ta/85XEqo3TATqMvoEl6G3LDsQUiR0nZHld0OQ6PZ2WHQyOpTlHOIRp5yojkKSgmlF8/rHmu2l1df9EsvN005TMlkzGiPge9P9XY/30THUOupimRaUZKUtd3US/8UlCdCHKBO6wHUY/se3BiSLO1YeQ1sRDDF56ptEy7yMzg3UHQbUMquJcOt+zZ4A7PiVeY9/RnvvUFZc+y7Wdx5J/t24mQuWfGiog7wonmJEX9CJusROj/m0JaZQybV877q8BeGjbfpELNRSqKhD54NZlos4JmDyd9pwbZXRk/4w7qVaUi+ULH8PDP1yZNpPhYj8gc3qfjUX+J/nZ0ZBpgPFSxQXMcbiGMiKQQ5rmKU4mAOa2fGM4g7peYVebTOHDJzuE6WS0Uih0W828VN7jyMxEoE3dVIPDIw9RTn1QtgiZepVI9sgcyf1SU4k7qoSWSnksr1/8MMDCGWqyxSQJ0d6aJuLLm5mQ9hKCXaIhzmFdzpfVeIKwsfXRR9vyb3QOejisj1+Kd5+52wRPryL7G9eXztTrw7TyO63uxQecoq6DThBL0Mg2xtJtmXLU3deGyHw="
