@@ -1,3 +1,4 @@
+% %!TEX root = ./_schloerke_b_thesis.tex
 %
 %  demo-figures.tex  2009-10-30  Mark Senn  http://engineering.purdue.edu/~mark
 %
@@ -37,7 +38,8 @@ Label ``sf:four-parts-c'' is ``\ref{sf:four-parts-c}''.
 \Repeat{This is the first paragraph.}{5}
 
 \begin{figure}[ht]
-  \includegraphics{plot.pdf}
+
+  \includegraphics{figs/plot.pdf}
   \caption{%
     By default figures are not centered.
     This is a long caption to demonstrate that captions are single spaced.
@@ -49,7 +51,7 @@ Label ``sf:four-parts-c'' is ``\ref{sf:four-parts-c}''.
 
 \begin{figure}[ht]
   \centering
-  \includegraphics{plot.pdf}
+  \includegraphics{figs/plot.pdf}
   \caption{Use {\tt \char'134centering\/} to center figures.}
   \label{fi:centered}
 \end{figure}
@@ -58,7 +60,7 @@ Label ``sf:four-parts-c'' is ``\ref{sf:four-parts-c}''.
 
 \begin{figure}[ht]
   \centering
-  \includegraphics{plot.pdf}
+  \includegraphics{figs/plot.pdf}
   \caption{This is another figuure.}
   \label{fi:another}
 \end{figure}
@@ -66,10 +68,10 @@ Label ``sf:four-parts-c'' is ``\ref{sf:four-parts-c}''.
 \Repeat{This is the fourth paragraph.}{10}
 
 \begin{figure}[ht]
-  \centering 
-  \subfigure[First subcaption.]{\label{sf:two-parts-a}  \includegraphics[width=0.3\textwidth]{plot.pdf}}%
+  \centering
+  \subfigure[First subcaption.]{\label{sf:two-parts-a}  \includegraphics[width=0.3\textwidth]{figs/plot.pdf}}%
   \hskip 0.5truein
-  \subfigure[Second subcaption.]{\label{sf:two-parts-b}\includegraphics[width=0.3\textwidth]{plot.pdf}}
+  \subfigure[Second subcaption.]{\label{sf:two-parts-b}\includegraphics[width=0.3\textwidth]{figs/plot.pdf}}
   \caption{This figure has two parts.}
   \label{fi:two-parts}
 \end{figure}
@@ -78,12 +80,12 @@ Label ``sf:four-parts-c'' is ``\ref{sf:four-parts-c}''.
 
 \begin{figure}[ht]
   \centering
-  \subfigure[First subcaption.]{\label{sf:four-parts-a}  \includegraphics[width=0.3\textwidth]{plot.pdf}}%
+  \subfigure[First subcaption.]{\label{sf:four-parts-a}  \includegraphics[width=0.3\textwidth]{figs/plot.pdf}}%
   \hskip 0.5truein
-  \subfigure[Second subcaption.]{\label{sf:four-parts-b}\includegraphics[width=0.3\textwidth]{plot.pdf}}
-  \subfigure[Third subcaption.]{\label{sf:four-parts-c}\includegraphics[width=0.3\textwidth]{plot.pdf}}%
+  \subfigure[Second subcaption.]{\label{sf:four-parts-b}\includegraphics[width=0.3\textwidth]{figs/plot.pdf}}
+  \subfigure[Third subcaption.]{\label{sf:four-parts-c}\includegraphics[width=0.3\textwidth]{figs/plot.pdf}}%
   \hskip 0.5truein
-  \subfigure[Fourth subcaption.]{\label{sf:four-parts-d}\includegraphics[width=0.3\textwidth]{plot.pdf}}
+  \subfigure[Fourth subcaption.]{\label{sf:four-parts-d}\includegraphics[width=0.3\textwidth]{figs/plot.pdf}}
   \caption{This figure has four parts.}
   \label{fi:four-parts}
 \end{figure}

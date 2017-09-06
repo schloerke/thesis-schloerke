@@ -1,0 +1,22 @@
+before_install:
+- "sudo apt-get update && sudo apt-get install --no-install-recommends texlive-fonts-recommended texlive-latex-extra texlive-fonts-extra texlive-latex-recommended dvipng"
+script:
+- mkdir _build
+- pdflatex -output-directory _build schloerke_b_thesis.tex
+- pdflatex -output-directory _build tex/your_file_2.tex
+deploy:
+  provider: releases
+  api_key:
+    secure: [YOUR KEY]
+  file:
+  - _build/your_file_1.pdf
+  - _build/your_file_2.pdf
+  skip_cleanup: true
+  on:
+    tags: true
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN # Set in travis-ci.org dashboard
+  on:
+    branch: master

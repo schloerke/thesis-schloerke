@@ -1,10 +1,10 @@
 % See http://www.ecn.purdue.edu/~mark/puthesis/#Options
 % for documentclass options.
 %
-% Please note that at the present time, Overleaf is not a 
+% Please note that at the present time, Overleaf is not a
 % suitable platform for Theses that include export controlled
-% information. If your thesis was generated from a project 
-% with a Technology Control Plan, please contact 
+% information. If your thesis was generated from a project
+% with a Technology Control Plan, please contact
 % exportcontrols@purdue.edu before proceeding.
 %
 \documentclass[ece,dissertation]{puthesis}
@@ -35,7 +35,8 @@
 % Campus (used only on cover)
 \campus{West Lafayette}
 
-\input{mydefs}
+\input{defs/mydefs}
+
 \newcommand{\margins}{\Repeat{Show where the margins for the page are.}{4}}
 \let\en=\ensuremath
 \newcommand{\ve}[2]{\en{#1_1},~\en{#1_2},\ \ldots,~\en{#1_{#2}}}
@@ -60,12 +61,13 @@
 % Use "\appendix" for one appendix or "\appendices" for more than one
 % appendix.
 \appendices
-\include{demo-citations}
-\include{demo-figures}
-\include{demo-mathematics}
-\include{demo-multicols}
-\include{demo-tables}
-\include{demo-text}
+
+\include{parts/demo-citations}
+\include{parts/demo-figures}
+\include{parts/demo-mathematics}
+\include{parts/demo-multicols}
+\include{parts/demo-tables}
+\include{parts/demo-text}
 
 % A vita is optional for masters theses
 % and required for doctoral dissertations.
