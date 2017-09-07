@@ -1,19 +1,23 @@
 
+# inspiration from https://github.com/harshjv/travis-ci-latex-pdf/blob/53408a30c33e73d64e51ea646fd12aaee3674a5e/.travis.yml
+
+# install for latex
 before_install:
   - "sudo apt-get update && sudo apt-get install --no-install-recommends texlive-fonts-recommended texlive-latex-extra texlive-fonts-extra texlive-latex-recommended dvipng"
 
+# Run pdflatex and copy file
 script:
   - pdflatex schloerke_b_thesis.tex
   - cp schloerke_b_thesis.pdf _build/schloerke_b_thesis.pdf
 
+# Deploy the copied pdf and minimal html file
+# (causes a force push to github pages. great for pushing many, many pdfs)
 deploy:
+  # https://docs.travis-ci.com/user/deployment/pages/
   provider: pages
   skip_cleanup: true
-  github_token: $GITHUB_PAT # Set in travis-ci.org dashboard
+  github_token:
+    secure: "AbVVuwHjSCKVWlbl0Cnweejw0SgRvW9kMmODfosNTQYcxxAnC53bZm1UJj0iGz/bz77fmPA0eE/KvAsgBAZAQpXCeed8pMKC343ujUA38OWS2ta/85XEqo3TATqMvoEl6G3LDsQUiR0nZHld0OQ6PZ2WHQyOpTlHOIRp5yojkKSgmlF8/rHmu2l1df9EsvN005TMlkzGiPge9P9XY/30THUOupimRaUZKUtd3US/8UlCdCHKBO6wHUY/se3BiSLO1YeQ1sRDDF56ptEy7yMzg3UHQbUMquJcOt+zZ4A7PiVeY9/RnvvUFZc+y7Wdx5J/t24mQuWfGiog7wonmJEX9CJusROj/m0JaZQybV877q8BeGjbfpELNRSqKhD54NZlos4JmDyd9pwbZXRk/4w7qVaUi+ULH8PDP1yZNpPhYj8gc3qfjUX+J/nZ0ZBpgPFSxQXMcbiGMiKQQ5rmKU4mAOa2fGM4g7peYVebTOHDJzuE6WS0Uih0W828VN7jyMxEoE3dVIPDIw9RTn1QtgiZepVI9sgcyf1SU4k7qoSWSnksr1/8MMDCGWqyxSQJ0d6aJuLLm5mQ9hKCXaIhzmFdzpfVeIKwsfXRR9vyb3QOejisj1+Kd5+52wRPryL7G9eXztTrw7TyO63uxQecoq6DThBL0Mg2xtJtmXLU3deGyHw="
   local_dir: _build
   on:
     branch: master
-
-env:
-  global:
-    - secure: "AbVVuwHjSCKVWlbl0Cnweejw0SgRvW9kMmODfosNTQYcxxAnC53bZm1UJj0iGz/bz77fmPA0eE/KvAsgBAZAQpXCeed8pMKC343ujUA38OWS2ta/85XEqo3TATqMvoEl6G3LDsQUiR0nZHld0OQ6PZ2WHQyOpTlHOIRp5yojkKSgmlF8/rHmu2l1df9EsvN005TMlkzGiPge9P9XY/30THUOupimRaUZKUtd3US/8UlCdCHKBO6wHUY/se3BiSLO1YeQ1sRDDF56ptEy7yMzg3UHQbUMquJcOt+zZ4A7PiVeY9/RnvvUFZc+y7Wdx5J/t24mQuWfGiog7wonmJEX9CJusROj/m0JaZQybV877q8BeGjbfpELNRSqKhD54NZlos4JmDyd9pwbZXRk/4w7qVaUi+ULH8PDP1yZNpPhYj8gc3qfjUX+J/nZ0ZBpgPFSxQXMcbiGMiKQQ5rmKU4mAOa2fGM4g7peYVebTOHDJzuE6WS0Uih0W828VN7jyMxEoE3dVIPDIw9RTn1QtgiZepVI9sgcyf1SU4k7qoSWSnksr1/8MMDCGWqyxSQJ0d6aJuLLm5mQ9hKCXaIhzmFdzpfVeIKwsfXRR9vyb3QOejisj1+Kd5+52wRPryL7G9eXztTrw7TyO63uxQecoq6DThBL0Mg2xtJtmXLU3deGyHw="
