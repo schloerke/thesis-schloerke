@@ -17,6 +17,7 @@ deploy:
   provider: pages
   skip_cleanup: true
   github_token:
+    # travis encrypt $GITHUB_PAT
     secure: "NLrh3Lcunv69rcsVBddPeGAzsLqHsShmGkySReyrJV6AUh3oXxm/8o3FIxnWiADm1tl1xgjwVE1tV8si2CvMBnDRoGxSW1yZg52SsMqNVoITKahgg0+wKeHxiz2g/lwfW7W2KR+dQYcGYYHCBJ4RpjeitCj2LCs+K+aQJToss7/ZbaxZxmSj3Aj2EASSNr/M9jjKyBiWLv96+xF6S0e7BG/HEGpS93inoVLLnAgRus1jluPRdMjZb2MsOx0H0VDSHZu6ktMt2DLRa/QhmA9uMu7E8hj6GZ39LEaydsMQjMZsfukpczsV/W3/Fyr2NA5mQWd9wkpOcrvU5sSuWnn3A0+wcu4k/DV47n1qIpZQh9e7xukSrf+laYfY4OcbNPFOIePehYGFC6CiPhyM+psp2QIfRpMKPx0fVnOitNciMg8Tpvtc0EGvS9aAR3yqxOoFXDZMycUqudlfkMjulC+JI47z0r6oympDk0X8JKJk4h2rov3L7hl/LAZ+NTjU8/77tlZf7kgv758lqXkSzTYd5gUxY/LyTC0MDx0UQ/DVg7F9F/h061utTnubMzq54FAPTgDSRVABPEMuV4RESDuC+6QRioy1gdnSMHxuVEsgvOpDIYh1FTYO9aY8oGJSsAtuzWkv5MyACGFPidjV9i/ukjdr7I/DwCu9nY3/tFsRPZw="
   local_dir: _build
   on:
