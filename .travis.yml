@@ -1,11 +1,12 @@
 
 language: r
-before_install:
-  - "sudo apt-get update && sudo apt-get install --no-install-recommends texlive-fonts-recommended texlive-latex-extra texlive-fonts-extra texlive-latex-recommended dvipng"
+# before_install:
+#   - "sudo apt-get update && sudo apt-get install --no-install-recommends texlive-fonts-recommended texlive-latex-extra texlive-fonts-extra texlive-latex-recommended dvipng"
 
 script:
   - pdflatex schloerke_b_thesis.tex
   - cp schloerke_b_thesis.pdf _build/schloerke_b_thesis.pdf
+
 deploy:
   provider: pages
   skip_cleanup: true
