@@ -1,5 +1,7 @@
 
 language: r
+sudo: false
+cache: packages
 
 # Run pdflatex and copy file
 script:
