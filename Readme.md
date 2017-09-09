@@ -44,13 +44,36 @@
 
 ## Thesis Format
 
-* Intro
+* Intro (40-50 of textbook like information)
+  * Start from very basics, as if I don't know anything
+  * Provide motivation
 * Lit review (or in each chapter)
 * Chapters
 * Closer
   * How to combine to make a super project
 * Appendix
   * attach pdf manuals of R packages
+
+Jiasen's setup
+* Sections
+  * Introduction
+    * why impactful
+    * why important
+    * contributions
+    * organization
+      * mini abstract for each chapters
+  * Background (bigger)
+    * Should all be existing things
+    * Should very familiar for anyone in the field, but not familiar for people outside
+    * Show how much you know about the area
+    * Statistician should be able to understand quickly
+    * Filled with links to papers and sites
+  * Contributions
+    * can be independent
+  * Conclusions
+    * Why impactful
+    * Future direction
+
 
 ## Chapter Format
 
