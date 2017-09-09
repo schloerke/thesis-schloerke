@@ -1,9 +1,5 @@
 
-# inspiration from https://github.com/harshjv/travis-ci-latex-pdf/blob/53408a30c33e73d64e51ea646fd12aaee3674a5e/.travis.yml
-
-# install for latex
-before_install:
-  - "sudo apt-get update && sudo apt-get install --no-install-recommends texlive-fonts-recommended texlive-latex-extra texlive-fonts-extra texlive-latex-recommended dvipng"
+language: r
 
 # Run pdflatex and copy file
 script:
