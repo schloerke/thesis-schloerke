@@ -1,3 +1,5 @@
+% !weave = knitr
+
 % See http://www.ecn.purdue.edu/~mark/puthesis/#Options
 % for documentclass options.
 %
@@ -8,6 +10,8 @@
 % exportcontrols@purdue.edu before proceeding.
 %
 \documentclass[ece,dissertation]{puthesis}
+
+
 \usepackage{amsmath}
 \usepackage{multicol}
 \usepackage{subfigure}
@@ -30,7 +34,7 @@
 
 % Major professor (used in abstract).
 % Use \majorprofs{...} if you have more than one professor.
-\majorprofs{William Cleveland, Ryan Hafen}
+\majorprofs{Dr. William Cleveland, Dr. Ryan Hafen, Dr. Bowei Xi, Dr. Viniak Rao}
 
 % Campus (used only on cover)
 \campus{West Lafayette}
@@ -39,6 +43,7 @@
 
 \newcommand{\margins}{\Repeat{Show where the margins for the page are.}{4}}
 \let\en=\ensuremath
+
 \newcommand{\ve}[2]{\en{#1_1},~\en{#1_2},\ \ldots,~\en{#1_{#2}}}
 
 \begin{document}
@@ -46,17 +51,20 @@
 \volume
 
 % Front matter (dedication, etc.).
-\include{front}
+\include{parts/front}
 
-\include{introduction}
+\include{parts/introduction}
 
 % Put chapter \include commands here.
 
-\include{summary}
+<< sum2, child='parts/summary2.Rnw'>>=
+@
 
-\include{recommendations}
+\include{parts/summary}
 
-\include{bibliography}
+\include{parts/recommendations}
+
+\include{parts/bibliography}
 
 % Use "\appendix" for one appendix or "\appendices" for more than one
 % appendix.
@@ -72,6 +80,6 @@
 % A vita is optional for masters theses
 % and required for doctoral dissertations.
 
-\include{vita}
+\include{parts/vita}
 
 \end{document}
