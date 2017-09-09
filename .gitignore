@@ -11,3 +11,4 @@ schloerke_b_thesis.pdf
 *.toc
 *-concordance.tex
 schloerke_b_thesis.tex
+figure/*

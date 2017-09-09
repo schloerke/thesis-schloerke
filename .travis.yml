@@ -7,8 +7,7 @@ before_install:
 
 # Run pdflatex and copy file
 script:
-  - pdflatex schloerke_b_thesis.tex
-  - cp schloerke_b_thesis.pdf _build/schloerke_b_thesis.pdf
+  - make
 
 # Deploy the copied pdf and minimal html file
 # (causes a force push to github pages. great for pushing many, many pdfs)
