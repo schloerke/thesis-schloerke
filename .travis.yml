@@ -10,8 +10,8 @@ before_install:
 
 # Run pdflatex and copy file
 script:
-  - make test
-  # - make
+  # - make test
+  - make
 
 # Deploy the copied pdf and minimal html file
 # (causes a force push to github pages. great for pushing many, many pdfs)
