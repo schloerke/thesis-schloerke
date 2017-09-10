@@ -5,11 +5,13 @@ cache: packages
 
 # install for latex
 before_install:
- - "sudo apt-get update && sudo apt-get install --no-install-recommends texlive-fonts-recommended texlive-latex-extra texlive-fonts-extra texlive-latex-recommended dvipng"
+  # - "sudo apt-get update && sudo apt-get install --no-install-recommends texlive-fonts-recommended texlive-latex-extra texlive-fonts-extra texlive-latex-recommended dvipng"
+  - tlmgr install endnotes
 
 # Run pdflatex and copy file
 script:
-  - make
+  - make test
+  # - make
 
 # Deploy the copied pdf and minimal html file
 # (causes a force push to github pages. great for pushing many, many pdfs)
