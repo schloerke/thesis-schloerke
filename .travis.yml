@@ -3,6 +3,10 @@ language: r
 sudo: false
 cache: packages
 
+# install for latex
+before_install:
+ - "sudo apt-get update && sudo apt-get install --no-install-recommends texlive-fonts-recommended texlive-latex-extra texlive-fonts-extra texlive-latex-recommended dvipng"
+
 # Run pdflatex and copy file
 script:
   - make
