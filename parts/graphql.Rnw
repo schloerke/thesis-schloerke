@@ -1,0 +1,91 @@
+
+
+\chapter{GraphQL}
+
+
+
+Unified data query api
+  reduce learning time. Be an expert in one language
+  not tied directly to the backend
+
+
+Strong typing
+  Explain basic GraphQL Schema types
+  Can use strong typing even if database does not
+  Make custom queries on the fly
+  Reduces response bloat
+    update the ui, use different fields of information
+    remove
+
+
+There is a unique API or interaction method to query every database.  When making a database call to a MySQL server, there is a known SQL syntax for interacting with the database.  When making a database call to a MongoDB server, there is a different, known syntax for interacting with the database.  For every known database, there is a unique language created to interact with the data.  If a database needs to be updated to a different database or is even upgraded to a new version, the query syntax, more often than not, is broken.  This leads to continuous integration with the query syntax and the database and constant reprogramming of the query syntax for every update of the database syntax.  GraphQL addresses this issue.
+
+
+GraphQL is a data query language.  It specifies what is being queried using a strong typed schema definition.  While there is overhead in creating a strong type schema, all databases
+
+
+Talk about strong type
+  what is schema?
+  advantages
+    if the type is known, then the fields are known
+  disadvantages
+    its ridgid and must be extended to have more information
+
+
+Talk about interfaces to databases
+  why does the question have to change when the database changes?
+
+
+Facebook 2012
+data query interface
+
+
+Language (maps directly to R)
+
+  Object types:
+    Scalars
+      Int, Float, String, Boolean, ID
+      R: integer, numeric, character, logical, string with restrictions
+    Objects
+      R: list
+      In Schema Definition
+      Contain Fields (Name and Type)
+    Interfaces
+      GraphQL: Schema structure only
+    Unions
+      R: class inheritance
+    Enums
+      R: Factors
+    Input Objects
+      GraphQL: Wrapper to Objects and Scalars
+    Lists
+      R: list
+    Non-Null
+      R: Can check for non-null
+
+  Operation Types:
+    query
+      Contain SelectionSets
+      SelectionSets contain
+        a field name that pairs with a scalar value or Enum type
+        a field name with a nested SelectionSet (on a field with a object type)
+
+    mutation
+      Same exact as a query, but it is understood that the data is changing in the database and a `query' is being executed afterwards
+
+
+Server defines a schema of strong typed objects
+
+```graphql
+type Person {
+  name: String
+  age: Int
+  picture: Url
+}
+'''
+
+
+
+Why R?
+
+  Already implemented in javascript, python, java, Go, and scala... why R?  R has 10k+ contributed user libraries.  With the language being statistically based, many libraries contain statistical solutions that are not natively found in the language.  These pacakges, mixed with the fast iteration of R make a powerful combination.

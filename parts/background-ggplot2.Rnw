@@ -1,0 +1,45 @@
+
+\chapter{Background ggplot2}
+\section{Section}
+\subsection{SubSection}
+\subsubsection{SubSubSection}
+
+Talk about R
+
+
+Talk about origins of ggplot2
+  Hadley Wickham's thesis in grammar of graphics at Iowa State
+  formalize
+
+
+  ggplot2 is built upon grid graphics
+    store object to print, then print (not immediately printed)
+    fully defined print objects
+    can be stored or manipulated
+
+
+
+Talk about Jay Emerson and gpairs
+  Goal was to inspect the data.frame and return plots with meaning, not just scatterplot matrices
+
+
+Talk about GGally::ggpairs
+  ggplot2 as a dataset, aesthetics, and geoms
+  ggpairs has a dataset, columns, commong aesthetics, and type functions
+  Goal was to modularize gpairs and add / remove plots at will
+
+
+
+Talk about GGally::ggmatrix
+  Made as the underlying structure to ggpairs
+  Allowed for non square plot matrix
+
+Explain about major plot types
+  XY
+    Continuous on Continuous
+    Discrete on Discrete
+    Continuous on Discrete
+    Discrete on Continuous
+  X
+    Continuous
+    Discrete

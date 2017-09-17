@@ -11,10 +11,21 @@
 %
 \documentclass[ece,dissertation]{puthesis}
 
+<<knitr, echo = FALSE>>=
+knitr::opts_chunk$set(
+  cache = TRUE,
+  autodep = TRUE,
+  fig.width = 8,
+  fig.height = 5
+)
+@
+
 
 \usepackage{amsmath}
 \usepackage{multicol}
 \usepackage{subfigure}
+\usepackage{hyperref}
+
 
 % Title of thesis (used on cover and in abstract).
 \title{An Example Thesis Done with LaTeX\\
@@ -58,6 +69,15 @@
 % Put chapter \include commands here.
 
 << sum2, child='parts/summary2.Rnw'>>=
+@
+<< sum2, child='parts/background-ggplot2.Rnw'>>=
+@
+<< sum2, child='parts/ggduo.Rnw'>>=
+@
+
+<< sum2, child='parts/background-graphql.Rnw'>>=
+@
+<< sum2, child='parts/graphql.Rnw'>>=
 @
 
 \include{parts/summary}
