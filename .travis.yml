@@ -3,14 +3,12 @@ language: r
 sudo: false
 cache: packages
 
-# install for latex
+# install latex styles
 before_install:
-  # - "sudo apt-get update && sudo apt-get install --no-install-recommends texlive-fonts-recommended texlive-latex-extra texlive-fonts-extra texlive-latex-recommended dvipng"
   - tlmgr install endnotes notoccite
 
-# Run pdflatex and copy file
+# Run pdflatex and copy file with Makefile
 script:
-  # - make test
   - make
 
 # Deploy the copied pdf and minimal html file
