@@ -8,18 +8,18 @@
 * Sept 6-12 (Week 8)
   * √ Get template
   * √ Get repo
-  * Chapter - ggduo
+  * background - graphql
 
 * Sept 13-19 (Week 7)
-  * Chapter - ggduo
+  * Chapter - graphql
 
 
 * Sept 20-26 (Week 6)
-  * Chapter - graphql
+  * background - ggplot2
 
 
 * Sept 27-3 (Week 5)
-  * Chapter - graphql
+  * Chapter - ggduo
 
 
 * Oct 4-10 (Week 4)
@@ -47,6 +47,7 @@
 * Intro (40-50 of textbook like information)
   * Start from very basics, as if I don't know anything
   * Provide motivation
+* Background
 * Lit review (or in each chapter)
 * Chapters
 * Closer
