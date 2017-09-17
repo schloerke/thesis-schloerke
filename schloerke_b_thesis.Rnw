@@ -64,7 +64,7 @@
 
 \include{parts/recommendations}
 
-\include{parts/bibliography}
+\bibliography{schloerke_b_thesis}
 
 % Use "\appendix" for one appendix or "\appendices" for more than one
 % appendix.
