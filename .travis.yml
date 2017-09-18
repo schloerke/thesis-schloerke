@@ -3,9 +3,13 @@ language: r
 sudo: false
 cache: packages
 
+addons:
+  apt:
+    packages:
+    - python-pygments
+
 # install latex styles
 before_install:
-  - "sudo apt-get update && sudo apt-get install pygments"
   - tlmgr install endnotes notoccite IEEEtran minted
 
 # Run pdflatex and copy file with Makefile
