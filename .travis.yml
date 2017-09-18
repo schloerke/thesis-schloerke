@@ -1,6 +1,6 @@
 
 language: r
-sudo: false
+sudo: true
 cache: packages
 
 addons:
@@ -11,7 +11,7 @@ addons:
 
 # install latex styles
 before_install:
-  - python setup-graphql.py develop
+  - sudo python setup-graphql.py develop
   - tlmgr install endnotes notoccite IEEEtran minted
 
 # Run pdflatex and copy file with Makefile
