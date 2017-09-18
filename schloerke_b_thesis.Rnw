@@ -36,11 +36,6 @@ knitr::opts_chunk$set(
 \definecolor{gqlbg}{rgb}{0.9686,0.9686,0.9686}
 \newminted{graphql}{bgcolor=gqlbg, samepage=true}
 
-% bug caused with background color
-% https://tex.stackexchange.com/questions/228058/how-to-space-before-and-after-a-minted-code-block-with-bgcolor
-\BeforeBeginEnvironment{graphqlcode}{\bigskip}
-\AfterEndEnvironment{graphqlcode}{\bigskip}
-
 
 % Title of thesis (used on cover and in abstract).
 \title{An Example Thesis Done with LaTeX\\
