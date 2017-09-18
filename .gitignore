@@ -6,6 +6,7 @@
 *.lof
 *.log
 *.lot
+*.out
 schloerke_b_thesis.pdf
 *.synctex.gz
 *.toc

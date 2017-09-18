@@ -75,8 +75,6 @@ knitr::opts_chunk$set(
 << sum2, child='parts/ggduo.Rnw'>>=
 @
 
-<< sum2, child='parts/background-graphql.Rnw'>>=
-@
 << sum2, child='parts/graphql.Rnw'>>=
 @
 
