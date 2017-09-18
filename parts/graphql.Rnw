@@ -23,14 +23,14 @@ Throughout this section, I will use a calculator, `Calc', as my example responde
 There are two common styles of single response APIs: simple and custom response.
 A simple API has a single end point, or place to send a request, for each style of question it knows how to answer.  The Calculator would contain four end points: add, subtract, multiply, and divide.  Each end point would require two numeric values as inputs and would respond with a single numeric value.  To concisely define a RESTful Calculator, we may state the following:
 
-\begin{minted}{graphql}
+\begin{graphqlcode}
 type Calculator {
   add(A: Float, B: Float): Float,
   subtract(A: Float, B: Float): Float,
   multiply(A: Float, B: Float): Float,
   devide(A: Float, B: Float): Float
 }
-\end{minted}
+\end{graphqlcode}
 
 \subsubsection{Advantages}
 
@@ -63,14 +63,14 @@ No matter how the requests are altered, it will require 4 requests to the Calcul
 
 If we were to look at a person's friends of their friends, we would need the following Schema and data information:
 
-\begin{verbatim}
+\begin{graphqlcode}
 Person(id: Int) {
   name: String
   age: Int
   sex: String
   friends: [ID]
 }
-\end{verbatim}
+\end{graphqlcode}
 
 Each person has a ``name'', ``age'', ``sex'', and a list of person id's for their ``friends''.  While having all of this information is useful, it can bloat the amount of information that is returned.  While the current example isn't too big, one could imagine adding a Person's favorite song lyrics to the Person object.  This would greatly increase the amount of information returned for each person.
 
@@ -174,12 +174,12 @@ GraphQL Schemas are defined using Scalars, Types, Enumerations, Lists, Non-Null 
 
 For example, we can setup a Schema for a professional baseball player.
 
-\begin{verbatim}
+\begin{graphqlcode}
 type Player {
   name: String!
   position: [Position!]!
 }
-\end{verbatim}
+\end{graphqlcode}
 
 The type definition for a Player above is very readible, but has a lot going on.
 
@@ -195,7 +195,7 @@ The type definition for a Player above is very readible, but has a lot going on.
 
 Field definitions may include arguements.  These arguments can be simple Scalar definitions or Input Type definitions.
 
-\begin{verbatim}
+\begin{graphqlcode}
 input GameInput {
   date: Date
   time: Time
@@ -205,7 +205,7 @@ extend type Player {
   height(unit: HeightUnit = INCHES): Float
   did_play_in_game(game: GameInput): Boolean
 }
-\end{verbatim}
+\end{graphqlcode}
 
 Like the R language, all arguments are named arguments, all arguments may be submitted in any order, and default values may be provided.  Unlike R, all submitted arguments must have a name and must comply with the argument type.  Default values may be used are used in place of missing arguments.
 
@@ -213,12 +213,12 @@ Like the R language, all arguments are named arguments, all arguments may be sub
 
 There are two main entry points to a Schema: schema query type and schema mutation type. Every GraphQL Schema definition must have a schema query type and optionally can have a schema mutation type.  Each of these types refer to the type of an object type definition.
 
-\begin{verbatim}
+\begin{graphqlcode}
 schema {
   query: Player
   mutation: PlayerUpdate
 }
-\end{verbatim}
+\end{graphqlcode}
 
 Query types are read only, while mutation types are understood that something will update in the database.  A request will have the same shape for both query types and mutation types.
 
@@ -236,11 +236,11 @@ Scalar Types are the leafs of the Schema.  Unlike Object Types, Scalars do not h
 
 New scalars can be defined in a Schema as long as the server running the GraphQL understands how to handle them.
 
-\begin{verbatim}
+\begin{graphqlcode}
 scalar Date
 scalar Binary
 scalar Hexadecimal
-\end{verbatim}
+\end{graphqlcode}
 
 
 
