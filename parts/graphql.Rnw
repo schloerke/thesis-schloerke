@@ -145,14 +145,32 @@ Developers balance between minimal engineering time and minimal execution time. 
 
 \section{Variable Typing}
 
-Programing languages know the type of objects in two ways: stong typed and weakly typed.  Strong typed languages know ``whenever an object is passed from a calling function to a called function, its type must be compatible with the type declared in the called function.'' (CITE \url{http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.136.3043}) Weakly typed languages allow a programmer to passively use a invalid type as if it was correct.  A good example of this is when a String is added to an Integer.  As in Javascript, the Integer is converted to a String, then the two Strings are concatinated together.  In a strong typed language like Java, adding an Integer and String would not be allowed to compile as a String is not numeric does not know how to ``add''.
+Programing languages know the type of objects in two ways: stong typed and weakly typed.  Strong typed languages know ``whenever an object is passed from a calling function to a called function, its type must be compatible with the type declared in the called function.'' (CITE \url{http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.136.3043}) Weakly typed languages allow a programmer to passively use a invalid type as if it was correct.  A good example of this is when a String is added to an Integer.  As in Javascript (CITE), the Integer is converted to a String, then the two Strings are concatinated together.
+
+<<test_javascript, engine = "js">>=
+42 + `hello'
+# `42hello'
+@
+
+In a strong typed language like C (CITE), adding an Integer and String would not be allowed to compile.  A String in C does not know how to ``add'' like and Integer.
+
+<<engine = "c", eval = FALSE>>=
+int x = 10;
+char y[5] = "hello";
+int z = x + y;
+// file.c:3:10: warning: initialization makes integer from pointer
+//   without a cast [-Wint-conversion]
+// char z = x + y;
+//          ^
+// file.c:3:10: error: initializer element is not constant
+@
 
 
 \section{Database Storage}
 
-Similarly, databases can store objects in two ways: as a relational database or as a key-value database.  Relational databases know exactly what kind of object will be returned and can map different within tables to each other.  Key-value databases, on the other hand, do not inspect the values of the database.  Key-value databases are built for speed and scalibility over structure and relationships.
+Similarly, databases can store objects in two ways: as a relational database or as a key-value database.  Relational databases know exactly what kind of object will be returned and can map one table to another with id values.  Key-value databases, on the other hand, do not inspect the values of the database.  The only requirement is that values are stored at a specific key.  Key-value databases are built for speed and scalibility over structure and relationships.
 
-While relational databases are already strongly typed (unless purposely stated as an unknown type), key-value databses inherintly contain strong typed values.  Each value that is inserted into the database has a known shape and expected reponse type.  If data of an image is stored, an audio should never be returned from that same position.  Even if the image had different sizes and even encoding types, it still can be understood as an image.
+While relational databases are already strongly typed (unless purposely stated as an unknown type), well designed key-value databases inherintly contain strong typed values.  Each value that is inserted into the database has a known shape and expected reponse type.  If data of an image is stored, audio data should never be returned from that same position.  Even if the image had different sizes and formats, it still can be understood as an image.
 
 There are many more comparisons and cost / benefits to every database, however these implementation differences are not apart of the scope of this chapter.
 
@@ -175,19 +193,20 @@ GraphQL Schemas are defined using Scalars, Types, Enumerations, Lists, Non-Null 
 For example, we can setup a Schema for a professional baseball player.
 
 \begin{graphqlcode}
-type Player {
-  name: String!
-  position: [Position!]!
+type Dog {
+  name: String
+  breed: String!
+  owner: [Person!]!
 }
 \end{graphqlcode}
 
 The type definition for a Player above is very readible, but has a lot going on.
 
 \begin{enumerate}
-  \item $Player$ is a Object Type definition.  It has three fields:  $name$, $team$, and $position$.  These three fields are the only fields allowed when retrieving information from a $Player$.
-  \item $String$ is a predefined Scalar type definition.  This would contain the players name, i.e. ``Miguel Cabrera''.  Scalar fields do not contain any fields and are considered Leafs in the Schema definition tree.
-  \item $String!$ represents a Non-null String value.  This means that all $Player$ objects will contain the $name$ field and the result will always be a String.
-  \item $[Position]$ represents an array of Positions that a player can play at.  By adding the `!' outside the array to form $[Position]!$, it will be gaurunteed to return an array and never a $NULL$ value.  By adding a `!' to the Position, the elements inside the position array will never be $NULL$.
+  \item $Dog$ is a Object Type definition.  It has four fields:  $name$, $breed$, $age$, and $owner$.  These four fields are the only fields allowed when retrieving information from a $Dog$.
+  \item $String$ is a predefined Scalar type definition.  This would contain the dog's name, i.e. ``Clifford''.  Scalar fields do not contain any sub fields and are considered Leafs in the Schema definition tree.
+  \item $String!$ represents a Non-null String value.  This means that all $Dog$ objects will contain the $breed$ field and the result will always be a String.
+  \item $[Person]$ represents an array of Person objects that represent the owner of the Dog. By adding the `!' outside the array to form $[Person]!$, it will be gaurunteed to return an array for the field $owner$ and never a $NULL$ value.  By adding a `!' to the Person ($[ Person!]!$), the elements inside the position array will never be $NULL$.  A length $0$ array is still allowed as the $owner$ value is not $NULL$ and all values are not $NULL$.
 \end{enumerate}
 
 
@@ -196,14 +215,14 @@ The type definition for a Player above is very readible, but has a lot going on.
 Field definitions may include arguements.  These arguments can be simple Scalar definitions or Input Type definitions.
 
 \begin{graphqlcode}
-input GameInput {
-  date: Date
-  time: Time
-  opponent: Team
+input ToyInput {
+  brand: String
+  name: String
+  condition: Condition
 }
-extend type Player {
-  height(unit: HeightUnit = INCHES): Float
-  did_play_in_game(game: GameInput): Boolean
+extend type Dog {
+  weight(unit: WeightUnit = POUNDS): Float
+  does_play_with_toy(toy: ToyInput): Boolean
 }
 \end{graphqlcode}
 
@@ -215,8 +234,8 @@ There are two main entry points to a Schema: schema query type and schema mutati
 
 \begin{graphqlcode}
 schema {
-  query: Player
-  mutation: PlayerUpdate
+  query: Dog
+  mutation: DogUpdate
 }
 \end{graphqlcode}
 
