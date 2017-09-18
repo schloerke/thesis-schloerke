@@ -33,13 +33,18 @@ knitr::opts_chunk$set(
 % \usemintedstyle{xcode}
 \usemintedstyle{colorful}
 % matches knitr background
-\definecolor{gqlbg}{rgb}{0.9686,0.9686,0.9686}
+% \definecolor{gqlbg}{rgb}{0.9686,0.9686,0.9686}
+\definecolor{gqlbg}{rgb}{0.97,0.97,0.97}
 \newminted{graphql}{bgcolor=gqlbg, samepage=true}
 
+\let\hlesc\hlstd \let\hlpps\hlstd \let\hllin\hlstd \let\hlslc\hlcom
 
 % Title of thesis (used on cover and in abstract).
-\title{An Example Thesis Done with LaTeX\\
-  with a Very Long Title}
+% \title{Divide and Recombine for Statistical Graphics}
+% \title{Data extraction, Display, and Communication of Data}
+\title{Statistical Plot Matricies, Cognostic Extraction, and Data Communication}
+% \title{An Example Thesis Done with LaTeX\\
+%   with a Very Long Title}
 
 % First author name with first name first is used for cover.
 % Second author name with last name first is used for abstract.
@@ -51,7 +56,7 @@ knitr::opts_chunk$set(
 % and abstract).
 % Last is the year the degree was (wlll be) awarded (used on cover
 % and abstract).
-\pudegree{Doctor of Philosophy}{Ph.D.}{December}{2007}
+\pudegree{Doctor of Philosophy}{Ph.D.}{December}{2017}
 
 % Major professor (used in abstract).
 % Use \majorprofs{...} if you have more than one professor.
