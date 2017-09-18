@@ -2,6 +2,261 @@
 
 \chapter{GraphQL}
 
+Application Protocol Interfaces (APIs) are the fundamental backbone of communication between machines.  They enable manchines to communicate with each other without needing to know how the responding machine comes to its answer.  Two convensions for an API: simple API and custom API.  Each API style has their own advantages and disadvantages.  GraphQL was created to address the disadvantages while keeping the advantages at the cost of strong typing the request.
+
+
+
+\section{Application Protocol Interface}
+
+
+There are two parties involved in every API communication: the requestor who submits a query and respondor who returns an answer.  The requestor submits a query, and the responder returns an answer that can be interpreted by the requestor.  The key point to the communication transaction is that the requestor does not need to know how the responder calculates their answer.
+
+This layer of abstraction shields the requestor from knowing the nitty gritty implementation details of the responder.  It allows the responder to behave like a black box that will only respond to particular requests or queries.
+
+
+In this thesis, I will address single response APIs as I am concerned with the request, not the response.  A single response API is an API that returns only one response to one answer.  I will not discuss streaming APIs in this thesis.
+
+Throughout this section, I will use a calculator, `Calc', as my example responder.  The calulator will be have four internal functions: add, subtract, multiply, and divide.  These four internal function behave just like a regular calculator, but the true implementation of the calculator is hidden.
+
+\subsection{Simple API}
+
+There are two common styles of single response APIs: simple and custom response.
+A simple API has a single end point, or place to send a request, for each style of question it knows how to answer.  The Calculator would contain four end points: add, subtract, multiply, and divide.  Each end point would require two numeric values as inputs and would respond with a single numeric value.  To concisely define a RESTful Calculator, we may state the following:
+
+\begin{verbatim}
+type Calculator {
+  add(A: Float, B: Float): Float,
+  subtract(A: Float, B: Float): Float,
+  multiply(A: Float, B: Float): Float,
+  devide(A: Float, B: Float): Float
+}
+\end{verbatim}
+
+\subsubsection{Advantages}
+
+Without abstracting the function name, the number of request end points match the number of exposed functions.  There are no dynamically created functions; everything is static.  By fixing all request end points, software systems can be reliably built against one another.  Any software system can build their own logic as to how they solve their particular problems, but every software system will request from the same API.
+
+The ease of use of a simple API made it very popular with HTTP internet websites with the REST API (CITE).  The four most common functions of HTTP's REST are ``GET'', ``PUT'', ``POST'', and ``DELETE''.
+
+\begin{enumerate}
+  \item GET: Retrieve the supplied location data only.
+  \item PUT: Store supplied data the supplied location.
+  \item POST: Add new data at the supplied location.
+  \item DELETE: Remove data at the supplied location.
+\end{enumerate}
+
+
+\subsubsection{Disadvantages}
+
+As is common in practice, databases have many tables with built in relationships. RESTful APIs usually only return information one layer deep.
+
+When looking at the Calculator, it solves a single calculation problem in one step.  To solve a multiple calculation problem, it will take multiple requests to the Calculator.  For example, solving 1 + 2 + 3 + 4 + 5 will require 4 requests to the Calculator; one for each of the operations.
+
+<<calc_add, eval = FALSE>>=
+answer = Calculator::add(1, 2) # 3
+answer = Calculator::add(answer, 3) # 6
+answer = Calculator::add(answer, 4) # 10
+answer = Calculator::add(answer, 5) # 15
+@
+
+No matter how the requests are altered, it will require 4 requests to the Calculator.  This can become a major disadvantage when required to make many, many requests to the API.
+
+If we were to look at a person's friends of their friends, we would need the following Schema and data information:
+
+\begin{verbatim}
+Person(id: Int) {
+  name: String
+  age: Int
+  sex: String
+  friends: [ID]
+}
+\end{verbatim}
+
+Each person has a ``name'', ``age'', ``sex'', and a list of person id's for their ``friends''.  While having all of this information is useful, it can bloat the amount of information that is returned.  While the current example isn't too big, one could imagine adding a Person's favorite song lyrics to the Person object.  This would greatly increase the amount of information returned for each person.
+
+\subsubsection{REST and the Internet}
+
+In the case of the internet, however, two major constraints exist.  The two major constraints are the number of parallel requests that can be made at one time and the amount of time it takes for your request to reach a responding server.
+
+HTTP 1.1 specification states that ``A single-user client SHOULD NOT maintain more than 2 connections with any server or proxy'' (CITE \url{https://www.w3.org/Protocols/rfc2616/rfc2616-sec8.html}).  In practice, this is a little larger, maxing out at 13 parallel connections to the same host (CITE - \url{http://www.browserscope.org/?category=network&v=top}).  Limiting the number of server connections reduces the amount of simultanious requests on the network and improves overall response time.
+
+Once a request is allowed to be made, there is some physical limitations on how fast the response can be made.  On average, it takes still takes over 200 ms for a request to make a round trip to the responding server and back to the user's browser (CITE - \url{https://www.internetweathermap.com/map}).
+
+Using the Friend example above with each person having 200 different friends (the median number of friends on Facebook (\url{http://bigthink.com/praxis/do-you-have-too-many-facebook-friends}), let's calculate how much time it takes to gather the names of a person's friends of friends using a simple REST API. It would require $O(n^2) (200^2 = 40,000)$ independent requests to the server.  If the browser being used is limited to 10 parallel connections, it would require $4000 (= 40,000 / 10)$ sets of parallel request groups.  Each parallel request group takes at least 200ms for a round trip request.  The total amount of time it would require to gather the names of a person's friends of friends would take $13 \frac{1}{3} minutes = 200^2 / 10 * 0.200 / 60$.
+
+The median loading time for a website is about 3 seconds with the average around 5 seconds. (\url{https://www.webdesignerdepot.com/2016/02/how-slow-is-too-slow-in-2016/}).  No major website would survive if the load time was 160 times slower than the average website.
+
+% With the average website is now requiring more than 100 requests per page (http://www.websiteoptimization.com/speed/tweak/average-number-web-objects/), website turn around is decreasing.
+
+
+\section{Custom Response}
+
+A natural response to the Friends of Friends situation above is, ``Why not make a custom response?'' A custom route answers a specific question.
+
+Because it answers one specific question, only one request to the server needs to be made.  The Friends of Friends example could be reduced to a single 200 ms request.  The load time is now reduced from 800 seconds to 0.2 seconds.  This answers the question in the minimal amount of queries to the server.
+
+\subsection{Disadvantages}
+
+The disadvantages come from the amount of engineering time is required to implement a custom response for every query.  With a simple query interface, the logic is put on the user who is querying to figure out what to query next.  With a custom response interface, all custom responses must be made before the user can request them.
+
+Using the Calculator example, calculating the $1 + 2 + 3 + 4 + 5$ example could be done in a single custom request called ``1add2add3add4add5''.  It would solve the answer in a single request, but the server would have to implement many, many responses for all the funtionality of a Calculator.
+
+The custom response is now tied directly to the requesting website.  This creates little separation between the website and the responding server.  By coupling the data server with the requesting service makes advancement by the requestor very slow and difficult.  Users making the requests can not move ahead until a new custom response has been enabled.
+
+\section{Balancing Act}
+
+Let's recap the advantages and disadvantages of the two different styles of APIs.
+
+\begin{enumerate}
+  \item Simple API
+    \begin{enumerate}
+      \item Advantages
+        \begin{enumerate}
+          \item Small API
+          \item Easier to implement
+        \end{enumerate}
+      \item Disadvantages
+      \begin{enumerate}
+        \item Many queries are required to solve complex problems
+        \item Many queries causes large time complexity
+        \item All information pieces are returned
+      \end{enumerate}
+    \end{enumerate}
+  \item Custom Responses
+    \begin{enumerate}
+      \item Advantages
+        \begin{enumerate}
+          \item One query, one answer
+          \item All logic is hosted on data server
+        \end{enumerate}
+      \item Disadvantages
+        \begin{enumerate}
+          \item Many custom routes
+          \item Data server is tied to requests made
+        \end{enumerate}
+    \end{enumerate}
+\end{enumerate}
+
+% It is a balancing act to use a simple API, which causes more requests, and a
+
+Developers balance between minimal engineering time and minimal execution time.  Typically the final result falls somewhere inbetween, using a custom API for high execution time queries and using a simple API for smaller queries.
+
+
+
+\section{Variable Typing}
+
+Programing languages know the type of objects in two ways: stong typed and weakly typed.  Strong typed languages know ``whenever an object is passed from a calling function to a called function, its type must be compatible with the type declared in the called function.'' (CITE \url{http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.136.3043}) Weakly typed languages allow a programmer to passively use a invalid type as if it was correct.  A good example of this is when a String is added to an Integer.  As in Javascript, the Integer is converted to a String, then the two Strings are concatinated together.  In a strong typed language like Java, adding an Integer and String would not be allowed to compile as a String is not numeric does not know how to ``add''.
+
+
+\section{Database Storage}
+
+Similarly, databases can store objects in two ways: as a relational database or as a key-value database.  Relational databases know exactly what kind of object will be returned and can map different within tables to each other.  Key-value databases, on the other hand, do not inspect the values of the database.  Key-value databases are built for speed and scalibility over structure and relationships.
+
+While relational databases are already strongly typed (unless purposely stated as an unknown type), key-value databses inherintly contain strong typed values.  Each value that is inserted into the database has a known shape and expected reponse type.  If data of an image is stored, an audio should never be returned from that same position.  Even if the image had different sizes and even encoding types, it still can be understood as an image.
+
+There are many more comparisons and cost / benefits to every database, however these implementation differences are not apart of the scope of this chapter.
+
+\chapter{GraphQL}
+
+
+GraphQL is a data query language built to unify data APIs.  It exists as a execution layer between the requesting user and responding database.  This abstraction layer provides many benefits from uniform request and response shape, dynamic queries to handle custom situations, and minimal server requests.
+
+\section{Language}
+
+GraphQL is comprised of two main parts, the Request and the Schema.
+
+\subsection{Schema}
+
+
+GraphQL Schemas are defined using Scalars, Types, Enumerations, Lists, Non-Null types, Interfaces, Unions, and Input types.  Each definition is used to define type or type abstractions that can be used when querying.  The Types represent the exepected return objects that the database already knows about.  Like most objects, each Type will contain fields that point to Scalars or more Types.  These fields can be queried recursively.
+
+\subsubsection{Object Type Definition}
+
+For example, we can setup a Schema for a professional baseball player.
+
+\begin{verbatim}
+type Player {
+  name: String!
+  position: [Position!]!
+}
+\end{verbatim}
+
+The type definition for a Player above is very readible, but has a lot going on.
+
+\begin{enumerate}
+  \item $Player$ is a Object Type definition.  It has three fields:  $name$, $team$, and $position$.  These three fields are the only fields allowed when retrieving information from a $Player$.
+  \item $String$ is a predefined Scalar type definition.  This would contain the players name, i.e. ``Miguel Cabrera''.  Scalar fields do not contain any fields and are considered Leafs in the Schema definition tree.
+  \item $String!$ represents a Non-null String value.  This means that all $Player$ objects will contain the $name$ field and the result will always be a String.
+  \item $[Position]$ represents an array of Positions that a player can play at.  By adding the `!' outside the array to form $[Position]!$, it will be gaurunteed to return an array and never a $NULL$ value.  By adding a `!' to the Position, the elements inside the position array will never be $NULL$.
+\end{enumerate}
+
+
+\subsubsection{Arguments}
+
+Field definitions may include arguements.  These arguments can be simple Scalar definitions or Input Type definitions.
+
+\begin{verbatim}
+input GameInput {
+  date: Date
+  time: Time
+  opponent: Team
+}
+extend type Player {
+  height(unit: HeightUnit = INCHES): Float
+  did_play_in_game(game: GameInput): Boolean
+}
+\end{verbatim}
+
+Like the R language, all arguments are named arguments, all arguments may be submitted in any order, and default values may be provided.  Unlike R, all submitted arguments must have a name and must comply with the argument type.  Default values may be used are used in place of missing arguments.
+
+\subsubsection{Schem Type Definition}
+
+There are two main entry points to a Schema: schema query type and schema mutation type. Every GraphQL Schema definition must have a schema query type and optionally can have a schema mutation type.  Each of these types refer to the type of an object type definition.
+
+\begin{verbatim}
+schema {
+  query: Player
+  mutation: PlayerUpdate
+}
+\end{verbatim}
+
+Query types are read only, while mutation types are understood that something will update in the database.  A request will have the same shape for both query types and mutation types.
+
+\subsection{Scalars}
+
+Scalar Types are the leafs of the Schema.  Unlike Object Types, Scalars do not have fields to inspect.  GraphQL defines the base scalars as a part of the language definition:
+
+\begin{enumerate}
+  \item Boolean: $true$ or $false$
+  \item Integer: A signed 32-bit integer
+  \item Float: A signed double-precision floating point value
+  \item String: A UTF-8 character sequence
+  \item ID: ID performs the same as a String, but it is intended to be machine readible only as a unique identifier
+\end{enumerate}
+
+New scalars can be defined in a Schema as long as the server running the GraphQL understands how to handle them.
+
+\begin{verbatim}
+scalar Date
+scalar Binary
+scalar Hexadecimal
+\end{verbatim}
+
+
+
+
+
+
+
+GraphQL is comprised of two main parts, the Request and the Schema.  A valid Request can be run against the known GraphQL Schema using Introspection.
+It specifies what is being queried using a strong typed schema definition.  While there is overhead in creating a strong type schema, all databases
+
+\subsection{Uniform Shape}
+
+
+
+
+
 
 
 Unified data query api
@@ -18,10 +273,12 @@ Strong typing
     remove
 
 
-There is a unique API or interaction method to query every database.  When making a database call to a MySQL server, there is a known SQL syntax for interacting with the database.  When making a database call to a MongoDB server, there is a different, known syntax for interacting with the database.  For every known database, there is a unique language created to interact with the data.  If a database needs to be updated to a different database or is even upgraded to a new version, the query syntax, more often than not, is broken.  This leads to continuous integration with the query syntax and the database and constant reprogramming of the query syntax for every update of the database syntax.  GraphQL addresses this issue.
+There is a unique API or interaction method to query every database.  When making a database call to a MySQL server, there is a known SQL syntax for interacting with the relational database.  When making a database call to a MongoDB server, there is a different, known syntax for interacting with the NoSQL database.  For every known database, there is a unique language created to interact with the data.  If a database needs to be updated to a different database or is even upgraded to a new version, the query syntax, more often than not, is broken.  This leads to continuous integration with the query syntax and the database and constant reprogramming of the query syntax for every update of the database syntax.  GraphQL addresses this issue.
 
 
-GraphQL is a data query language.  It specifies what is being queried using a strong typed schema definition.  While there is overhead in creating a strong type schema, all databases
+\section{GraphQL}
+
+GraphQL is a data query language.
 
 
 Talk about strong type
