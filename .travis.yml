@@ -12,7 +12,7 @@ addons:
 # install latex styles
 before_install:
   - sudo python setup-graphql.py develop
-  - tlmgr install endnotes notoccite IEEEtran minted fvextra
+  - tlmgr install endnotes notoccite IEEEtran minted fvextra ifplatform
 
 # Run pdflatex and copy file with Makefile
 script:
