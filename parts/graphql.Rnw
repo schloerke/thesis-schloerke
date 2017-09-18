@@ -23,14 +23,14 @@ Throughout this section, I will use a calculator, `Calc', as my example responde
 There are two common styles of single response APIs: simple and custom response.
 A simple API has a single end point, or place to send a request, for each style of question it knows how to answer.  The Calculator would contain four end points: add, subtract, multiply, and divide.  Each end point would require two numeric values as inputs and would respond with a single numeric value.  To concisely define a RESTful Calculator, we may state the following:
 
-\begin{verbatim}
+\begin{minted}{graphql}
 type Calculator {
   add(A: Float, B: Float): Float,
   subtract(A: Float, B: Float): Float,
   multiply(A: Float, B: Float): Float,
   devide(A: Float, B: Float): Float
 }
-\end{verbatim}
+\end{minted}
 
 \subsubsection{Advantages}
 

@@ -7,9 +7,11 @@ addons:
   apt:
     packages:
     - python-pygments
+    - python-setuptools
 
 # install latex styles
 before_install:
+  - python setup-graphql.py develop
   - tlmgr install endnotes notoccite IEEEtran minted
 
 # Run pdflatex and copy file with Makefile

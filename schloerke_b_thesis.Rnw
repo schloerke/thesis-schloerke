@@ -24,7 +24,9 @@ knitr::opts_chunk$set(
 \usepackage{amsmath}
 \usepackage{multicol}
 \usepackage{subfigure}
+
 \usepackage{hyperref}
+\usepackage{minted}
 
 
 % Title of thesis (used on cover and in abstract).
