@@ -26,6 +26,8 @@ knitr::opts_chunk$set(
 \usepackage{subfigure}
 
 \usepackage{hyperref}
+
+\usepackage{xcolor}
 \usepackage{minted}
 
 % \usemintedstyle{xcode}
