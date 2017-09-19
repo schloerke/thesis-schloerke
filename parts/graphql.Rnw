@@ -2,6 +2,14 @@
 
 \chapter{GraphQL}
 
+TODO
+Intro paragraph about GRAPHQL
+Facebook 2012
+data query interface
+
+
+
+
 Application Protocol Interfaces (APIs) are the fundamental backbone of communication between machines.  They enable manchines to communicate with each other without needing to know how the responding machine comes to its answer.  Two convensions for an API: simple API and custom API.  Each API style has their own advantages and disadvantages.  GraphQL was created to address the disadvantages while keeping the advantages at the cost of strong typing the request.
 
 
@@ -147,14 +155,14 @@ Developers balance between minimal engineering time and minimal execution time. 
 
 Programing languages know the type of objects in two ways: stong typed and weakly typed.  Strong typed languages know ``whenever an object is passed from a calling function to a called function, its type must be compatible with the type declared in the called function.'' (CITE \url{http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.136.3043}) Weakly typed languages allow a programmer to passively use a invalid type as if it was correct.  A good example of this is when a String is added to an Integer.  As in Javascript (CITE), the Integer is converted to a String, then the two Strings are concatinated together.
 
-<<test_javascript, engine = "js">>=
+<<javascript_add, engine = "js">>=
 42 + `hello'
 # `42hello'
 @
 
 In a strong typed language like C (CITE), adding an Integer and String would not be allowed to compile.  A String in C does not know how to ``add'' like and Integer.
 
-<<engine = "c", eval = FALSE>>=
+<<c_add, engine = "c", eval = FALSE>>=
 int x = 10;
 char y[5] = "hello";
 int z = x + y;
@@ -316,23 +324,298 @@ Object definitions may interface with many Interface definitions.
 Unions contain a finite set of Object types, but do not specify and common fields.  Unions are not allowed to contain other unions or interfaces.
 
 \begin{graphqlcode}
-type Rat {
-  squeakVolume: Int
+type Shark {
+  weight(unit: WeightUnit = KILOS): Float
 }
-union NotAPlant = Person | Dog | Cat | Rat
+union NotAPlant = Person | Dog | Cat | Shark
 \end{graphqlcode}
 
-Results being returned could either be a \graphqlinline{Person}, \graphqlinline{Dog}, \graphqlinline{Cat}, or \graphqlinline{Rat} type.  All of the types included in \graphqlinline{NotAPlant} do not share a common field, but could feasibly be returned in the same field of information.
+Results being returned could either be a \graphqlinline{Person}, \graphqlinline{Dog}, \graphqlinline{Cat}, or \graphqlinline{Shark} type.  All of the types included in \graphqlinline{NotAPlant} do not share a common field, but could feasibly be returned in the same field of information.
+
+
+\section{Requests}
+
+The following Schema will be used within the Requests section.
+
+\begin{graphqlcode}
+scalar Date
+enum WeightUnit {
+  POUNDS
+  KILOS
+  OUNCES
+}
+type Person {
+  name: String!
+  weight(unit: WeightUnit = POUNDS): Float
+  friends: [Person!]!
+  pets: [Pet!]!
+}
+\end{graphqlcode}
+\begin{graphqlcode}
+interface Pet {
+  name: String
+  born: Date
+  owners: [Person!]!
+}
+type Dog implements Pet {
+  name: String
+  barkVolume: String
+  born: Date
+  owners: [Person!]!
+}
+type Cat implements Pet {
+  name: String
+  born: Date
+  meowVolume: String
+  owners: [Person!]!
+}
+union SearchResult = Person | Dog | Cat
+\end{graphqlcode}
+\begin{graphqlcode}
+type Query {
+  search_name(name: String!): SearchResult
+  person(name: String! = "Mickey Mouse"): Person
+  dog(name: String! = "Pluto"): Dog
+  cat(name: String! = "Figaro"): Cat
+}
+schema {
+  query: Query
+}
+\end{graphqlcode}
+
+
+\subsection{Queries}
+
+Every object in the Schema definition can be queried.  A query on an object type must include at least one field.  Object types are not considered Leafs in the Schema definition tree.
+
+\begin{tabular}{p{0.45\textwidth} p{0.45\textwidth}}
+
+\begin{graphqlcode}
+# Query
+{
+  person {
+    name
+  }
+}
+\end{graphqlcode}
+
+&
+
+\begin{jscode}
+// Response
+{
+  "data":{
+    "person": {
+      "name": "Mickey Mouse"
+    }
+  }
+}
+\end{jscode}
+
+\end{tabular}
+
+Queries have the same shape has the result.  The only difference occurs when a result is an array of information.  Using an \graphqlinline{name} arugment below, we can look at Jim Dear's pets from the movie ``Lady and the Tramp''.
+
+\begin{tabular}{p{0.45\textwidth} p{0.45\textwidth}}
+
+\begin{graphqlcode}
+# Query
+{
+  person(name: "Jim Dear") {
+    name
+    pets {
+      name
+    }
+  }
+}
+\end{graphqlcode}
+
+&
+
+\begin{jscode}
+// Response
+{
+  "data":{
+    "person": {
+      "name": "Jim Dear",
+      "pets": [
+        { "name": "Lady" },
+        { "name": "Tramp" }
+      ]}}}
+\end{jscode}
+
+\end{tabular}
+
+
+The whole query string is submitted to the GraphQL server.  This allows for complex and deeply nested queries in a single request.  Using the query below, we can query for all pets owned by the same owners as Dutchess the cat.
+
+\begin{tabular}{p{0.45\textwidth} p{0.45\textwidth}}
+
+\begin{graphqlcode}
+# Query
+{
+  cat(name: "Dutchess") {
+    owners {
+      name
+      pets {
+        name
+      }
+    }
+  }
+}
+\end{graphqlcode}
+
+&
+
+\begin{jscode}
+// Response
+{
+  "data": {
+    "cat": {
+      "owners": [{
+        "name": "Madame Adelaide Bonfamille",
+        "pets": [
+          {"name": "Dutchess"},
+          {"name": "Marie"},
+          {"name": "Berlioz"},
+          {"name": "Toulouse"},
+          {"name": "Thomas O'Malley"}
+        ]}]}}}
+\end{jscode}
+
+\end{tabular}
+
+Normally the code above would require $O(k * n)$ requests in a simple API, with $k$ owners and $n$ pets belonging to each owner.  With GraphQL, this query is resolved in one request and without the need for a custom API to be built.
 
 
 
 
+\subsubsection{Aliases}
+
+Aliases can be used to query the same object field many times.
+
+
+\begin{tabular}{p{0.45\textwidth} p{0.45\textwidth}}
+
+\begin{graphqlcode}
+# Query
+{
+  dutchess: cat(name: "Dutchess") {
+    name
+    meowVolume
+  }
+  rajah: cat(name: "Rajah") {
+    name
+    meowVolume
+  }
+}
+\end{graphqlcode}
+
+&
+
+\begin{jscode}
+// Response
+{
+  "data": {
+    "dutchess": {
+      "name": "Dutchess",
+      "meowVolume": 2
+    },
+    "rajah": {
+      "name": "Rajah",
+      "meowVolume": 9
+    }}}
+\end{jscode}
+
+\end{tabular}
+
+
+\subsubsection{Fragments}
+
+For conciseness, the query above can be made with Fragments.  Fragments can be used when repeated fields are called on similar objects.
+
+The same result will occur using the Fragments below.
+
+\begin{tabular}{p{0.45\textwidth} p{0.45\textwidth}}
+
+\begin{graphqlcode}
+# Query
+{
+  dutchess: cat(name: "Dutchess") {
+    ..catFields
+  }
+  rajah: cat(name: "Rajah") {
+    ...catFields
+  }
+}
+fragment catFields on Cat {
+  name
+  meowVolume
+}
+\end{graphqlcode}
+
+&
+
+\begin{jscode}
+// Response
+{
+  "data": {
+    "dutchess": {
+      "name": "Dutchess",
+      "meowVolume": 2
+    },
+    "rajah": {
+      "name": "Rajah",
+      "meowVolume": 9
+    }}}
+\end{jscode}
+
+\end{tabular}
+
+
+Fragments are very useful in breaking down complicated queries into smaller sections.
+
+\subsection{Mutation}
+
+Mutations are the ``write'' to a database.  Mutations also return information to avoid a ``read'' immediately afterwards.  While there is no guarentee that a Query does not alter the database, it is a good practice to distinguish which commands read only and which commands write to the database.
+
+\begin{tabular}{p{0.45\textwidth} p{0.45\textwidth}}
+
+\begin{graphqlcode}
+# Schema
+type MutationType {
+  # returns total amount
+  addToWealth(name: String!, amount: Float): Float
+}
+\end{graphqlcode}
+
+\begin{graphqlcode}
+# Mutation
+mutation {
+  addToWealth(name = "Scrooge", amount = 1000)
+}
+\end{graphqlcode}
+
+&
+
+\begin{jscode}
+// Response
+{
+  "data": {
+    "addToWealth": 28800000
+}}
+\end{jscode}
+
+\end{tabular}
+
+
+\subsection{Remaining GraphQL Language}
+
+There are many more intricacies in the GraphQL language that are not in the scope of this paper.
 
 
 
-
-
-
+\section{$gqlr$}
 
 
 
