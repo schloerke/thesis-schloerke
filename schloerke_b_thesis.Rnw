@@ -36,6 +36,7 @@ knitr::opts_chunk$set(
 % \definecolor{gqlbg}{rgb}{0.9686,0.9686,0.9686}
 \definecolor{gqlbg}{rgb}{0.97,0.97,0.97}
 \newminted{graphql}{bgcolor=gqlbg, samepage=true}
+\newmintinline{graphql}{bgcolor=gqlbg, samepage=true}
 
 \let\hlesc\hlstd \let\hlpps\hlstd \let\hllin\hlstd \let\hlslc\hlcom
 

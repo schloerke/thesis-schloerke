@@ -200,17 +200,17 @@ type Dog {
 }
 \end{graphqlcode}
 
-The type definition for a Player above is very readible, but has a lot going on.
+The type definition for a \graphqlinline{Player} above is very readible, but has a lot going on.
 
 \begin{enumerate}
-  \item $Dog$ is a Object Type definition.  It has four fields:  $name$, $breed$, $age$, and $owner$.  These four fields are the only fields allowed when retrieving information from a $Dog$.
-  \item $String$ is a predefined Scalar type definition.  This would contain the dog's name, i.e. ``Clifford''.  Scalar fields do not contain any sub fields and are considered Leafs in the Schema definition tree.
-  \item $String!$ represents a Non-null String value.  This means that all $Dog$ objects will contain the $breed$ field and the result will always be a String.
-  \item $[Person]$ represents an array of Person objects that represent the owner of the Dog. By adding the `!' outside the array to form $[Person]!$, it will be gaurunteed to return an array for the field $owner$ and never a $NULL$ value.  By adding a `!' to the Person ($[ Person!]!$), the elements inside the position array will never be $NULL$.  A length $0$ array is still allowed as the $owner$ value is not $NULL$ and all values are not $NULL$.
+  \item \graphqlinline{Dog} is a Object Type definition.  It has four fields:  \graphqlinline{name}, \graphqlinline{breed}, \graphqlinline{age}, and \graphqlinline{owner}.  These four fields are the only fields allowed when retrieving information from a \graphqlinline{Dog}.
+  \item \graphqlinline{String} is a predefined Scalar type definition.  This would contain the dog's name, i.e. ``Clifford''.  Scalar fields do not contain any sub fields and are considered Leafs in the Schema definition tree.
+  \item \graphqlinline{String!} represents a Non-null String value.  This means that all \graphqlinline{Dog} objects will contain the \graphqlinline{breed} field and the result will always be a String.
+  \item \graphqlinline{[Person]} represents an array of Person objects that represent the owner of the Dog. By adding the \graphqlinline{!} outside the array to form \graphqlinline{[Person]!}, it will be gaurunteed to return an array for the field \graphqlinline{owner} and never a \graphqlinline{NULL} value.  By adding a \graphqlinline{!} to the Person (\graphqlinline{[ Person!]!}), the elements inside the position array will never be \graphqlinline{NULL}.  A length $0$ array is still allowed as the \graphqlinline{owner} value is not \graphqlinline{NULL} and all values are not \graphqlinline{NULL}.
 \end{enumerate}
 
 
-\subsubsection{Arguments}
+\subsubsection{Argument and Input Type Defintions}
 
 Field definitions may include arguements.  These arguments can be simple Scalar definitions or Input Type definitions.
 
@@ -241,16 +241,16 @@ schema {
 
 Query types are read only, while mutation types are understood that something will update in the database.  A request will have the same shape for both query types and mutation types.
 
-\subsection{Scalars}
+\subsection{Scalar Type Definitions}
 
 Scalar Types are the leafs of the Schema.  Unlike Object Types, Scalars do not have fields to inspect.  GraphQL defines the base scalars as a part of the language definition:
 
 \begin{enumerate}
-  \item Boolean: $true$ or $false$
-  \item Integer: A signed 32-bit integer
-  \item Float: A signed double-precision floating point value
-  \item String: A UTF-8 character sequence
-  \item ID: ID performs the same as a String, but it is intended to be machine readible only as a unique identifier
+  \item \graphqlinline{Boolean}: $true$ or $false$
+  \item \graphqlinline{Integer}: A signed 32-bit integer
+  \item \graphqlinline{Float}: A signed double-precision floating point value
+  \item \graphqlinline{String}: A UTF-8 character sequence
+  \item \graphqlinline{ID}: \graphqlinline{ID} performs the same as a \graphqlinline{String}, but it is intended to be machine readible only as a unique identifier
 \end{enumerate}
 
 New scalars can be defined in a Schema as long as the server running the GraphQL understands how to handle them.
@@ -260,6 +260,78 @@ scalar Date
 scalar Binary
 scalar Hexadecimal
 \end{graphqlcode}
+
+
+
+\subsection{Enumeration Type Definitions}
+
+GraphQL understands a finite category variable.  This is similar to a factor in R.  There are a fixed set of values for every Enum definition.  Internally in the GraphQL server, it may be stored as an Integer value or an object similar to a Set, but in the GraphQL language, it will be represented as an all capitol string, such as \graphqlinline{POUNDS}.
+
+\begin{graphqlcode}
+enum WeightUnit {
+  POUNDS
+  KILOS
+  OUNCES
+}
+\end{graphqlcode}
+
+Whenever a WeightUnit type is expected, only the values of \graphqlinline{POUNDS}, \graphqlinline{KILOS}, or \graphqlinline{OUNCES} may be used.  While R supports factor values, and full Enum class was created in the `gqlr' R package.
+
+
+\subsection{Interfaces}
+
+Interfaces are an integral part in abstracting pieces of information.  They allow for common fields to be accessed on objects without known the true type of the object.  All types that inherit the interface must implement all fields of that interface.  So any type that implements \graphqlinline{Pet}, must implement the fields \graphqlinline{name} and \graphqlinline{owners} and return \graphqlinline{String} and \graphqlinline{[Person!]!} respectively.
+
+\begin{graphqlcode}
+interface Pet {
+  name: String
+  owners: [Person!]!
+}
+type Dog implements Pet {
+  name: String
+  barkVolume: Int
+  owners: [Person!]!
+}
+type Cat implements Pet {
+  name: String
+  meowVolumn: Int
+  owners: [Person!]!
+}
+\end{graphqlcode}
+
+Object may implement extra fields, like \graphqlinline{meowVolume} in \graphqlinline{Cat}.
+
+Interfaces are useful when queries are made on objects where the exact return type is not known, but a finite set of types exist for the expected value.
+
+\begin{graphqlcode}
+extend type Person {
+  pet: [Pet!]! # returns an array of Cat or Dog types
+}
+\end{graphqlcode}
+
+Object definitions may interface with many Interface definitions.
+
+\subsection{Union Type Definition}
+
+Unions contain a finite set of Object types, but do not specify and common fields.  Unions are not allowed to contain other unions or interfaces.
+
+\begin{graphqlcode}
+type Rat {
+  squeakVolume: Int
+}
+union NotAPlant = Person | Dog | Cat | Rat
+\end{graphqlcode}
+
+Results being returned could either be a \graphqlinline{Person}, \graphqlinline{Dog}, \graphqlinline{Cat}, or \graphqlinline{Rat} type.  All of the types included in \graphqlinline{NotAPlant} do not share a common field, but could feasibly be returned in the same field of information.
+
+
+
+
+
+
+
+
+
 
 
 
