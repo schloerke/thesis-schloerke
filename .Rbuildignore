@@ -2,6 +2,7 @@ CNAME
 Makefile
 Readme.md
 _build
+_ignore
 bib
 defs
 figs
@@ -10,7 +11,8 @@ parts
 pulongtable.sty
 pumeunsrt.bst
 puthesis.cls
-schloerke_b_thesis.Rnw
-schloerke_b_thesis.bib
-schloerke_b_thesis.pdf
+schloerke_b_thesis.*
 .travis.yml
+cache
+graphqllexer*
+setup-graphql.py
