@@ -35,6 +35,8 @@ knitr::opts_chunk$set(
 % matches knitr background
 % \definecolor{gqlbg}{rgb}{0.9686,0.9686,0.9686}
 \definecolor{gqlbg}{rgb}{0.97,0.97,0.97}
+\newminted{r}{bgcolor=gqlbg, samepage=true}
+\newmintinline{r}{bgcolor=gqlbg, samepage=true}
 \newminted{graphql}{bgcolor=gqlbg, samepage=true}
 \newmintinline{graphql}{bgcolor=gqlbg, samepage=true}
 \newminted{js}{bgcolor=gqlbg, samepage=true}
