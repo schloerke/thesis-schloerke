@@ -450,17 +450,19 @@ Queries have the same shape has the result.  The only difference occurs when a r
       ]}}}
 \end{jscode}
 
+(CITE http://disney.wikia.com/wiki/Jim_Dear)
+
 % \end{tabular}
 
 
-The whole query string is submitted to the GraphQL server.  This allows for complex and deeply nested queries in a single request.  Using the query below, we can query for all pets owned by the same owners as Dutchess the cat.
+The whole query string is submitted to the GraphQL server.  This allows for complex and deeply nested queries in a single request.  Using the query below, we can query for all pets owned by the same owners as Duchess the cat.
 
 % \begin{tabular}{p{0.2\textwidth} p{0.65\textwidth}}
 
 \begin{graphqlcode}
 # GraphQL; Query
 {
-  cat(name: "Dutchess") {
+  cat(name: "Duchess") {
     owners {
       name
       pets {
@@ -478,13 +480,15 @@ The whole query string is submitted to the GraphQL server.  This allows for comp
       "owners": [{
         "name": "Madame Adelaide Bonfamille",
         "pets": [
-          {"name": "Dutchess"},
+          {"name": "Duchess"},
           {"name": "Marie"},
           {"name": "Berlioz"},
           {"name": "Toulouse"},
           {"name": "Thomas O'Malley"}
         ]}]}}}
 \end{jscode}
+
+(CITE http://disney.wikia.com/wiki/Madame_Adelaide_Bonfamille)
 
 % \end{tabular}
 
@@ -503,7 +507,7 @@ Aliases can be used to query the same object field many times.
 \begin{graphqlcode}
 # GraphQL; Query
 {
-  dutchess: cat(name: "Dutchess") {
+  duchess: cat(name: "Duchess") {
     name
     meowVolume
   }
@@ -519,8 +523,8 @@ Aliases can be used to query the same object field many times.
 // JSON; GraphQL Response
 {
   "data": {
-    "dutchess": {
-      "name": "Dutchess",
+    "duchess": {
+      "name": "Duchess",
       "meowVolume": 2
     },
     "rajah": {
@@ -543,7 +547,7 @@ The same result will occur using the Fragments below.
 \begin{graphqlcode}
 # GraphQL; Query
 {
-  dutchess: cat(name: "Dutchess") {
+  duchess: cat(name: "Duchess") {
     ..catFields
   }
   rajah: cat(name: "Rajah") {
@@ -562,8 +566,8 @@ fragment catFields on Cat {
 // JSON; GraphQL Response
 {
   "data": {
-    "dutchess": {
-      "name": "Dutchess",
+    "duchess": {
+      "name": "Duchess",
       "meowVolume": 2
     },
     "rajah": {
@@ -607,6 +611,8 @@ mutation {
     "addToWealth": 28800000
   }}
 \end{jscode}
+
+(CITE: http://disney.wikia.com/wiki/Scrooge_McDuck)
 
 % \end{tabular}
 
