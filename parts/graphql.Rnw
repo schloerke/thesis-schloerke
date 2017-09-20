@@ -795,7 +795,6 @@ To see the Model schema in action, we can execute a request using the classic R 
 
 << execute_graphql >>=
 
-# Execute
 '
 # GraphQL; Query
 {
@@ -814,11 +813,15 @@ To see the Model schema in action, we can execute a request using the classic R 
     enp
   }
 }' %>%
-  gqlr::execute_request(schema = model_schema)
-
+  gqlr::execute_request(schema = model_schema) ->
+result
 @
 
-While R users might not find the request and output very compelling (as they can be done in a regular R session), it is good to remember that any web service with access to the Model Schema above can execute a similar command and get an answer that is executed by R.  During the request execution, \emph{any} R package can be used.  Being able to open the flood gates to R's extensive package list is very powerful. This means that javascript in the browser and a python program can retrieve full R plots and R model outputs without having to implement the methods in the local language while using the same API.
+<< print_result >>=
+result
+@
+
+While R users might not find the query and output very compelling (as they can be done in a regular R session), it is good to remember that any web service with access to the Model Schema above can execute a similar command and get an answer that is executed by R.  During the request execution, \emph{any} R package can be used.  Being able to open the flood gates to R's extensive package list is very powerful. This means that javascript in the browser and a python program can retrieve full R plots and R model outputs without having to implement the methods in the local language while using the same API.
 
 This schema can also be executed in a local GraphQL server session or on a production GraphQL server.  Both the local and production servers have the same schema, so each service will return the same shapes.  Each programming language will have the same query string and receive the same shaped response.
 
