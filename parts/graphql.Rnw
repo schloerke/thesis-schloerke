@@ -617,13 +617,113 @@ There are many more intricacies in the GraphQL language that are not in the scop
 
 \section{$gqlr$}
 
+$gqlr$ is an R package that implements a GraphQL server.  $gqlr$ handles Query and Mutation Requests and returns data in the proper format.  It is built upon the next evolution of class definitions in R, $R6$.
+
+\subsection{R6}
+
+R6 is a lightweight R package that creates objects that do not follow the particular conventions of R.  R known for being ``pass by value''. This means that all values are copied at the beginning of a function. Like many other languages, R does not have dynamic values for a list object.
+
+<<pass_by_value>>=
+my_list <- list(A = TRUE, B = FALSE)
+my_list$A
+update_A_to_false <- function(x) {
+  x$A <- FALSE
+  x
+}
+update_A_to_false(my_list)
+my_list
+@
+
+The example above does not update the value of A to \rinline{FALSE} as the value \rinline{my_list} was copied at the beginning of the function \rinline{update_A_to_false}.
+
+R6 allows for objects to be altered inside functions that they have been passed to without any changes in assignment method.  This is similar to a ``pass by reference'' coding paradigm.  An R6 object is passed to a function and the function alters the value.  The same R6 object outside of the function has been altered as well.  This is not expected R behavior.
+
+R6 does this through the use of Classes.  Classes are built similar to Javascript's ES6 classes.  There can be a constructor, methods, and values.  The methods and values can be both private (only able to be seen internally) and public (available to any function).  Like Javascript, there is a notion of the ``this'' value or an object representing itself.  R6 uses the ``self'' object in this case.  Values within the same object can be retrieved using \rinline{value <- self\$key}.
+
+
+<<library_r6, echo = FALSE, cache = FALSE>>=
+library(R6)
+library(gqlr)
+@
+
+<<gqlr_minimal>>=
+Minimal <- R6Class("Minimal",
+  public = list(
+    name = NULL,
+    initialize = function(name = NA) {
+      self$name <- name
+      self$greet()
+    },
+    greet = function() {
+      cat(paste0("Hello, my name is ", self$name, ".\n"))
+    }
+  )
+)
+barret <- Minimal$new("Barret")
+barret$name
+update_name_to_schloerke <- function(x) {
+  x$name <- "Schloerke"
+  invisible(x)
+}
+update_name_to_schloerke(barret)
+barret$name
+@
+
+
+R6 also allows for dynamic queries.  R6 calls these ``active fields''.  These fields are actually function calls, but appear a regular keys in the object.  The active key function can handle a single argument.  This argument represents the value of the object being stored.  If no value was supplied, then the active key was retrieved, not set.
+
+In the example below, a single active key of $random$ will return a uniform value when retrieved and will set the random seed if the $random$ key is set.  After the key is set to $1234$, as expected, the same random values are returned.
+
+<<gqlr_minimal_active>>=
+MinimalActive <- R6Class("MinimalActive",
+  active = list(
+    random = function(x) {
+      if (missing(x)) {
+        return(runif(1))
+      }
+      set.seed(x)
+      TRUE
+    }
+  )
+)
+min_active <- MinimalActive$new()
+min_active$random
+min_active$random
+min_active$random <- 1234
+min_active$random
+min_active$random
+min_active$random <- 1234
+min_active$random
+@
+
+Finally, R6 allows for inheritance.  In the GraphQL's abstract syntax tree, many objects inherit from one another in a directed, acyclic graph structure.  This is similar
+
+<<gqlr_inheritance>>=
+ParentClass <- R6Class("ParentClass")
+ChildClass <- R6Class("ChildClass", inherit = ParentClass)
+child <- ChildClass$new()
+class(child)
+inherits(child, "ParentClass")
+@
+
+In $gqlr$, all active values must inherit the correct class to be allowed to set.  Errors will be thrown if a value does not contain the proper inheritance.  The example below shows the creation of a named type ``Dog''.  It also shows an attempt at setting the $name$ value to a character.  This is not allowed as $name$ value only allows objects that inherit objects of class ``Name''.
+
+<<named_type_dog>>=
+gqlr:::NamedType$new(name = gqlr:::Name$new(value = "Dog"))
+gqlr:::NamedType$new(name = "Dog")
+@
+
+
+$gqlr$ uses these active fields to accomplish strong typed language properties while executing in a weakly typed language of R.  This has an unnatural feeling during coding, but is highly effective in implementing GraphQL.
 
 
 
 
 
-GraphQL is comprised of two main parts, the Request and the Schema.  A valid Request can be run against the known GraphQL Schema using Introspection.
-It specifies what is being queried using a strong typed schema definition.  While there is overhead in creating a strong type schema, all databases
+There are many existing and HTML request handlers and authenticators existing for R.  $gqlr$ was built to handle GraphQL server requests and leave the url routing and authentication to better suited packages.
+
+
+
 
 \subsection{Uniform Shape}
 
