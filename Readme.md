@@ -8,14 +8,14 @@
 * Sept 6-12 (Week 8)
   * √ Get template
   * √ Get repo
-  * background - graphql
+  * √ background - graphql
 
 * Sept 13-19 (Week 7)
-  * Chapter - graphql
+  * √ Chapter - gqlr
 
 
 * Sept 20-26 (Week 6)
-  * background - ggplot2
+  * @ background - ggplot2
 
 
 * Sept 27-3 (Week 5)
