@@ -165,8 +165,8 @@ Programing languages know the type of objects in two ways: stong typed and weakl
 
 \begin{jscode}
 // javascript
-42 + `hello'
-// `42hello'
+42 + "hello"
+// "42hello"
 \end{jscode}
 
 In a strong typed language like C (CITE), adding an Integer and String would not be allowed to compile.  A String in C does not know how to ``add'' like and Integer.
@@ -726,8 +726,9 @@ inherits(child, "ParentClass")
 In $gqlr$, all active values must inherit the correct class to be allowed to set.  Errors will be thrown if a value does not contain the proper inheritance.  The example below shows the creation of a named type ``Dog''.  It also shows an attempt at setting the $name$ value to a character.  This is not allowed as $name$ value only allows objects that inherit objects of class ``Name''.
 
 << named_type_dog >>=
-gqlr:::NamedType$new(name = gqlr:::Name$new(value = "Dog"))
-gqlr:::NamedType$new(name = "Dog")
+(obj <- gqlr:::NamedType$new(name = gqlr:::Name$new(value = "Dog")))
+str(obj$name)
+obj$name <- "Dog"
 @
 
 
