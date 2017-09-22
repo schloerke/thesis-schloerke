@@ -79,6 +79,9 @@ knitr::opts_chunk$set(
 
 \newcommand{\ve}[2]{\en{#1_1},~\en{#1_2},\ \ldots,~\en{#1_{#2}}}
 
+\newcommand{\pkg}[1]{{\fontseries{b}\selectfont #1}}
+
+
 \begin{document}
 
 \volume
