@@ -1,45 +1,67 @@
 
+
+
 \chapter{Background ggplot2}
-\section{Section}
-\subsection{SubSection}
-\subsubsection{SubSubSection}
 
-Talk about R
+\section{R Language}
 
-
-Talk about origins of ggplot2
-  Hadley Wickham's thesis in grammar of graphics at Iowa State
-  formalize
-
-
-  ggplot2 is built upon grid graphics
-    store object to print, then print (not immediately printed)
-    fully defined print objects
-    can be stored or manipulated
+R
+  created from S language
+    Original S author is John Chambers while at Bell Labs
+    S is closed source, R is open source
+  R Core Development Team (includes John Chambers)
+  built for statistical computing
+  FUBU ... but statisticians
 
 
 
-Talk about Jay Emerson and gpairs
-  Goal was to inspect the data.frame and return plots with meaning, not just scatterplot matrices
+
+\section{ggplot2}
+
+What is ggplot2
+  ``ggplot2 is a system for declaratively creating graphics, based on The Grammar of Graphics. You provide the data, tell ggplot2 how to map variables to aesthetics, what graphical primitives to use, and it takes care of the details.'' (\url{https://github.com/tidyverse/ggplot2})
+
+Grammar of graphics
+  By Leland Wilkinson in 1999 and 2005
+  ``This book was written for statisticians, computer scientists, geographers, research and applied scientists, and others interested in visualizing data. It presents a unique foundation for producing almost every quantitative graphic found in scientific journals, newspapers, statistical packages, and data visualization systems. This foundation was designed for a distributed computing environment (Internet, Intranet, client-server), with special attention given to conserving computer code and system resources.''
+  \cite{WilkinsonLeland2005TGoG}
 
 
-Talk about GGally::ggpairs
-  ggplot2 as a dataset, aesthetics, and geoms
-  ggpairs has a dataset, columns, commong aesthetics, and type functions
-  Goal was to modularize gpairs and add / remove plots at will
+
+
+\subsection{Layered Grammer of Graphics}
+
+What is a layered plot
+
+  origins of ggplot2
+    Hadley Wickham's thesis in grammar of graphics at Iowa State
+      consulted with many students at Iowa State and addressed the difficulty of generating statistical graphics.
+    formalized a Leland's Grammar of Graphics into ggplot2 with some minor ammendments
+    focused on the ability to iterate quickly while producing journal ready graphics
+
+  ggplot2 objects
+    consists
+      layer
+        data
+          defaults to base data if not supplied
+        geom
+          statistic
+          display position
+
+
+  Each layer allows for default argument values to be used instead of being supplied in every layer.  With decent default values, every argument does not need to be supplied as was described in Grammar of Graphics.
+
+  Each layer can added one by one to the plot object.
+  Each layer does not have to be submitted at the initial plot function creation like in R's base graphics or Lattice.
+
+  This is very important
+    ggplot2 does not create new columns of information
+      only performs minimal, common statistical transformations on existing columns such as binning and density
+    ggplot2 does not divide the data up in `cut' formats that do not exist in input data
+      only divides data (facets) according to pre-existing column combinations
 
 
 
-Talk about GGally::ggmatrix
-  Made as the underlying structure to ggpairs
-  Allowed for non square plot matrix
-
-Explain about major plot types
-  XY
-    Continuous on Continuous
-    Discrete on Discrete
-    Continuous on Discrete
-    Discrete on Continuous
-  X
-    Continuous
-    Discrete
+  plot objects are not rendered until print method is called
+    allows for modularization of creating a plot.
+    allows for simplification of interface as independent functionality can be separated into different functions.
