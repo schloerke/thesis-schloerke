@@ -5,54 +5,138 @@
 
 \section{R Language}
 
-R
-  created from S language
-    Original S author is John Chambers while at Bell Labs
-    S is closed source, R is open source
-  R Core Development Team (includes John Chambers)
-  built for statistical computing
-  FUBU ... but statisticians
+  R is the most widely used open source programming language and quickly becoming the top ranked data analysis tool (\url{http://r4stats.com/articles/popularity/}). R is different from most other popular programming languages in that it is an interpretable language, rather than a compiled language.  Code is source and executed at run time, rather than precompiled for faster execution and type checking.
 
+  R has over 11,000 active, user submited packages (as of Sept. 2017) and countless more on Github (\url{github.com}).  Among these packages are GGally, gqlr, autocogs, trelliscopejs, and rbokeh.  These are a few of the R packages I will describe in greater detail.
+
+  One of the most notible R packages is \pkg{ggplot2}.  It was originally written by Hadley Wickham in 2005.  Since then, \pkg{ggplot2} has become one of the most impactful R packages (\url{http://depsy.org/package/r/ggplot2}).
+
+
+%
+%   S, a programming language created by John Chambers, is a
+%   The R language is an interactive programming language derived from the S programming language.  S, like SAS, is a closed source platform.  John Chambers, the original for S, created R R is open source
+%
+% R
+%   created from S language
+%     Original S author is John Chambers while at Bell Labs
+%     S is closed source, R is open source
+%   R Core Development Team (includes John Chambers)
+%   built for statistical computing
+%   FUBU ... but statisticians
+
+
+<<echo = FALSE>>=
+library(ggplot2)
+library(dplyr)
+tips <- reshape::tips %>%
+  mutate(
+    day = factor(as.character(day), levels = c("Thur", "Fri", "Sat", "Sun")),
+    time = factor(as.character(time), levels = c("Lunch", "Dinner"))
+  )
+@
 
 
 
 \section{ggplot2}
 
-What is ggplot2
-  ``ggplot2 is a system for declaratively creating graphics, based on The Grammar of Graphics. You provide the data, tell ggplot2 how to map variables to aesthetics, what graphical primitives to use, and it takes care of the details.'' (\url{https://github.com/tidyverse/ggplot2})
+% What is ggplot2
+  ``\pkg{ggplot2} is a system for declaratively creating graphics, based on \emph{The Grammar of Graphics}. You provide the data, tell ggplot2 how to map variables to aesthetics, what graphical primitives to use, and it takes care of the details.'' (\url{https://github.com/tidyverse/ggplot2})
 
-Grammar of graphics
-  By Leland Wilkinson in 1999 and 2005
-  ``This book was written for statisticians, computer scientists, geographers, research and applied scientists, and others interested in visualizing data. It presents a unique foundation for producing almost every quantitative graphic found in scientific journals, newspapers, statistical packages, and data visualization systems. This foundation was designed for a distributed computing environment (Internet, Intranet, client-server), with special attention given to conserving computer code and system resources.''
-  \cite{WilkinsonLeland2005TGoG}
+  % \pkg{ggplot2} is different from the standard visualization graphics in that
+  %
+  %
+
+  % \subsection{The Grammar of Graphics}
+
+  % \emph{The Grammar of Graphics} \cite{WilkinsonLeland2005TGoG} by Dr. Leland Wilkinson was originally released in 1999 and updated in 2005.  In his book, he ``presents a unique foundation for producing almost every quantitative graphic'' (\cite{WilkinsonLeland2005TGoG}).  Dr. Wilkinson's graphical foundation helped give book is used at the core philosophy of ggplot2 with
+
+
+% Grammar of graphics
+%   By Leland Wilkinson in 1999 and 2005
+%   ``This book was written for statisticians, computer scientists, geographers, research and applied scientists, and others interested in visualizing data. It presents a unique foundation for producing almost every quantitative graphic found in scientific journals, newspapers, statistical packages, and data visualization systems. This foundation was designed for a distributed computing environment (Internet, Intranet, client-server), with special attention given to conserving computer code and system resources.''
+
 
 
 
 
 \subsection{Layered Grammer of Graphics}
 
-What is a layered plot
+\pkg{ggplot2} is based on a \emph{Layered Grammar of Graphics} (\cite{layered-grammar}).  During Dr. Wickham's studies at Iowa State University, he statistically consulted with many students and professors on how to produce visualizations for the studies. Dr. Wickham noticed many clients had trouble producing plots quickly and difficulty  understanding how the plot was made.  This gave plenty of motivation to produce \pkg{ggplot2} and base it on \emph{The Grammar of Graphics}.
 
-  origins of ggplot2
-    Hadley Wickham's thesis in grammar of graphics at Iowa State
-      consulted with many students at Iowa State and addressed the difficulty of generating statistical graphics.
-    formalized a Leland's Grammar of Graphics into ggplot2 with some minor ammendments
-    focused on the ability to iterate quickly while producing journal ready graphics
+\subsection{\pkg{ggplot2} Layer}
 
-  ggplot2 objects
-    consists
-      layer
-        data
-          defaults to base data if not supplied
-        geom
-          statistic
-          display position
+Many of the common statistical graphics are a single layered plot.  A scatter plot is made of a point layer and a boxplot as a boxplot layer.  There is no formal name for the data graphic where horizontally jittered points are displayed on top of a vertical boxplot.  Each layer is understood as a component to the plot, therefore the plot as a whole can be understood.  Wickham did state that while a layered grammar guides a well formed graphic \cite{layered-grammar}, he analogizes ``good grammar is just the first step in creating a good sentence'' \cite{layered-grammar}.
+
+Each plot consists of three components: the data, geom, and scales. Respectively, each of the component defines what is being displayed, how it is displayed and where it is being displayed.  By infering from the supplied data source and geom defaults, many plots can be displayed without much coding.
+
+<<>>=
+p <- ggplot(tips, aes(total_bill, tips)) +
+  geom_point()
+p
+@
+
+Typically, each layer of the plot uses the same original data source to help better explore the data frame.  Multi-layered plots may use multiple data sources where it would not make sense to combine data sources.  One of the data sources will be displayed on every panel of the plot.
+
+<<>>=
+tip_lm <- broom::tidy(lm(tip ~ total_bill, data = tips))$estimate
+(tip_lm_dt <- data.frame(
+  intercept = tip_lm[1],
+  slope = tip_lm[2]
+))
+p + geom_abline(data = tip_lm_dt, aes(slope = slope, intercept = intercept))
+@
 
 
-  Each layer allows for default argument values to be used instead of being supplied in every layer.  With decent default values, every argument does not need to be supplied as was described in Grammar of Graphics.
 
-  Each layer can added one by one to the plot object.
-  Each layer does not have to be submitted at the initial plot function creation like in R's base graphics or Lattice.
+% What is a layered plot
+
+
+% Each layer allows for default argument values to be used instead of being supplied in every layer.  With decent default values, every argument does not need to be supplied as is described in Grammar of Graphics.
+
+\subsection{Plot Creation}
+
+All plot layers to not need to exist at the inception of plot object.  Each layer of a \pkg{ggplot2} plot can be added one by one to the original plot object.  The simplist of plot objects consists of a default dataset and a default set of aesthetics.
+
+<<>>=
+minimal_plot <- ggplot(data = tips, aes(total_bill, tip))
+# display delayed until print time
+minimal_plot
+@
+
+No layers are displayed as none have been provided.  However, the scales have been infered from the default data and aesthetics.
+
+\subsection{Comparison}
+
+Building the plot up layer by layer and storing it as an R object until printed does not follow existing patterns in R graphics.  The R core package \pkg{graphics} (CITE) displays information in a plot immediately upon function call.  There is no ability to delay the display of the plot after the initial plot has been created with the \pkg{graphics} package.
+
+<<>>=
+g <- graphics::plot(tip ~ total_bill, data = tips)
+g # nothing is stored
+@
+
+\pkg{lattice} graphics meets in between \pkg{ggplot2} and \pkg{graphics} as all layers must be supplied at plot creation, but the plot is not displayed until print time.  The prior two \pkg{ggplot2} examples, (CITE) and (CITE), both displayed the ability to delay the printing of the \pkg{ggplot2} plot object.  \pkg{lattice} graphics can also delay the display of the plot object as both \pkg{lattice} and \pkg{ggplot2} convert their plot objects to be displayed using the \pkg{grid} package at print time.  The \pkg{grid} package does not implement full statistical plots, but rather it implements a R plotting framework to be used by other packages.
+
+<<>>=
+l <- lattice::xyplot(tip ~ total_bill, data = tips)
+# display delayed until print time
+l
+@
+
+
+
+
+
+
+\subsection{Facets}
+
+
+
+
+
+
+
+TODO clean up this part.  add in facet section?
+
 
   This is very important
     ggplot2 does not create new columns of information
@@ -61,7 +145,56 @@ What is a layered plot
       only divides data (facets) according to pre-existing column combinations
 
 
-
   plot objects are not rendered until print method is called
     allows for modularization of creating a plot.
     allows for simplification of interface as independent functionality can be separated into different functions.
+
+
+
+
+
+\section{Facets}
+
+Faceting in ggplot2 is when conditioning variables are used to divide data into independent data subsets which produce similar plots.  This technique commonly refered to as small multiples (CITE).  The same plots are displayed, but each plot contains an independent subset of the data.  Typically, only one or two conditioning variables are used, but any number of variables may be used when faceting a \pkg{ggplot2} plot.
+
+Facets are useful when looking at the interaction with the conditioning variables.  Once all existing combinations of the conditioning variables have been made, subsets of the data are displayed in each of the panels with the strip (panel label) of the panel displaying the conditioning variable information.  Missing combinations can either be dropped or display an empty panel.  Facet wrap will drop missing combinations by default and facet grid will display an empty panel for missing combinations.  In ggplot2, all variables are considered discrete when used as faceting conditioning variables.
+
+\subsection{Facet Wrap}
+
+There are two types of faceting in \pkg{ggplot2}: facet wrap and facet grid.  Facet wrap displays each panel row by row from left to right then top to bottom.  The number of rows and/or columns can be specified to ease the guessing work made by ggplot2.  If no facet row or column counts are supplied, \pkg{ggplot2} attempts to give each uses \pkg{grDevices} algorithm, \rinline{n2mfrow(n)}, to determine a sensible number of rows and columns.  Plots are display starting in the top row, from left to right, working towards the bottom of the plotting area.
+
+
+<<>>=
+# p <- ggplot(iris, aes(Petal.Length, Petal.Width)) + geom_point()
+# p + labs(title = "Iris Petal Length vs Width")
+# p + facet_wrap(~ Species) + labs(title = "Iris Petal Length vs Width per Species")
+p <- ggplot(tips, aes(total_bill, tip)) + geom_point()
+p +
+  labs(title = "No Facets")
+p +
+  facet_wrap(~ day, labeller = label_both) +
+  labs(title = "Facet Wrap (~ day)")
+p +
+  facet_wrap(~ day + time, labeller = label_both) +
+  labs(title = "Facet Wrap (~ day + time)")
+@
+
+\subsection{Facet Grid}
+
+Facet grid forces a two dimensional layout when faceting a plot.  The layout involves two sets of conditioning variables: the X conditioning and the Y conditioning variables.  These two sets of conditioning variables pre-determine how many rows (Y) and columns (X) are produced.
+
+<<>>=
+p +
+  facet_grid(time ~ day, labeller = label_both) +
+  labs(title = "Facet Grid (time ~ day)")
+@
+
+
+
+
+
+
+
+
+
+a

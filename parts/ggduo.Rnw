@@ -1,8 +1,20 @@
 
 \chapter{GGally::ggduo}
 
+$ggduo$ is continuation of prior work in the \pkg{GGally} R package.  In this chapter, I will cover background on the scatterplot matrix and generalized pairs plot matrix, and the $ggmatrix$ object that generalized the plot matrix used in $ggduo$.
 
 
+\section{Motivation}
+
+  As covered earlier, \pkg{ggplot2} is designed to allow plots to be built layer by layer and not rendered until a final print command is executed.  \pkg{ggplot2} plot objects have some limitations within it's layered grammar.
+
+  \begin{enumerate}
+    \item Each faceted panel must share the same original X and Y columns.
+    \item Each faceted panel's data must be independent of all other panels in the same plot.
+    \item Each plot must be created with the same layers.
+  \end{enumerate}
+
+  The pairs plot violates two of these principles: sharing the same original X and Y columns and each panel's data must be independent of all other panels.
 
 ggplot2 is built to be portable
   store object to print, then print (not immediately rendered)
