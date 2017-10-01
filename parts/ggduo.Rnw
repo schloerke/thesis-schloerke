@@ -73,7 +73,24 @@ pm
 
 \section{\rinline{GGally::ggmatrix}}
 
-To achieve the delay between plot matrix inception and displaying the plot matrix, a \rinline{ggmatrix} object is used.  This object holds all the necessary information to produce a plot matrix:  the number of rows and columns, label information, \pkg{ggplot2} display theme information,  how plot strips should be displayed, default plot data, and individual plot information.
+The \rinline{ggmatrix} object is used to handle two main situations: handle mixed plot scales and contain the necessary information for displaying a plot matrix.
+
+\subsection{Plot Scales}
+
+\pkg{ggplot2} prevents discrete scales from being mixed with continuous scales.  Two different scales for the same axis is not possible in a single panel plot and \pkg{ggplot2} is built on the small multiple princple of displaying similar scales in every faceted panel.   The ability to display different axes natively in the same plot matrix is not possible with ggplot2.  Only one scale type is used per ggmatrix panel.  This keeps the original `per panel' logic intact. Before the \rinline{ggmatrix} object, to produce two, related mixed axes plots in the same graphic could only be achieved using the \pkg{gridExtra} or \pkg{grid} R packages.  Both of these existing methods behaved like a side by side print method, rather than a native plot matrix.
+
+<< grid_extra >>=
+p1 <- pm[1,4]
+p2 <- pm[2,4]
+gridExtra::grid.arrange(p1, p2, ncol = 1)
+@
+
+\rinline{ggmatrix} allows for arbitrary scales per panel. When used properly, independently produced sub plots deliver common axes within each row and column.  This displays a cohesive and interpretable plot matrix structure.
+
+
+\subsection{Display Information}
+
+The necessary information includes the number of rows and columns, label information, \pkg{ggplot2} display theme information,  how plot strips should be displayed, default plot data, and individual plot information.
 
 << str >>=
 str(pm)
@@ -121,7 +138,7 @@ Comparing these two groups make sense as we would be interested if there is any 
 
 
 
-\subsection*{Column types}
+\subsection{Column types}
 
 \rinline{ggduo} inspects and displays the data columns according to their variable type: continuous or discrete. There are three plot type groups that an be made from these two options: continuous vs. continuous, continuous vs. discrete, and discrete vs. discrete. \rinline{ggduo}'s default plotting behavior for continuous vs. continuous is to produce a scatterplot with a loess smooth curve displayed on top of the points.
 The default plotting behavior for discrete vs. discrete, is to summarize the data and display it as a mosaic plot.
@@ -139,7 +156,7 @@ ggpairs(
 )
 @
 
-<< ggpairs_types >>=
+<< ggduo_types >>=
 # default
 ggduo(
   tips,
@@ -160,9 +177,9 @@ ggduo(
 @
 
 
-\subsection{User defined functions}
+\subsection{User Defined Functions}
 
-The default plotting functions are provided by the GGally package, however the user may use their own plotting functions for each panel.
+There are many default plotting functions are provided by the GGally package, however they are not all encompassing.  The user may supply their own plotting functions for each panel type.  This allows for complete customization of every panel.  The violin plot is a combination style plot that is not included by default.  A user may create their own function that uses the function call API of \rinline{function(data, mapping, ...) { ... }}.  A sample custom function example is provided below.
 
 << user_defined >>=
 my_violin <- function(data, mapping, ...) {
@@ -181,78 +198,15 @@ ggduo(
 
 
 
-\subsection{Plot matrix}
+% \newpage
 
-  Winston Chang explains facet'ing as ``[ploting] subsets of data into separate panels'' \cite{chang2013rgc}.
-  With ggplot2's faceting, each piece of data is displayed only once per plot matrix with the same plotting method and same axes.
-  On the other hand, GGally's \rinline{ggduo} displays the same piece of data in every panel but with different axes and different plotting methods.
-  As stated earlier, each column of the plot matrix shares the same x axis variable and each row of the plot matrix shares the same y axis variable
-
-
-  ggplot2 prevents discrete scales from being mixed with continuous scales.
-  This idea makes sense when looking at a single panel plot or a multiple panel plot with different subsets of the same data.
-  The ability to display different axes natively in the same plot matrix is not possible with ggplot2.
-  However, only one scale type is used per ggmatrix panel, so the original `per panel' logic is still kept.
-  Before a ggmatrix object, to have two, related mixed axes plots in the same display could only be done with \pkg{gridExtra} or \pkg{grid}.
-  Neither of these packages would produce output with the native ggplot2 presence.
-
-
-  \rinline{ggmatrix} extends the \rinline{facet_grid} idea but allows for a different scale per row and column.
-  This allows for a cohesive plot matrix structure where all axes are shared among common parts.
-
-
-  Mixing different plot types allows the user the digest their data with multiple ways with the same display.
-
-
-  To be able to mix axes arbitrarily, the GGally package uses a ggmatrix object.
-  It contains a collection of plot objects and other plotting features such as number of columns and rows, title, labels, etc.
-  Each plot is displayed in a cell of a plot matrix with the same contruction as a ggplot2's \rinline{facet_grid()} plot matrix.
-  There are strips on the top and right side of the plot matrix, and plot axes are only displayed on left and bottom side of the plot matrix.
-  Like with ggplot2, space can be made available for the legend, title, x label, and y label.
-
-
-
-
-  %  that can be displayed to
-  % Like with ggpairs,
-
-
-  % ggplot2 displays data with the same axis size even if the type of plot changes.  Leveraging this fact, each plot is displayed with independent axis knowledge.
-
-  % limitation of ggplot2. all continuous scale or all same category. no mixing
-  %   able to create the same plot for different subsets of data with ggplot2
-  %   unable to combine two related plots in the same display without use of \pkg{gridExtra} or \pkg{grid}
-  %
-  % plots may be retrieved individually. not possible with ggplot2
-  %
-  % core of plot matrix is a ggmatrix object
-  %   generalized plot matrix.
-  % plots are arbitrary
-  %   composite plot \cite{emerson2013gpp}
-  %   allows for plots with completely different scales to be shared in the same matrix
-  %
-  % output is modeled directly after \pkg{ggplot2}'s \rinline{facet_grid}
-  %   columns
-  %   rows
-  %   strips (titles)
-  %   general plot behavior
-  %   allows for legends and uses the ggplot2 formatting
-  % similar to ggplot2, meta information is stored in the plot matrix until print time and may be altered after it's inception.
-  %
-  %
-  % similar to ggpairs, \rinline{ggduo} formats the plot objects to be displayed with ggmatrix
-  % inherits all the functionality of ggmatrix
-
-
-\newpage
-
-\section[Examples]{Examples}
+\section{Examples}
   % * (<= 5 pages)
   % * (breadth of application)
 
 
 
-\subsection{Canonical correlation analysis}
+\subsection{Canonical Correlation Analysis}
 % * CCA
 
   Canonical correlation analysis is a method to analyize the correlation between two matrices \cite{hotelling36cca}.
@@ -263,6 +217,7 @@ ggduo(
   Using ggmatrix's power of independent plots, each cell can display custom plots to show any information.
 
 
+% TODO
   Explain academic data here
 
   % \includegraphics{imgs/cca.png}
@@ -280,6 +235,7 @@ ggduo(
   Splitting the multiple time series plot along the Y axis, we can display multiple panels with different Y axes with a shared X axis using \rinline{ggduo}.
   This can be done with \rinline{ggts} which wraps to \rinline{ggduo} with the X column label turned off by default and a plot X label of `time'.
 
+% TODO
   Explain pigs data here
 
   % \includegraphics{imgs/pigs.png}
@@ -323,7 +279,7 @@ The asterisks in the X axis strips corresponding to the significance of an anova
 
 
 
-\section[Future Direction]{Future Direction}
+\section{Future Direction}
 % * (<= 1 pages)
 Currently all individual plots are rendered at run time.  \pkg{ggplot2} is known for having slower print speeds.
 currently printing n*m plots takes time.

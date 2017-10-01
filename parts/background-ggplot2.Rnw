@@ -150,7 +150,7 @@ Modularization of the \pkg{ggplot2} code allows for customization of each layer 
 %     only divides data (facets) according to pre-existing column combinations
 
 
-Faceting in ggplot2 is when conditioning variables are used to divide data into independent data subsets which produce similar plots.  This technique commonly refered to as small multiples (CITE).  The same plots are displayed, but each plot contains an independent subset of the data.  Typically, only one or two conditioning variables are used, but any number of variables may be used when faceting a \pkg{ggplot2} plot.
+Winston Chang, maintainer of ggplot2, explains facet'ing as ``[ploting] subsets of data into separate panels'' \cite{chang2013rgc}.  This is achieved using existing conditioning variables in the supplied data set. Each panel produces similar plots.  This technique commonly refered to as small multiples (CITE).  The same plots are displayed, but each plot contains an independent subset of the data.  Typically, only one or two conditioning variables are used, but any number of variables may be used when faceting a \pkg{ggplot2} plot.
 
 Facets are useful when looking at the interaction with the conditioning variables.  Once all existing combinations of the conditioning variables have been made, subsets of the data are displayed in each of the panels with the strip (panel label) of the panel displaying the conditioning variable information.  Missing combinations can either be dropped or display an empty panel.  Facet wrap will drop missing combinations by default and facet grid will display an empty panel for missing combinations.  In ggplot2, all variables are considered discrete when used as faceting conditioning variables.
 
