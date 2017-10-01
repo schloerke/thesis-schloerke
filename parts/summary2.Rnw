@@ -7,6 +7,6 @@
 This is the summary chapter.
 
 
-<<>>=
+<< delete_me >>=
 plot(1:10, 1:10)
 @

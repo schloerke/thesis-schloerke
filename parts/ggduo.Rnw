@@ -4,9 +4,9 @@
 $ggduo$ is continuation of prior work in the \pkg{GGally} R package.  In this chapter, I will cover background on the scatterplot matrix and generalized pairs plot matrix, and the $ggmatrix$ object that generalized the plot matrix used in $ggduo$.
 
 
-\section{Motivation}
+\subsection{Pairs Plot}
 
-  As covered earlier, \pkg{ggplot2} is designed to allow plots to be built layer by layer and not rendered until a final print command is executed.  \pkg{ggplot2} plot objects have some limitations within it's layered grammar.
+  As the last chapter mentioned, \pkg{ggplot2} is designed to allow plots to be built layer by layer and not rendered until a final print command is executed.  \pkg{ggplot2} plot objects has some implementation rules it follows when facet'ing a plot.
 
   \begin{enumerate}
     \item Each faceted panel must share the same original X and Y columns.
@@ -14,28 +14,108 @@ $ggduo$ is continuation of prior work in the \pkg{GGally} R package.  In this ch
     \item Each plot must be created with the same layers.
   \end{enumerate}
 
-  The pairs plot violates two of these principles: sharing the same original X and Y columns and each panel's data must be independent of all other panels.
+  Following these rules allows for the implementation of small multiples.  Small multiples are repetitions of plots with identical layers, but each plot is comprised of different data.  Small multiples were popularized by Dr. Edward Tufte in his 1983 paper Visual Display of Quantitative Information.  Any \rinline{facet_wrap} or \rinline{facet_grid} function will produce a plot containing small multiples.
 
-ggplot2 is built to be portable
-  store object to print, then print (not immediately rendered)
-  fully defined print objects
-  can be stored or manipulated
+  A pairs plot, originaly refered to as a ``draftsman's plot''
+  % \cite{GraphicalMethods},
+  violates all three principles of a small multiple.
 
-
-Jay Emerson and gpairs
-  Goal was to inspect the data.frame and return plots with meaning, not just scatterplot matrices
-
-
-GGally::ggpairs
-  ggplot2 as a dataset, aesthetics, and geoms
-  ggpairs has a dataset, columns, commong aesthetics, and type functions
-  Goal was to modularize gpairs and add / remove plots at will
+  \begin{enumerate}
+    \item Each panel is comprised of a different column combination.
+    \item Each panel shares the same row information of the data.
+    \item Each panel may be created with layers that are appropriate for the data types.
+  \end{enumerate}
 
 
+  Until the discussion of the Generalized Pairs Plot with Emerson et. al., all plots shared the same plot layers to utilize the idea of a small multiple.  However, this was not appropriate for discrete data being displayed by it's mapped numeric value.  In a discrete data versus discrete data plot, all of the points would be overplotted onto the unique discrete combinations.  This overplotting renders the discrete only pairs combinations unuseable.  The bottom right plots of $smoker$ and $day$ both display eight unique points, but do not convey that they really contain \Sexpr{nrow(tips)} points.
 
-GGally::ggmatrix
-  Made as the underlying structure to ggpairs
-  Allowed for non square plot matrix
+<< original_pairs >>=
+pairs(tips[c("total_bill", "tip", "smoker", "day")])
+@
+
+  Emerson et.al. discussed using a generalized pairs plot to handle the mix of variable types by providing different plotting layers for different data types.  This addresses the issue of overplotting in discrete columns when only displaying data in a scatterplot matrix.  Below are the two default plotting methods to handle the overplotting issue.  The \pkg{gpairs} R package (CITE) is printed using \pkg{lattice} graphics, while the \pkg{GGally} R package prints using \pkg{ggplot2} graphics.
+
+<< gpairs_intro >>=
+gpairs::gpairs(tips[, c("total_bill", "tip", "smoker", "day")])
+@
+
+<< ggpairs_intro >>=
+pm <- ggpairs(tips, c("total_bill", "tip", "smoker", "day"))
+pm
+@
+
+\rinline{gpairs::gpairs} was originally built to handle the generalization of the pairs plot to include discrete data.  Unfortunately, this is written using \pkg{lattice} graphics and does not utilize the \pkg{ggplot2} framework.  \rinline{GGally::ggpairs} was originally written as an independent port of of \rinline{gpairs} to the \pkg{ggplot2} framework but with portability and modularization kept in mind.
+
+\rinline{ggpairs} addressed this by
+\begin{enumerate}
+  \item making each sub plot an indpenedently functioning \pkg{ggplot2} plot
+  \item allowing each sub plot to be replaced after the initial plot matrix is created
+  \item not displaying the plot matrix until the \rinline{print} command is executed
+\end{enumerate}
+
+<< add_custom_plot >>=
+# retrieve the second row, first column sub plot
+#  of the tips plot matrix
+pm[2,1]
+new_plot <- ggally_text(
+  "New\nPlot",
+  aes(color = "red"),
+  size = 10
+)
+new_plot
+# insert the new plot into the second row, first column
+#  of the tips plot matrix
+pm[2,1] <- new_plot
+# display the updated plot matrix
+pm
+@
+
+
+\section{\rinline{GGally::ggmatrix}}
+
+To achieve the delay between plot matrix inception and displaying the plot matrix, a \rinline{ggmatrix} object is used.  This object holds all the necessary information to produce a plot matrix:  the number of rows and columns, label information, \pkg{ggplot2} display theme information,  how plot strips should be displayed, default plot data, and individual plot information.
+
+<< str >>=
+str(pm)
+@
+
+For memory optimization, each plot is stored as a function that will produce the \pkg{ggplot2} plot at print time.  To do so, the dataset provided at \rinline{ggpairs} inception sets a default dataset to be used at print time.  If a new sub plot is stored after inception, the  full plot \pkg{ggplot2} object is stored directly.
+
+
+
+Similar to \pkg{ggplot2}'s function \rinline{ggplot_gtable}, \rinline{ggmatrix_gtable} produces display only information that the \pkg{grid} graphics framework uses to display the plot. To retrieve all necessary display information, \rinline{ggmatrix_gtable} executes \rinline{ggplot_gtable} for each sub plot individually, then extracts the required plotting display information (panel and possibly panel strips) from each sub plot.  These subplot panels are then placed into the final plot matrix.
+
+The resulting plot matrix is displayed with the exact same styling as \pkg{ggplot2}'s \rinline{facet_grid}. This returns all the display theme styling and display constraints back onto \pkg{ggplot2}. This means legends may be used.
+
+<< ggpairs_legend >>=
+# color the plots according to smoker
+# display legend from the 3rd row, 1st column plot
+pm <- ggpairs(
+  tips, c("total_bill", "tip", "smoker", "day"),
+  mapping = aes(color = smoker),
+  legend = c(3,1)
+)
+pm
+# display legend on bottom using ggplot2 theme
+pm + ggplot2::theme(legend.position = "bottom")
+@
+
+
+\section{\rinline{ggduo}}
+
+A definition of the pairs plot is that every column of the data is displayed against every other column.  This is great for full data exploration.  If a data frame had columns $A$, $B$, and $C$, there would be $3^2 = 9$ combinations produced: $A:A$, $A:B$, $A:C$, $B:A$, $B:B$, etc.. A pairs plot matrix can be generalized one step further by pairing two column groups against each other.
+
+For the example just described, column set $\left\{ A, B, C\right\}$ are paired against the column set $\left\{ A, B, C\right\}$.  This would be a little silly, as that should produce a pairs plot.  However, it allows us to produce a plot matrix of the combinations of $\left\{ A, B, C\right\}$ and $\left\{ D, E\right\}$, or any combination of two independent column sets.  Using the same underlying \rinline{ggmatrix} functionality, \rinline{ggduo} produces plot combinations of two grouped data.
+
+As a quick example, we may look at Australian children's fifth grade Math, Reading, and Science scores against their Sex and how many hours of Homework they completed.
+
+<< ggmatrix_scores >>=
+ggduo(australia_PISA2012, c("gender", "homework"), c("PV5MATH", "PV5READ", "PV5SCIE"))
+@
+
+Comparing these two groups make sense as we would be interested if there is any difference in score output given a child's sex and homework time.  A \rinline{ggpairs} plot would create within and identity combinations as well as the between combinations of the \rinline{ggduo} plot.
+
+
 
 Explain about major plot types
   XY
@@ -313,7 +393,7 @@ is not a native ggplot2 object, but trying hard to be like one!
 
 
 
-<<eval = FALSE>>=
+<< eval = FALSE >>=
 raw_dt <- read.csv("http://www.ats.ucla.edu/stat/data/mmreg.csv")
 psych <- raw_dt
 colnames(psych) <- c("Control", "Concept", "Motivation", "Read", "Write", "Math", "Science", "Sex")
