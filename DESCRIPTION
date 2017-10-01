@@ -20,7 +20,8 @@ Imports:
   knitr,
   autocogs,
   trelliscopejs,
-    gpairs
+  gpairs,
+  gridExtra
 Remotes:
   schloerke/autocogs,
   schloerke/trelliscopejs@autocogs
