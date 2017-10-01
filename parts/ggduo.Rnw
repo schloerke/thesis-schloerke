@@ -33,7 +33,7 @@ $ggduo$ is continuation of prior work in the \pkg{GGally} R package.  In this ch
 pairs(tips[c("total_bill", "tip", "smoker", "day")])
 @
 
-  Emerson et.al. discussed using a generalized pairs plot to handle the mix of variable types by providing different plotting layers for different data types.  This addresses the issue of overplotting in discrete columns when only displaying data in a scatterplot matrix.  Below are the two default plotting methods to handle the overplotting issue.  The \pkg{gpairs} R package (CITE) is printed using \pkg{lattice} graphics, while the \pkg{GGally} R package prints using \pkg{ggplot2} graphics.
+  Emerson et.al. discussed using a generalized pairs plot to handle the mix of variable types by providing different plotting layers for different data types.  The generalized pairs plot displays the same collection of data using different axes but allows for a mix of plotting methods and both continuous and discrete plot axes.  This addresses the issue of overplotting in discrete columns when only displaying data in a scatterplot matrix.  Below are the two default plotting methods to handle the overplotting issue.  The \pkg{gpairs} R package (CITE) is printed using \pkg{lattice} graphics, while the \pkg{GGally} R package prints using \pkg{ggplot2} graphics.
 
 << gpairs_intro >>=
 gpairs::gpairs(tips[, c("total_bill", "tip", "smoker", "day")])
@@ -110,93 +110,75 @@ For the example just described, column set $\left\{ A, B, C\right\}$ are paired 
 As a quick example, we may look at Australian children's fifth grade Math, Reading, and Science scores against their Sex and how many hours of Homework they completed.
 
 << ggmatrix_scores >>=
-ggduo(australia_PISA2012, c("gender", "homework"), c("PV5MATH", "PV5READ", "PV5SCIE"))
+ggduo(
+  australia_PISA2012,
+  c("gender", "homework"),
+  c("PV5MATH", "PV5READ", "PV5SCIE")
+)
 @
 
 Comparing these two groups make sense as we would be interested if there is any difference in score output given a child's sex and homework time.  A \rinline{ggpairs} plot would create within and identity combinations as well as the between combinations of the \rinline{ggduo} plot.
 
 
 
-Explain about major plot types
-  XY
-    Continuous on Continuous
-    Discrete on Discrete
-    Continuous on Discrete
-    Discrete on Continuous
-  X
-    Continuous
-    Discrete
-
-
-
-
-
-\section{Introduction}
-  % * (1 - 2 pages; setup work; get excited; )
-  % * GGally / ggpairs
-  %   * emerson paper
-  %   * linked scatter plots / cleveland
-
-  ``The R package \pkg{ggplot2} is a plotting system based on the grammar of graphics. \pkg{GGally} extends \pkg{ggplot2} by adding several functions to reduce the complexity of combining geoms with transformed data.
-  Some of these functions include a pairwise plot matrix, a scatterplot plot matrix, a parallel coordinates plot, a survival plot, and several functions to plot networks.''
-
-The focus of this paper explores the function \rinline{ggduo}, which makes a two grouped plot matrix.
-
-  ``generalized pairs plot
-    expanded the traditional scatter plot matrix to work for both continuous and categorical columns.''
-
-  \rinline{ggduo}'s older brother, \rinline{ggpairs}, has already been been used in
-    \cite{cook2016data}
-    \rinline{ggs_pairs} from \cite{xavier2016ggmcmc}
-    and a reverse dependency in over twenty other packages on CRAN and BioConductor.
-
-
-
-
-\section[Methodology]{Methodology}
-  % * (5-10 pages)
-  % * (conceptual framework)
-  % * (guts of the program)
-  % * How ggmatrix is a general structure to accommodate ggpairs and now ggduo
-
-
-    A scatterplot matrix shows the same collection of data in each panel of a plot matrix, however each panel has different continuous axes.
-    Similarly, the generalized pairs plot displays the same collection of data using different axes but allows for a mix of plotting methods and both continuous and discrete plot axes.
-    \rinline{ggduo} removes the restriction plotting all pairs of points and displays the combination of two groups of the same dataset.
-
-    With \rinline{ggduo}, a scatterplot can be next to a boxplot, which can be next to a mosaic plot.
-
-\subsection{What is ggduo}
-
-\rinline{ggduo} is function in the GGally package that produces a ggmatrix plot matrix with one column of data plotted against another column of data for every panel of a plot matrix.
-For a given row, the same y axis variable is used, and for a given column, the same x axis variable is used.
-Unlike ggpairs, the restriction of every column being paired against every column is removed.
-\rinline{ggduo} only requires a set of `Y` columns and a set of `X' columns to be paired against each other.
-
-
-
 \subsection*{Column types}
 
-\rinline{ggduo} inspects and displays the data columns according to their variable type: continuous or discrete.
-There are three plot type groups that an be made from these two options: continuous vs. continuous, continuous vs. discrete, and discrete vs. discrete.
-\rinline{ggduo}'s default plotting behavior for continuous vs. continuous is to produce a scatterplot with a loess smooth curve displayed on top of the points.
+\rinline{ggduo} inspects and displays the data columns according to their variable type: continuous or discrete. There are three plot type groups that an be made from these two options: continuous vs. continuous, continuous vs. discrete, and discrete vs. discrete. \rinline{ggduo}'s default plotting behavior for continuous vs. continuous is to produce a scatterplot with a loess smooth curve displayed on top of the points.
 The default plotting behavior for discrete vs. discrete, is to summarize the data and display it as a mosaic plot.
 
-The third group, continuous vs. discrete, will be refered to as a `combination plot'.
-\rinline{ggduo} makes a distinction between the two possible combination plots: continuous vs. discrete (vertical combination plot) and discrete vs. continuous (horizontal combination plot).
-By default, \rinline{ggduo} displays grouped histograms for a horizontal combination plot and grouped box plots for a vertical combination plot.
-This distiction between a horizontal and vertical combination plot is made as there are no plot matrix sections (upper, lower, diagonal) in a \rinline{ggduo} plot.
 
+The third group, continuous vs. discrete, will be refered to as a `combination plot'. \rinline{ggduo} makes a distinction between the two possible combination plots: continuous vs. discrete (vertical combination plot) and discrete vs. continuous (horizontal combination plot). By default, \rinline{ggduo} displays grouped histograms for a horizontal combination plot and grouped box plots for a vertical combination plot.
+\rinline{ggpairs} is able to handle the combination plot differently for the upper and lower triangle using the the \rinline{upper} and \rinline{lower} arguments.  Unlike \rinline{ggpairs}, a distiction between a horizontal and vertical combination plot is made as there are no upper and lower triangle plot matrix sections in a \rinline{ggduo} plot.
 
+<< ggpairs_types >>=
+ggpairs(
+  tips,
+  c("total_bill", "smoker", "day", "tip"),
+  upper = list(combo = "denstrip"),
+  lower = list(combo = "facetdensity")
+)
+@
+
+<< ggpairs_types >>=
+# default
+ggduo(
+  tips,
+  c("size", "smoker", "day"),
+  c("total_bill", "tip", "time")
+)
+# alter the vertically oriented combo plots
+# alter the horizontally oriented combo plots
+ggduo(
+  tips,
+  c("size", "smoker", "day"),
+  c("total_bill", "tip", "time"),
+  types = list(
+    comboVertical = "denstrip",
+    comboHorizontal = "facetdensity"
+  )
+)
+@
 
 
 \subsection{User defined functions}
 
 The default plotting functions are provided by the GGally package, however the user may use their own plotting functions for each panel.
-Example!!
 
+<< user_defined >>=
+my_violin <- function(data, mapping, ...) {
+  ggplot(data = data, mapping = mapping) +
+    geom_violin(...)
+}
+ggduo(
+  tips,
+  c("size", "smoker", "day"),
+  c("total_bill", "tip", "time"),
+  types = list(
+    comboVertical = my_violin
+  )
+)
+@
 
-Each of these panels are full ggplot2 and are stored in a ggmatrix object which will be talked about in the next section.
 
 
 \subsection{Plot matrix}
