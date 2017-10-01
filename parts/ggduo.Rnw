@@ -209,18 +209,24 @@ ggduo(
 \subsection{Canonical Correlation Analysis}
 % * CCA
 
-  Canonical correlation analysis is a method to analyize the correlation between two matrices \cite{hotelling36cca}.
-  Canonical correlation analysis can be directly displayed with \rinline{ggduo}.
-  Before \rinline{ggduo}, canonical correlation analysis did not have a cohesive plotting mechanism to visually display the associations of two sets of mixed type variables.
-  Current examples use `ggpairs' to display all pairs of columns when only a subset of combinations are needed.
-  `ggpairs' can be used to check the within correlation of both the explanatory variables and response variables,  whereas \rinline{ggduo} can be used to check the correlation between the explanatory and response variables.
-  Using ggmatrix's power of independent plots, each cell can display custom plots to show any information.
+  Canonical correlation analysis (CCA) is a method to analyize the correlation between two matrices \cite{hotelling36cca}.  CCA can be directly displayed with \rinline{ggduo}.  Before \rinline{ggduo}, canonical correlation analysis did not have a cohesive plotting mechanism to visually display the associations of two sets of mixed type variables.  Before \rinline{ggduo}, examples used \rinline{ggpairs} to display all pairs of columns when only a subset of combinations are needed.  \rinline{ggpairs} is a perfect candidate for \emph{within} correlation for the explanatory variables and the response variables.  Whereas \rinline{ggduo} can be used to check the correlation \emph{between} the explanatory and response variables.
 
+  The example below is altered from the UCLA Intstitute for Digital Research and Education \cite{UclaCCA}.  The website provided an example using \rinline{ggpairs} to analyse the \emph{within} corrleation.  Continuing their example, we can use \rinline{ggduo} to check the \emph{between} correlation.  The data consists of 600 records of three psychological variables, four academic variables, and the student's gender.  The psychological variables are treated as the response with the academic variables and gender as a predictor.  \rinline{ggduo} will be used to check the correlation between the two sets of columns.
 
-% TODO
-  Explain academic data here
-
-  % \includegraphics{imgs/cca.png}
+<< ggduo_cca >>=
+ggduo(
+  psychademic,
+  c("motivation", "locus_of_control", "self_concept"),
+  c("read", "write", "math", "science", "sex"),
+  showStrips = FALSE,
+  types = list(continuous = "smooth_lm")
+) +
+  labs(
+    title = "Between Academic and Psychological Variable Correlation Analysis",
+    x = "Psychological",
+    y = "Academic"
+  )
+@
 
 
 
@@ -234,6 +240,13 @@ ggduo(
   Displaying the data on the same axis does not make sense in all cases.
   Splitting the multiple time series plot along the Y axis, we can display multiple panels with different Y axes with a shared X axis using \rinline{ggduo}.
   This can be done with \rinline{ggts} which wraps to \rinline{ggduo} with the X column label turned off by default and a plot X label of `time'.
+
+
+
+
+
+
+  
 
 % TODO
   Explain pigs data here
@@ -264,6 +277,9 @@ The leverage points (hat) are centered around the solid line at $p / n$ and have
 Finally, the Cooks's distance has a grey dashed line at $4 / n$.
 Each solid line corresponds to the expected value and each dashed line corresponds to a `signifigance' cuttoff value.
 The asterisks in the X axis strips corresponding to the significance of an anova F test.
+
+%  TODO
+examples
 
 % \includegraphics{imgs/ggnostic_plain.png}
 
