@@ -16,7 +16,9 @@ knitr::opts_chunk$set(
   cache = TRUE,
   autodep = TRUE,
   fig.width = 8,
-  fig.height = 5
+  fig.height = 6,
+  out.width = "6in",
+  out.height = "4.5in"
 )
 @
 
