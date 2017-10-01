@@ -19,7 +19,8 @@ Imports:
   tidyverse,
   knitr,
   autocogs,
-  trelliscopejs
+  trelliscopejs,
+    gpairs
 Remotes:
   schloerke/autocogs,
   schloerke/trelliscopejs@autocogs
