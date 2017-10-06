@@ -92,7 +92,7 @@ gridExtra::grid.arrange(p1, p2, ncol = 1)
 
 The necessary information includes the number of rows and columns, label information, \pkg{ggplot2} display theme information,  how plot strips should be displayed, default plot data, and individual plot information.
 
-<< str >>=
+<< str, size = "scriptsize" >>=
 str(pm)
 @
 
@@ -234,26 +234,53 @@ ggduo(
   % * Time Series
   %   * break temporal components
 
-  The \pkg{stats} package has a \rinline{ts.plot} function that currently allows for multiple time series to be printed in a single plot.
-  Display the time axis on the X axis with multiple columns on the Y axis.
-  \rinline{ts.plot} displays the data in the same plot panel with a shared Y axis.
-  Displaying the data on the same axis does not make sense in all cases.
-  Splitting the multiple time series plot along the Y axis, we can display multiple panels with different Y axes with a shared X axis using \rinline{ggduo}.
-  This can be done with \rinline{ggts} which wraps to \rinline{ggduo} with the X column label turned off by default and a plot X label of `time'.
+<< elec_demand, echo = FALSE >>=
+
+fpp2::elecdemand %>%
+  as_data_frame() %>%
+  mutate(
+    WorkDay = factor(c("No", "Yes")[WorkDay + 1], levels = c("Yes", "No")),
+    # Time = zoo::as.Date(zoo::as.Date(time(elecdemand)))
+    Year = 2014,
+    Day = rep(1:365, each = 48),
+    HighUsage = c("below", "above")[(Demand > median(Demand)) + 1]
+  ) %>%
+  filter(Day <= 100) %>%
+  mutate(Time = as.Date(Day, origin = "2014-01-01")) ->
+elec_median
+
+@
 
 
+  A time series plot displays the time axis on the X axis with multiple columns on the Y axis.  The \pkg{stats} package has a \rinline{ts.plot} function that currently allows for multiple time series to be printed in a single panel sharing the same axes.  Displaying the data on the same axis does not make sense in all cases.  This can be seen when looking at half-hourly eelctricity demand for Victoria, Australia, in 2014.  The electricity demand and temperature should not be displayed on the same scales, as they do not have similar units.  Including the $WorkDay$ boolean does not add to the understanding of the plot.
+
+<< stats_ts >>=
+stats::ts.plot(fpp2::elecdemand)
+@
 
 
+  By splitting the multiple time series plot along the Y axis, we can display multiple panels with different Y axes with a shared X axis using \rinline{ggduo}. This can be done with \rinline{ggts} which wraps to \rinline{ggduo} with the X column label turned off by default and a plot X label of `time'.  An extra column of the counts of above or below median demand has been added to display mixed Y axes.
 
 
-  
-
-% TODO
-  Explain pigs data here
-
-  % \includegraphics{imgs/pigs.png}
-
-
+<< ggduo_ts >>=
+ggts(
+  elec_median,
+  mapping = aes(color = WorkDay),
+  columnsX = "Time",
+  columnsY = c("Demand", "Temperature", "HighUsage"),
+  columnLabelsY = c(
+    "Demand",
+    "Temperature",
+    "Demand Counts\nAbove Median  |  Below Median"
+  ),
+  legend = c(3,1),
+  showStrips = FALSE,
+  types = list(
+    comboHorizontal = wrap("facethist", binwidth = 1),
+    continuous = wrap("smooth_loess", alpha = 0.1)
+  )
+)
+@
 
 
 \subsection{Multiple regression diagnostics}
@@ -264,134 +291,20 @@ ggduo(
 %   * cooks distance
 %   * (other 'y' sections)
 
-Multiple regression analysis is currently being done using ggpairs and only needs to display a subset of the pairs of columns.
-With the basis of ggduo displaying each row of the data in every panel with different functions, ggduo quickly extends to model diagnostics.
-There are many diagnostics that can be calculated for each row of explanatory data.
-By default, \rinline{ggnostic} (a function that wraps around \rinline{ggduo}) looks at the residuals, leave one out sigma value, leverage points, and Cook's Distance.
-Each diagnostic information is plotted against all explanatory variables used in the model.
+With the basis of \rinline{ggduo} displaying each row of the data in every panel with different functions, \rinline{ggduo} quickly extends to model diagnostics. There are many readily available diagnostics that can be calculated for each row of explanatory data. By default, \rinline{ggnostic} (a function that wraps around \rinline{ggduo}) looks at the residuals, leave one out sigma value, leverage points, and Cook's Distance. Each diagnostic information is plotted against all explanatory variables used in the model.
 
-Using stats::step to determine a best fitting model, the default diagnostics are displayed against `species', `tars1', `tars2', and `aede'.
-The residuals have a 95\% confidence interval in dashed lines and a solid line at 0.
-The leave one out sigma value displays a solid line for the current model's sigma value.
-The leverage points (hat) are centered around the solid line at $p / n$ and have a dashed line at $2 * p / n$.
-Finally, the Cooks's distance has a grey dashed line at $4 / n$.
-Each solid line corresponds to the expected value and each dashed line corresponds to a `signifigance' cuttoff value.
-The asterisks in the X axis strips corresponding to the significance of an anova F test.
+Using the flea dataset from the \pkg{GGally} package, we can try to fit a model to determine the size of the flea's head.  Using \rinline{stats::step} to determine a good fitting model, the default model diagnostics are displayed against $species$, $tars1$, $tars2$, and $aede$. The residuals have a 95\% confidence interval in dashed lines and a solid line at 0. The leave one out sigma value displays a solid line for the current model's sigma value. The leverage points (diagonal of the hat matrix) are centered around the solid line at $p / n$ (CITE) and have a dashed line at $2 * p / n$ (CITE). Finally, the Cooks's distance has a grey dashed line at $4 / n$ (CITE). Each solid line corresponds to the expected value and each dashed line corresponds to a \emph{signifigance} cuttoff value. The asterisks in the X axis strips corresponding to the significance of an anova F test.
 
-%  TODO
-examples
-
-% \includegraphics{imgs/ggnostic_plain.png}
-
-% \includegraphics{imgs/ggnostic_complex.png}
-
-
-  % * Interaction
-  %   * plot.ly
-  %   * Ties back to cleveland's linked scatterplots
-
-
-
-
-
-
-\section{Future Direction}
-% * (<= 1 pages)
-Currently all individual plots are rendered at run time.  \pkg{ggplot2} is known for having slower print speeds.
-currently printing n*m plots takes time.
-
-Future ggplot2 versions will allow for custom faceting.  this could potentially allow ggmatrix to print a single ggplot2 object with custom facet scales for each plot.  This would dramatically reduce the amount of time a ggmatrix takes to render.  Printing time would still remain the same.
-
-Link up with the javascript packages for interactive plot matricies. Would be great to add a one more line of code to turn it into an interactive plot.
-
-
-\section[Discussion]{Discussion}
-% * (<= 1 pages)
-%   * pros and cons
-Pros
-  single line of code to produce a composite plot matrix
-  works well with wide data
-Cons
-  takes longer time to print with larger data
-  prints m*n ggplots to produce a single m*n plot matrix
-
-%   * origin and why it came about
-  ggmatrix
-    was a feature request to handle different length and different column plot matrix
-    users wanted to place custom plots in a custom arrangement
-  ggduo came about
-    was a feature request to have a ggmatrix version of the TeachingDemos::pairs2 function.
-
-%   * what we can not achieve with the ggmatrix / ggduo
-Can achieve custom plots.
-Can not achieve a forced cohesive scale to be used on all plots in a row or column
-is not a native ggplot2 object, but trying hard to be like one!
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<< eval = FALSE >>=
-raw_dt <- read.csv("http://www.ats.ucla.edu/stat/data/mmreg.csv")
-psych <- raw_dt
-colnames(psych) <- c("Control", "Concept", "Motivation", "Read", "Write", "Math", "Science", "Sex")
-mot_levels <- c("Low", "Under", "Above", "High")
-psych <- data.frame(
-  Motivation = factor(
-    mot_levels[round(psych$Motivation * 3 + 1)],
-    levels = mot_levels,
-    ordered = TRUE
-  ),
-  Self.Concept = psych$Concept,
-  Locus.of.Control = psych$Control,
-  Read = psych$Read,
-  Write = psych$Write,
-  Math = psych$Math,
-  Science = psych$Science,
-  Sex = c("0" = "Male", "1" = "Female")[as.character(psych$Sex)]
-)
-
-
-pm <- ggduo(
-  psych, 1:3, 4:8,
-  mapping = aes(color = Sex),
-  types = list(continuous = "smooth_lm"),
-  title = "Between Academic and Psychological Variable Correlation",
-  xlab = "Psychological",
-  ylab = "Academic",
-  showStrips = FALSE
-)
-
-
-
-# ------------------
-
-
-data(flea)
-
+<< ggnostic >>=
 flea_model <- step(lm(head ~ ., data = flea), trace = FALSE)
-# summary(flea_model)
 
-pm <- ggnostic(flea_model)
-# ggsave("../imgs/ggnostic_plain.png", pm, height = 6, width = 8)
+ggnostic(flea_model)
+@
 
-pm <- ggnostic(
+The model diagnostics can be extended further by coloring and grouping according to $species$ and displaying the fitted values.
+
+<< ggnostic_complex >>=
+ggnostic(
   flea_model,
   mapping = aes(color = species),
   columnsY = c(".fitted", ".resid", ".std.resid", ".hat", ".cooksd"),
@@ -403,57 +316,42 @@ pm <- ggnostic(
     .cooksd = wrap(ggally_nostic_cooksd, outlier.shape = 21)
   )
 )
-
-
-# ----------------------
-
-data(pigs)
-
-pigs_dt <- pigs[-(2:3)] # remove year and quarter
-pigs_dt$profit_group <- as.numeric(pigs_dt$profit > mean(pigs_dt$profit))
-
-qplot(
-  time, value,
-  data = reshape::melt.data.frame(pigs_dt, "time"),
-  geom = c("smooth", "point")
-) +
-  facet_grid(variable ~ ., scales = "free_y")
-
-profit_groups <- c(
-  "1" = "high",
-  "0" = "low"
-)
-pigs_dt$profit_group <- factor(
-  profit_groups[as.character(pigs_dt$profit_group)],
-  levels = unname(profit_groups),
-  ordered = TRUE
-)
-pigs_mapping <- aes(color = profit_group)
-pigs_types <- list(
-  comboHorizontal = wrap(ggally_facethist, binwidth = 1)
-)
-
-pm <- ggts(
-  pigs_dt, pigs_mapping,
-  1, 2:7,
-  types = pigs_types,
-  legend = c(6,1),
-  columnLabelsY = c(
-    "number of\nfirst birth sows",
-    "sell price over\nfeed cost",
-    "sell count over\nheard size",
-    "meat head count",
-    "breading\nheard size",
-    "profit\ngroup"
-  ),
-  showStrips = FALSE
-) +
-  labs(fill = "profit group") +
-  theme(
-    legend.position = "bottom",
-    strip.background = element_rect(
-      fill = "transparent", color = "grey80"
-    )
-  )
-
 @
+
+  % * Interaction
+  %   * plot.ly
+  %   * Ties back to cleveland's linked scatterplots
+
+
+
+
+
+
+% \section{Future Direction}
+% % * (<= 1 pages)
+% Currently all individual plots are rendered at run time. With \pkg{ggplot2} being known for having slower print speeds (CITE), this could be problimatic.  Currently, $n * m$ individual plots are printed.
+% currently printing n*m plots takes time.
+%
+%
+% Link up with the javascript packages for interactive plot matricies. Would be great to add a one more line of code to turn it into an interactive plot.
+
+
+% \section[Discussion]{Discussion}
+% % * (<= 1 pages)
+% %   * pros and cons
+% Pros
+%   single line of code to produce a composite plot matrix
+%   works well with wide data
+% Cons
+%   takes longer time to print with larger data
+%   prints m*n ggplots to produce a single m*n plot matrix
+%
+% %   * origin and why it came about
+%   ggmatrix
+%     was a feature request to handle different length and different column plot matrix
+%     users wanted to place custom plots in a custom arrangement
+%   ggduo came about
+%     was a feature request to have a ggmatrix version of the TeachingDemos::pairs2 function.
+%
+% %   * what we can not achieve with the ggmatrix / ggduo
+% Can not achieve a forced cohesive scale to be used on all plots in a row or column

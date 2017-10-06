@@ -40,9 +40,6 @@ tips <- reshape::tips %>%
 
 \section{ggplot2}
 
-% What is ggplot2
-  ``\pkg{ggplot2} is a system for declaratively creating graphics, based on \emph{The Grammar of Graphics}. You provide the data, tell ggplot2 how to map variables to aesthetics, what graphical primitives to use, and it takes care of the details.'' (\url{https://github.com/tidyverse/ggplot2})
-
   % \pkg{ggplot2} is different from the standard visualization graphics in that
   %
   %
@@ -62,7 +59,7 @@ tips <- reshape::tips %>%
 
 \subsection{Layered Grammer of Graphics}
 
-\pkg{ggplot2} is based on a \emph{Layered Grammar of Graphics} (\cite{WickhamHadley2010ALGo}).  During Dr. Wickham's studies at Iowa State University, he statistically consulted with many students and professors on how to produce visualizations for the studies. Dr. Wickham noticed many clients had trouble producing plots quickly and difficulty  understanding how the plot was made.  This gave plenty of motivation to produce \pkg{ggplot2} and base it on \emph{The Grammar of Graphics}.
+\pkg{ggplot2} is based on a \emph{Layered Grammar of Graphics} (\cite{WickhamHadley2010ALGo}).  During Dr. Wickham's studies at Iowa State University, he statistically consulted with many students and professors on how to produce visualizations for the studies. Dr. Wickham noticed many clients had trouble producing plots quickly and difficulty  understanding how the plot was made.  This provided plenty of motivation to produce \pkg{ggplot2}, basing it on \emph{The Grammar of Graphics}.
 
 \subsection{\pkg{ggplot2} Layer}
 

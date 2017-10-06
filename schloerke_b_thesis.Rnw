@@ -17,8 +17,11 @@ knitr::opts_chunk$set(
   autodep = TRUE,
   fig.width = 8,
   fig.height = 6,
-  out.width = "6in",
-  out.height = "4.5in"
+  warning=FALSE,
+  message=FALSE,
+  size = "small",
+  out.width = "5.5in",
+  out.height = "4.125in" # (75% * width)
 )
 @
 
@@ -95,7 +98,9 @@ knitr::opts_chunk$set(
 
 % Put chapter \include commands here.
 
-<< sum2, child='parts/summary2.Rnw'>>=
+% << sum2, child='parts/summary2.Rnw'>>=
+% @
+<< sum2, child='parts/package_summaries.Rnw'>>=
 @
 << sum2, child='parts/background-ggplot2.Rnw'>>=
 @
