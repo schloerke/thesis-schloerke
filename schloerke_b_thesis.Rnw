@@ -72,7 +72,7 @@ knitr::opts_chunk$set(
 
 % Major professor (used in abstract).
 % Use \majorprofs{...} if you have more than one professor.
-\majorprofs{Dr. William Cleveland, Dr. Ryan Hafen, Dr. Bowei Xi, Dr. Viniak Rao}
+\majorprofs{Dr. William Cleveland, Dr. Ryan Hafen, Dr. Bowei Xi, Dr. Vinayak Rao}
 
 % Campus (used only on cover)
 \campus{West Lafayette}
@@ -84,7 +84,9 @@ knitr::opts_chunk$set(
 
 \newcommand{\ve}[2]{\en{#1_1},~\en{#1_2},\ \ldots,~\en{#1_{#2}}}
 
-\newcommand{\pkg}[1]{{\fontseries{b}\selectfont #1}}
+% \newcommand{\pkg}[1]{{\fontseries{b}\selectfont #1}}
+% \newcommand{\pkg}[1]{{\texttt\selectfont #1}}
+\newcommand{\pkg}[1]{\texttt{#1}}
 
 
 \begin{document}

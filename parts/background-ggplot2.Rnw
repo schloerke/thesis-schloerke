@@ -1,7 +1,7 @@
 
 
 
-\chapter{Background ggplot2}
+\chapter{\pkg{ggplot2}}
 
 \section{R Language}
 

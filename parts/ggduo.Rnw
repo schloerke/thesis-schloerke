@@ -1,7 +1,7 @@
 
 \chapter{GGally::ggduo}
 
-$ggduo$ is continuation of prior work in the \pkg{GGally} R package.  In this chapter, I will cover background on the scatterplot matrix and generalized pairs plot matrix, and the $ggmatrix$ object that generalized the plot matrix used in $ggduo$.
+\rinline{ggduo} is continuation of prior work in the \pkg{GGally} R package.  In this chapter, I will cover background on the scatterplot matrix and generalized pairs plot matrix, and the \rinline{ggmatrix} object that generalized the plot matrix used in \rinline{ggduo}.
 
 
 \subsection{Pairs Plot}
