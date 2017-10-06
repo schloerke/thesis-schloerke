@@ -2,3 +2,10 @@
 GraphQL
 ? Introduction paragraph
 - conclusion / wrap up paragraph
+
+
+add all package pdfs to end
+  gqlr
+  trelliscopejs
+  autocogs
+  GGally
