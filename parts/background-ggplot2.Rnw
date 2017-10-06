@@ -5,11 +5,11 @@
 
 \section{R Language}
 
-  R is the most widely used open source programming language and quickly becoming the top ranked data analysis tool (\url{http://r4stats.com/articles/popularity/}). R is different from most other popular programming languages in that it is an interpretable language, rather than a compiled language.  Code is source and executed at run time, rather than precompiled for faster execution and type checking.
+  R is the most widely used open source programming language and quickly becoming the top ranked data analysis tool (\url{http://r4stats.com/articles/popularity/}, \url{https://spectrum.ieee.org/static/interactive-the-top-programming-languages-2017}). R is different from most other popular programming languages in that it is an interpretable language, rather than a compiled language.  Code is source and executed at run time, rather than precompiled for faster execution and type checking.
 
-  R has over 11,000 active, user submited packages (as of Sept. 2017) and countless more on Github (\url{github.com}).  Among these packages are GGally, gqlr, autocogs, trelliscopejs, and rbokeh.  These are a few of the R packages I will describe in greater detail.
+  R has over 11,000 active, user submited packages (as of Sept. 2017, \url{https://cloud.r-project.org/web/packages/index.html}) and countless more on Github (\url{github.com}).  Among these packages are \pkg{GGally}, \pkg{gqlr}, \pkg{autocogs}, \pkg{trelliscopejs}, and \pkg{rbokeh}.  These are a few of the R packages I will describe in greater detail.
 
-  One of the most notible R packages is \pkg{ggplot2}.  It was originally written by Hadley Wickham in 2005.  Since then, \pkg{ggplot2} has become one of the most impactful R packages (\url{http://depsy.org/package/r/ggplot2}) with over 6 million downloads.
+  One of the most notible R packages is \pkg{ggplot2}.  \pkg{ggplot2} is a data visualization package .  It was originally written by Hadley Wickham in 2005.  Since then, \pkg{ggplot2} has become one of the most impactful R packages (\url{http://depsy.org/package/r/ggplot2}) with over 6 million downloads.
 
 
 %
@@ -59,7 +59,7 @@ tips <- reshape::tips %>%
 
 \subsection{Layered Grammer of Graphics}
 
-\pkg{ggplot2} is based on a \emph{Layered Grammar of Graphics} (\cite{WickhamHadley2010ALGo}).  During Dr. Wickham's studies at Iowa State University, he statistically consulted with many students and professors on how to produce visualizations for the studies. Dr. Wickham noticed many clients had trouble producing plots quickly and difficulty  understanding how the plot was made.  This provided plenty of motivation to produce \pkg{ggplot2}, basing it on \emph{The Grammar of Graphics}.
+\pkg{ggplot2}, a data visualization R package, is based on a \emph{Layered Grammar of Graphics} (\cite{WickhamHadley2010ALGo}).  During Dr. Wickham's studies at Iowa State University, he statistically consulted with many students and professors on how to produce visualizations for their studies. Dr. Wickham noticed many clients had trouble producing plots quickly and difficulty understanding how the plot was made.  This provided plenty of motivation to produce \pkg{ggplot2}, basing it on \emph{The Grammar of Graphics}.
 
 \subsection{\pkg{ggplot2} Layer}
 

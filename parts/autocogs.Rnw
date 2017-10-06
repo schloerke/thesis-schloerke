@@ -1,0 +1,26 @@
+
+Autocogs
+  Scagnostics
+    The Tukey brothers proposed in
+  Framework
+    Automatically create cognostics given a display object
+      Inspect the plot object
+      Determine which layers are displayed
+      Apply cognostics per layer
+      Collect unique cognostics
+      Return result
+    Existing base cognostic groups
+      Short paragraph on each one
+    Connect to plotting frameworks,
+      Short paragraph (and example?) on each one
+      Ggplot2 layers
+        Geom_point
+        Geom_line
+        etc...
+
+Future work
+  Add cognostics for time series data
+  Add safety layer for the execution (try catch)
+  Add message similar to facet_map to submit them to github
+  Add rbokeh layer connections
+  Add plotly layer connections
