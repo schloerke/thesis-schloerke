@@ -3,9 +3,41 @@ GraphQL
 ? Introduction paragraph
 - conclusion / wrap up paragraph
 
+Add figure information to all plots
 
-add all package pdfs to end
-  gqlr
-  trelliscopejs
-  autocogs
-  GGally
+
+## Chapter Format
+
+* Background information
+  * 1-2 pages?
+  * Get everyone up to speed
+* Existing work
+  * 1-2 pages?
+  * Current group work
+  * could be much more for autocogs
+* Project
+  * 10+ pages
+* Future work
+  * 1 page
+
+
+
+Add links to each package
+
+Move all "background" chapters inside each bigger chapter (3 big sections)
+
+add intro
+  2-3 paragraphs for each major section
+  include a "final" picture for each section
+  include a hierarchy tree for all chapters of information (graphviz)
+
+add conclusion
+  couple paragraphs?
+
+  add a future work section
+    ~ 3 pages in total. Not too much.
+    take a step back and talk about broader topics.  This would be "I've talked a lot about graphics... graphics today are missing blah blah blah interactivity and crosstalk and cohesive environments"
+  should be shorter than intro
+
+after done with intro / conclusion
+  add "index" enumerate of each major package of mine

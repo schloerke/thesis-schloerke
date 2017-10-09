@@ -15,15 +15,15 @@
 
 
 * Sept 20-26 (Week 6)
-  * @ background - ggplot2
+  * √ background - ggplot2
 
 
 * Sept 27-3 (Week 5)
-  * Chapter - ggduo
+  * √ Chapter - ggduo
 
 
 * Oct 4-10 (Week 4)
-  * Chapter - autocogs
+  * @ Chapter - autocogs
 
 
 * Oct 11-17 (Week 3)
@@ -74,18 +74,3 @@ Jiasen's setup
   * Conclusions
     * Why impactful
     * Future direction
-
-
-## Chapter Format
-
-* Background information
-  * 1-2 pages?
-  * Get everyone up to speed
-* Existing work
-  * 1-2 pages?
-  * Current group work
-  * could be much more for autocogs
-* Project
-  * 10+ pages
-* Future work
-  * 1 page
