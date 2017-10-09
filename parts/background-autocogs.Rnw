@@ -1,11 +1,53 @@
-Background - Trelliscope
-  Data
-    Small, medium, large
-      What is large data?
-        Lives on a cluster
-      Embarassingly parallel
-        split apply combine
-          plyr
+\chapter{Trelliscope}
+
+\section{Data Size}
+
+``Big Data'' is a great buzzword, but a poor definition.  Many people use it in completely different contexts with very different meanings.  For this chapter, I will define the usage of different sizes of data in this section.  There are three main sizes of data:  Small Data, Medium Data, and Large Data.
+
+Small Data (Memory Data) consists of in memory data only.  This includes \rinline{data.frames} in R and Excel files.  The advantages are they have the fastest response time when retrieving information and are immediately retrievable.  The major disadvantage to Small Data is the size is limited to the amount of memory on a machine.  \rinline{data.frames} may only get as big as memory can store.  Current machines configurations allow for hundreds of gigabytes of memory.
+
+Medium Data (Disk Data) extends the capabilities of the memory to the storage capacity of the computer.  Data is read to and from disk using memory as a buffer.  Hard drives today can store multiple terabytes of information.  However, retrieving data is much slower as data must be read into memory to be processed.  The gain in size comes at a cost of speed.
+
+Finally, Large Data (Cluster Data) is data that is spread across multiple machines.  Many machines may be used in a cluster to house Large Data.  Large data is the slowest in response time, as data must travel between machines for calculations.  Each machine may store the data in memory or on disk.  Typically each machine stores Medium Data locally, but functions as a cohesive unit globally.  Large Data typically involves a master computer (master node) to determine where a piece of data exists and which cluster computer should be contacted.
+
+Each class of data balances speed and size to achieve the final goal.  These definitions allow for the exponential advancement in computing power (CITE so and so's curve).
+
+\subsection{Computation}
+
+The split-apply-combine \cite{plyr} approach for data computation is applicable for all three types of data.  As the name states, there are three main steps: split the data, apply a function, combine the results.  These three steps may be scaled as necessary given computational powers.
+
+Split.  Data is conditioned on some identifying, or conditioning columns.  This can include the row number (each row is treated uniquely) or may include many existing columns in the dataset.  Like faceting in \pkg{ggplot2}, all conditioning values are considered discrete values.  Once the conditioning columns have been selected, the data is split into groups where the conditioning values match.
+
+Apply.  Once the data frame has been split into independent subsets, a function is applied to each subset.  The same function will be applied to all subsets and a similar result will be returned from each functino execution.
+
+Combine. With similarly shaped results from each subset, the results will be combined into a final result for further analysis.  The uniformity in the result shape makes result combination easy to achieve.
+
+The R package \pkg{plyr} implemented the split-apply-combine approach for all kinds of data shapes: \rinline{array}, \rinline{list}, \rinline{vector}, and \rinline{data.frame}.
+
+<< plyr_example >>=
+library(plyr)
+baseball_19 <- subset(baseball, year < 2000)
+head(baseball_19)
+# input a data.frame
+# output a data.frame
+# condition on "year"
+# summarise the result of total homeruns
+base_hr <- ddply(baseball_19, c("year"), summarise, total_hr = sum(hr))
+tail(base_hr)
+@
+
+The split-apply-combine paradigm applies to each data type.
+
+\begin{enumerate}
+  \item Small, In Memory Data: Can use the \pkg{plyr} pacakge for computation.
+  \item Medium, On Disk Data: The R package \pkg{dplyr} can be used to connect to a MySQL database stored on disk.  Results are executed within the MySQL environment, but returned to the R execution environment.  There are many other data bases that can be connected to R to handle this situation.
+  \item Large, Distributed Data: The R package \pkg{Rhipe} can be used to execute R commands across multiple compute nodes in a cluster.
+\end{enumerate}
+
+Each package implements the split-apply-combine approach to data computation using computational tools built for each sinearo.  Small data is processed using R.  Medium data is processed in a database that is built to handle information larger than memory can hold and results are returned to R.  Finally, Large data is executed in the distributed environment and results are stored in the distributed environment.  If memory allows, distributed results may be returned to R.
+
+\section{What is Trelliscope}
+
 
   Each panel gets the same visualization
     Just like facet_wrap, but executed individually
