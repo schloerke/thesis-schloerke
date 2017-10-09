@@ -53,38 +53,3 @@ Trelliscopejs Visualization
     Could be a url to the housing county on zillow
     Could be population count of county
     Does not have to be R2, mean, median, etc.
-
-
-
-
-    http://ml.stat.purdue.edu/docs/trelliscope.ldav.2013.pdf
-@INPROCEEDINGS{6675164,
-author={R. Hafen and L. Gosink and J. McDermott and K. Rodland and K. K. V. Dam and W. S. Cleveland},
-booktitle={2013 IEEE Symposium on Large-Scale Data Analysis and Visualization (LDAV)},
-title={Trelliscope: A system for detailed visualization in the deep analysis of large complex data},
-year={2013},
-volume={},
-number={},
-pages={105-112},
-abstract={Trelliscope emanates from the Trellis Display framework for visualization and the Divide and Recombine (D&R) approach to analyzing large complex data. In Trellis, the data are broken up into subsets, a visualization method is applied to each subset, and the display result is an array of panels, one per subset. This is a powerful framework for visualization of data, both small and large. In D&R, the data are broken up into subsets, and any analytic method from statistics and machine learning is applied to each subset independently. Then the outputs are recombined. This provides not only a powerful framework for analysis, but also feasible and practical computations using distributed computational facilities. It enables deep analysis of the data: study of both data summaries as well as the detailed data at their finest granularity. This is critical to full understanding of the data. It also enables the analyst to program using an interactive high-level language for data analysis such as R, which allows the analyst to focus more on the data and less on code. In this paper we introduce Trelliscope, a system that scales Trellis to large complex data. It provides a way to create displays with a very large number of panels and an interactive viewer that allows the analyst to sort, filter, and sample the panels in a meaningful way. We discuss the underlying principles, design, and scalable architecture of Trelliscope, and illustrate its use on three analysis projects in proteomics, high intensity physics, and power systems engineering.},
-keywords={bioinformatics;data analysis;data visualisation;learning (artificial intelligence);physics computing;power engineering computing;proteomics;sorting;statistical analysis;Divide and Recombine approach;Trellis Display framework;Trelliscope;data analysis;data summaries;data visualization;detailed visualization;high intensity physics;interactive high-level language;interactive viewer;large complex data deep analysis;machine learning;panel filtering;panel sampling;panel sorting;power systems engineering;proteomics;statistics;visualization method},
-doi={10.1109/LDAV.2013.6675164},
-ISSN={},
-month={Oct},}
-
-@INPROCEEDINGS{1532142,
-author={L. Wilkinson and A. Anand and R. Grossman},
-booktitle={IEEE Symposium on Information Visualization, 2005. INFOVIS 2005.},
-title={Graph-theoretic scagnostics},
-year={2005},
-volume={},
-number={},
-pages={157-164},
-abstract={We introduce Tukey and Tukey scagnostics and develop graph-theoretic methods for implementing their procedure on large datasets.},
-keywords={data visualisation;graph theory;Tukey scagnostics;data visualization;graph-theoretic scagnostics;statistical graphics;Area measurement;Computer interfaces;Covariance matrix;Density measurement;Displays;Kernel;Length measurement;Scattering;Symmetric matrices;Visualization},
-doi={10.1109/INFVIS.2005.1532142},
-ISSN={1522-404X},
-month={Oct},}
-
-
-Computer Graphics and Exploratory Data Analysis: An Introduction In Proc. the Sixth Annual Conference and Exposition: Computer Graphics '85, Vol. III, Technical Sessions (1985), pp. 773-785 by J. W. Tukey, P. A. Tukey
