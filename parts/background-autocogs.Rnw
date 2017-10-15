@@ -16,24 +16,31 @@ Each class of data balances speed and size to achieve the final goal.  These def
 
 The split-apply-combine \cite{plyr} approach for data computation is applicable for all three types of data.  As the name states, there are three main steps: split the data, apply a function, combine the results.  These three steps may be scaled as necessary given computational powers.
 
-Split.  Data is conditioned on some identifying, or conditioning columns.  This can include the row number (each row is treated uniquely) or may include many existing columns in the dataset.  Like faceting in \pkg{ggplot2}, all conditioning values are considered discrete values.  Once the conditioning columns have been selected, the data is split into groups where the conditioning values match.
+Split.  Data is conditioned on some identifying, or conditioning columns.  This can include the row number (each row is treated uniquely) or may include many existing columns in the dataset.  Like faceting in \ggplot, all conditioning values are considered discrete values.  Once the conditioning columns have been selected, the data is split into groups where the conditioning values match.
 
 Apply.  Once the data frame has been split into independent subsets, a function is applied to each subset.  The same function will be applied to all subsets and a similar result will be returned from each functino execution.
 
 Combine. With similarly shaped results from each subset, the results will be combined into a final result for further analysis.  The uniformity in the result shape makes result combination easy to achieve.
 
-The R package \pkg{plyr} implemented the split-apply-combine approach for all kinds of data shapes: \rinline{array}, \rinline{list}, \rinline{vector}, and \rinline{data.frame}.
+The R package \pkg{plyr} implemented the split-apply-combine approach for many kinds of data shapes: \rinline{array}, \rinline{list}, \rinline{vector}, and \rinline{data.frame}.  \pkg{dplyr} has many specific routines to interact with a \rinline{data.frame}.  Examples will be using the \pkg{dplyr} package functions.
 
 << plyr_example >>=
-library(plyr)
-baseball_19 <- subset(baseball, year < 2000)
-head(baseball_19)
+library(dplyr)
+library(gapminder)
+gapminder
+gapminder
 # input a data.frame
 # output a data.frame
 # condition on "year"
 # summarise the result of total homeruns
-base_hr <- ddply(baseball_19, c("year"), summarise, total_hr = sum(hr))
-tail(base_hr)
+gapminder %>%
+  group_by(country, continent) %>%
+  summarise(
+    max_lifeExp = max(lifeExp)
+  ) %>%
+  print() %>%
+  ggplot(aes(max_lifeExp, fill = continent)) +
+    geom_histogram(binwidth = 1)
 @
 
 The split-apply-combine paradigm applies to each data type.
@@ -48,50 +55,79 @@ Each package implements the split-apply-combine approach to data computation usi
 
 \section{What is Trelliscope}
 
+\trelliscopejs is an R package used to visualize data with many conditioning combinations.  \trelliscopejs conditions on columns within the data and displays a plot or piece of information for each plot in an independent panel.
 
-  Each panel gets the same visualization
-    Just like facet_wrap, but executed individually
-  Why not just use facet_wrap or multiple page lattice plots
-    Facet wrap only works with one page.
-      Fails at 100’s plots
-    Lattice can have multiple pages
-      Fails at 1000’s of plots
-    Trelliscope can handle 100k’s of plots
+\trelliscopejs is built to handle more panels than the current plotting frameworks. \ggplot's \rinline{facet_wrap} can feasibly hold 10s - 100s of displays in one plot.  Since \ggplot does not paginate, you are limited to the number of panels you can fit on a screen.  \pkg{lattice} does paginate, so this number can be increased by 100-1000 times.  \pkg{lattice} outputs can be saved to PDF and manually inspected page by page.  This method is efficient in detecting small visual differences between plots.  However, there is a limit to how many plots a human can ingest manually.  If 1000 pages were ingested at two pages a second, it would take over 8 minutes to manually flip through each page.  This does not scale when there are millions of pages to flips through.
 
 
-  Cognostics
-    “Subset metric”
-      Metadata information
-        Univariate statistic
-          Single value
-          Continuous or Discrete
-        Can be used for
-          Sorting
-          Filtering
-            Continuous
-              Less than
-              Greater than
-              Within range
-            Discrete
-              Within picked
-              Regular expression
-        Effective way of traversing your subsets without knowing what each panel looks like
-    For any data types
-      Can be linear models, box plots, etc.
-    Example of gapminder linear model and R^2
+The prior \rinline{gapminder} example found the maximum life expectancy for the 142 countries.  They were then displayed in a plot colored according to the country's continent.  A lot of information can be gleaned from the maximum life expectancy summary plot, but the summary plot does not tell the full story.
 
-Trelliscopejs Visualization
-  Panel display is independent of cognostic information
-  Panel Types
-    R graphic
-    Interactive plot
-    Rbokeh
-    plot.ly
-    Image
-    Iframe to website
-    Tweets
-    Any html content that renders in a browser
-  Cognostic does not have to directly displayed in information
-    Could be a url to the housing county on zillow
-    Could be population count of county
-    Does not have to be R2, mean, median, etc.
+<<>>=
+gapminder %>%
+  filter(country %in% c("Japan", "Switzerland")) %>%
+  ggplot(aes(year, lifeExp)) + geom_line() + facet_wrap(~ country) +
+    ylim(20, 85) + labs(title = "Higher life expectancy countries")
+gapminder %>%
+  filter(country %in% c("Afghanistan", "Rwanda")) %>%
+  ggplot(aes(year, lifeExp)) + geom_line() + facet_wrap(~ country) +
+    ylim(20, 85) + labs(title = "Lower life expectancy countries")
+@
+
+The first plot above displays two longer living countries, Japan and Switzerland.  Japan has a higher max life expectancy, but Switzerland had a higher starting life expectancy.  The second plot displays two lower life expectancy countries, Afghanistan and Rwanda.  Afghanistan has a lower maximum life expectancy, but steadily increases over time.  Rwanda's life expectancy steadily increased until the 1980's when it plumited and recovered by the 2000's.
+
+Summary statistics are great in ingesting information using less data.  However, summary statistics, by their nature, do not convey the full story.
+
+\trelliscopejs allows users to plot full plot detail while allowing users to change how many panels are displayed on the screen at one time, sort the panel ordering, and filter out unwanted panels.  \trelliscopejs achieves this by obtaining a plot for every conditioning combination and suplimentary metrics for each plot.
+
+The example below uses the \rinline{gapminder} dataset.  The \rinline{gapminder} dataset contains an ``Excerpt of the Gapminder data on life expectancy, GDP per capita, and population by country.''  The 142 countries have data from 1952 to 2007.  The example will only use the life expectancy variable.
+
+<<>>=
+library(trelliscopejs)
+
+gapminder %>%
+  group_by(country, continent) %>%
+  # condense the data
+  tidyr::nest() %>%
+  print() ->
+gapminder_condensed
+
+gapminder_condensed %>%
+  # add metrics and plots
+  mutate(
+    # for every subset,
+    min_lifeExp = purrr::map_dbl(data, function(dt) min(dt$lifeExp)),
+    max_lifeExp = purrr::map_dbl(data, function(dt) max(dt$lifeExp)),
+    panel = map_plot(data, function(dt) {
+      # display a line plot of X:year, Y:life expectancy
+      ggplot(dt, aes(year, lifeExp)) + geom_line() + ylim(20, 85)
+    })
+  ) %>%
+  # remove the condensed data
+  select(-data) %>%
+  print() ->
+gap_trellis
+
+# display the plots and metrics in trelliscopejs
+gap_trellis %>%
+  trelliscope("gapminder", nrow = 3, ncol = 5)
+@
+
+This \trelliscopejs html widget in the example above displays three rows and five columns of panels.  There are \rinline{142} panels in total, making 10 pages of panels in total.  While this example does not display millions of panels, it does convey the capabilities of the widget.  Icons on the left open foldout displays for layout control, turning labels on and off, filtering using metrics, and panel sorting.
+
+
+\section{Cognostics}
+
+Displaying panels alone has already been solved with \ggplot and \pkg{lattice}.  Scaling panels beyond \pkg{lattice}'s limits is still limited without the use of sorting and filtering the panels.  \trelliscopejs's power is leveraging subset metrics to organize the panels.  These subset metrics are called \emph{cognostics}.  Cognostics are univariate statistics calculated for every independent subset of the conditioned data.
+
+Cognostics can be simple summary statistics such as \rinline{mean} or \rinline{median}, or can be meta data information such as a URL or census information.  Cognostics eventually are displayed as two types: continuous or discrete.  Continuous values can be filtered using open or closed ranges.  An example of a open range would include the \rinline{gapminder} country panels being filtered by maximum life expectancy values which are less than 70 years.  A closed range example would have both a \emph{from} and a \emph{to} in the selection range, i.e. within 50 to 65 years of age. Currently, \trelliscopejs does not support more than one range selection per variable.
+
+% TODO show less than 70 years
+% \includegraphics{}
+
+
+With \trelliscopejs, Discrete values are handled using regular expressions or by manually selecting values.  When using regular expressions, matching values are displayed immediately.  The immediate feedback confirms whether the regular expression was successful or needs to be updated.
+
+All of the cognostic filters are applied as a collective, logical \emph{and}.  Multiple filters are a part of the data analysis process and are embraced in \trelliscopejs.
+
+
+\trelliscopejs allows for cognostics to be any univariate value.  This may also include a URL.  While filtering is not effective for a URL, linking to external websites for a particular panel can be useful.  For example, when looking at the housing sales for every county in the United States, a URL can be linked to the website Zillow that displays all current housing sales on the Zillow website for that particular county.

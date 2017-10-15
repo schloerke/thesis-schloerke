@@ -6,7 +6,7 @@
 
 \subsection{Pairs Plot}
 
-  As the last chapter mentioned, \pkg{ggplot2} is designed to allow plots to be built layer by layer and not rendered until a final print command is executed.  \pkg{ggplot2} plot objects has some implementation rules it follows when facet'ing a plot.
+  As the last chapter mentioned, \ggplot is designed to allow plots to be built layer by layer and not rendered until a final print command is executed.  \ggplot plot objects has some implementation rules it follows when facet'ing a plot.
 
   \begin{enumerate}
     \item Each faceted panel must share the same original X and Y columns.
@@ -33,7 +33,7 @@
 pairs(tips[c("total_bill", "tip", "smoker", "day")])
 @
 
-  Emerson et.al. discussed using a generalized pairs plot to handle the mix of variable types by providing different plotting layers for different data types.  The generalized pairs plot displays the same collection of data using different axes but allows for a mix of plotting methods and both continuous and discrete plot axes.  This addresses the issue of overplotting in discrete columns when only displaying data in a scatterplot matrix.  Below are the two default plotting methods to handle the overplotting issue.  The \pkg{gpairs} R package (CITE) is printed using \pkg{lattice} graphics, while the \pkg{GGally} R package prints using \pkg{ggplot2} graphics.
+  Emerson et.al. discussed using a generalized pairs plot to handle the mix of variable types by providing different plotting layers for different data types.  The generalized pairs plot displays the same collection of data using different axes but allows for a mix of plotting methods and both continuous and discrete plot axes.  This addresses the issue of overplotting in discrete columns when only displaying data in a scatterplot matrix.  Below are the two default plotting methods to handle the overplotting issue.  The \pkg{gpairs} R package (CITE) is printed using \pkg{lattice} graphics, while the \pkg{GGally} R package prints using \ggplot graphics.
 
 << gpairs_intro >>=
 gpairs::gpairs(tips[, c("total_bill", "tip", "smoker", "day")])
@@ -44,11 +44,11 @@ pm <- ggpairs(tips, c("total_bill", "tip", "smoker", "day"))
 pm
 @
 
-\rinline{gpairs::gpairs} was originally built to handle the generalization of the pairs plot to include discrete data.  Unfortunately, this is written using \pkg{lattice} graphics and does not utilize the \pkg{ggplot2} framework.  \rinline{GGally::ggpairs} was originally written as an independent port of of \rinline{gpairs} to the \pkg{ggplot2} framework but with portability and modularization kept in mind.
+\rinline{gpairs::gpairs} was originally built to handle the generalization of the pairs plot to include discrete data.  Unfortunately, this is written using \pkg{lattice} graphics and does not utilize the \ggplot framework.  \rinline{GGally::ggpairs} was originally written as an independent port of of \rinline{gpairs} to the \ggplot framework but with portability and modularization kept in mind.
 
 \rinline{ggpairs} addressed this by
 \begin{enumerate}
-  \item making each sub plot an indpenedently functioning \pkg{ggplot2} plot
+  \item making each sub plot an indpenedently functioning \ggplot plot
   \item allowing each sub plot to be replaced after the initial plot matrix is created
   \item not displaying the plot matrix until the \rinline{print} command is executed
 \end{enumerate}
@@ -77,7 +77,7 @@ The \rinline{ggmatrix} object is used to handle two main situations: handle mixe
 
 \subsection{Plot Scales}
 
-\pkg{ggplot2} prevents discrete scales from being mixed with continuous scales.  Two different scales for the same axis is not possible in a single panel plot and \pkg{ggplot2} is built on the small multiple princple of displaying similar scales in every faceted panel.   The ability to display different axes natively in the same plot matrix is not possible with ggplot2.  Only one scale type is used per ggmatrix panel.  This keeps the original `per panel' logic intact. Before the \rinline{ggmatrix} object, to produce two, related mixed axes plots in the same graphic could only be achieved using the \pkg{gridExtra} or \pkg{grid} R packages.  Both of these existing methods behaved like a side by side print method, rather than a native plot matrix.
+\ggplot prevents discrete scales from being mixed with continuous scales.  Two different scales for the same axis is not possible in a single panel plot and \ggplot is built on the small multiple princple of displaying similar scales in every faceted panel.   The ability to display different axes natively in the same plot matrix is not possible with ggplot2.  Only one scale type is used per ggmatrix panel.  This keeps the original `per panel' logic intact. Before the \rinline{ggmatrix} object, to produce two, related mixed axes plots in the same graphic could only be achieved using the \pkg{gridExtra} or \pkg{grid} R packages.  Both of these existing methods behaved like a side by side print method, rather than a native plot matrix.
 
 << grid_extra >>=
 p1 <- pm[1,4]
@@ -90,19 +90,19 @@ gridExtra::grid.arrange(p1, p2, ncol = 1)
 
 \subsection{Display Information}
 
-The necessary information includes the number of rows and columns, label information, \pkg{ggplot2} display theme information,  how plot strips should be displayed, default plot data, and individual plot information.
+The necessary information includes the number of rows and columns, label information, \ggplot display theme information,  how plot strips should be displayed, default plot data, and individual plot information.
 
 << str, size = "scriptsize" >>=
 str(pm)
 @
 
-For memory optimization, each plot is stored as a function that will produce the \pkg{ggplot2} plot at print time.  To do so, the dataset provided at \rinline{ggpairs} inception sets a default dataset to be used at print time.  If a new sub plot is stored after inception, the  full plot \pkg{ggplot2} object is stored directly.
+For memory optimization, each plot is stored as a function that will produce the \ggplot plot at print time.  To do so, the dataset provided at \rinline{ggpairs} inception sets a default dataset to be used at print time.  If a new sub plot is stored after inception, the  full plot \ggplot object is stored directly.
 
 
 
-Similar to \pkg{ggplot2}'s function \rinline{ggplot_gtable}, \rinline{ggmatrix_gtable} produces display only information that the \pkg{grid} graphics framework uses to display the plot. To retrieve all necessary display information, \rinline{ggmatrix_gtable} executes \rinline{ggplot_gtable} for each sub plot individually, then extracts the required plotting display information (panel and possibly panel strips) from each sub plot.  These subplot panels are then placed into the final plot matrix.
+Similar to \ggplot's function \rinline{ggplot_gtable}, \rinline{ggmatrix_gtable} produces display only information that the \pkg{grid} graphics framework uses to display the plot. To retrieve all necessary display information, \rinline{ggmatrix_gtable} executes \rinline{ggplot_gtable} for each sub plot individually, then extracts the required plotting display information (panel and possibly panel strips) from each sub plot.  These subplot panels are then placed into the final plot matrix.
 
-The resulting plot matrix is displayed with the exact same styling as \pkg{ggplot2}'s \rinline{facet_grid}. This returns all the display theme styling and display constraints back onto \pkg{ggplot2}. This means legends may be used.
+The resulting plot matrix is displayed with the exact same styling as \ggplot's \rinline{facet_grid}. This returns all the display theme styling and display constraints back onto \ggplot. This means legends may be used.
 
 << ggpairs_legend >>=
 # color the plots according to smoker
@@ -329,7 +329,7 @@ ggnostic(
 
 % \section{Future Direction}
 % % * (<= 1 pages)
-% Currently all individual plots are rendered at run time. With \pkg{ggplot2} being known for having slower print speeds (CITE), this could be problimatic.  Currently, $n * m$ individual plots are printed.
+% Currently all individual plots are rendered at run time. With \ggplot being known for having slower print speeds (CITE), this could be problimatic.  Currently, $n * m$ individual plots are printed.
 % currently printing n*m plots takes time.
 %
 %

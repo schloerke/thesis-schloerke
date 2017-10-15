@@ -1,3 +1,7 @@
+For any data types
+  Can be linear models, box plots, etc.
+Example of gapminder linear model and R^2
+
 
 Autocogs
   Scagnostics

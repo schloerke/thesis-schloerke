@@ -22,7 +22,8 @@ Imports:
   trelliscopejs,
   gpairs,
   gridExtra,
-    fpp2
+    fpp2,
+    purrr
 Remotes:
   schloerke/autocogs,
   schloerke/trelliscopejs@autocogs
