@@ -1,6 +1,134 @@
+\chapter{Automatic Cognostics}
+
+From a data plotting perspective, we will want to utilize what is already being displayed in the plot to sort and filter the panels of a \trelliscopejs widget.  This information is not readily available.
+
+Using the prior gapminder example, the $X$ and $Y$ locations of the data must be retrieved manually.  While the prior example only retrieved the minimum and maximum values for each panel, the median and mean values may be of interest as well. These statistics were only looking at the $Y$ variable.  There are many more statistics involving both the $Y$ variable and the $X$ variable.  The $X$ and $Y$ covariance and correlation are added.  A linear model (\rinline{geom_smooth(method = "lm")}) was also added to detect linear trend deviations.
+
+<< add_metrics >>=
+gapminder_condensed %>%
+  mutate(
+    # add metrics
+    min_lifeExp = purrr::map_dbl(data, function(dt) min(dt$lifeExp)),
+    mean_lifeExp = purrr::map_dbl(data, function(dt) mean(dt$lifeExp)),
+    median_lifeExp = purrr::map_dbl(data, function(dt) median(dt$lifeExp)),
+    max_lifeExp = purrr::map_dbl(data, function(dt) max(dt$lifeExp)),
+    cov = purrr::map_dbl(data, function(dt) cov(dt$year, dt$lifeExp)),
+    corr = purrr::map_dbl(data, function(dt) cor(dt$year, dt$lifeExp)),
+
+    # add panel
+    panel = map_plot(data, function(dt) {
+      # display a line plot of X:year, Y:life expectancy
+      ggplot(dt, aes(year, lifeExp)) +
+        geom_smooth(method = "lm") +
+        geom_line() +
+        ylim(20, 85)
+    })
+  ) %>%
+  # remove the condensed data
+  select(-data) %>%
+  print() ->
+gap_trellis_plus
+
+gap_trellis_plus %>%
+  trelliscope("gapminder", nrow = 3, ncol = 5, path = "example/gapminder_plus")
+@
+
+The amount of work to retrieve information that can be readily seen or calculated from the visual display is quickly increasing.  At first, there were two values used.  Now there are six values used to explain just the $Y$ data and the $\left\{X,Y\right\}$ combination.  As the amount of layers increase, the number of cognostics needed to explain the plot layer will also increase.  Given that each plotting panel already contains a vast amount of information, it should be leveraged to generate cognostics automatically.
+
+\subsection{Example}
+
+Using the panel column only, we will derive many cognostics using the \pkg{autocogs} R package.
+
+<< autocogs_first >>=
+gapminder %>%
+  group_by(country, continent) %>%
+  tidyr::nest() %>%
+  mutate(
+    panel = map_plot(data, function(dt) {
+      # display a line plot of X:year, Y:life expectancy
+      ggplot(dt, aes(year, lifeExp)) +
+        geom_smooth(method = "lm") +
+        geom_line() +
+        ylim(20, 85)
+    })
+  ) %>%
+  select(-data) %>% # remove the condensed data
+  print() ->
+gap_panel
+
+gap_auto <- autocogs::add_panel_cogs(gap_panel)
+gap_auto %>% print(width = 150)
+@
+
+For each panel, \rinline{2 + 19 + 5 + 5 + 2 + 5 = 38} cognostics were auto generated to aid in exploration of the panels.
+
+
+
+TODO keep writing
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Using the \rinline{gapminder} dataset as an example, we can explore the linear model trend of the life expectancy over time.
+
+%\trelliscopejs has integrated functionality with \ggplot, so we will reduce the amount of code using the function \rinline{facet_trelliscope}.
+
+<< all_info  >>=
+gapminder_condensed %>%
+  mutate(
+    # add metrics
+    min_lifeExp = purrr::map_dbl(data, function(dt) min(dt$lifeExp)),
+    max_lifeExp = purrr::map_dbl(data, function(dt) max(dt$lifeExp)),
+    # add panel
+    panel = map_plot(data, function(dt) {
+      # display a line plot of X:year, Y:life expectancy
+      ggplot(dt, aes(year, lifeExp)) +
+        geom_smooth(method = "lm") +
+        geom_line() +
+        ylim(20, 85)
+    })
+  ) %>%
+  # remove the condensed data
+  select(-data) %>%
+  print() ->
+gap_trellis
+
+# display the plots and metrics in trelliscopejs
+gap_trellis %>%
+  trelliscope("gapminder", nrow = 3, ncol = 5, path = "example/gapminder")
+@
+
+<< lm_facet >>=
+gapminder %>%
+  ggplot(aes(year, lifeExp)) +
+    geom_line() +
+    geom_smooth(method = "lm") +
+    facet_trelliscope(~ continent + country, nrow = 3, ncol = 5, path = "example/gapminder_facet")
+@
+
+Each panel contains a linear model that can be used to interpret each countries' life expectancy over time.  The linear model information contained within each panel is not calculated until \ggplot displays the plot.  Information within each model can be useful when sorting panels within trelliscopejs.  This
+
+
+
 For any data types
   Can be linear models, box plots, etc.
-Example of gapminder linear model and R^2
+Example of gapminder linear model and $R^2$
 
 
 Autocogs
@@ -18,13 +146,13 @@ Autocogs
     Connect to plotting frameworks,
       Short paragraph (and example?) on each one
       Ggplot2 layers
-        Geom_point
-        Geom_line
+        $Geom_point$
+        $Geom_line$
         etc...
 
 Future work
   Add cognostics for time series data
   Add safety layer for the execution (try catch)
-  Add message similar to facet_map to submit them to github
+  Add message similar to $facet_map$ to submit them to github
   Add rbokeh layer connections
   Add plotly layer connections

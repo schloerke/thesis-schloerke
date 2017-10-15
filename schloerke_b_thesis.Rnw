@@ -106,6 +106,12 @@ knitr::opts_chunk$set(
 % @
 << sum2, child='parts/package_summaries.Rnw'>>=
 @
+
+<< sum2, child='parts/background-autocogs.Rnw'>>=
+@
+<< sum2, child='parts/autocogs.Rnw'>>=
+@
+
 << sum2, child='parts/background-ggplot2.Rnw'>>=
 @
 << sum2, child='parts/ggduo.Rnw'>>=

@@ -28,7 +28,6 @@ The R package \pkg{plyr} implemented the split-apply-combine approach for many k
 library(dplyr)
 library(gapminder)
 gapminder
-gapminder
 # input a data.frame
 # output a data.frame
 # condition on "year"
@@ -62,7 +61,7 @@ Each package implements the split-apply-combine approach to data computation usi
 
 The prior \rinline{gapminder} example found the maximum life expectancy for the 142 countries.  They were then displayed in a plot colored according to the country's continent.  A lot of information can be gleaned from the maximum life expectancy summary plot, but the summary plot does not tell the full story.
 
-<<>>=
+<< gapminder_best_worst >>=
 gapminder %>%
   filter(country %in% c("Japan", "Switzerland")) %>%
   ggplot(aes(year, lifeExp)) + geom_line() + facet_wrap(~ country) +
@@ -81,7 +80,7 @@ Summary statistics are great in ingesting information using less data.  However,
 
 The example below uses the \rinline{gapminder} dataset.  The \rinline{gapminder} dataset contains an ``Excerpt of the Gapminder data on life expectancy, GDP per capita, and population by country.''  The 142 countries have data from 1952 to 2007.  The example will only use the life expectancy variable.
 
-<<>>=
+<< trelliscopejs >>=
 library(trelliscopejs)
 
 gapminder %>%
@@ -109,7 +108,7 @@ gap_trellis
 
 # display the plots and metrics in trelliscopejs
 gap_trellis %>%
-  trelliscope("gapminder", nrow = 3, ncol = 5)
+  trelliscope("gapminder", nrow = 3, ncol = 5, path = "example/gapminder")
 @
 
 This \trelliscopejs html widget in the example above displays three rows and five columns of panels.  There are \rinline{142} panels in total, making 10 pages of panels in total.  While this example does not display millions of panels, it does convey the capabilities of the widget.  Icons on the left open foldout displays for layout control, turning labels on and off, filtering using metrics, and panel sorting.

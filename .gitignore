@@ -20,3 +20,4 @@ cache
 _minted-schloerke_b_thesis
 *.pyc
 *.egg-info
+parts/example
