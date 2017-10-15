@@ -1,9 +1,12 @@
 
 GraphQL
-? Introduction paragraph
-- conclusion / wrap up paragraph
+  ? Introduction paragraph
+  - conclusion / wrap up paragraph
 
 Add figure information to all plots
+
+Autocogs background
+  add pictures to filtering
 
 
 ## Chapter Format
@@ -22,7 +25,7 @@ Add figure information to all plots
 
 
 
-Add links to each package
+Add links to each package in package description page
 
 Move all "background" chapters inside each bigger chapter (3 big sections)
 
