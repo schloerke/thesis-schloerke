@@ -86,7 +86,7 @@ knitr::opts_chunk$set(
 
 % \newcommand{\pkg}[1]{{\fontseries{b}\selectfont #1}}
 % \newcommand{\pkg}[1]{{\texttt\selectfont #1}}
-\newcommand{\pkg}[1]{\texttt{#1}}
+\newcommand{\pkg}[1]{\texttt{#1} }
 \newcommand{\ggplot}{\pkg{ggplot2}}
 \newcommand{\trelliscopejs}{\pkg{trelliscopejs}}
 \newcommand{\autocogs}{\pkg{autocogs}}
