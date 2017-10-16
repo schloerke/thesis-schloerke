@@ -1,7 +1,11 @@
 
 # Schloerke Thesis [![Build Status](https://travis-ci.org/schloerke/thesis-schloerke.svg?branch=master)](https://travis-ci.org/schloerke/thesis-schloerke)
 
-[PDF View](http://schloerke/thesis-schloerke/)
+[PDF View](http://thesis.schloerke.com)
+
+![Chapter Information](./dot/intro_hierarchy.pdf)
+
+
 
 ## Timeline
 

@@ -89,6 +89,7 @@ knitr::opts_chunk$set(
 \newcommand{\pkg}[1]{\texttt{#1}}
 \newcommand{\ggplot}{\pkg{ggplot2}}
 \newcommand{\trelliscopejs}{\pkg{trelliscopejs}}
+\newcommand{\autocogs}{\pkg{autocogs}}
 
 
 \begin{document}
@@ -96,28 +97,34 @@ knitr::opts_chunk$set(
 \volume
 
 % Front matter (dedication, etc.).
-\include{parts/front}
 
-\include{parts/introduction}
+<< part_front, child='parts/front.Rnw'>>=
+@
+<< part_intro, child='parts/introduction.Rnw'>>=
+@
 
 % Put chapter \include commands here.
 
-% << sum2, child='parts/summary2.Rnw'>>=
-% @
-<< sum2, child='parts/package_summaries.Rnw'>>=
+<< part_pkg_summaries, child='parts/package_summaries.Rnw'>>=
 @
 
-<< sum2, child='parts/background-autocogs.Rnw'>>=
+<< part_background_autocogs, child='parts/background-autocogs.Rnw'>>=
 @
-<< sum2, child='parts/autocogs.Rnw'>>=
-@
-
-<< sum2, child='parts/background-ggplot2.Rnw'>>=
-@
-<< sum2, child='parts/ggduo.Rnw'>>=
+<< part_autocogs, child='parts/autocogs.Rnw'>>=
 @
 
-<< sum2, child='parts/graphql.Rnw'>>=
+<< part_ggplot2, child='parts/background-ggplot2.Rnw'>>=
+@
+<< part_ggduo, child='parts/ggduo.Rnw'>>=
+@
+
+<< part_graphql, child='parts/graphql.Rnw'>>=
+@
+
+
+<< part_summary, child='parts/summary.Rnw'>>=
+@
+<< part_recommendations, child='parts/recommendations.Rnw'>>=
 @
 
 \include{parts/summary}
@@ -130,12 +137,14 @@ knitr::opts_chunk$set(
 % appendix.
 \appendices
 
-\include{parts/demo-citations}
-\include{parts/demo-figures}
-\include{parts/demo-mathematics}
-\include{parts/demo-multicols}
-\include{parts/demo-tables}
-\include{parts/demo-text}
+% TODO add subset of R package index function descriptions for all major packages
+
+% \include{parts/demo-citations}
+% \include{parts/demo-figures}
+% \include{parts/demo-mathematics}
+% \include{parts/demo-multicols}
+% \include{parts/demo-tables}
+% \include{parts/demo-text}
 
 % A vita is optional for masters theses
 % and required for doctoral dissertations.
