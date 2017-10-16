@@ -1,37 +1,89 @@
 digraph G {
+
+  compound = true;
+  splines = false;
+  ranksep= "0.3";
+
+  subgraph cluster_cogA {
+    label = "Cognostic Group A"
+    ranksep= "0.5";
+    cogA1 [label = "Cognostic A.1"];
+    cogA2 [label = "Cognostic A.2"];
+    cogA1 -> cogA2 [style=invis];
+  }
+
+  subgraph cluster_cogB {
+    label = "Cognostic Group B"
+    cogB1 [label = "Cognostic B.1"];
+    cogB2 [label = "Cognostic B.2"];
+    cogB3 [label = "Cognostic B.3"];
+    cogB4 [label = "Cognostic B.4"];
+    cogB1 -> cogB2 -> cogB3 -> cogB4 [style=invis];
+  }
+  /*subgraph cluster_cogC {
+    label = "Cognostic Group C"
+    cogC1 [label = "Cognostic C.1"];
+    cogC2 [label = "Cognostic C.2"];
+    cogC1 -> cogC2 [style=invis];
+  }*/
+  subgraph cluster_cogD {
+    label = "Cognostic Group ..."
+    cogD1 [label = "Cognostic ..."];
+  }
+  subgraph cluster_cogZ {
+    label = "Cognostic Group M"
+    cogZ1 [label = "Cognostic M.1"];
+    cogZ2 [label = "Cognostic M.2"];
+    cogZ3 [label = "Cognostic M.3"];
+    cogZ1 -> cogZ2 -> cogZ3 [style=invis];
+  }
+
   "Plot" -> "Layer 1"
   "Plot" -> "Layer 2"
   "Plot" -> "Layer 3"
   "Plot" -> "Layer ..."
   "Plot" -> "Layer N"
 
-  "Layer 1" -> "Cognostic A"
-  "Layer 1" -> "Cognostic B"
-  "Layer 1" -> "Cognostic C"
-  /*"Layer 1" -> "Cognostic ..."*/
-  /*"Layer 1" -> "Cognostic Z"*/
 
-  "Layer 2" -> "Cognostic A"
-  "Layer 2" -> "Cognostic B"
-  "Layer 2" -> "Cognostic C"
-  "Layer 2" -> "Cognostic ..."
-  /*"Layer 2" -> "Cognostic Z"*/
+  "Layer 1" -> cogA1 [lhead=cluster_cogA];
+  "Layer 1" -> cogB1 [lhead=cluster_cogB];
+  /*"Layer 1" -> cogC1 [lhead=cluster_cogC];*/
+  /*"Layer 1" -> cogD1 [lhead=cluster_cogD];*/
+  /*"Layer 1" -> cogZ1 [lhead=cluster_cogZ]; */
 
-  /*"Layer 3" -> "Cognostic A"*/
-  "Layer 3" -> "Cognostic B"
-  "Layer 3" -> "Cognostic C"
-  "Layer 3" -> "Cognostic ..."
-  /*"Layer 3" -> "Cognostic Z"*/
+  "Layer 2" -> cogA1 [lhead=cluster_cogA];
+  "Layer 2" -> cogB1 [lhead=cluster_cogB];
+  /*"Layer 2" -> cogC1 [lhead=cluster_cogC];*/
+  "Layer 2" -> cogD1 [lhead=cluster_cogD];
+  /*"Layer 2" -> cogZ1 [lhead=cluster_cogZ];*/
 
-  /*"Layer ..." -> "Cognostic A"*/
-  "Layer ..." -> "Cognostic B"
-  "Layer ..." -> "Cognostic C"
-  "Layer ..." -> "Cognostic ..."
-  "Layer ..." -> "Cognostic Z"
+  /*"Layer 3" -> cogA1 [lhead=cluster_cogA];*/
+  "Layer 3" -> cogB1 [lhead=cluster_cogB];
+  /*"Layer 3" -> cogC1 [lhead=cluster_cogC];*/
+  "Layer 3" -> cogD1 [lhead=cluster_cogD];
+  /*"Layer 3" -> cogZ1 [lhead=cluster_cogZ];*/
 
-  /*"Layer N" -> "Cognostic A"
-  "Layer N" -> "Cognostic B"*/
-  "Layer N" -> "Cognostic C"
-  "Layer N" -> "Cognostic ..."
-  "Layer N" -> "Cognostic Z"
+  /*"Layer ..." -> cogA1 [lhead=cluster_cogA];*/
+  "Layer ..." -> cogB1 [lhead=cluster_cogB];
+  /*"Layer ..." -> cogC1 [lhead=cluster_cogC];*/
+  "Layer ..." -> cogD1 [lhead=cluster_cogD];
+  "Layer ..." -> cogZ1 [lhead=cluster_cogZ];
+
+  /*"Layer N" -> cogA1 [lhead=cluster_cogA];
+  "Layer N" -> cogB1 [lhead=cluster_cogB];*/
+  /*"Layer N" -> cogC1 [lhead=cluster_cogC];*/
+  "Layer N" -> cogD1 [lhead=cluster_cogD];
+  "Layer N" -> cogZ1 [lhead=cluster_cogZ];
+
+  "Layer 1" -> A [style=invis];
+  "Layer 2" -> A [style=invis];
+  "Layer 3" -> A [style=invis];
+  "Layer ..." -> A [style=invis];
+  "Layer N" -> A [style=invis];
+  A -> cogA1 [style=invis];
+  A -> cogB1 [style=invis];
+  /*A -> cogC1 [style=invis];*/
+  A -> cogD1 [style=invis];
+  A -> cogZ1 [style=invis];
+  A  [style=invis];
 }
