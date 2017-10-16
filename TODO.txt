@@ -9,22 +9,6 @@ Autocogs background
   add pictures to filtering
 
 
-## Chapter Format
-
-* Background information
-  * 1-2 pages?
-  * Get everyone up to speed
-* Existing work
-  * 1-2 pages?
-  * Current group work
-  * could be much more for autocogs
-* Project
-  * 10+ pages
-* Future work
-  * 1 page
-
-
-
 Add links to each package in package description page
 
 Move all "background" chapters inside each bigger chapter (3 big sections)
@@ -44,3 +28,41 @@ add conclusion
 
 after done with intro / conclusion
   add "index" enumerate of each major package of mine
+
+
+
+
+
+## Jiasen's Thesis Format
+
+* Intro (40-50 of textbook like information)
+  * Start from very basics, as if I don't know anything
+  * Provide motivation
+* Background
+* Lit review (or in each chapter)
+* Chapters
+* Closer
+  * How to combine to make a super project
+* Appendix
+  * attach pdf manuals of R packages
+
+# Jiasen's info
+
+* Sections
+  * Introduction
+    * why impactful
+    * why important
+    * contributions
+    * organization
+      * mini abstract for each chapters
+  * Background (bigger)
+    * Should all be existing things
+    * Should very familiar for anyone in the field, but not familiar for people outside
+    * Show how much you know about the area
+    * Statistician should be able to understand quickly
+    * Filled with links to papers and sites
+  * Contributions
+    * can be independent
+  * Conclusions
+    * Why impactful
+    * Future direction
