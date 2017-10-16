@@ -1,0 +1,122 @@
+/* http://webgraphviz.com */
+/* http://www.graphviz.org/pdf/dotguide.pdf */
+/* http://graphviz.org/doc/info/attrs.html */
+/* http://colorbrewer2.org/#type=qualitative&scheme=Pastel2&n=5 */
+
+digraph G {
+	compound = true;
+	splines=true;
+
+	subgraph cluster_r {
+		label = "R";
+		style=dotted;
+		subgraph cluster_vizualization  {
+			style=filled;
+			color="#cbd5e8";
+			label = "R Visualization";
+
+			/*style=filled;*/
+			/*color=lightgrey;*/
+			/*node [style=filled,color=white];*/
+
+			subgraph cluster_ggplot2 {
+				style=dotted;
+				color = black;
+				bgcolor = white;
+
+				label = "ggplot2";
+				subgraph cluster_GGally {
+					label = "GGally";
+					style=solid;
+					ggmatrix -> ggpairs;
+					ggmatrix -> ggduo;
+					ggduo -> ggnostic;
+					ggduo -> ggts;
+
+					ggmatrix [label = "GGally::ggmatrix"];
+					ggpairs [label = "GGally::ggpairs"];
+					ggduo [
+						/*style=bold, fillcolor = grey76, */
+						penwidth = 3,
+						label = "GGally::ggduo"
+					];
+					ggnostic [
+						/*style=bold, fillcolor = grey88, */
+						penwidth = 3,
+						label = "GGally::ggnostic"
+					];
+					ggts [
+						/*style=bold, fillcolor = grey88, */
+						penwidth = 3,
+						label = "GGally::ggts"
+					];
+				}
+			}
+
+			subgraph cluster_browser {
+				label = "Web Browser";
+				style=filled;
+				fillcolor = "#e6f5c9";
+				subgraph cluster_widget {
+					label = "htmlwidgets";
+					style=dotted;
+					color = black;
+					bgcolor = white;
+					trelliscopejs [shape=box];
+				}
+			}
+
+			subgraph plotting {
+				lattice [shape=box, style=filled, color = black, fillcolor = white];
+				rbokeh [shape=box, style=filled, color = black, fillcolor = white];
+				plotly [shape=box, style=filled, color = black, fillcolor = white];
+			}
+
+
+			subgraph cluster_autocogs {
+				label = "Plot Inspection"
+				fillcolor = "#fdcdac";
+				autocogs [shape=box, style=filled,
+					/*fillcolor = grey76, */
+					fillcolor = white,
+					penwidth=3];
+			}
+
+
+		}
+
+
+		subgraph cluster_data {
+			label = "Data Query\nAPI";
+			style=filled;
+			color="#f4cae4";
+			gqlr [shape = box, style = filled,
+				/* fillcolor = grey76, */
+				fillcolor=white,
+				penwidth = 3];
+		}
+	}
+
+
+
+	ggmatrix -> autocogs [ltail = cluster_ggplot2];
+
+	/*ggduo -> trelliscopejs [ltail = cluster_ggplot2, constraint = false];*/
+
+	trelliscopejs -> lattice [dir=back];
+	trelliscopejs -> rbokeh [dir=back];
+	trelliscopejs -> plotly [dir=back];
+
+	trelliscopejs -> ggts [dir=back, color=black, lhead=cluster_ggplot2];
+
+	autocogs -> trelliscopejs [constraint=false];
+
+	autocogs -> rbokeh [dir=back, style=dashed];
+	autocogs -> lattice [dir=back, style=dashed, ];
+	autocogs -> plotly [dir=back, style=dashed];
+
+	gqlr -> trelliscopejs [dir=both, lhead = cluster_browser];
+	/* to help with height differences */
+	gqlr -> autocogs [color=transparent];
+
+}

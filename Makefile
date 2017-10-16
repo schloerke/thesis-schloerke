@@ -21,6 +21,16 @@ clean:
 	Rscript -e "unlink(file.path(\"parts\", \"*.c\"))"
 	Rscript -e "unlink(file.path(\"graphqllexer\", \"*.pyc\"))"
 
+dotbuild:
+	VALS=`ls dot | grep .dot | sed s/\.dot$$//` ; \
+	for FILE in $$VALS; do \
+		if [ ! -f "dot/$$FILE.pdf" ]; then \
+			dot "dot/$$FILE.dot" -Tpdf -o "dot/$$FILE.pdf" ; \
+		else \
+			echo "skipping: $$FILE.pdf"; \
+		fi \
+	done
+
 reset:
 	make clean
 	Rscript -e "unlink(\"cache\", recursive = TRUE)"

@@ -1,0 +1,37 @@
+digraph G {
+  "Plot" -> "Layer 1"
+  "Plot" -> "Layer 2"
+  "Plot" -> "Layer 3"
+  "Plot" -> "Layer ..."
+  "Plot" -> "Layer N"
+
+  "Layer 1" -> "Cognostic A"
+  "Layer 1" -> "Cognostic B"
+  "Layer 1" -> "Cognostic C"
+  /*"Layer 1" -> "Cognostic ..."*/
+  /*"Layer 1" -> "Cognostic Z"*/
+
+  "Layer 2" -> "Cognostic A"
+  "Layer 2" -> "Cognostic B"
+  "Layer 2" -> "Cognostic C"
+  "Layer 2" -> "Cognostic ..."
+  /*"Layer 2" -> "Cognostic Z"*/
+
+  /*"Layer 3" -> "Cognostic A"*/
+  "Layer 3" -> "Cognostic B"
+  "Layer 3" -> "Cognostic C"
+  "Layer 3" -> "Cognostic ..."
+  /*"Layer 3" -> "Cognostic Z"*/
+
+  /*"Layer ..." -> "Cognostic A"*/
+  "Layer ..." -> "Cognostic B"
+  "Layer ..." -> "Cognostic C"
+  "Layer ..." -> "Cognostic ..."
+  "Layer ..." -> "Cognostic Z"
+
+  /*"Layer N" -> "Cognostic A"
+  "Layer N" -> "Cognostic B"*/
+  "Layer N" -> "Cognostic C"
+  "Layer N" -> "Cognostic ..."
+  "Layer N" -> "Cognostic Z"
+}
