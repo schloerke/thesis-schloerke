@@ -26,6 +26,7 @@ dotbuild:
 	for FILE in $$VALS; do \
 		if [ ! -f "dot/$$FILE.pdf" ]; then \
 			dot "dot/$$FILE.dot" -Tpdf -o "dot/$$FILE.pdf" ; \
+			dot "dot/$$FILE.dot" -Tpng -o "dot/$$FILE.png" ; \
 		else \
 			echo "skipping: $$FILE.pdf"; \
 		fi \

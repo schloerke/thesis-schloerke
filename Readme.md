@@ -3,8 +3,7 @@
 
 [PDF View](http://thesis.schloerke.com)
 
-![Chapter Information](./dot/intro_hierarchy.pdf)
-
+![Chapter Information](./dot/intro_hierarchy.png)
 
 
 ## Timeline
