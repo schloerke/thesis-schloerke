@@ -7,7 +7,7 @@
 
   R is the most widely used open source programming language and quickly becoming the top ranked data analysis tool (\url{http://r4stats.com/articles/popularity/}, \url{https://spectrum.ieee.org/static/interactive-the-top-programming-languages-2017}). R is different from most other popular programming languages in that it is an interpretable language, rather than a compiled language.  Code is source and executed at run time, rather than precompiled for faster execution and type checking.
 
-  R has over 11,000 active, user submited packages (as of Sept. 2017, \url{https://cloud.r-project.org/web/packages/index.html}) and countless more on Github (\url{github.com}).  Among these packages are \pkg{GGally}, \pkg{gqlr}, \pkg{autocogs}, and \trelliscopejs.  These are a few of the R packages I will describe in greater detail.
+  R has over 11,000 active, user submited packages (as of Sept. 2017, \url{https://cloud.r-project.org/web/packages/index.html}) and countless more on Github (\url{github.com}).  Among these packages are \pkg{GGally}, \pkg{gqlr}, \autocogs, and \trelliscopejs.  These are a few of the R packages I will describe in greater detail.
 
   One of the most notible R packages is \ggplot.  \ggplot is a data visualization package .  It was originally written by Hadley Wickham in 2005.  Since then, \ggplot has become one of the most impactful R packages (\url{http://depsy.org/package/r/ggplot2}) with over 6 million downloads.
 
