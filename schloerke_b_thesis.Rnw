@@ -11,7 +11,8 @@
 %
 \documentclass[ece,dissertation]{puthesis}
 
-<<knitr, echo = FALSE>>=
+<<knitr, echo = FALSE, cache = FALSE>>=
+options(width = 140)
 knitr::opts_chunk$set(
   cache = TRUE,
   autodep = TRUE,
