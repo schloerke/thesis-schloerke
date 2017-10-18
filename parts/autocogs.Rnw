@@ -167,7 +167,7 @@ autocogs::auto_cog("boxplot", gap_max$lifeExp)
 
   \item Continuous Density Cognostics
 
-  Continuous density cognostics revolve around the shape of the density.  Skew (CITE) and kurtosis (CITE) are readily available to help distinguish the density shape as well as the p value of Hartigans' dip test from \pkg{diptest} (CITE) for unimodality.  To help locate where the maximum density occurs, the max density value and location are also provided.  Finally, not by default due to slow calculation speed, the number of clusters may be calculated using the \pkg{mclust} (CITE) R package.
+  Continuous density cognostics revolve around the shape of the density.  The maximum density value and its corresponding location are returned for comparison across cognostic calculations. Skew (CITE) and kurtosis (CITE) are readily available to help distinguish the density shape as well as the p value of Hartigans' dip test from \pkg{diptest} (CITE) for unimodality.  To help locate where the maximum density occurs, the max density value and location are also provided.  Finally, not by default due to slow calculation speed, the number of clusters may be calculated using the \pkg{mclust} (CITE) R package.
 
 
 << cog_group_density_continuous >>=
@@ -179,7 +179,7 @@ autocogs::auto_cog("density_continuous", gap_max$lifeExp, clusters = TRUE)
 
 Quantile-Quantile plots display the theoretical distribution quantiles verses the sample quantile points.  Two indicator variables to help determine skewness provide how many points are above and below a non robust quantile line.  The non robust quantile line is calculated using the $25^{th}$ and $75^{th}$ percentiles of sample points, rather than the a robust linear model.  This calculation replicates the base R function \rinline{stats::qqline}.  A p value for the Kolmogorov-Smirnov test is added to the result to determine how close the sample points come from the test distribution.  The test distribution defaults to the normal distribution.  Finally, a mean squared error from the quantile line is reported for the Quantile-Quantile plot.  This value should be comparable to all of the independent samples as each sample should come from the same distribution.  Larger mean squared error values help discover outliers in the distribution.
 
-<< cog_group_density_continuous >>=
+<< cog_group_quantile_quantile >>=
 autocogs::auto_cog("quantile_quantile", gap_max$lifeExp)
 @
 
@@ -187,7 +187,7 @@ autocogs::auto_cog("quantile_quantile", gap_max$lifeExp)
 
   Univariate continuous cognostics utilize the standard statistical calculations: minimum, maximum, mean, median, and variance.  Each value is quickly interpretable and provides a good starting point when filtering panels within a \trelliscopejs widget.
 
-<< cog_group_density_continuous >>=
+<< cog_group_univariate_continuous >>=
 autocogs::auto_cog("univariate_continuous", gap_max$lifeExp)
 @
 
@@ -195,7 +195,7 @@ autocogs::auto_cog("univariate_continuous", gap_max$lifeExp)
 
   Univariate discrete values only have counts and names to determine the cognostics.  The minimum and maximum count values are reported, as well as the mean count value.  For both the minimum and maximum values, a corresponding name is reported alongside the count.  The example below shows that the continent \rinline{"Africa"} contains the most countries at \rinline{52} and \rinline{"Oceania"} contains least amount of countries at \rinline{2} countries.
 
-<< cog_group_density_continuous >>=
+<< cog_group_univariate_discrete >>=
 autocogs::auto_cog("univariate_discrete", gap_max$continent)
 @
 
@@ -203,19 +203,131 @@ autocogs::auto_cog("univariate_discrete", gap_max$continent)
 
 
 \subsection{Bivariate}
-  bivariate_continuous
-  bivariate_counts
-  bivariate_step
-  density_2d_continuous
-  hex_counts
-  linear_model
-  loess_model
-  scagnostics
-  smooth_line
-  square_counts
+
+The cognostic groups below will be calculated using the \rinline{gapminder} dataset where continent equals \rinline{"Americas"}, (\rinline{americas}), or where country equals \rinline{"United States"}, (\rinline{usa}).
+
+<< gap_americas >>=
+americas <- gapminder %>% filter(continent == "Americas")
+usa <- gapminder %>% filter(country == "United States")
+@
+
+  \item Bivariate Continuous Cognostics
+
+Similar to the Univariate Continuous cognostic group, the Bivariate Continuous cognostic group calculates the two standard bivariate summary statistics: covariance and correlation.
+
+<< cog_group_bivariate_continuous >>=
+autocogs::auto_cog("bivariate_continuous", usa$year, usa$lifeExp)
+@
+
+  \item Bivariate Step Cognostics
+
+  A stepwise plot displays a ``stair case'' like plot where the connecting line only moves along the $X$ or $Y$ axis.  The Bivariate Step cognostic group returns the number of steps completed, as well as the Univariate Continuous cognostics on the step width and step height.
+
+<< cog_group_bivariate_step >>=
+autocogs::auto_cog("bivariate_step", usa$year, usa$lifeExp)
+@
+
+  \item Continuous 2D Density Cognostics
+
+The Continuous 2-Dimensional Density cognostic group reports the maximum density $X$ and $Y$ location are returned, similar to the Continuous Density cognostic group.  Also similar to the Continuous Density cognostic group, cluster count calculations are turned off by default.
+
+
+<< cog_group_density_2d_continuous >>=
+autocogs::auto_cog("density_2d_continuous", americas$year, americas$lifeExp, clusters = TRUE)
+@
+
+  \item Linear Model Cognostics
+
+Linear Model cognostics leverage the vast array of existing statistics.  Knowning that the model will only be a simple linear model allows \autocogs to return slope and intercept values and corresponding p values.  Many cognostics can be generated about the model fit using known diagnostic methods:
+  \begin{enumerate}
+    \item $R^2$: fraction of variance explained by the model
+    \item sigma: square root of the estimated residual variance
+    \item F-statistic: the linear model's F-statistic and corresponding p value.
+    \item degrees of freedom: how many degrees of freedom in the model and residuals
+    \item log-likelihood value: the log likelihood value of the model
+    \item AIC, BIC: Akaike's Information Criterion and Schwarz's Bayesian Criterion
+    \item deviance: the quality-of-fit statistic of the model
+  \end{enumerate}
+
+  There are a few extra diagnostics that are massaged to conform to the univariate requirement of a cognostic.
+
+  \begin{enumerate}
+    \item Cook's Distance: a combination of each points leverage and residual value.  Values larger than $4 / n$ indicate influential data points in the model.  A number of influential data points is reported.
+    (CITE Bollen, Kenneth A.; Jackman, Robert W. (1990). Fox, John; Long, J. Scott, eds. Regression Diagnostics: An Expository Treatment of Outliers and Influential Cases. Modern Methods of Data Analysis. Newbury Park, CA: Sage. pp. 257–91. ISBN 0-8039-3366-5.)
+    \item Influence Points: the diagonal of the Hat Matrix is consided to be how much influce a point has on the model.  Each point is expected to equal $\dfrac{p}{n} = \dfrac{1}{n}$, with influential points having a value larger than $\dfrac{2 * p}{n} = \dfrac{2}{n}$ \cite{kutner_linear_models}.  The number reported is the sum of all influential points.
+    \item Shapiro-Wilk Test: when using a linear model, the residuals are assumed to come from a normal distribution.  The Shapiro-Wilk test tests the residuals agains the normal distribution \cite{kutner_linear_models}.  The corresponding p value is reported.
+    \item Box Cox power transformation: the lower and upper bounds of a 95\% confidence interval of the Box Cox power tranformation are reported. This transformation is useful when trying to stabilize the variance.
+  \end{enumerate}
+
+
+<< cog_group_linear_model >>=
+as.data.frame(autocogs::auto_cog("linear_model", usa$year, usa$lifeExp))
+@
+
+  \item Loess Model Cognostics
+
+  Similar to the linear model, a simple loess model is calculated and diagnosed.
+  \begin{enumerate}
+    \item Supplied parameters: the supplied parameters of \rinline{span}, the alpha parameter which controls the degree of smoothing, and \rinline{degree}, the polynomial degree used in the loess model, are returned.
+    \item Calculated parameters: the calculated effective number of parameters \rinline{enp} is returned along with the trace of the hat matrix \rinline{trace.hat}.  Finally, the sigma value of the loess model variance is returned as a single cognostic.
+    \item
+  \end{enumerate}
+
+<< cog_group_loess_model >>=
+autocogs::auto_cog("loess_model", usa$year, usa$lifeExp)
+@
+
+  \item Scagnostics Cognostics
+
+  Scatterplot scagnostics are pre-existing cognostic group for a continuous bivariate plot. The following scagnostics are explained in more detail in \cite{scagnostics}.
+
+  \begin{enumerate}
+    \item Outlying: the proportion of the total edge length due to extremely long edges connected to points of single degree
+    \item Skewed: the distribution of edge lengths of a minimum spanning tree gives us information about the relative density of points in a scattered configuration
+    \item Clumpy: the Hartigan and Mohanty RUNT statistic is most easily understood in terms of the single-linkage hierarchical clustering tree called a dendrogram
+    \item Sparse, the 90\% quantile of the edge lengths of the minimum spaning tree
+    \item Striated: the sumation of angles over all adjacent edges of a MST
+    \item Convex: the ratio of the area of the alpha hull and the area of the convex hull
+    \item Skinny: the ratio of perimeter to area of a polygon measures
+    \item Stringy: the ratio of width to length of a network
+    \item Monotonic: squared Spearman correlation coefficient
+  \end{enumerate}
+
+<< cog_group_scagnostics >>=
+autocogs::auto_cog("scagnostics", americas$year, americas$lifeExp)
+@
+
+  \item Smooth Line Cognostics
+
+  The smooth line cognostic group is a baseline for all model based lines added to a plot.  The smooth line calculations pair well with the linear model and loess model cognostic groups.  A mean squared error and the max deviation with its corresponding location are reported
+
+<< cog_group_smooth_line >>=
+autocogs::auto_cog("smooth_line", usa$year, usa$lifeExp)
+@
+
 
 
 \subsection{Counts}
+
+\item Hexagonal Counts Cognostics
+
+<< cog_group_hex_counts >>=
+autocogs::auto_cog("hex_counts", americas$year, americas$lifeExp)
+@
+
+\item Square Counts Cognostics
+
+<< cog_group_square_counts >>=
+autocogs::auto_cog("square_counts", americas$year, americas$lifeExp)
+@
+
+
+\item Bivariate Count Cognostics
+
+<< cog_group_bivariate_counts >>=
+autocogs::auto_cog("bivariate_continuous", americas$year, americas$lifeExp)
+@
+
 
 \item \rinline{"univariate_counts"}
 
