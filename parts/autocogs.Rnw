@@ -211,6 +211,8 @@ americas <- gapminder %>% filter(continent == "Americas")
 usa <- gapminder %>% filter(country == "United States")
 @
 
+\begin{enumerate}
+
   \item Bivariate Continuous Cognostics
 
 Similar to the Univariate Continuous cognostic group, the Bivariate Continuous cognostic group calculates the two standard bivariate summary statistics: covariance and correlation.
@@ -305,9 +307,14 @@ autocogs::auto_cog("scagnostics", americas$year, americas$lifeExp)
 autocogs::auto_cog("smooth_line", usa$year, usa$lifeExp)
 @
 
+\end{enumerate}
 
 
 \subsection{Counts}
+
+The third cognostic type covers counts of the data.  The
+
+\begin{enumerate}
 
 \item Hexagonal Counts Cognostics
 
@@ -331,13 +338,28 @@ autocogs::auto_cog("bivariate_continuous", americas$year, americas$lifeExp)
 
 \item \rinline{"univariate_counts"}
 
+<< cog_group_univariate_counts >>=
+autocogs::auto_cog("univariate_counts", gap_max$lifeExp, clusters = TRUE)
+@
+
 \item \rinline{"histogram_counts"}
+
 << cog_group_histogram_counts >>=
 autocogs::auto_cog("histogram_counts", gap_max$lifeExp, clusters = TRUE)
 @
-  grouped_counts
-  % grouped_testing
-  pairwise_counts
+
+\item \rinline{"pairwise_counts"}
+
+<< cog_group_pairwise_counts >>=
+autocogs::auto_cog("pairwise_counts", gap_max$lifeExp, clusters = TRUE)
+@
+
+\item \rinline{"grouped_counts"}
+<< cog_group_grouped_counts >>=
+autocogs::auto_cog("grouped_counts", gap_max$lifeExp, clusters = TRUE)
+@
+
+\end{enumerate}
 
 
 \section{\ggplot Layer Matching}
