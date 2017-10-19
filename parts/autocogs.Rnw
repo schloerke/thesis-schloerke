@@ -254,11 +254,10 @@ Linear Model cognostics leverage the vast array of existing statistics.  Knownin
   There are a few extra diagnostics that are massaged to conform to the univariate requirement of a cognostic.
 
   \begin{enumerate}
-    \item Cook's Distance: a combination of each points leverage and residual value.  Values larger than $4 / n$ indicate influential data points in the model.  A number of influential data points is reported.
-    (CITE Bollen, Kenneth A.; Jackman, Robert W. (1990). Fox, John; Long, J. Scott, eds. Regression Diagnostics: An Expository Treatment of Outliers and Influential Cases. Modern Methods of Data Analysis. Newbury Park, CA: Sage. pp. 257–91. ISBN 0-8039-3366-5.)
+    \item Cook's Distance: a combination of each points leverage and residual value.  Values larger than $F_{p, n - p}(0.5)$ indicate influential data points in the model \cite{kutner_linear_models}.  The number of influential data points is reported.
     \item Influence Points: the diagonal of the Hat Matrix is consided to be how much influce a point has on the model.  Each point is expected to equal $\dfrac{p}{n} = \dfrac{1}{n}$, with influential points having a value larger than $\dfrac{2 * p}{n} = \dfrac{2}{n}$ \cite{kutner_linear_models}.  The number reported is the sum of all influential points.
     \item Shapiro-Wilk Test: when using a linear model, the residuals are assumed to come from a normal distribution.  The Shapiro-Wilk test tests the residuals agains the normal distribution \cite{kutner_linear_models}.  The corresponding p value is reported.
-    \item Box Cox power transformation: the lower and upper bounds of a 95\% confidence interval of the Box Cox power tranformation are reported. This transformation is useful when trying to stabilize the variance.
+    \item Box Cox power transformation: the lower and upper bounds of a 95\% confidence interval of the Box Cox power tranformation are reported. This transformation is useful when trying to stabilize the variance. If the confidence interval contains 0, a $ln$ transformation may be used. \cite{kutner_linear_models}
   \end{enumerate}
 
 
@@ -312,52 +311,65 @@ autocogs::auto_cog("smooth_line", usa$year, usa$lifeExp)
 
 \subsection{Counts}
 
-The third cognostic type covers counts of the data.  The
+The third cognostic type addresses counts of binned data.
 
 \begin{enumerate}
 
-\item Hexagonal Counts Cognostics
+  \item Univariate and Bivariate Count Cognostics
 
-<< cog_group_hex_counts >>=
-autocogs::auto_cog("hex_counts", americas$year, americas$lifeExp)
-@
-
-\item Square Counts Cognostics
-
-<< cog_group_square_counts >>=
-autocogs::auto_cog("square_counts", americas$year, americas$lifeExp)
-@
-
-
-\item Bivariate Count Cognostics
-
-<< cog_group_bivariate_counts >>=
-autocogs::auto_cog("bivariate_continuous", americas$year, americas$lifeExp)
-@
-
-
-\item \rinline{"univariate_counts"}
+  Both the Univariate and Bivariate Count cognostics address how many values are \rinline{NA} and not \rinline{NA}.  Bivariate accounts for both the logical AND and OR of the $X$ and $Y$ values being \rinline{NA}.
 
 << cog_group_univariate_counts >>=
-autocogs::auto_cog("univariate_counts", gap_max$lifeExp, clusters = TRUE)
+autocogs::auto_cog("univariate_counts", americas$lifeExp)
+autocogs::auto_cog("bivariate_counts", americas$year, americas$lifeExp)
 @
 
-\item \rinline{"histogram_counts"}
 
-<< cog_group_histogram_counts >>=
-autocogs::auto_cog("histogram_counts", gap_max$lifeExp, clusters = TRUE)
-@
 
-\item \rinline{"pairwise_counts"}
+
+\item Pairwise and Grouped Counts Cognostics
+
+Pairwise and Grouped Counts cognostics address how often pieces of information occur.  Pairwise Counts look at the combinations of the $X$ and $Y$ variables.  The Univariate Continous Cognostics are reported on the counts of the pairwise combinations.  Grouped Counts provide Univariate Continuous Cognostics for how often a group is used.  This is very similar to Univariate Discrete Cognostics begin applied to the grouping variable only.
 
 << cog_group_pairwise_counts >>=
-autocogs::auto_cog("pairwise_counts", gap_max$lifeExp, clusters = TRUE)
+autocogs::auto_cog("pairwise_counts", americas$country, round(americas$lifeExp))
+autocogs::auto_cog("grouped_counts", gap_max$country, gap_max$continent)
 @
 
-\item \rinline{"grouped_counts"}
-<< cog_group_grouped_counts >>=
-autocogs::auto_cog("grouped_counts", gap_max$lifeExp, clusters = TRUE)
+\item Count Testing Cognostics
+
+  There are three types of count testing cognostic groupings.  In addition to the Univariate Continuous cognostic information, each cognostic group tests whether or not the variables involved in the plot have any effect on the number of counts.  This is calculated using a $\Chi^2$ test where $H_0 = Y ~ \mu$.
+
+  \begin{enumerate}
+
+    \item Histogram Counts Cognostics
+
+    The univariate case calculates the counts of a histogram using a default binwidth of 30 equal bin widths.
+
+<< cog_group_histogram_counts >>=
+autocogs::auto_cog("histogram_counts", americas$lifeExp)
 @
+
+    \item Square Counts Cognostics
+
+    The bivariate case of the histogram is a 2D square grid.  The counts in each of the grid spaces are calculated using a default binwidth of 30 equal intervals along each of the axes.  In the example below, six equally spaced bins along each axis are used for the $\Chi^2$ test.
+
+<< cog_group_square_counts >>=
+autocogs::auto_cog("square_counts", americas$year, americas$lifeExp, bins = 6)
+@
+
+    \item Hexagon Counts Cognostics
+
+    The second bivariate histogram has a honeycomb like array of hexagons.  Like the Square Counts Cognostics, the Hexagon Counts Cognostics default to 30 equally spaced hexagons along each axis.  The example below also uses six hexagon shaped bins along each axis.
+
+<< cog_group_hex_counts >>=
+autocogs::auto_cog("hex_counts", americas$year, americas$lifeExp, bins = 6)
+@
+
+
+  \end{enumerate}
+
+
 
 \end{enumerate}
 
