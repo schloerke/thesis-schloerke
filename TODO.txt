@@ -3,6 +3,10 @@ GraphQL
   ? Introduction paragraph
   - conclusion / wrap up paragraph
 
+
+autocogs
+  add mapping chart of all geoms to cog groups
+
 Add figure information to all plots
 
 Autocogs background

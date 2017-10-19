@@ -1,0 +1,169 @@
+/* http://webgraphviz.com */
+/* http://www.graphviz.org/pdf/dotguide.pdf */
+/* http://graphviz.org/doc/info/attrs.html */
+/* http://colorbrewer2.org/#type=qualitative&scheme=Pastel2&n=5 */
+
+digraph G {
+	/*compound = true;*/
+  /*overlap = false;*/
+	splines = false;
+  rankdir = "LR"
+
+  node [shape = "ellipse"];
+  nodesep = 0
+
+  subgraph cluster_not_used {
+    label = "Unmapped ggplot2 Geoms"
+    node [shape="plaintext"]
+    /*geom_abline [label = "geom_abline, geom_hline,
+    geom_vline"];
+    geom_blank
+    geom_errorbarh
+    geom_crossbar [label = "geom_crossbar, geom_errorbar,
+    geom_linerange, geom_pointrange"]
+    geom_map
+    geom_polygon
+    geom_quantile
+    geom_ribbon [label = "geom_ribbon, geom_area"]
+    geom_segment [label = "geom_segment, geom_curve"]
+    geom_label [label = "geom_label, geom_text"]
+    geom_sf
+    geom_contour
+    geom_raster [label = "geom_raster, geom_rect,
+    geom_tile"]*/
+    geom_abline [label = "geom_abline, geom_hline, geom_vline, geom_blank,
+    geom_errorbarh, geom_crossbar, geom_errorbar, geom_linerange,
+    geom_pointrange, geom_map, geom_polygon, geom_quantile,
+    geom_ribbon, geom_area, geom_segment, geom_curve, geom_label,
+    geom_text, geom_sf, geom_contour, geom_raster,
+    geom_rect, geom_tile"]
+  }
+
+
+  subgraph cluster_ggplot {
+    label = "ggplot2 Geoms"
+
+    geom_bar
+    geom_bin2d
+    geom_boxplot
+    geom_col
+    geom_count
+    geom_density
+    geom_density_2d
+    geom_dotplot
+    geom_hex
+    geom_histogram [label = "geom_histogram,
+geom_freqpoly"]
+    geom_line
+    geom_path
+    geom_point [label = "geom_point,
+geom_jitter"]
+    geom_qq
+    geom_rug
+    geom_smooth
+    geom_spoke
+    geom_step
+    geom_violin
+  }
+
+  subgraph cluster_cogs_uni {
+    label = "Univariate Cognostics"
+    graph [color = "#e41a1c"]
+    node [labeljust="right"]
+    univariate_continuous
+    univariate_discrete
+    boxplot
+    density_continuous
+    quantile_quantile
+  }
+  subgraph cluster_cogs_bi {
+    label = "Bivariate Cognostics"
+    graph [color = "#377eb8"]
+    bivariate_continuous
+    scagnostics
+    density_2d_continuous
+    smooth_line
+    linear_model
+    loess_model
+    bivariate_step
+  }
+  subgraph cluster_cogs_counts {
+    label = "Count Cognostics"
+    graph [color = "#4daf4a"]
+    univariate_counts
+    bivariate_counts
+    hex_counts
+    square_counts
+    histogram_counts
+    pairwise_counts
+  }
+
+
+
+  univariate_discrete -> geom_bar [dir = "back", color = "#e41a1c"]
+  geom_bar -> univariate_counts [color = "#4daf4a"]
+  univariate_continuous -> geom_col [dir = "back", color = "#e41a1c"]
+  geom_col -> bivariate_counts [color = "#4daf4a"]
+  univariate_continuous -> geom_hex [dir = "back", color = "#e41a1c"]
+  geom_hex -> bivariate_continuous [color = "#377eb8"]
+  geom_hex -> hex_counts [color = "#4daf4a"]
+  geom_hex -> bivariate_counts [color = "#4daf4a"]
+  geom_bin2d -> square_counts [color = "#4daf4a"]
+  geom_bin2d -> bivariate_counts [color = "#4daf4a"]
+  univariate_continuous -> geom_point [dir = "back", color = "#e41a1c"]
+  geom_point -> bivariate_continuous [color = "#377eb8"]
+  geom_point -> scagnostics [color = "#377eb8"]
+  geom_point -> bivariate_counts [color = "#4daf4a"]
+  univariate_continuous -> geom_boxplot [dir = "back", color = "#e41a1c"]
+  boxplot -> geom_boxplot [dir = "back", color = "#e41a1c"]
+  geom_boxplot -> univariate_counts [color = "#4daf4a"]
+  univariate_continuous -> geom_count [dir = "back", color = "#e41a1c"]
+  univariate_discrete -> geom_count [dir = "back", color = "#e41a1c"]
+  geom_count -> bivariate_continuous [color = "#377eb8"]
+  geom_count -> pairwise_counts [color = "#4daf4a"]
+  geom_count -> scagnostics [color = "#377eb8"]
+  geom_count -> bivariate_counts [color = "#4daf4a"]
+  univariate_continuous -> geom_density [dir = "back", color = "#e41a1c"]
+  density_continuous -> geom_density [dir = "back", color = "#e41a1c"]
+  geom_density -> univariate_counts [color = "#4daf4a"]
+  univariate_continuous -> geom_violin [dir = "back", color = "#e41a1c"]
+  density_continuous -> geom_violin [dir = "back", color = "#e41a1c"]
+  geom_violin -> univariate_counts [color = "#4daf4a"]
+  univariate_continuous -> geom_density_2d [dir = "back", color = "#e41a1c"]
+  geom_density_2d -> bivariate_continuous [color = "#377eb8"]
+  density_continuous -> geom_density_2d [dir = "back", color = "#e41a1c"]
+  geom_density_2d -> density_2d_continuous [color = "#377eb8"]
+  geom_density_2d -> bivariate_counts [color = "#4daf4a"]
+  univariate_continuous -> geom_dotplot [dir = "back", color = "#e41a1c"]
+  density_continuous -> geom_dotplot [dir = "back", color = "#e41a1c"]
+  geom_dotplot -> univariate_counts [color = "#4daf4a"]
+  univariate_continuous -> geom_histogram [dir = "back", color = "#e41a1c"]
+  density_continuous -> geom_histogram [dir = "back", color = "#e41a1c"]
+  geom_histogram -> histogram_counts [color = "#4daf4a"]
+  geom_histogram -> univariate_counts [color = "#4daf4a"]
+  univariate_continuous -> geom_rug [dir = "back", color = "#e41a1c"]
+  density_continuous -> geom_rug [dir = "back", color = "#e41a1c"]
+  geom_rug -> univariate_counts [color = "#4daf4a"]
+  univariate_continuous -> geom_spoke [dir = "back", color = "#e41a1c"]
+  density_continuous -> geom_spoke [dir = "back", color = "#e41a1c"]
+  geom_spoke -> bivariate_counts [color = "#4daf4a"]
+  univariate_continuous -> geom_qq [dir = "back", color = "#e41a1c"]
+  quantile_quantile -> geom_qq [dir = "back", color = "#e41a1c"]
+  univariate_continuous -> geom_smooth [dir = "back", color = "#e41a1c"]
+  geom_smooth -> bivariate_continuous [color = "#377eb8"]
+  geom_smooth -> smooth_line [color = "#377eb8"]
+  geom_smooth -> loess_model [color = "#377eb8"]
+  geom_smooth -> linear_model [color = "#377eb8"]
+  geom_smooth -> bivariate_counts [color = "#4daf4a"]
+  univariate_continuous -> geom_line [dir = "back", color = "#e41a1c"]
+  geom_line -> bivariate_continuous [color = "#377eb8"]
+  geom_line -> bivariate_counts [color = "#4daf4a"]
+  univariate_continuous -> geom_path [dir = "back", color = "#e41a1c"]
+  geom_path -> bivariate_continuous [color = "#377eb8"]
+  geom_path -> bivariate_counts [color = "#4daf4a"]
+  univariate_continuous -> geom_step [dir = "back", color = "#e41a1c"]
+  geom_step -> bivariate_step [color = "#377eb8"]
+  geom_step -> bivariate_continuous [color = "#377eb8"]
+  geom_step -> bivariate_counts [color = "#4daf4a"]
+
+}
