@@ -14,6 +14,7 @@ digraph G {
 
   subgraph cluster_not_used {
     label = "Unmapped ggplot2 Geoms"
+		labeljust = "left";
     node [shape="plaintext"]
     /*geom_abline [label = "geom_abline, geom_hline,
     geom_vline"];
@@ -31,18 +32,23 @@ digraph G {
     geom_contour
     geom_raster [label = "geom_raster, geom_rect,
     geom_tile"]*/
-    geom_abline [label = "geom_abline, geom_hline, geom_vline, geom_blank,
-    geom_errorbarh, geom_crossbar, geom_errorbar, geom_linerange,
-    geom_pointrange, geom_map, geom_polygon, geom_quantile,
-    geom_ribbon, geom_area, geom_segment, geom_curve, geom_label,
-    geom_text, geom_sf, geom_contour, geom_raster,
-    geom_rect, geom_tile"]
+    geom_abline [label = "geom_area, geom_abline,
+geom_blank, geom_errorbarh,
+geom_contour, geom_crossbar,
+geom_curve, geom_errorbar,
+geom_hline, geom_label,
+geom_linerange, geom_map,
+geom_pointrange, geom_polygon,
+geom_quantile, geom_raster,
+geom_rect, geom_ribbon,
+geom_segment, geom_sf,
+geom_text, geom_tile,
+geom_vline"]
   }
 
 
   subgraph cluster_ggplot {
     label = "ggplot2 Geoms"
-
     geom_bar
     geom_bin2d
     geom_boxplot
@@ -68,6 +74,7 @@ geom_jitter"]
 
   subgraph cluster_cogs_uni {
     label = "Univariate Cognostics"
+		labeljust = "left";
     graph [color = "#e41a1c"]
     node [labeljust="right"]
     univariate_continuous
@@ -78,6 +85,7 @@ geom_jitter"]
   }
   subgraph cluster_cogs_bi {
     label = "Bivariate Cognostics"
+		labeljust = "right";
     graph [color = "#377eb8"]
     bivariate_continuous
     scagnostics
@@ -89,6 +97,7 @@ geom_jitter"]
   }
   subgraph cluster_cogs_counts {
     label = "Count Cognostics"
+		labeljust = "right";
     graph [color = "#4daf4a"]
     univariate_counts
     bivariate_counts

@@ -390,6 +390,8 @@ In this section, I will explore a simple \ggplot bar chart and a more advanced e
 
 \subsection{Bar Plot}
 
+First, let us create the dataset containing each of the panels.  Each panel will display a 
+
 
 \subsection{Linear Model and Scatter Plot}
 
