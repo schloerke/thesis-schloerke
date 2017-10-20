@@ -11,6 +11,18 @@
 %
 \documentclass[ece,dissertation]{puthesis}
 
+% answer spacing in knitr outputs
+\usepackage{etoolbox}
+\makeatletter
+\preto{\@verbatim}{\topsep=-20pt \partopsep=0pt }
+\makeatother
+\AtBeginEnvironment{alltt}{\setlength{\topsep}{0pt}\setlength{\partopsep}{0pt}}
+
+% line spacing for knitr output
+\usepackage{setspace}
+\renewenvironment{knitrout}{\setstretch{1}}{}
+
+
 <<knitr, echo = FALSE, cache = FALSE>>=
 options(width = 140)
 knitr::opts_chunk$set(

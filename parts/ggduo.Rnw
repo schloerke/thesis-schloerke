@@ -297,7 +297,6 @@ Using the flea dataset from the \pkg{GGally} package, we can try to fit a model 
 
 << ggnostic >>=
 flea_model <- step(lm(head ~ ., data = flea), trace = FALSE)
-
 ggnostic(flea_model)
 @
 
