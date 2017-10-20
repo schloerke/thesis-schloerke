@@ -1,19 +1,35 @@
 
+Add figures to all plots
+  include proper references to the next line with \fig{fig:geom_point}
+  << geom_point, fig.cap="testtest", fig.pos="H" >>=
+  plot(1:10, 1:10)
+  @
+
+
+\section{Summary}
+  talked about X
+  talked about what you can do with X
+  motivate how X works with the next Chapter
+
+  The following intro doesn't necessaraly need to integrate with the prior chapter
+
+  summary
+    ggduo only works for small datasets
+      trelliscope can scale up to the larger data sets
+
+  Intro
+    trelliscope is built to handle all types of data sizes when faceting on variables.
+
 GraphQL
   ? Introduction paragraph
   - conclusion / wrap up paragraph
 
 
-autocogs
-  add mapping chart of all geoms to cog groups
-
-Add figure information to all plots
-
 Autocogs background
   add pictures to filtering
 
 
-Add links to each package in package description page
+Add citation links to each package in package description page
 
 Move all "background" chapters inside each bigger chapter (3 big sections)
 

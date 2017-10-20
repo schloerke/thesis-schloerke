@@ -120,7 +120,7 @@ Each cognostic group column contains a single row data frame nested in each cell
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.9\textwidth]{figs/tidy.png}
-  \caption{Figure taken from \cite{r4ds}. ``Following three rules makes a dataset tidy: variables are in columns, observations are in rows, and values are in cells.'' (\cite{r4ds})}
+  \caption{Figure courtesy of \cite{r4ds}. There are three rules to tidy data: columns contain variables, rows contain observations, and cells contain values.}
 \end{figure}
 
 
@@ -148,42 +148,16 @@ gapminder %>%
   summarise(lifeExp = max(lifeExp)) %>%
   print() ->
 gap_max
-
-ggplot(gap_max, aes(lifeExp, fill = continent)) +
-  geom_histogram(binwidth = 1) +
-  labs(x = "max(lifeExp)")
+#
+# ggplot(gap_max, aes(lifeExp, fill = continent)) +
+#   geom_histogram(binwidth = 1) +
+#   labs(x = "max(lifeExp)")
 @
 
 \begin{enumerate}
 
 
-  \item Boxplot Cognostics
-
-  Boxplot metrics include lower whisker, Q1, median, Q3, and upper whisker locations.  The number of outliers above the boxplot and below the boxplot are added as well.
-
-<< cog_group_boxplot >>=
-autocogs::auto_cog("boxplot", gap_max$lifeExp)
-@
-
-  \item Continuous Density Cognostics
-
-  Continuous density cognostics revolve around the shape of the density.  The maximum density value and its corresponding location are returned for comparison across cognostic calculations. Skew (CITE) and kurtosis (CITE) are readily available to help distinguish the density shape as well as the p value of Hartigans' dip test from \pkg{diptest} (CITE) for unimodality.  To help locate where the maximum density occurs, the max density value and location are also provided.  Finally, not by default due to slow calculation speed, the number of clusters may be calculated using the \pkg{mclust} (CITE) R package.
-
-
-<< cog_group_density_continuous >>=
-autocogs::auto_cog("density_continuous", gap_max$lifeExp, clusters = TRUE)
-@
-
-
-  \item Quantile Quantile Cognostics
-
-Quantile-Quantile plots display the theoretical distribution quantiles verses the sample quantile points.  Two indicator variables to help determine skewness provide how many points are above and below a non robust quantile line.  The non robust quantile line is calculated using the $25^{th}$ and $75^{th}$ percentiles of sample points, rather than the a robust linear model.  This calculation replicates the base R function \rinline{stats::qqline}.  A p value for the Kolmogorov-Smirnov test is added to the result to determine how close the sample points come from the test distribution.  The test distribution defaults to the normal distribution.  Finally, a mean squared error from the quantile line is reported for the Quantile-Quantile plot.  This value should be comparable to all of the independent samples as each sample should come from the same distribution.  Larger mean squared error values help discover outliers in the distribution.
-
-<< cog_group_quantile_quantile >>=
-autocogs::auto_cog("quantile_quantile", gap_max$lifeExp)
-@
-
-  \item Univariate Cotinuous Cognostics
+  \item Univariate Continuous Cognostics
 
   Univariate continuous cognostics utilize the standard statistical calculations: minimum, maximum, mean, median, and variance.  Each value is quickly interpretable and provides a good starting point when filtering panels within a \trelliscopejs widget.
 
@@ -197,6 +171,32 @@ autocogs::auto_cog("univariate_continuous", gap_max$lifeExp)
 
 << cog_group_univariate_discrete >>=
 autocogs::auto_cog("univariate_discrete", gap_max$continent)
+@
+
+  \item Continuous Density Cognostics
+
+  Continuous density cognostics revolve around the shape of the density.  The maximum density value and its corresponding location are returned for comparison across cognostic calculations. Skew (CITE) and kurtosis (CITE) are readily available to help distinguish the density shape as well as the p value of Hartigans' dip test from \pkg{diptest} (CITE) for unimodality.  To help locate where the maximum density occurs, the max density value and location are also provided.  Finally, not by default due to slow calculation speed, the number of clusters may be calculated using the \pkg{mclust} (CITE) R package.
+
+
+<< cog_group_density_continuous >>=
+autocogs::auto_cog("density_continuous", gap_max$lifeExp, clusters = TRUE)
+@
+
+
+  \item Boxplot Cognostics
+
+  Boxplot metrics include lower whisker, Q1, median, Q3, and upper whisker locations.  The number of outliers above the boxplot and below the boxplot are added as well.
+
+<< cog_group_boxplot >>=
+autocogs::auto_cog("boxplot", gap_max$lifeExp)
+@
+
+  \item Quantile Quantile Cognostics
+
+Quantile-Quantile plots display the theoretical distribution quantiles verses the sample quantile points.  Two indicator variables to help determine skewness provide how many points are above and below a non robust quantile line.  The non robust quantile line is calculated using the $25^{th}$ and $75^{th}$ percentiles of sample points, rather than the a robust linear model.  This calculation replicates the base R function \rinline{stats::qqline}.  A p value for the Kolmogorov-Smirnov test is added to the result to determine how close the sample points come from the test distribution.  The test distribution defaults to the normal distribution.  Finally, a mean squared error from the quantile line is reported for the Quantile-Quantile plot.  This value should be comparable to all of the independent samples as each sample should come from the same distribution.  Larger mean squared error values help discover outliers in the distribution.
+
+<< cog_group_quantile_quantile >>=
+autocogs::auto_cog("quantile_quantile", gap_max$lifeExp)
 @
 
 \end{enumerate}
@@ -221,12 +221,24 @@ Similar to the Univariate Continuous cognostic group, the Bivariate Continuous c
 autocogs::auto_cog("bivariate_continuous", usa$year, usa$lifeExp)
 @
 
-  \item Bivariate Step Cognostics
+\item Scagnostics Cognostics
 
-  A stepwise plot displays a ``stair case'' like plot where the connecting line only moves along the $X$ or $Y$ axis.  The Bivariate Step cognostic group returns the number of steps completed, as well as the Univariate Continuous cognostics on the step width and step height.
+Scatterplot scagnostics are pre-existing cognostic group for a continuous bivariate plot. The following scagnostics are explained in more detail in \cite{scagnostics}.
 
-<< cog_group_bivariate_step >>=
-autocogs::auto_cog("bivariate_step", usa$year, usa$lifeExp)
+\begin{enumerate}
+  \item Outlying: the proportion of the total edge length due to extremely long edges connected to points of single degree
+  \item Skewed: the distribution of edge lengths of a minimum spanning tree gives us information about the relative density of points in a scattered configuration
+  \item Clumpy: the Hartigan and Mohanty RUNT statistic is most easily understood in terms of the single-linkage hierarchical clustering tree called a dendrogram
+  \item Sparse, the 90\% quantile of the edge lengths of the minimum spaning tree
+  \item Striated: the sumation of angles over all adjacent edges of a MST
+  \item Convex: the ratio of the area of the alpha hull and the area of the convex hull
+  \item Skinny: the ratio of perimeter to area of a polygon measures
+  \item Stringy: the ratio of width to length of a network
+  \item Monotonic: squared Spearman correlation coefficient
+\end{enumerate}
+
+<< cog_group_scagnostics >>=
+autocogs::auto_cog("scagnostics", americas$year, americas$lifeExp)
 @
 
   \item Continuous 2D Density Cognostics
@@ -238,7 +250,24 @@ The Continuous 2-Dimensional Density cognostic group reports the maximum density
 autocogs::auto_cog("density_2d_continuous", americas$year, americas$lifeExp, clusters = TRUE)
 @
 
-  \item Linear Model Cognostics
+\item Bivariate Step Cognostics
+
+A stepwise plot displays a ``stair case'' like plot where the connecting line only moves along the $X$ or $Y$ axis.  The Bivariate Step cognostic group returns the number of steps completed, as well as the Univariate Continuous cognostics on the step width and step height.
+
+<< cog_group_bivariate_step >>=
+autocogs::auto_cog("bivariate_step", usa$year, usa$lifeExp)
+@
+
+\item Smooth Line Cognostics
+
+The smooth line cognostic group is a baseline for all model based lines added to a plot.  The smooth line calculations pair well with the linear model and loess model cognostic groups.  A mean squared error and the max deviation with its corresponding location are reported.
+
+<< cog_group_smooth_line >>=
+autocogs::auto_cog("smooth_line", usa$year, usa$lifeExp)
+@
+
+
+\item Linear Model Cognostics
 
 Linear Model cognostics leverage the vast array of existing statistics.  Knowning that the model will only be a simple linear model allows \autocogs to return slope and intercept values and corresponding p values.  Many cognostics can be generated about the model fit using known diagnostic methods:
   \begin{enumerate}
@@ -276,34 +305,6 @@ as.data.frame(autocogs::auto_cog("linear_model", usa$year, usa$lifeExp))
 
 << cog_group_loess_model >>=
 autocogs::auto_cog("loess_model", usa$year, usa$lifeExp)
-@
-
-  \item Scagnostics Cognostics
-
-  Scatterplot scagnostics are pre-existing cognostic group for a continuous bivariate plot. The following scagnostics are explained in more detail in \cite{scagnostics}.
-
-  \begin{enumerate}
-    \item Outlying: the proportion of the total edge length due to extremely long edges connected to points of single degree
-    \item Skewed: the distribution of edge lengths of a minimum spanning tree gives us information about the relative density of points in a scattered configuration
-    \item Clumpy: the Hartigan and Mohanty RUNT statistic is most easily understood in terms of the single-linkage hierarchical clustering tree called a dendrogram
-    \item Sparse, the 90\% quantile of the edge lengths of the minimum spaning tree
-    \item Striated: the sumation of angles over all adjacent edges of a MST
-    \item Convex: the ratio of the area of the alpha hull and the area of the convex hull
-    \item Skinny: the ratio of perimeter to area of a polygon measures
-    \item Stringy: the ratio of width to length of a network
-    \item Monotonic: squared Spearman correlation coefficient
-  \end{enumerate}
-
-<< cog_group_scagnostics >>=
-autocogs::auto_cog("scagnostics", americas$year, americas$lifeExp)
-@
-
-  \item Smooth Line Cognostics
-
-  The smooth line cognostic group is a baseline for all model based lines added to a plot.  The smooth line calculations pair well with the linear model and loess model cognostic groups.  A mean squared error and the max deviation with its corresponding location are reported
-
-<< cog_group_smooth_line >>=
-autocogs::auto_cog("smooth_line", usa$year, usa$lifeExp)
 @
 
 \end{enumerate}
