@@ -22,8 +22,9 @@ Imports:
   trelliscopejs,
   gpairs,
   gridExtra,
-    fpp2,
-    purrr
+  fpp2,
+  purrr,
+  gapminder
 Remotes:
   schloerke/autocogs,
   schloerke/trelliscopejs@autocogs

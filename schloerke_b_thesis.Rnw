@@ -73,7 +73,7 @@ knitr::opts_chunk$set(
 
 % Major professor (used in abstract).
 % Use \majorprofs{...} if you have more than one professor.
-\majorprofs{Dr. William Cleveland, Dr. Ryan Hafen, Dr. Bowei Xi, Dr. Vinayak Rao}
+\majorprofs{Dr. William Cleveland and Dr. Ryan Hafen}
 
 % Campus (used only on cover)
 \campus{West Lafayette}
