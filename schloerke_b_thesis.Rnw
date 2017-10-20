@@ -109,15 +109,19 @@ knitr::opts_chunk$set(
 << part_pkg_summaries, child='parts/package_summaries.Rnw'>>=
 @
 
+<< part_ggplot2, child='parts/background-ggplot2.Rnw'>>=
+@
+<< part_ggduo, child='parts/ggduo.Rnw'>>=
+@
+
+
 << part_background_autocogs, child='parts/background-autocogs.Rnw'>>=
 @
 << part_autocogs, child='parts/autocogs.Rnw'>>=
 @
 
-<< part_ggplot2, child='parts/background-ggplot2.Rnw'>>=
-@
-<< part_ggduo, child='parts/ggduo.Rnw'>>=
-@
+
+
 
 << part_graphql, child='parts/graphql.Rnw'>>=
 @
