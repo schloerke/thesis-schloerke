@@ -390,12 +390,44 @@ In this section, I will explore a simple \ggplot bar chart and a more advanced e
 
 \subsection{Bar Plot}
 
-First, let us create the dataset containing each of the panels.  Each panel will display a 
+First, let us create the dataset containing each of the panels.  Each panel will display a histogram chart of the life expectancies of each continent.
+
+<<>>=
+gapminder %>%
+  group_by(continent) %>%
+  do(
+    panel = ggplot(., aes(lifeExp)) + geom_histogram(binwidth = 1)
+  ) ->
+continent_hists
+
+continent_hists$panel[[2]]
+@
+
+<<>>=
+continent_hists_cogs <- autocogs::add_panel_cogs(continent_hists)
+continent_hists_cogs %>% print()
+as.list(continent_hists_cogs[2, 3:6])
+@
 
 
 \subsection{Linear Model and Scatter Plot}
 
+<<>>=
+gapminder %>%
+  group_by(country, continent) %>%
+  do(
+    panel = ggplot(., aes(year, lifeExp)) + geom_point() + geom_smooth(method = "lm")
+  ) ->
+country_model
 
+usa_pos <- which(country_model$country == "United States") %>% print()
+country_model$panel[[usa_pos]]
+@
+
+<<>>=
+country_model_cogs <- autocogs::add_panel_cogs(country_model) %>% print()
+as.list(country_model_cogs[2, 4:10])
+@
 
 
 \section{Extra}
