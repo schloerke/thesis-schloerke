@@ -6,6 +6,16 @@ Add figures to all plots
   @
 
 
+cognostics
+  Future work
+    Add cognostics for time series data
+    Add safety layer for the execution (try catch)
+    Add message similar to $facet_map$ to submit them to github
+    Add rbokeh layer connections
+    Add plotly layer connections
+
+
+
 \section{Summary}
   talked about X
   talked about what you can do with X

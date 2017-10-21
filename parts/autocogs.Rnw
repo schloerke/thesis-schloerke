@@ -39,7 +39,9 @@ The amount of work to retrieve information that can be readily seen or calculate
 
 
 
-\subsection{Example}
+\subsection{Linear Model Example}
+\label{subsec:linear_model}
+
 
 Using the panel column only, we will derive many cognostics using the \autocogs R package.
 
@@ -391,18 +393,20 @@ In this section, I will explore a simple \ggplot bar chart and a more advanced e
 
 \subsection{Bar Plot}
 
-First, let us create the dataset containing each of the panels.  Each panel will display a histogram chart of the life expectancies of each continent.
+First, let us create the dataset containing each of the panels.  Each panel will display a histogram chart of the life expectancy over time for each continent. Figure \ref{fig:continent_hist} displays the panel where continent is \rinline{"Americas"}.
 
-<<>>=
+<< continent_hist >>=
 gapminder %>%
   group_by(continent) %>%
   do(
     panel = ggplot(., aes(lifeExp)) + geom_histogram(binwidth = 1)
-  ) ->
+  ) %>%
+  print() ->
 continent_hists
-
 continent_hists$panel[[2]]
 @
+
+With a nested \rinline{data.frame} full of panels, we can add the cognostics.
 
 <<>>=
 continent_hists_cogs <- autocogs::add_panel_cogs(continent_hists)
@@ -410,117 +414,119 @@ continent_hists_cogs %>% print()
 as.list(continent_hists_cogs[2, 3:6])
 @
 
+The output above displays all the cognostics that apply to a univariate histogram.  For a \ggplot histogram, \autocogs creates
+\begin{enumerate}
+  \item \rinline{`_x`}: univariate continuous cognositics using the $X$ data,
+  \item \rinline{`_density_x`}: continuous density cognostics using the $X$ data,
+  \item \rinline{`_hist_x`}: histogram counts cognostics using the $X$ data,
+  \item \rinline{`_n`}: and univariate count information using the $X$ data.
+\end{enumerate}
+
+While this amount of information is a little overwhelming, keep in mind the goal of the autocogs package is to provide as many ways to filter and sort data that can not readily be seen.
+
 
 \subsection{Linear Model and Scatter Plot}
 
-<<>>=
+In the next example, we will perform a similar workflow, but the panel will contain two layers: point and a linear model line.  Each layer is derived from the same original data, but will help produce a very different set of cognostics.
+
+<< contry_model >>=
 gapminder %>%
   group_by(country, continent) %>%
   do(
     panel = ggplot(., aes(year, lifeExp)) + geom_point() + geom_smooth(method = "lm")
   ) ->
 country_model
-
 usa_pos <- which(country_model$country == "United States") %>% print()
 country_model$panel[[usa_pos]]
 @
+
+The \rinline{"United States"} panel is displayed in figure \ref{fig:country_model}.  The life expectancy has a fairly linear trend that increases over time. Next, we add the cognostics to the panel \rinline{data.frame}.
 
 <<>>=
 country_model_cogs <- autocogs::add_panel_cogs(country_model) %>% print()
 as.list(country_model_cogs[2, 4:10])
 @
 
+As expected, many cognostics were added to the panel \rinline{data.frame}:
 
-\section{Extra}
+\begin{enumerate}
+  \item \rinline{`_scagnostic`}: scatter plot scagnostics cognostics,
+  \item \rinline{`_x`}: univariate continuous cognositics using the $X$ data,
+  \item \rinline{`_y`}: univariate continuous cognositics using the $Y$ data,
+  \item \rinline{`_bivar`}: bivariate continuous cognostics,
+  \item \rinline{`_smooth`}: smooth line cognostics,
+  \item \rinline{`_lm`}: linear model cognostics,
+  \item \rinline{`_n`}: and bivariate count information.
+\end{enumerate}
 
-For any data types
-  Can be linear models, box plots, etc.
-Example of gapminder linear model and $R^2$
+Revisiting the Linear Model Example \ref{subsec:linear_model}, we have now exposed the linear model metrics (as well as many other metrics) to be used as cognostics within the \trelliscopejs widgit.  \trelliscopejs will process the nested \rinline{data.frame}s as grouped cognostics and display them in the application.  Each linear model's $R^2$ value is available for sorting.  By opening the ``Order'' tab and selecting ascending \rinline{r2}, all countries will be display in increasing order of the $R^2$ value.  This will display all countries whose life expectancy can not be explained by a linear model.
 
-
-Autocogs
-  Framework
-    Connect to plotting frameworks,
-      Short paragraph (and example?) on each one
-      Ggplot2 layers
-        $Geom_point$
-        $Geom_line$
-        etc...
-
-
-\subsection{Caluclations}
+In less than ten lines of code we went from a single data set to a full fledge visualization application with multiple cognostics explaining the plot used with each conditioned subset.
 
 
 
-
-
-
-TODO keep writing
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Using the \rinline{gapminder} dataset as an example, we can explore the linear model trend of the life expectancy over time.
-
-%\trelliscopejs has integrated functionality with \ggplot, so we will reduce the amount of code using the function \rinline{facet_trelliscope}.
-
-<< all_info  >>=
-gapminder_condensed %>%
-  mutate(
-    # add metrics
-    min_lifeExp = purrr::map_dbl(data, function(dt) min(dt$lifeExp)),
-    max_lifeExp = purrr::map_dbl(data, function(dt) max(dt$lifeExp)),
-    # add panel
-    panel = map_plot(data, function(dt) {
-      # display a line plot of X:year, Y:life expectancy
-      ggplot(dt, aes(year, lifeExp)) +
-        geom_smooth(method = "lm") +
-        geom_line() +
-        ylim(20, 85)
-    })
-  ) %>%
-  # remove the condensed data
-  select(-data) %>%
-  print() ->
-gap_trellis
-
-# display the plots and metrics in trelliscopejs
-gap_trellis %>%
-  trelliscope("gapminder", nrow = 3, ncol = 5, path = "example/gapminder")
-@
-
-<< lm_facet >>=
-gapminder %>%
-  ggplot(aes(year, lifeExp)) +
-    geom_line() +
-    geom_smooth(method = "lm") +
-    facet_trelliscope(~ continent + country, nrow = 3, ncol = 5, path = "example/gapminder_facet")
-@
-
-Each panel contains a linear model that can be used to interpret each countries' life expectancy over time.  The linear model information contained within each panel is not calculated until \ggplot displays the plot.  Information within each model can be useful when sorting panels within trelliscopejs.  This
-
-
-
-
-Future work
-  Add cognostics for time series data
-  Add safety layer for the execution (try catch)
-  Add message similar to $facet_map$ to submit them to github
-  Add rbokeh layer connections
-  Add plotly layer connections
+% \subsection{Caluclations}
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+% Using the \rinline{gapminder} dataset as an example, we can explore the linear model trend of the life expectancy over time.
+%
+% %\trelliscopejs has integrated functionality with \ggplot, so we will reduce the amount of code using the function \rinline{facet_trelliscope}.
+%
+% << all_info  >>=
+% gapminder_condensed %>%
+%   mutate(
+%     # add metrics
+%     min_lifeExp = purrr::map_dbl(data, function(dt) min(dt$lifeExp)),
+%     max_lifeExp = purrr::map_dbl(data, function(dt) max(dt$lifeExp)),
+%     # add panel
+%     panel = map_plot(data, function(dt) {
+%       # display a line plot of X:year, Y:life expectancy
+%       ggplot(dt, aes(year, lifeExp)) +
+%         geom_smooth(method = "lm") +
+%         geom_line() +
+%         ylim(20, 85)
+%     })
+%   ) %>%
+%   # remove the condensed data
+%   select(-data) %>%
+%   print() ->
+% gap_trellis
+%
+% # display the plots and metrics in trelliscopejs
+% gap_trellis %>%
+%   trelliscope("gapminder", nrow = 3, ncol = 5, path = "example/gapminder")
+% @
+%
+% << lm_facet >>=
+% gapminder %>%
+%   ggplot(aes(year, lifeExp)) +
+%     geom_line() +
+%     geom_smooth(method = "lm") +
+%     facet_trelliscope(~ continent + country, nrow = 3, ncol = 5, path = "example/gapminder_facet")
+% @
+%
+% Each panel contains a linear model that can be used to interpret each countries' life expectancy over time.  The linear model information contained within each panel is not calculated until \ggplot displays the plot.  Information within each model can be useful when sorting panels within trelliscopejs.  This

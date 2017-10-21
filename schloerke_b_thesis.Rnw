@@ -24,7 +24,7 @@
 
 
 <<knitr, echo = FALSE, cache = FALSE>>=
-options(width = 140)
+options(width = 72)
 knitr::opts_chunk$set(
   cache = TRUE,
   autodep = TRUE,
