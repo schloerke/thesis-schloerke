@@ -103,6 +103,8 @@ knitr::opts_chunk$set(
 \newcommand{\ggplot}{\pkg{ggplot2}}
 \newcommand{\trelliscopejs}{\pkg{trelliscopejs}}
 \newcommand{\autocogs}{\pkg{autocogs}}
+\newcommand{\gqlr}{\pkg{gqlr}}
+\newcommand{\GGally}{\pkg{GGally}}
 
 
 \begin{document}

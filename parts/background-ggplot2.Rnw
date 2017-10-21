@@ -39,11 +39,11 @@ tips <- reshape::tips %>%
 
 \subsection{Layered Grammer of Graphics}
 
-\ggplot, a data visualization R package, is based on a \emph{Layered Grammar of Graphics} (\cite{WickhamHadley2010ALGo}).  During Dr. Wickham's studies at Iowa State University, he statistically consulted with many students and professors on how to produce visualizations for their studies. Dr. Wickham noticed many clients had trouble producing plots quickly and difficulty understanding how the plot was made.  This provided plenty of motivation to produce \ggplot, basing it on \emph{The Grammar of Graphics}.
+\ggplot, a data visualization R package, is based on a \emph{Layered Grammar of Graphics} (\cite{layered_grammar}).  During Dr. Wickham's studies at Iowa State University, he statistically consulted with many students and professors on how to produce visualizations for their studies. Dr. Wickham noticed many clients had trouble producing plots quickly and difficulty understanding how the plot was made.  This provided plenty of motivation to produce \ggplot, basing it on \emph{The Grammar of Graphics}.
 
 \subsection{\ggplot Layer}
 
-Many of the common statistical graphics are a single layered plot.  A scatter plot is made of a point layer and a boxplot as a boxplot layer.  There is no formal name for the data graphic where horizontally jittered points are displayed on top of a vertical boxplot.  Each layer is understood as a component to the plot, therefore the plot as a whole can be understood.  Wickham did state that while a layered grammar guides a well formed graphic \cite{layered-grammar}, he analogizes ``good grammar is just the first step in creating a good sentence'' \cite{layered-grammar}.
+Many of the common statistical graphics are a single layered plot.  A scatter plot is made of a point layer and a boxplot as a boxplot layer.  There is no formal name for the data graphic where horizontally jittered points are displayed on top of a vertical boxplot.  Each layer is understood as a component to the plot, therefore the plot as a whole can be understood.  Wickham did state that while a layered grammar guides a well formed graphic \cite{layered_grammar}, he analogizes ``good grammar is just the first step in creating a good sentence'' \cite{layered_grammar}.
 
 Each plot consists of three components: the data, geom, and scales. Respectively, each of the component defines what is being displayed, how it is displayed and where it is being displayed.  By infering from the supplied data source and geom defaults, many plots can be displayed without much coding.
 

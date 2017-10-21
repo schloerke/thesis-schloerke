@@ -44,4 +44,8 @@ This is a sentence.
 This is a sentence.
 This is a sentence.
 
-\includegraphics{./dot/intro_hierarchy.pdf}
+\begin{figure}
+  \centering
+  \includegraphics[width=\textwidth]{./dot/intro_hierarchy.png}
+  \caption{There are three main components to this thesis: displaying two grouped plot matricies using \rinline{ggduo} in \GGally, adding automatic cognostics with \autocogs, and communicating data between services with \gqlr.}
+\end{figure}
