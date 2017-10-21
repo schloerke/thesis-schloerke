@@ -53,13 +53,13 @@ knitr::opts_chunk$set(
 % matches knitr background
 % \definecolor{gqlbg}{rgb}{0.9686,0.9686,0.9686}
 \definecolor{gqlbg}{rgb}{0.97,0.97,0.97}
-\newminted{c}{bgcolor=gqlbg, samepage=true}
-\newmintinline{c}{bgcolor=gqlbg, samepage=true}
-\newminted{r}{bgcolor=gqlbg, samepage=true}
+\newminted{cpp}{bgcolor=gqlbg, samepage=true, baselinestretch=1}
+\newmintinline{cpp}{bgcolor=gqlbg, samepage=true}
+\newminted{r}{bgcolor=gqlbg, samepage=true, baselinestretch=1}
 \newmintinline{r}{bgcolor=gqlbg, samepage=true}
-\newminted{graphql}{bgcolor=gqlbg, samepage=true}
+\newminted{graphql}{bgcolor=gqlbg, samepage=true, baselinestretch=1}
 \newmintinline{graphql}{bgcolor=gqlbg, samepage=true}
-\newminted{js}{bgcolor=gqlbg, samepage=true}
+\newminted{js}{bgcolor=gqlbg, samepage=true, baselinestretch=1}
 \newmintinline{js}{bgcolor=gqlbg, samepage=true}
 
 \let\hlesc\hlstd \let\hlpps\hlstd \let\hllin\hlstd \let\hlslc\hlcom

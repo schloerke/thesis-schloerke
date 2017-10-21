@@ -89,7 +89,7 @@ Each univariate grouping is labeled to provide context as to what is calculated 
 
 By definition, each subset panel within trelliscopejs will contain the same plotting layers, only with different data.  Addressing each layer will produce the same group of output cognostics but with different values.  There is a ``one to many'' mapping from plot to plot layers and a ``one to many'' mapping from plot layers to cognostics.  These same final cognostics can be produced from many different layers.
 
-\includegraphics[width = \textwidth ]{./dot/plot_layers.pdf}
+\includegraphics[width = \textwidth ]{./dot/plot_layers.png}
 
 Once all the cognostics have been produced for a given plot, they are reduced to keep only the unique cognostic name and value combinations.  Using the diagram above, the cognostic groups $\left\{A, B, ..., M\right\}$ will be returned once.
 
@@ -177,7 +177,7 @@ autocogs::auto_cog("univariate_discrete", gap_max$continent)
 
   \item Continuous Density Cognostics
 
-  Continuous density cognostics revolve around the shape of the density.  The maximum density value and its corresponding location are returned for comparison across cognostic calculations. Skew (CITE) and kurtosis (CITE) are readily available to help distinguish the density shape as well as the p value of Hartigans' dip test from \pkg{diptest} (CITE) for unimodality.  To help locate where the maximum density occurs, the max density value and location are also provided.  Finally, not by default due to slow calculation speed, the number of clusters may be calculated using the \pkg{mclust} (CITE) R package.
+  Continuous density cognostics revolve around the shape of the density.  The maximum density value and its corresponding location are returned for comparison across cognostic calculations. Skew and kurtosis \cite{casella2002statistical} are readily available to help distinguish the density shape as well as the p value of Hartigans' dip test from \pkg{diptest} \cite{r_diptest} for unimodality.  To help locate where the maximum density occurs, the max density value and location are also provided.  Finally, not by default due to slow calculation speed, the number of clusters may be calculated using the \pkg{mclust} \cite{r_mclust_1} \cite{r_mclust_2} R package.
 
 
 << cog_group_density_continuous >>=
@@ -384,7 +384,7 @@ autocogs::auto_cog("hex_counts", americas$year, americas$lifeExp, bins = 6)
 
 Below is a mapping of each \ggplot geom layer to each of the univariate cognostics.  Geoms that do not map to any cognostic are considered building block geoms and do not produce any cognostics when added as a layer.
 
-\includegraphics[width=\textwidth]{./dot/ggplot_cognostics.pdf}
+\includegraphics[width=\textwidth]{./dot/ggplot_cognostics.png}
 
 
 

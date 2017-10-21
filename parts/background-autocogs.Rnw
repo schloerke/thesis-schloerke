@@ -10,7 +10,7 @@ Medium Data (Disk Data) extends the capabilities of the memory to the storage ca
 
 Finally, Large Data (Cluster Data) is data that is spread across multiple machines.  Many machines may be used in a cluster to house Large Data.  Large data is the slowest in response time, as data must travel between machines for calculations.  Each machine may store the data in memory or on disk.  Typically each machine stores Medium Data locally, but functions as a cohesive unit globally.  Large Data typically involves a master computer (master node) to determine where a piece of data exists and which cluster computer should be contacted.
 
-Each class of data balances speed and size to achieve the final goal.  These definitions allow for the exponential advancement in computing power (CITE so and so's curve).
+Each class of data balances speed and size to achieve the final goal.  These definitions allow for exponential advancement in computing power according to Moore's Law \cite{Moore1965}.
 
 \subsection{Computation}
 
@@ -118,7 +118,7 @@ This \trelliscopejs html widget in the example above displays three rows and fiv
 
 Displaying panels alone has already been solved with \ggplot and \pkg{lattice}.  Scaling panels beyond \pkg{lattice}'s limits is still limited without the use of sorting and filtering the panels.  \trelliscopejs's power is leveraging subset metrics to organize the panels.  These subset metrics are called \emph{cognostics}.  Cognostics are univariate statistics calculated for every independent subset of the conditioned data.
 
-Cognostics can be simple summary statistics such as \rinline{mean} or \rinline{median}, or can be meta data information such as a URL or census information.  Tukey and Tukey first proposed calculating univariate metrics for scatter plots called scagnostics \cite{Tukey1985} as a way to describe a scatterplot.  Wilkinson et. al. implemented Tukeys' scagnostic definitions in the R package \pkg{scagnostics} (CITE scagnostics) \cite{scagnostics}. Scagnostics can be repurposed as cognostics when applied to every panel containing a scatterplot.  These cognostic groupings may then be compared, filtered, and sorted accross different subset panels.
+Cognostics can be simple summary statistics such as \rinline{mean} or \rinline{median}, or can be meta data information such as a URL or census information.  Tukey and Tukey first proposed calculating univariate metrics for scatter plots called scagnostics \cite{Tukey1985} as a way to describe a scatterplot.  Wilkinson et. al. \cite{scagnostics} implemented Tukeys' scagnostic definitions in the R package \pkg{scagnostics} \cite{r_scagnostics}. Scagnostics can be repurposed as cognostics when applied to every panel containing a scatterplot.  These cognostic groupings may then be compared, filtered, and sorted accross different subset panels.
 
 In \trelliscopejs, cognostics eventually are displayed as two types: continuous or discrete.  Continuous values can be filtered using open or closed ranges.  An example of a open range would include the \rinline{gapminder} country panels being filtered by maximum life expectancy values which are less than 70 years.  A closed range example would have both a \emph{from} and a \emph{to} in the selection range, i.e. within 50 to 65 years of age. Currently, \trelliscopejs does not support more than one range selection per variable.
 

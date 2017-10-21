@@ -89,7 +89,7 @@ No layers are displayed as none have been provided.  However, the scales have be
 
 \subsection{Comparison}
 
-Building the plot up layer by layer and storing it as an R object until printed does not follow existing patterns in R graphics.  The R core package \pkg{graphics} (CITE) displays information in a plot immediately upon function call.  There is no ability to delay the display of the plot after the initial plot has been created with the \pkg{graphics} package.
+Building the plot up layer by layer and storing it as an R object until printed does not follow existing patterns in R graphics.  The R core package \pkg{graphics} \cite{r_graphics} displays information in a plot immediately upon function call.  There is no ability to delay the display of the plot after the initial plot has been created with the \pkg{graphics} package.
 
 << graphics_plot >>=
 g <- graphics::plot(tip ~ total_bill, data = tips)
@@ -97,7 +97,7 @@ g <- graphics::plot(tip ~ total_bill, data = tips)
 g
 @
 
-\pkg{lattice} graphics meets in between \ggplot and \pkg{graphics} as all layers must be supplied at plot creation, but the plot is not displayed until print time.  The prior two \ggplot examples, (CITE) and (CITE), both displayed the ability to delay the printing of the \ggplot plot object.  \pkg{lattice} graphics can also delay the display of the plot object as both \pkg{lattice} and \ggplot convert their plot objects to be displayed using the \pkg{grid} package at print time.  The \pkg{grid} package does not implement full statistical plots, but rather it implements a R plotting framework to be used by other packages like \ggplot and \pkg{lattice}.
+\pkg{lattice} graphics meets in between \ggplot and \pkg{graphics} as all layers must be supplied at plot creation, but the plot is not displayed until print time.  The prior two \ggplot examples, (CITE FIGURE) and (CITE FIGURE), both displayed the ability to delay the printing of the \ggplot plot object.  \pkg{lattice} graphics can also delay the display of the plot object as both \pkg{lattice} and \ggplot convert their plot objects to be displayed using the \pkg{grid} package at print time.  The \pkg{grid} package does not implement full statistical plots, but rather it implements a R plotting framework to be used by other packages like \ggplot and \pkg{lattice}.
 
 << lattice_xyplot >>=
 l <- lattice::xyplot(tip ~ total_bill, data = tips)
@@ -127,7 +127,7 @@ Modularization of the \ggplot code allows for customization of each layer added 
 %     only divides data (facets) according to pre-existing column combinations
 
 
-Winston Chang, maintainer of ggplot2, explains facet'ing as ``[ploting] subsets of data into separate panels'' \cite{chang2013rgc}.  This is achieved using existing conditioning variables in the supplied data set. Each panel produces similar plots.  This technique commonly refered to as small multiples (CITE).  The same plots are displayed, but each plot contains an independent subset of the data.  Typically, only one or two conditioning variables are used, but any number of variables may be used when faceting a \ggplot plot.
+Winston Chang, maintainer of ggplot2, explains facet'ing as ``[ploting] subsets of data into separate panels'' \cite{chang2013rgc}.  This is achieved using existing conditioning variables in the supplied data set. Each panel produces similar plots.  This technique commonly refered to as small multiples \cite{small_multiples}.  The same plots are displayed, but each plot contains an independent subset of the data.  Typically, only one or two conditioning variables are used, but any number of variables may be used when faceting a \ggplot plot.
 
 Facets are useful when looking at the interaction with the conditioning variables.  Once all existing combinations of the conditioning variables have been made, subsets of the data are displayed in each of the panels with the strip (panel label) of the panel displaying the conditioning variable information.  Missing combinations can either be dropped or display an empty panel.  Facet wrap will drop missing combinations by default and facet grid will display an empty panel for missing combinations.  In ggplot2, all variables are considered discrete when used as faceting conditioning variables.
 
