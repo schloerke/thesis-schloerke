@@ -1,12 +1,12 @@
 
-\chapter{GGally::ggduo}
+\section{Plot Matrix}
 
-\rinline{ggduo} is continuation of prior work in the \pkg{GGally} R package.  In this chapter, I will cover background on the scatterplot matrix and generalized pairs plot matrix, and the \rinline{ggmatrix} object that generalized the plot matrix used in \rinline{ggduo}.
+\rinline{ggduo} is continuation of prior work in the \GGally~R package.  In this section, I will cover background on the scatterplot matrix and generalized pairs plot matrix, and the \rinline{ggmatrix} object that generalized the plot matrix used in \rinline{ggduo}.
 
 
 \subsection{Pairs Plot}
 
-  As the last chapter mentioned, \ggplot is designed to allow plots to be built layer by layer and not rendered until a final print command is executed.  \ggplot plot objects has some implementation rules it follows when facet'ing a plot.
+  As mentioned earlier in the chapter, \ggplot~is designed to allow plots to be built layer by layer and not rendered until a final print command is executed.  \ggplot~plot objects has some implementation rules it follows when facet'ing a plot.
 
   \begin{enumerate}
     \item Each faceted panel must share the same original X and Y columns.
@@ -33,7 +33,7 @@
 pairs(tips[c("total_bill", "tip", "smoker", "day")])
 @
 
-  Emerson et.al. discussed using a generalized pairs plot to handle the mix of variable types by providing different plotting layers for different data types.  The generalized pairs plot displays the same collection of data using different axes but allows for a mix of plotting methods and both continuous and discrete plot axes.  This addresses the issue of overplotting in discrete columns when only displaying data in a scatterplot matrix.  Below are the two default plotting methods to handle the overplotting issue.  The \pkg{gpairs} \cite{r_gpairs} R package is printed using \pkg{lattice} graphics, while the \pkg{GGally} R package prints using \ggplot graphics.
+  Emerson et.al. discussed using a generalized pairs plot to handle the mix of variable types by providing different plotting layers for different data types.  The generalized pairs plot displays the same collection of data using different axes but allows for a mix of plotting methods and both continuous and discrete plot axes.  This addresses the issue of overplotting in discrete columns when only displaying data in a scatterplot matrix.  Below are the two default plotting methods to handle the overplotting issue.  The \pkg{gpairs}~\cite{r_gpairs} R package is printed using \pkg{lattice}~graphics, while the \GGally~R package prints using \ggplot~graphics.
 
 << gpairs_intro >>=
 gpairs::gpairs(tips[, c("total_bill", "tip", "smoker", "day")])
@@ -44,11 +44,11 @@ pm <- ggpairs(tips, c("total_bill", "tip", "smoker", "day"))
 pm
 @
 
-\rinline{gpairs::gpairs} was originally built to handle the generalization of the pairs plot to include discrete data.  Unfortunately, this is written using \pkg{lattice} graphics and does not utilize the \ggplot framework.  \rinline{GGally::ggpairs} was originally written as an independent port of of \rinline{gpairs} to the \ggplot framework but with portability and modularization kept in mind.
+\rinline{gpairs::gpairs} was originally built to handle the generalization of the pairs plot to include discrete data.  Unfortunately, this is written using \pkg{lattice}~graphics and does not utilize the \ggplot~framework.  \rinline{GGally::ggpairs} was originally written as an independent port of of \rinline{gpairs} to the \ggplot~framework but with portability and modularization kept in mind.
 
 \rinline{ggpairs} addressed this by
 \begin{enumerate}
-  \item making each sub plot an indpenedently functioning \ggplot plot
+  \item making each sub plot an indpenedently functioning \ggplot~plot
   \item allowing each sub plot to be replaced after the initial plot matrix is created
   \item not displaying the plot matrix until the \rinline{print} command is executed
 \end{enumerate}
@@ -71,13 +71,13 @@ pm
 @
 
 
-\section{\rinline{GGally::ggmatrix}}
+\subsection{\rinline{ggmatrix}}
 
 The \rinline{ggmatrix} object is used to handle two main situations: handle mixed plot scales and contain the necessary information for displaying a plot matrix.
 
-\subsection{Plot Scales}
+\subsubsection{Plot Scales}
 
-\ggplot prevents discrete scales from being mixed with continuous scales.  Two different scales for the same axis is not possible in a single panel plot and \ggplot is built on the small multiple princple of displaying similar scales in every faceted panel.   The ability to display different axes natively in the same plot matrix is not possible with ggplot2.  Only one scale type is used per ggmatrix panel.  This keeps the original `per panel' logic intact. Before the \rinline{ggmatrix} object, to produce two, related mixed axes plots in the same graphic could only be achieved using the \pkg{gridExtra} or \pkg{grid} R packages.  Both of these existing methods behaved like a side by side print method, rather than a native plot matrix.
+\ggplot~prevents discrete scales from being mixed with continuous scales.  Two different scales for the same axis is not possible in a single panel plot and \ggplot~is built on the small multiple princple of displaying similar scales in every faceted panel.   The ability to display different axes natively in the same plot matrix is not possible with \ggplot.  Only one scale type is used per ggmatrix panel.  This keeps the original `per panel' logic intact. Before the \rinline{ggmatrix} object, to produce two, related mixed axes plots in the same graphic could only be achieved using the \pkg{gridExtra}~\cite{gridExtra} or \pkg{grid}~\cite{r_project} R packages.  Both of these existing methods behaved like a side by side print method, rather than a native plot matrix.
 
 << grid_extra >>=
 p1 <- pm[1,4]
@@ -88,19 +88,19 @@ gridExtra::grid.arrange(p1, p2, ncol = 1)
 \rinline{ggmatrix} allows for arbitrary scales per panel. When used properly, independently produced sub plots deliver common axes within each row and column.  This displays a cohesive and interpretable plot matrix structure.
 
 
-\subsection{Display Information}
+\subsubsection{Display Information}
 
-The necessary information includes the number of rows and columns, label information, \ggplot display theme information,  how plot strips should be displayed, default plot data, and individual plot information.
+The necessary information includes the number of rows and columns, label information, \ggplot~display theme information,  how plot strips should be displayed, default plot data, and individual plot information.
 
 << str, size = "scriptsize" >>=
 str(pm)
 @
 
-For memory optimization, each plot is stored as a function that will produce the \ggplot plot at print time.  To do so, the dataset provided at \rinline{ggpairs} inception sets a default dataset to be used at print time.  If a new sub plot is stored after inception, the  full plot \ggplot object is stored directly.
+For memory optimization, each plot is stored as a function that will produce the \ggplot~plot at print time.  To do so, the dataset provided at \rinline{ggpairs} inception sets a default dataset to be used at print time.  If a new sub plot is stored after inception, the  full plot \ggplot~object is stored directly.
 
 
 
-Similar to \ggplot's function \rinline{ggplot_gtable}, \rinline{ggmatrix_gtable} produces display only information that the \pkg{grid} graphics framework uses to display the plot. To retrieve all necessary display information, \rinline{ggmatrix_gtable} executes \rinline{ggplot_gtable} for each sub plot individually, then extracts the required plotting display information (panel and possibly panel strips) from each sub plot.  These subplot panels are then placed into the final plot matrix.
+Similar to \ggplot's function \rinline{ggplot_gtable}, \rinline{ggmatrix_gtable} produces display only information that the \pkg{grid}~graphics framework uses to display the plot. To retrieve all necessary display information, \rinline{ggmatrix_gtable} executes \rinline{ggplot_gtable} for each sub plot individually, then extracts the required plotting display information (panel and possibly panel strips) from each sub plot.  These subplot panels are then placed into the final plot matrix.
 
 The resulting plot matrix is displayed with the exact same styling as \ggplot's \rinline{facet_grid}. This returns all the display theme styling and display constraints back onto \ggplot. This means legends may be used.
 
@@ -118,7 +118,7 @@ pm + ggplot2::theme(legend.position = "bottom")
 @
 
 
-\section{\rinline{ggduo}}
+\section{\rinline{ggduo}: Plot matrix for Two Grouped Data}
 
 A definition of the pairs plot is that every column of the data is displayed against every other column.  This is great for full data exploration.  If a data frame had columns $A$, $B$, and $C$, there would be $3^2 = 9$ combinations produced: $A:A$, $A:B$, $A:C$, $B:A$, $B:B$, etc.. A pairs plot matrix can be generalized one step further by pairing two column groups against each other.
 
@@ -198,11 +198,7 @@ ggduo(
 
 
 
-% \newpage
-
-\section{Examples}
-  % * (<= 5 pages)
-  % * (breadth of application)
+\section{\rinline{ggduo} in Practice}
 
 
 
@@ -252,7 +248,7 @@ elec_median
 @
 
 
-  A time series plot displays the time axis on the X axis with multiple columns on the Y axis.  The \pkg{stats} package has a \rinline{ts.plot} function that currently allows for multiple time series to be printed in a single panel sharing the same axes.  Displaying the data on the same axis does not make sense in all cases.  This can be seen when looking at half-hourly eelctricity demand for Victoria, Australia, in 2014.  The electricity demand and temperature should not be displayed on the same scales, as they do not have similar units.  Including the $WorkDay$ boolean does not add to the understanding of the plot.
+  A time series plot displays the time axis on the X axis with multiple columns on the Y axis.  The \pkg{stats}~\cite{r_stats}~package has a \rinline{ts.plot} function that currently allows for multiple time series to be printed in a single panel sharing the same axes.  Displaying the data on the same axis does not make sense in all cases.  This can be seen when looking at half-hourly eelctricity demand for Victoria, Australia, in 2014.  The electricity demand and temperature should not be displayed on the same scales, as they do not have similar units.  Including the $WorkDay$ boolean does not add to the understanding of the plot.
 
 << stats_ts >>=
 stats::ts.plot(fpp2::elecdemand)
@@ -283,7 +279,7 @@ ggts(
 @
 
 
-\subsection{Multiple regression diagnostics}
+\subsection{Multiple Regression Diagnostics}
 
 % * Regression
 %   * marginal model
@@ -293,7 +289,7 @@ ggts(
 
 With the basis of \rinline{ggduo} displaying each row of the data in every panel with different functions, \rinline{ggduo} quickly extends to model diagnostics. There are many readily available diagnostics that can be calculated for each row of explanatory data. By default, \rinline{ggnostic} (a function that wraps around \rinline{ggduo}) looks at the residuals, leave one out sigma value, leverage points, and Cook's Distance. Each diagnostic information is plotted against all explanatory variables used in the model.
 
-Using the flea dataset from the \pkg{GGally} package, we can try to fit a model to determine the size of the flea's head.  Using \rinline{stats::step} to determine a good fitting model, the default model diagnostics are displayed against $species$, $tars1$, $tars2$, and $aede$. The residuals have a 95\% confidence interval in dashed lines and a solid line at 0. The leave one out sigma value displays a solid line for the current model's sigma value. The leverage points (diagonal of the hat matrix) are centered around the solid, expected line at $p / n$ and have a dashed, significance line at $2 * p / n$ \cite{kutner_linear_models}. Finally, the Cooks's distance has a grey dashed, significance line at $F_{p, n - p}(0.5)$ \cite{kutner_linear_models}. Each solid line corresponds to the expected value and each dashed line corresponds to a signifigance cuttoff value. The asterisks in the $X$ axis strips corresponding to the significance of an anova $F$ test.
+Using the flea dataset from the \GGally~package, we can try to fit a model to determine the size of the flea's head.  Using \rinline{stats::step} to determine a good fitting model, the default model diagnostics are displayed against $species$, $tars1$, $tars2$, and $aede$. The residuals have a 95\% confidence interval in dashed lines and a solid line at 0. The leave one out sigma value displays a solid line for the current model's sigma value. The leverage points (diagonal of the hat matrix) are centered around the solid, expected line at $p / n$ and have a dashed, significance line at $2 * p / n$ \cite{kutner_linear_models}. Finally, the Cooks's distance has a grey dashed, significance line at $F_{p, n - p}(0.5)$ \cite{kutner_linear_models}. Each solid line corresponds to the expected value and each dashed line corresponds to a signifigance cuttoff value. The asterisks in the $X$ axis strips corresponding to the significance of an anova $F$ test.
 
 << ggnostic >>=
 flea_model <- step(lm(head ~ ., data = flea), trace = FALSE)
@@ -328,7 +324,7 @@ ggnostic(
 
 % \section{Future Direction}
 % % * (<= 1 pages)
-% Currently all individual plots are rendered at run time. With \ggplot being known for having slower print speeds (cite?), this could be problimatic.  Currently, $n * m$ individual plots are printed.
+% Currently all individual plots are rendered at run time. With \ggplot~being known for having slower print speeds (cite?), this could be problimatic.  Currently, $n * m$ individual plots are printed.
 % currently printing n*m plots takes time.
 %
 %

@@ -120,15 +120,23 @@ knitr::opts_chunk$set(
 
 % Put chapter \include commands here.
 
+\chapter{Package Summaries}
 << part_pkg_summaries, child='parts/package_summaries.Rnw'>>=
 @
 
+
+
+
+\chapter{Plot Matrix for Two Grouped Data}
+
 << part_ggplot2, child='parts/background-ggplot2.Rnw'>>=
 @
+
 << part_ggduo, child='parts/ggduo.Rnw'>>=
 @
 
 
+\chapter{Automatic Cognostics for Data Visualization}
 << part_background_autocogs, child='parts/background-autocogs.Rnw'>>=
 @
 << part_autocogs, child='parts/autocogs.Rnw'>>=
@@ -136,7 +144,7 @@ knitr::opts_chunk$set(
 
 
 
-
+\chapter{GraphQL R Server}
 << part_graphql, child='parts/graphql.Rnw'>>=
 @
 

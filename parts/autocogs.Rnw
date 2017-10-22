@@ -1,6 +1,6 @@
-\chapter{Automatic Cognostics}
+\section{Automatic Cognostics for Data Visualization}
 
-From a data plotting perspective, we should be able to utilize what is already being displayed in the plot to sort and filter the panels of a \trelliscopejs widget.  This display information is not readily available as it is calculated within the plotting mechanism.
+From a data plotting perspective, we should be able to utilize what is already being displayed in the plot to sort and filter the panels of a 	relliscopejs~widget.  This display information is not readily available as it is calculated within the plotting mechanism.
 
 Using the prior \rinline{gapminder} example, the $X$ and $Y$ locations of the data must be retrieved manually.  While the prior example only retrieved the minimum and maximum values for each panel, the median and mean values may be of interest as well. These statistics are only looking at the $Y$ variable.  There are many more statistics involving both the $Y$ variable and the $X$ variable.  The $X$ and $Y$ covariance and correlation are added.  A linear model (\rinline{geom_smooth(method = "lm")}) was also added to visually detect linear trend deviations.
 
@@ -43,7 +43,7 @@ The amount of work to retrieve information that can be readily seen or calculate
 \label{subsec:linear_model}
 
 
-Using the panel column only, we will derive many cognostics using the \autocogs R package.
+Using the panel column only, we will derive many cognostics using the \autocogs~R package.
 
 << autocogs_first >>=
 gapminder %>%
@@ -84,10 +84,10 @@ Each univariate grouping is labeled to provide context as to what is calculated 
 
 \subsection{Framework}
 
-\autocogs package was built to provide a consistent framework for calculating cognostics independent of the class of the plotting supplied.  Ideally, it should work for \ggplot, \pkg{rbokeh}, \pkg{plot.ly}, etc. and produce the same result for similar plot displayed in the different plotting packages.  Currently, only \ggplot hooks have been installed, but \pkg{rbokeh} and \pkg{plot.ly} can be added using the publically available functions in the \autocogs package.
+\autocogs~package was built to provide a consistent framework for calculating cognostics independent of the class of the plotting supplied.  Ideally, it should work for \ggplot, \pkg{rbokeh}~\cite{r_bokeh}, \pkg{plotly}~\cite{r_plotly}, etc. and produce the same result for similar plot displayed in the different plotting packages.  Currently, only \ggplot~hooks have been installed, but \pkg{rbokeh}~and \pkg{plotly}~can be added using the publically available functions in the \autocogs~package.
 
 
-By definition, each subset panel within trelliscopejs will contain the same plotting layers, only with different data.  Addressing each layer will produce the same group of output cognostics but with different values.  There is a ``one to many'' mapping from plot to plot layers and a ``one to many'' mapping from plot layers to cognostics.  These same final cognostics can be produced from many different layers.
+By definition, each subset panel within a 	relliscopejs~widget will contain the same plotting layers, only with different data.  Addressing each layer will produce the same group of output cognostics but with different values.  There is a ``one to many'' mapping from plot to plot layers and a ``one to many'' mapping from plot layers to cognostics.  These same final cognostics can be produced from many different layers.
 
 \includegraphics[width = \textwidth ]{./dot/plot_layers.png}
 
@@ -116,7 +116,7 @@ The cognostics produced in the autocog gapminder example (TODO LINK TO EXAMPLE) 
   \item \rinline{_n} Five cognostics pertaining only to counts of X and Y values.
 \end{enumerate}
 
-Each cognostic group column contains a single row data frame nested in each cell.  Nesting data structures is considered an advanced technique, but by nesting the cognostic data frames in each cell, \autocogs maintains the tidy data input with tidy data output.  Tidy data is defined to have variables in each column, observations for each row and each cell contains a value.  The value does not need to conform to atomic values but allows for complex structures as long as the ``tidy data'' rules are kept.
+Each cognostic group column contains a single row data frame nested in each cell.  Nesting data structures is considered an advanced technique, but by nesting the cognostic data frames in each cell, \autocogs~maintains the tidy data input with tidy data output.  Tidy data is defined to have variables in each column, observations for each row and each cell contains a value.  The value does not need to conform to atomic values but allows for complex structures as long as the ``tidy data'' rules are kept.
 
 
 \begin{figure}[H]
@@ -161,7 +161,7 @@ gap_max
 
   \item Univariate Continuous Cognostics
 
-  Univariate continuous cognostics utilize the standard statistical calculations: minimum, maximum, mean, median, and variance.  Each value is quickly interpretable and provides a good starting point when filtering panels within a \trelliscopejs widget.
+  Univariate continuous cognostics utilize the standard statistical calculations: minimum, maximum, mean, median, and variance.  Each value is quickly interpretable and provides a good starting point when filtering panels within a 	relliscopejs~widget.
 
 << cog_group_univariate_continuous >>=
 autocogs::auto_cog("univariate_continuous", gap_max$lifeExp)
@@ -177,7 +177,7 @@ autocogs::auto_cog("univariate_discrete", gap_max$continent)
 
   \item Continuous Density Cognostics
 
-  Continuous density cognostics revolve around the shape of the density.  The maximum density value and its corresponding location are returned for comparison across cognostic calculations. Skew and kurtosis \cite{casella2002statistical} are readily available to help distinguish the density shape as well as the p value of Hartigans' dip test from \pkg{diptest} \cite{r_diptest} for unimodality.  To help locate where the maximum density occurs, the max density value and location are also provided.  Finally, not by default due to slow calculation speed, the number of clusters may be calculated using the \pkg{mclust} \cite{r_mclust_1} \cite{r_mclust_2} R package.
+  Continuous density cognostics revolve around the shape of the density.  The maximum density value and its corresponding location are returned for comparison across cognostic calculations. Skew and kurtosis \cite{casella2002statistical} are readily available to help distinguish the density shape as well as the p value of Hartigans' dip test from \pkg{diptest}~\cite{r_diptest} for unimodality.  To help locate where the maximum density occurs, the max density value and location are also provided.  Finally, not by default due to slow calculation speed, the number of clusters may be calculated using the \pkg{mclust}~\cite{r_mclust_1} \cite{r_mclust_2} R package.
 
 
 << cog_group_density_continuous >>=
@@ -271,7 +271,7 @@ autocogs::auto_cog("smooth_line", usa$year, usa$lifeExp)
 
 \item Linear Model Cognostics
 
-Linear Model cognostics leverage the vast array of existing statistics.  Knowning that the model will only be a simple linear model allows \autocogs to return slope and intercept values and corresponding p values.  Many cognostics can be generated about the model fit using known diagnostic methods:
+Linear Model cognostics leverage the vast array of existing statistics.  Knowning that the model will only be a simple linear model allows \autocogs~to return slope and intercept values and corresponding p values.  Many cognostics can be generated about the model fit using known diagnostic methods:
   \begin{enumerate}
     \item $R^2$: fraction of variance explained by the model
     \item sigma: square root of the estimated residual variance
@@ -378,18 +378,18 @@ autocogs::auto_cog("hex_counts", americas$year, americas$lifeExp, bins = 6)
 \end{enumerate}
 
 
-\section{\ggplot Layer Matching}
+\section{\ggplot~Layer Matching}
 
-\ggplot has already been integrated into the \autocogs R package by default.  This integration contains the necessary information for which cognostic groups will be displayed for the existing layer types of each \ggplot layer.  Each plotting framework has its own data personality and can display cognostics how it sees fit.
+\ggplot~has already been integrated into the \autocogs~R package by default.  This integration contains the necessary information for which cognostic groups will be displayed for the existing layer types of each \ggplot~layer.  Each plotting framework has its own data personality and can display cognostics how it sees fit.
 
-Below is a mapping of each \ggplot geom layer to each of the univariate cognostics.  Geoms that do not map to any cognostic are considered building block geoms and do not produce any cognostics when added as a layer.
+Below is a mapping of each \ggplot~geom layer to each of the univariate cognostics.  Geoms that do not map to any cognostic are considered building block geoms and do not produce any cognostics when added as a layer.
 
 \includegraphics[width=\textwidth]{./dot/ggplot_cognostics.png}
 
 
 
 
-In this section, I will explore a simple \ggplot bar chart and a more advanced example involving a \ggplot scatterplot and linear model combination.
+In this section, I will explore a simple \ggplot~bar chart and a more advanced example involving a \ggplot~scatterplot and linear model combination.
 
 \subsection{Bar Plot}
 
@@ -414,7 +414,7 @@ continent_hists_cogs %>% print()
 as.list(continent_hists_cogs[2, 3:6])
 @
 
-The output above displays all the cognostics that apply to a univariate histogram.  For a \ggplot histogram, \autocogs creates
+The output above displays all the cognostics that apply to a univariate histogram.  For a \ggplot~histogram, \autocogs~creates
 \begin{enumerate}
   \item \rinline{`_x`}: univariate continuous cognositics using the $X$ data,
   \item \rinline{`_density_x`}: continuous density cognostics using the $X$ data,
@@ -422,7 +422,7 @@ The output above displays all the cognostics that apply to a univariate histogra
   \item \rinline{`_n`}: and univariate count information using the $X$ data.
 \end{enumerate}
 
-While this amount of information is a little overwhelming, keep in mind the goal of the autocogs package is to provide as many ways to filter and sort data that can not readily be seen.
+While this amount of information is a little overwhelming, keep in mind the goal of the \autocogs~R package is to provide as many ways to filter and sort data that can not readily be seen.
 
 
 \subsection{Linear Model and Scatter Plot}
@@ -459,7 +459,7 @@ As expected, many cognostics were added to the panel \rinline{data.frame}:
   \item \rinline{`_n`}: and bivariate count information.
 \end{enumerate}
 
-Revisiting the Linear Model Example \ref{subsec:linear_model}, we have now exposed the linear model metrics (as well as many other metrics) to be used as cognostics within the \trelliscopejs widgit.  \trelliscopejs will process the nested \rinline{data.frame}s as grouped cognostics and display them in the application.  Each linear model's $R^2$ value is available for sorting.  By opening the ``Order'' tab and selecting ascending \rinline{r2}, all countries will be display in increasing order of the $R^2$ value.  This will display all countries whose life expectancy can not be explained by a linear model.
+Revisiting the Linear Model Example \ref{subsec:linear_model}, we have now exposed the linear model metrics (as well as many other metrics) to be used as cognostics within the 	relliscopejs~widget.  	relliscopejs~will process the nested \rinline{data.frame}s as grouped cognostics and display them in the application.  Each linear model's $R^2$ value is available for sorting.  By opening the ``Order'' tab and selecting ascending \rinline{r2}, all countries will be display in increasing order of the $R^2$ value.  This will display all countries whose life expectancy can not be explained by a linear model.
 
 In less than ten lines of code we went from a single data set to a full fledge visualization application with multiple cognostics explaining the plot used with each conditioned subset.
 
@@ -494,7 +494,7 @@ In less than ten lines of code we went from a single data set to a full fledge v
 %
 % Using the \rinline{gapminder} dataset as an example, we can explore the linear model trend of the life expectancy over time.
 %
-% %\trelliscopejs has integrated functionality with \ggplot, so we will reduce the amount of code using the function \rinline{facet_trelliscope}.
+% %	relliscopejs~has integrated functionality with \ggplot, so we will reduce the amount of code using the function \rinline{facet_trelliscope}.
 %
 % << all_info  >>=
 % gapminder_condensed %>%
@@ -529,4 +529,4 @@ In less than ten lines of code we went from a single data set to a full fledge v
 %     facet_trelliscope(~ continent + country, nrow = 3, ncol = 5, path = "example/gapminder_facet")
 % @
 %
-% Each panel contains a linear model that can be used to interpret each countries' life expectancy over time.  The linear model information contained within each panel is not calculated until \ggplot displays the plot.  Information within each model can be useful when sorting panels within trelliscopejs.  This
+% Each panel contains a linear model that can be used to interpret each countries' life expectancy over time.  The linear model information contained within each panel is not calculated until \ggplot~displays the plot.  Information within each model can be useful when sorting panels within \trelliscopejs.  This
