@@ -10,7 +10,7 @@ compile:
 	make clean
 	mkdir -p figure
 	Rscript -e "knitr::knit(\"schloerke_b_thesis.Rnw\"); warnings(); invisible();"
-	Rscript -e "Sys.setenv(PDFLATEX = \"pdflatex --shell-escape\"); tools::texi2pdf(\"schloerke_b_thesis.tex\");"
+	Rscript -e "Sys.setenv(PDFLATEX = \"pdflatex --shell-escape --halt-on-error\"); tools::texi2pdf(\"schloerke_b_thesis.tex\");"
 	Rscript -e "Sys.setenv(PDFLATEX = \"pdflatex --shell-escape\"); tools::texi2pdf(\"schloerke_b_thesis.tex\");"
 	make clean
 	cp schloerke_b_thesis.tex _build/schloerke_b_thesis.tex

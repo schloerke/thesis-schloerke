@@ -11,8 +11,6 @@
 %
 \documentclass[ece,dissertation]{puthesis}
 
-% TODO remove when ready for final versions. Set minted cache to false.
-% % answer spacing in knitr outputs
 \usepackage{etoolbox}
 \makeatletter
 \preto{\@verbatim}{\topsep=-20pt \partopsep=0pt }
@@ -48,11 +46,11 @@ knitr::knit_hooks$set(document = function(x) {sub('\\usepackage[]{color}', '\\us
 \usepackage{subfigure}
 
 \usepackage{hyperref}
-
 \usepackage{xcolor}
-\usepackage[cache=false]{minted}
-% \usepackage[outputdir=cache-minted]{minted}
+
+% TODO remove draft is true for final submission
 % \usepackage{minted}
+\usepackage[draft=true]{minted}
 
 % \usemintedstyle{xcode}
 \usemintedstyle{colorful}
