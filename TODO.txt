@@ -1,3 +1,10 @@
+look at all TODO s to remove
+
+add elec_median code to appendix
+
+scatter plot -> scatterplot
+dataset -> data set
+
 
 Add figures to all plots
   refer to all figures instead of above / below

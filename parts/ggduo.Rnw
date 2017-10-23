@@ -29,17 +29,17 @@
 
   Until the discussion of the Generalized Pairs Plot with Emerson et. al., all plots shared the same plot layers to utilize the idea of a small multiple.  However, this was not appropriate for discrete data being displayed by it's mapped numeric value.  In a discrete data versus discrete data plot, all of the points would be overplotted onto the unique discrete combinations.  This overplotting renders the discrete only pairs combinations unuseable.  The bottom right plots of $smoker$ and $day$ both display eight unique points, but do not convey that they really contain \Sexpr{nrow(tips)} points.
 
-<< original_pairs >>=
-pairs(tips[c("total_bill", "tip", "smoker", "day")])
+<< original_pairs, fig.cap = "Stock R graphics scatterplot matrix displaying the \\rinline{tips} dataset." >>=
+graphics::pairs(tips[c("total_bill", "tip", "smoker", "day")])
 @
 
   Emerson et.al. discussed using a generalized pairs plot to handle the mix of variable types by providing different plotting layers for different data types.  The generalized pairs plot displays the same collection of data using different axes but allows for a mix of plotting methods and both continuous and discrete plot axes.  This addresses the issue of overplotting in discrete columns when only displaying data in a scatterplot matrix.  Below are the two default plotting methods to handle the overplotting issue.  The \pkg{gpairs}~\cite{r_gpairs} R package is printed using \pkg{lattice}~graphics, while the \GGally~R package prints using \ggplot~graphics.
 
-<< gpairs_intro >>=
+<< gpairs_intro, fig.cap = "Same \\rinline{tips} data, but the plot matrix is displayed using the \\pkg{gpairs}~R package" >>=
 gpairs::gpairs(tips[, c("total_bill", "tip", "smoker", "day")])
 @
 
-<< ggpairs_intro >>=
+<< ggpairs_intro, fig.cap = "Same \\rinline{tips} data, but the plot matrix is displayed using the \\pkg{GGally}~R package" >>=
 pm <- ggpairs(tips, c("total_bill", "tip", "smoker", "day"))
 pm
 @
@@ -53,23 +53,23 @@ pm
   \item not displaying the plot matrix until the \rinline{print} command is executed
 \end{enumerate}
 
-<< add_custom_plot, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in" >>=
+<< add_custom_plot, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in", fig.cap = "Full \\ggplot plot object from the second row and first column." >>=
 # retrieve the second row, first column sub plot
 #  of the tips plot matrix
 pm[2,1]
 @
-<< add_custom_plot2, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in" >>=
-new_plot <- ggally_text(
-  "New\nPlot",
+<< add_custom_plot2, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in", fig.cap = "Replacement plot displaying ``Replacement Plot'' in red." >>=
+replacement_plot <- ggally_text(
+  "Replacement\nPlot",
   aes(color = "red"),
-  size = 10
+  size = 6
 )
-new_plot
+replacement_plot
 @
-<< add_custom_plot3 >>=
+<< add_custom_plot3, fig.cap = "The replacement plot is placed in the second row and first column.  The updated plot matrix is displayed." >>=
 # insert the new plot into the second row, first column
 #  of the tips plot matrix
-pm[2,1] <- new_plot
+pm[2,1] <- replacement_plot
 # display the updated plot matrix
 pm
 @
@@ -83,7 +83,7 @@ The \rinline{ggmatrix} object is used to handle two main situations: handle mixe
 
 \ggplot~prevents discrete scales from being mixed with continuous scales.  Two different scales for the same axis is not possible in a single panel plot and \ggplot~is built on the small multiple princple of displaying similar scales in every faceted panel.   The ability to display different axes natively in the same plot matrix is not possible with \ggplot.  Only one scale type is used per ggmatrix panel.  This keeps the original `per panel' logic intact. Before the \rinline{ggmatrix} object, to produce two, related mixed axes plots in the same graphic could only be achieved using the \pkg{gridExtra}~\cite{gridExtra} or \pkg{grid}~\cite{r_project} R packages.  Both of these existing methods behaved like a side by side print method, rather than a native plot matrix.
 
-<< grid_extra >>=
+<< grid_extra, fig.cap = "Two fully displayed \\ggplot~plot objects arranged using \\pkg{gridExtra}. Duplicate axes and labels are present.  The $X$ axis does not align as the plots are treated independently." >>=
 p1 <- pm[1,4]
 p2 <- pm[2,4]
 gridExtra::grid.arrange(p1, p2, ncol = 1)
@@ -108,7 +108,7 @@ Similar to \ggplot's function \rinline{ggplot_gtable}, \rinline{ggmatrix_gtable}
 
 The resulting plot matrix is displayed with the exact same styling as \ggplot's \rinline{facet_grid}. This returns all the display theme styling and display constraints back onto \ggplot. This means legends may be used.
 
-<< ggpairs_legend >>=
+<< ggpairs_legend, fig.cap = "\\rinline{ggmatrix}~displaying a color legend on the right (default) side of the plot matrix." >>=
 # color the plots according to smoker
 # display legend from the 3rd row, 1st column plot
 pm <- ggpairs(
@@ -117,6 +117,8 @@ pm <- ggpairs(
   legend = c(3,1)
 )
 pm
+@
+<< ggpairs_legend_bottom, fig.cap = "\\rinline{ggmatrix}~moving the legend to the bottom using \\ggplot's \\rinline{theme} function." >>=
 # display legend on bottom using ggplot2 theme
 pm + ggplot2::theme(legend.position = "bottom")
 @
@@ -128,9 +130,9 @@ A definition of the pairs plot is that every column of the data is displayed aga
 
 For the example just described, column set $\left\{ A, B, C\right\}$ are paired against the column set $\left\{ A, B, C\right\}$.  This would be a little silly, as that should produce a pairs plot.  However, it allows us to produce a plot matrix of the combinations of $\left\{ A, B, C\right\}$ and $\left\{ D, E\right\}$, or any combination of two independent column sets.  Using the same underlying \rinline{ggmatrix} functionality, \rinline{ggduo} produces plot combinations of two grouped data.
 
-As a quick example, we may look at Australian children's fifth grade Math, Reading, and Science scores against their Sex and how many hours of Homework they completed.
+As a quick example, we may look at Australian students' fifth grade Math, Reading, and Science scores against their $gender$ and how many hours of $homework$ each student completed each week.
 
-<< ggmatrix_scores, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in" >>=
+<< ggmatrix_scores, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in", fig.cap = "$5^{th}$ grade Australian student scholasitc scores vs their $sex$ and hours of weekly homework." >>=
 ggduo(
   australia_PISA2012,
   c("gender", "homework"),
@@ -151,7 +153,7 @@ The default plotting behavior for discrete vs. discrete, is to summarize the dat
 The third group, continuous vs. discrete, will be refered to as a `combination plot'. \rinline{ggduo} makes a distinction between the two possible combination plots: continuous vs. discrete (vertical combination plot) and discrete vs. continuous (horizontal combination plot). By default, \rinline{ggduo} displays grouped histograms for a horizontal combination plot and grouped box plots for a vertical combination plot.
 \rinline{ggpairs} is able to handle the combination plot differently for the upper and lower triangle using the the \rinline{upper} and \rinline{lower} arguments.  Unlike \rinline{ggpairs}, a distiction between a horizontal and vertical combination plot is made as there are no upper and lower triangle plot matrix sections in a \rinline{ggduo} plot.
 
-<< ggpairs_types >>=
+<< ggpairs_types, fig.cap = "Altering the \\rinline{ggpairs} upper and lower \\rinline{combo} plot types." >>=
 ggpairs(
   tips,
   c("total_bill", "smoker", "day", "tip"),
@@ -160,7 +162,7 @@ ggpairs(
 )
 @
 
-<< ggduo_types, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in" >>=
+<< ggduo_types, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in", fig.cap = "Two grouped plot matrix using \\rinline{ggduo} with no upper or lower triangle areas." >>=
 # default
 ggduo(
   tips,
@@ -168,7 +170,7 @@ ggduo(
   c("total_bill", "tip", "time")
 )
 @
-<< ggduo_types2, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in" >>=
+<< ggduo_types2, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in", fig.cap = "Updating the combination types in a \\rinline{ggduo} plot matrix." >>=
 # alter the vertically oriented combo plots
 # alter the horizontally oriented combo plots
 ggduo(
@@ -187,7 +189,7 @@ ggduo(
 
 There are many default plotting functions are provided by the GGally package, however they are not all encompassing.  The user may supply their own plotting functions for each panel type.  This allows for complete customization of every panel.  The violin plot is a combination style plot that is not included by default.  A user may create their own function that uses the function call API of \rinline{function(data, mapping, ...) { ... }}.  A sample custom function example is provided below.
 
-<< user_defined, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in" >>=
+<< user_defined, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in", fig.cap = "Use a custom function to display a plot within a \\rinline{ggduo} plot matrix." >>=
 my_violin <- function(data, mapping, ...) {
   ggplot(data = data, mapping = mapping) +
     geom_violin(...)
@@ -215,7 +217,7 @@ ggduo(
 
   The example below is altered from the UCLA Intstitute for Digital Research and Education \cite{UclaCCA}.  The website provided an example using \rinline{ggpairs} to analyse the \emph{within} corrleation.  Continuing their example, we can use \rinline{ggduo} to check the \emph{between} correlation.  The data consists of 600 records of three psychological variables, four academic variables, and the student's gender.  The psychological variables are treated as the response with the academic variables and gender as a predictor.  \rinline{ggduo} will be used to check the correlation between the two sets of columns.
 
-<< ggduo_cca >>=
+<< ggduo_cca, fig.cap = "\\rinline{ggduo} plot matrix displaying academic varaibles against psychological varaibles. Continuous vs. continuous plots are displayed with a linear model." >>=
 ggduo(
   psychademic,
   c("motivation", "locus_of_control", "self_concept"),
@@ -256,7 +258,7 @@ elec_median
 
   A time series plot displays the time axis on the X axis with multiple columns on the Y axis.  The \pkg{stats}~\cite{r_stats}~package has a \rinline{ts.plot} function that currently allows for multiple time series to be printed in a single panel sharing the same axes.  Displaying the data on the same axis does not make sense in all cases.  This can be seen when looking at half-hourly eelctricity demand for Victoria, Australia, in 2014.  The electricity demand and temperature should not be displayed on the same scales, as they do not have similar units.  Including the $WorkDay$ boolean does not add to the understanding of the plot.
 
-<< stats_ts, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in" >>=
+<< stats_ts, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in", fig.cap = "Stock R time series plot.  All variables are displayed on the same axis." >>=
 stats::ts.plot(fpp2::elecdemand)
 @
 
@@ -264,7 +266,7 @@ stats::ts.plot(fpp2::elecdemand)
   By splitting the multiple time series plot along the Y axis, we can display multiple panels with different Y axes with a shared X axis using \rinline{ggduo}. This can be done with \rinline{ggts} which wraps to \rinline{ggduo} with the X column label turned off by default and a plot X label of `time'.  An extra column of the counts of above or below median demand has been added to display mixed Y axes.
 
 
-<< ggduo_ts >>=
+<< ggduo_ts, fig.cap = "Same \\rinline{elec_median} data, but the data is displayed using the \\rinline{ggts} function which calls \\rinline{ggduo}." >>=
 ggts(
   elec_median,
   mapping = aes(color = WorkDay),
@@ -297,20 +299,27 @@ With the basis of \rinline{ggduo} displaying each row of the data in every panel
 
 Using the flea dataset from the \GGally~package, we can try to fit a model to determine the size of the flea's head.  Using \rinline{stats::step} to determine a good fitting model, the default model diagnostics are displayed against $species$, $tars1$, $tars2$, and $aede$. The residuals have a 95\% confidence interval in dashed lines and a solid line at 0. The leave one out sigma value displays a solid line for the current model's sigma value. The leverage points (diagonal of the hat matrix) are centered around the solid, expected line at $p / n$ and have a dashed, significance line at $2 * p / n$ \cite{kutner_linear_models}. Finally, the Cooks's distance has a grey dashed, significance line at $F_{p, n - p}(0.5)$ \cite{kutner_linear_models}. Each solid line corresponds to the expected value and each dashed line corresponds to a signifigance cuttoff value. The asterisks in the $X$ axis strips corresponding to the significance of an anova $F$ test.
 
-<< ggnostic >>=
+<< ggnostic, fig.cap = "Linear model diagnostics for a model predicting the maximal head with in millimeters." >>=
 flea_model <- step(lm(head ~ ., data = flea), trace = FALSE)
 ggnostic(flea_model)
 @
 
 The model diagnostics can be extended further by coloring and grouping according to $species$ and displaying the fitted values.
 
-<< ggnostic_complex >>=
+<< ggnostic_complex, fig.cap = "Each plot is colored according to $species$.  Extra row diagnostics ($head$, $fitted$, and $se fit$) are added to the dianostic plot matrix." >>=
 ggnostic(
   flea_model,
   mapping = aes(color = species),
-  columnsY = c(".fitted", ".resid", ".std.resid", ".hat", ".cooksd"),
+  columnsY = c(
+    "head", ".fitted", ".se.fit", ".resid", ".std.resid", ".hat", ".cooksd"
+  ),
+  continuous = list(
+    default = ggally_smooth_lm
+  ),
   combo = list(
+    default = wrap(ggally_box_no_facet, outlier.shape = 21),
     .fitted = wrap(ggally_box_no_facet, outlier.shape = 21),
+    .se.fit = wrap(ggally_nostic_se_fit, outlier.shape = 21),
     .resid = wrap(ggally_nostic_resid, outlier.shape = 21),
     .std.resid = wrap(ggally_nostic_std_resid, outlier.shape = 21),
     .hat = wrap(ggally_nostic_hat, outlier.shape = 21),

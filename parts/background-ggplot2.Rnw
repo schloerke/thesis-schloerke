@@ -41,11 +41,11 @@ tips <- reshape::tips %>%
 
 \subsection{\ggplot~Layers}
 
-Many of the common statistical graphics are a single layered plot.  A scatter plot is made of a point layer and a boxplot as a boxplot layer.  There is no formal name for the data graphic where horizontally jittered points are displayed on top of a vertical boxplot.  Each layer is understood as a component to the plot, therefore the plot as a whole can be understood.  Wickham did state that while a layered grammar guides a well formed graphic \cite{layered_grammar}, he analogizes ``good grammar is just the first step in creating a good sentence'' \cite{layered_grammar}.
+Many of the common statistical graphics are a single layered plot.  A scatterplot is made of a point layer and a boxplot as a boxplot layer.  There is no formal name for the data graphic where horizontally jittered points are displayed on top of a vertical boxplot.  Each layer is understood as a component to the plot, therefore the plot as a whole can be understood.  Wickham did state that while a layered grammar guides a well formed graphic \cite{layered_grammar}, he analogizes ``good grammar is just the first step in creating a good sentence'' \cite{layered_grammar}.
 
 Each plot consists of three components: the data, geom, and scales. Respectively, each of the component defines what is being displayed, how it is displayed and where it is being displayed.  By infering from the supplied data source and geom defaults, many plots can be displayed without much coding.
 
-<< geom_point, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in", fig.cap="Minimal coding scatter plot of tips data.", fig.pos="H" >>=
+<< geom_point, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in", fig.cap="Minimal coding scatterplot of \\rinline{tips} data." >>=
 p <- ggplot(tips, aes(total_bill, tip)) +
   geom_point()
 p
@@ -53,8 +53,7 @@ p
 
 Typically, each layer of the plot uses the same original data source to help better explore the data frame.  Multi-layered plots may use multiple data sources where it would not be appriate to combine data sources.  Added data sources are usally display contextual information, such as a map, or summary statistics, such as a mean or linear model.
 
-<< tip_lm, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in", fig.pos = "H", fig.cap = "asdfasfd" >>=
-4
+<< tip_lm, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in", fig.cap = "Scatterplot with manual linear model line added to the panel." >>=
 tip_lm <- broom::tidy(lm(tip ~ total_bill, data = tips))$estimate
 (tip_lm_dt <- data.frame(
   intercept = tip_lm[1],
@@ -78,19 +77,19 @@ p +
 
 All plot layers do not need to exist at the time of plot object inception.  Each layer of a \ggplot~plot may be added one by one to the original plot object at different times of the code execution.  The simplist of plot objects consists of a default dataset and a default set of aesthetics.
 
-<< minimal_gg, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in" >>=
+<< minimal_gg, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in", fig.cap = "Empty \\ggplot~plot with no layers displayed." >>=
 minimal_plot <- ggplot(data = tips, aes(total_bill, tip))
 # display delayed until print time
 minimal_plot
 @
 
-No layers are displayed as none have been provided.  However, the scales have been infered from the default data and aesthetics.
+No layers are displayed as none have been provided.  However, the scales have been infered from the default data aesthetics.
 
 \subsection{Comparison}
 
 Building the plot up layer by layer and storing it as an R object until printed does not follow existing patterns in R graphics.  The R core package \pkg{graphics}~\cite{r_project} displays information in a plot immediately upon function call.  There is no ability to delay the display of the plot after the initial plot has been created with the \pkg{graphics}~package.
 
-<< graphics_plot, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in" >>=
+<< graphics_plot, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in", fig.cap = "Stock R scatterplot using the \\pkg{graphics}~package." >>=
 g <- graphics::plot(tip ~ total_bill, data = tips)
 # nothing is stored, as plot is already displayed
 g
@@ -98,7 +97,7 @@ g
 
 \pkg{lattice}~graphics meets in between \ggplot~and \pkg{graphics}~as all layers must be supplied at plot creation, but the plot is not displayed until print time.  The prior two \ggplot~examples, (CITE FIGURE) and (CITE FIGURE), both displayed the ability to delay the printing of the \ggplot~plot object.  \pkg{lattice}~graphics can also delay the display of the plot object as both \pkg{lattice}~and \ggplot~convert their plot objects to be displayed using the \pkg{grid}~package at print time.  The \pkg{grid}~package does not implement full statistical plots, but rather it implements a R plotting framework to be used by other packages like \ggplot~and \pkg{lattice}.
 
-<< lattice_xyplot, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in" >>=
+<< lattice_xyplot, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in", fig.cap = "\\pkg{lattice}~scatterplot displaying using the \\pkg{grid}~framework." >>=
 l <- lattice::xyplot(tip ~ total_bill, data = tips)
 # display plot
 l
@@ -106,7 +105,7 @@ l
 
 Finally after executing the \pkg{graphics}~and \pkg{lattice}~code above, we can add a point layer to the minimal \ggplot~plot example.
 
-<< minimal_point, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in" >>=
+<< minimal_point, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in", fig.cap = "Adding a `point' layer to the base \\ggplot~plot object." >>=
 # layer added after plot inception
 minimal_points <- minimal_plot + geom_point()
 # displays plot
@@ -137,7 +136,8 @@ Facets are useful when looking at the interaction with the conditioning variable
 There are two types of faceting in \ggplot: facet wrap and facet grid.  Facet wrap displays each panel row by row from left to right then top to bottom.  The number of rows and/or columns can be specified to ease the guessing work made by \ggplot.  If no facet row or column counts are supplied, \ggplot~attempts to give each uses \pkg{grDevices}~\cite{r_project} algorithm, \rinline{n2mfrow(n)}, to determine a sensible number of rows and columns.  Plots are display starting in the top row, from left to right, working towards the bottom of the plotting area.
 
 
-<< facets1, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in" >>=
+<< facets1, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in", fig.cap = "$tip$ vs. $total_bill$ with facets or conditioning variables." >>=
+# TODO remove comments
 # p <- ggplot(iris, aes(Petal.Length, Petal.Width)) + geom_point()
 # p + labs(title = "Iris Petal Length vs Width")
 # p + facet_wrap(~ Species) + labs(title = "Iris Petal Length vs Width per Species")
@@ -145,12 +145,12 @@ p <- ggplot(tips, aes(total_bill, tip)) + geom_point()
 p +
   labs(title = "No Facets")
 @
-<< facets2, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in" >>=
+<< facets2, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in", fig.cap = "$tip$ vs. $total_bill$ faceted by $day$. Each panel belongs to a given day in the data." >>=
 p +
   facet_wrap(~ day, labeller = label_both) +
   labs(title = "Facet Wrap (~ day)")
 @
-<< facets3, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in" >>=
+<< facets3, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in", fig.cap = "$tip$ vs $total_bill$ faceted by all existing $day$ and $time$ combinations." >>=
 p +
   facet_wrap(~ day + time, labeller = label_both) +
   labs(title = "Facet Wrap (~ day + time)")
@@ -160,7 +160,7 @@ p +
 
 Facet grid forces a two dimensional layout when faceting a plot.  The layout involves two sets of conditioning variables: the X conditioning and the Y conditioning variables.  These two sets of conditioning variables pre-determine how many rows (Y) and columns (X) are produced.
 
-<< facet_grid_example, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in" >>=
+<< facet_grid_example, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in", fig.cap = "$tip$ vs $total_bill$ faceted in a grid pattern with $time$ representing each row and $day$ representing each column." >>=
 p +
   facet_grid(time ~ day, labeller = label_both) +
   labs(title = "Facet Grid (time ~ day)")
@@ -169,7 +169,7 @@ p +
 The plot above displays \rinline{time} on the rows ($y$) and \rinline{day} on the columns ($x$).  The \rinline{facet_grid} formula follows a typical linear model formula of \rinline{y ~ x}.  Multiple columns can be used in either the $x$ position or the $y$ position.  This allows the user the dipslay a set column combinations against another set of column combinations.
 
 % do not change size
-<< facet_grid_multi >>=
+<< facet_grid_multi, fig.cap = "$tip$ vs $total_bill$ faceted in a grid pattern with $sex$ and $smoker$ combinations representing each row and $time$ and $day$ combinations representing each column." >>=
 p +
   geom_smooth(method = lm, se = FALSE) +
   facet_grid(sex + smoker ~ time + day, labeller = label_both)

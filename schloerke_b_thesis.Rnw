@@ -30,13 +30,16 @@ knitr::opts_chunk$set(
   width = 69,
   fig.width = 8,
   fig.height = 6,
+  fig.pos = "H", fig.align = "center",
   warning=FALSE,
   message=FALSE,
   size = "small",
   out.width = "5.5in",
   out.height = "4.125in" # (75% * width)
 )
+
 # color warning
+# https://tex.stackexchange.com/questions/148188/knitr-xcolor-incompatible-color-definition
 knitr::knit_hooks$set(document = function(x) {sub('\\usepackage[]{color}', '\\usepackage{xcolor}', x, fixed = TRUE)})
 @
 

@@ -706,7 +706,7 @@ min_active$random <- 1234
 min_active$random
 min_active$random
 min_active$random <- 1234
-min_active$random
+min_active$random # same value as the first random value with seed 1234
 @
 
 Finally, \pkg{R6}~allows for inheritance.  In the GraphQL's abstract syntax tree, many objects inherit from one another in a directed, acyclic graph structure.  This is similar

@@ -4,7 +4,7 @@ From a data plotting perspective, we should be able to utilize what is already b
 
 Using the prior \rinline{gapminder} example, the $X$ and $Y$ locations of the data must be retrieved manually.  While the prior example only retrieved the minimum and maximum values for each panel, the median and mean values may be of interest as well. These statistics are only looking at the $Y$ variable.  There are many more statistics involving both the $Y$ variable and the $X$ variable.  The $X$ and $Y$ covariance and correlation are added.  A linear model (\rinline{geom_smooth(method = "lm")}) was also added to visually detect linear trend deviations.
 
-<< add_metrics, screenshot.opts = list(vwidth = 700, vheight = 525) >>=
+<< add_metrics, screenshot.opts = list(vwidth = 700, vheight = 525), fig.cap = "More cognostics are added to the original example.  As more cognostics are added, the percentage of final code written is more about cognostics and not data visualization." >>=
 gapminder_condensed %>%
   mutate(
     # add metrics
@@ -29,7 +29,7 @@ gapminder_condensed %>%
   print() ->
 gap_trellis_plus
 
-gap_trellis_plus %>% trelliscope("gapminder_plus")
+gap_trellis_plus %>% trelljs("gapminder_plus")
 @
 
 The amount of work to retrieve information that can be readily seen or calculated from the visual display quickly increases.  At first, there were two values used.  Now there are six values used to explain just the $Y$ data and the $\left\{X,Y\right\}$ combination.  As the amount of layers increase, the number of cognostics needed to explain the plot layer will also increase.  Given each plotting panel already contains statistical information, it should be leveraged to generate cognostics automatically.
@@ -49,7 +49,7 @@ gapminder %>%
   group_by(country, continent) %>%
   tidyr::nest() %>%
   mutate(
-    panel = map_plot(data, function(dt) {
+    panel = trelliscopejs::map_plot(data, function(dt) {
       # display a line plot of X:year, Y:life expectancy
       ggplot(dt, aes(year, lifeExp)) +
         geom_smooth(method = "lm") +
@@ -149,7 +149,7 @@ gapminder %>%
   summarise(lifeExp = max(lifeExp)) %>%
   print() ->
 gap_max
-#
+# TODO remove comments?
 # ggplot(gap_max, aes(lifeExp, fill = continent)) +
 #   geom_histogram(binwidth = 1) +
 #   labs(x = "max(lifeExp)")
@@ -410,7 +410,7 @@ In this section, I will explore a simple \ggplot~bar chart and a more advanced e
 
 First, let us create the dataset containing each of the panels.  Each panel will display a histogram chart of the life expectancy over time for each continent. Figure \ref{fig:continent_hist} displays the panel where continent is \rinline{"Americas"}.
 
-<< continent_hist, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in" >>=
+<< continent_hist, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in", fig.cap = "The \\rinline{\"Americas\"} histogram of life expectancy." >>=
 gapminder %>%
   group_by(continent) %>%
   do(
@@ -423,7 +423,7 @@ continent_hists$panel[[2]]
 
 With a nested \rinline{data.frame} full of panels, we can add the cognostics.
 
-<<>>=
+<< continent_hists_cogs >>=
 continent_hists_cogs <- autocogs::add_panel_cogs(continent_hists)
 continent_hists_cogs %>% print()
 as.list(continent_hists_cogs[2, 3:6])
@@ -440,11 +440,11 @@ The output above displays all the cognostics that apply to a univariate histogra
 While this amount of information is a little overwhelming, keep in mind the goal of the \autocogs~R package is to provide as many ways to filter and sort data that can not readily be seen.
 
 
-\subsection{Linear Model and Scatter Plot}
+\subsection{Linear Model and Scatterplot}
 
 In the next example, we will perform a similar workflow, but the panel will contain two layers: point and a linear model line.  Each layer is derived from the same original data, but will help produce a very different set of cognostics.
 
-<< contry_model, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in" >>=
+<< contry_model, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in", fig.cap = "The \\rinline{\"United States\"} life expectancy over time displayed as a linear model and scatterplot combination." >>=
 gapminder %>%
   group_by(country, continent) %>%
   do(
@@ -459,7 +459,7 @@ country_model$panel[[usa_pos]]
 
 The \rinline{"United States"} panel is displayed in figure \ref{fig:country_model}.  The life expectancy has a fairly linear trend that increases over time. Next, we add the cognostics to the panel \rinline{data.frame}.
 
-<<>>=
+<< country_model_cogs >>=
 country_model_cogs <- autocogs::add_panel_cogs(country_model) %>% print()
 as.list(country_model_cogs[2, 4:10])
 @
@@ -467,7 +467,7 @@ as.list(country_model_cogs[2, 4:10])
 As expected, many cognostics were added to the panel \rinline{data.frame}:
 
 \begin{enumerate}
-  \item \rinline{`_scagnostic`}: scatter plot scagnostics cognostics,
+  \item \rinline{`_scagnostic`}: scatterplot scagnostics cognostics,
   \item \rinline{`_x`}: univariate continuous cognositics using the $X$ data,
   \item \rinline{`_y`}: univariate continuous cognositics using the $Y$ data,
   \item \rinline{`_bivar`}: bivariate continuous cognostics,
