@@ -53,16 +53,20 @@ pm
   \item not displaying the plot matrix until the \rinline{print} command is executed
 \end{enumerate}
 
-<< add_custom_plot >>=
+<< add_custom_plot, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in" >>=
 # retrieve the second row, first column sub plot
 #  of the tips plot matrix
 pm[2,1]
+@
+<< add_custom_plot2, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in" >>=
 new_plot <- ggally_text(
   "New\nPlot",
   aes(color = "red"),
   size = 10
 )
 new_plot
+@
+<< add_custom_plot3 >>=
 # insert the new plot into the second row, first column
 #  of the tips plot matrix
 pm[2,1] <- new_plot
@@ -126,7 +130,7 @@ For the example just described, column set $\left\{ A, B, C\right\}$ are paired 
 
 As a quick example, we may look at Australian children's fifth grade Math, Reading, and Science scores against their Sex and how many hours of Homework they completed.
 
-<< ggmatrix_scores >>=
+<< ggmatrix_scores, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in" >>=
 ggduo(
   australia_PISA2012,
   c("gender", "homework"),
@@ -156,13 +160,15 @@ ggpairs(
 )
 @
 
-<< ggduo_types >>=
+<< ggduo_types, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in" >>=
 # default
 ggduo(
   tips,
   c("size", "smoker", "day"),
   c("total_bill", "tip", "time")
 )
+@
+<< ggduo_types2, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in" >>=
 # alter the vertically oriented combo plots
 # alter the horizontally oriented combo plots
 ggduo(
@@ -181,7 +187,7 @@ ggduo(
 
 There are many default plotting functions are provided by the GGally package, however they are not all encompassing.  The user may supply their own plotting functions for each panel type.  This allows for complete customization of every panel.  The violin plot is a combination style plot that is not included by default.  A user may create their own function that uses the function call API of \rinline{function(data, mapping, ...) { ... }}.  A sample custom function example is provided below.
 
-<< user_defined >>=
+<< user_defined, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in" >>=
 my_violin <- function(data, mapping, ...) {
   ggplot(data = data, mapping = mapping) +
     geom_violin(...)
@@ -250,7 +256,7 @@ elec_median
 
   A time series plot displays the time axis on the X axis with multiple columns on the Y axis.  The \pkg{stats}~\cite{r_stats}~package has a \rinline{ts.plot} function that currently allows for multiple time series to be printed in a single panel sharing the same axes.  Displaying the data on the same axis does not make sense in all cases.  This can be seen when looking at half-hourly eelctricity demand for Victoria, Australia, in 2014.  The electricity demand and temperature should not be displayed on the same scales, as they do not have similar units.  Including the $WorkDay$ boolean does not add to the understanding of the plot.
 
-<< stats_ts >>=
+<< stats_ts, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in" >>=
 stats::ts.plot(fpp2::elecdemand)
 @
 

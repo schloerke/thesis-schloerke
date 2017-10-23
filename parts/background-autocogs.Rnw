@@ -1,8 +1,8 @@
 \section{\trelliscopejs}
 
-	relliscopejs~is an R package used to visualize data with many conditioning combinations.  	relliscopejs~conditions on columns within the data and displays a plot or piece of information for each plot in an independent panel.
+\trelliscopejs~is an R package used to visualize data with many conditioning combinations.  \trelliscopejs~conditions on columns within the data and displays a plot or piece of information for each plot in an independent panel.
 
-	relliscopejs~is built to handle more panels than the current plotting frameworks. \ggplot's \rinline{facet_wrap} can feasibly hold 10s - 100s of displays in one plot.  Since \ggplot~does not paginate, you are limited to the number of panels you can fit on a screen.  \pkg{lattice}~does paginate, so this number can be increased by 100-1000 times.  \pkg{lattice}~outputs can be saved to PDF and manually inspected page by page.  This method is efficient in detecting small visual differences between plots.  However, there is a limit to how many plots a human can ingest manually.  If 1000 pages were ingested at two pages a second, it would take over 8 minutes to manually flip through each page.  This does not scale when there are millions of pages to flips through.
+\trelliscopejs~is built to handle more panels than the current plotting frameworks. \ggplot's \rinline{facet_wrap} can feasibly hold 10s - 100s of displays in one plot.  Since \ggplot~does not paginate, you are limited to the number of panels you can fit on a screen.  \pkg{lattice}~does paginate, so this number can be increased by 100-1000 times.  \pkg{lattice}~outputs can be saved to PDF and manually inspected page by page.  This method is efficient in detecting small visual differences between plots.  However, there is a limit to how many plots a human can ingest manually.  If 1000 pages were ingested at two pages a second, it would take over 8 minutes to manually flip through each page.  This does not scale when there are millions of pages to flips through.
 
 \subsection{Data Size}
 
@@ -28,7 +28,7 @@ Combine. With similarly shaped results from each subset, the results will be com
 
 The R package \pkg{plyr}~implemented the split-apply-combine approach for many kinds of data shapes: \rinline{array}, \rinline{list}, \rinline{vector}, and \rinline{data.frame}.  \pkg{dplyr}~\cite{r_dplyr}~has many specific routines to interact with a \rinline{data.frame}.  Examples will be using the \pkg{dplyr}~package functions.
 
-<< plyr_example >>=
+<< plyr_example, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in" >>=
 library(dplyr)
 library(gapminder)
 gapminder
@@ -61,11 +61,13 @@ Each package implements the split-apply-combine approach to data computation usi
 
 The prior \rinline{gapminder} example found the maximum life expectancy for the 142 countries.  They were then displayed in a plot colored according to the country's continent.  A lot of information can be gleaned from the maximum life expectancy summary plot, but a summary plot does not tell the full story.
 
-<< gapminder_best_worst >>=
+<< gapminder_best_worst, fig.width = 8, fig.height = 4, out.width = "5in", out.height = "2.5in" >>=
 gapminder %>%
   filter(country %in% c("Japan", "Switzerland")) %>%
   ggplot(aes(year, lifeExp)) + geom_line() + facet_wrap(~ country) +
     ylim(20, 85) + labs(title = "Higher life expectancy countries")
+@
+<< gapminder_best_worst2, fig.width = 8, fig.height = 4, out.width = "5in", out.height = "2.5in" >>=
 gapminder %>%
   filter(country %in% c("Afghanistan", "Rwanda")) %>%
   ggplot(aes(year, lifeExp)) + geom_line() + facet_wrap(~ country) +
@@ -76,13 +78,25 @@ The first plot above displays two longer living countries, Japan and Switzerland
 
 Summary statistics are great in ingesting information using less data.  However, summary statistics, by their nature, do not convey the full story.
 
-	relliscopejs~allows users to plot full plot detail while allowing users to change how many panels are displayed on the screen at one time, sort the panel ordering, and filter out unwanted panels.  	relliscopejs~achieves this by obtaining a plot for every conditioning combination and suplimentary metrics for each plot.
+\trelliscopejs~allows users to plot full plot detail while allowing users to change how many panels are displayed on the screen at one time, sort the panel ordering, and filter out unwanted panels.  \trelliscopejs~achieves this by obtaining a plot for every conditioning combination and suplimentary metrics for each plot.
 
 The example below uses the \rinline{gapminder} dataset.  The \rinline{gapminder} dataset contains an ``Excerpt of the Gapminder data on life expectancy, GDP per capita, and population by country.''  The 142 countries have data from 1952 to 2007.  The example will only use the life expectancy variable.
 
-<< trelliscopejs >>=
-library(trelliscopejs)
-
+<< trelljs, echo = FALSE, verbose = FALSE, cache = FALSE >>=
+trelliscope <- function(dt, name, ...) {
+  ret <- trelliscopejs::trelliscope(
+    dt, name, ...,
+    nrow = 3, ncol = 5,
+    panel_col = "panel",
+    path = normalizePath(file.path("ex", name)),
+    self_contained = TRUE
+  )
+  ret$width <- NULL
+  ret$height <- NULL
+  ret
+}
+@
+<< trelliscopejs, screenshot.opts = list(vwidth = 700, vheight = 525) >>=
 gapminder %>%
   group_by(country, continent) %>%
   # condense the data
@@ -96,7 +110,7 @@ gapminder_condensed %>%
     # for every subset,
     min_lifeExp = purrr::map_dbl(data, function(dt) min(dt$lifeExp)),
     max_lifeExp = purrr::map_dbl(data, function(dt) max(dt$lifeExp)),
-    panel = map_plot(data, function(dt) {
+    panel = trelliscopejs::map_plot(data, function(dt) {
       # display a line plot of X:year, Y:life expectancy
       ggplot(dt, aes(year, lifeExp)) + geom_line() + ylim(20, 85)
     })
@@ -107,11 +121,10 @@ gapminder_condensed %>%
 gap_trellis
 
 # display the plots and metrics in trelliscopejs
-gap_trellis %>%
-  trelliscope("gapminder", nrow = 3, ncol = 5, path = "example/gapminder")
+gap_trellis %>% trelliscope("gapminder")
 @
 
-This 	relliscopejs~html widget in the example above displays three rows and five columns of panels.  There are \rinline{142} panels in total, making 10 pages of panels in total.  While this example does not display millions of panels, it does convey the capabilities of the widget.  Icons on the left open foldout displays for layout control, turning labels on and off, filtering using metrics, and panel sorting.
+This \trelliscopejs~html widget in the example above displays three rows and five columns of panels.  There are \rinline{142} panels in total, making 10 pages of panels in total.  While this example does not display millions of panels, it does convey the capabilities of the widget.  Icons on the left open foldout displays for layout control, turning labels on and off, filtering using metrics, and panel sorting.
 
 
 \section{Cognostics}
@@ -120,7 +133,7 @@ Displaying panels alone has already been solved with \ggplot~and \pkg{lattice}. 
 
 Cognostics can be simple summary statistics such as \rinline{mean} or \rinline{median}, or can be meta data information such as a URL or census information.  Tukey and Tukey first proposed calculating univariate metrics for scatter plots called scagnostics \cite{Tukey1985} as a way to describe a scatterplot.  Wilkinson et. al. \cite{scagnostics} implemented Tukeys' scagnostic definitions in the R package \pkg{scagnostics}~\cite{r_scagnostics}. Scagnostics can be repurposed as cognostics when applied to every panel containing a scatterplot.  These cognostic groupings may then be compared, filtered, and sorted accross different subset panels.
 
-In \trelliscopejs, cognostics eventually are displayed as two types: continuous or discrete.  Continuous values can be filtered using open or closed ranges.  An example of a open range would include the \rinline{gapminder} country panels being filtered by maximum life expectancy values which are less than 70 years.  A closed range example would have both a \emph{from} and a \emph{to} in the selection range, i.e. within 50 to 65 years of age. Currently, 	relliscopejs~does not support more than one range selection per variable.
+In \trelliscopejs, cognostics eventually are displayed as two types: continuous or discrete.  Continuous values can be filtered using open or closed ranges.  An example of a open range would include the \rinline{gapminder} country panels being filtered by maximum life expectancy values which are less than 70 years.  A closed range example would have both a \emph{from} and a \emph{to} in the selection range, i.e. within 50 to 65 years of age. Currently, \trelliscopejs~does not support more than one range selection per variable.
 
 % TODO show less than 70 years
 % \includegraphics{}
@@ -131,4 +144,4 @@ With \trelliscopejs, Discrete values are handled using regular expressions or by
 All of the cognostic filters are applied as a collective, logical \emph{and}.  Multiple filters are a part of the data analysis process and are embraced in \trelliscopejs.
 
 
-	relliscopejs~allows for cognostics to be any univariate value.  This may also include a URL.  While filtering is not effective for a URL, linking to external websites for a particular panel can be useful.  For example, when looking at the housing sales for every county in the United States, a URL can be linked to the website Zillow that displays all current housing sales on the Zillow website for that particular county.
+\trelliscopejs~allows for cognostics to be any univariate value.  This may also include a URL.  While filtering is not effective for a URL, linking to external websites for a particular panel can be useful.  For example, when looking at the housing sales for every county in the United States, a URL can be linked to the website Zillow that displays all current housing sales on the Zillow website for that particular county.

@@ -11,7 +11,8 @@
 %
 \documentclass[ece,dissertation]{puthesis}
 
-% answer spacing in knitr outputs
+% TODO remove when ready for final versions. Set minted cache to false.
+% % answer spacing in knitr outputs
 \usepackage{etoolbox}
 \makeatletter
 \preto{\@verbatim}{\topsep=-20pt \partopsep=0pt }
@@ -24,10 +25,11 @@
 
 
 <<knitr, echo = FALSE, cache = FALSE>>=
-options(width = 72)
+options(width = 69)
 knitr::opts_chunk$set(
   cache = TRUE,
   autodep = TRUE,
+  width = 69,
   fig.width = 8,
   fig.height = 6,
   warning=FALSE,
@@ -36,6 +38,8 @@ knitr::opts_chunk$set(
   out.width = "5.5in",
   out.height = "4.125in" # (75% * width)
 )
+# color warning
+knit_hooks$set(document = function(x) {sub('\\usepackage[]{color}', '\\usepackage{xcolor}', x, fixed = TRUE)})
 @
 
 
@@ -46,13 +50,16 @@ knitr::opts_chunk$set(
 \usepackage{hyperref}
 
 \usepackage{xcolor}
-\usepackage{minted}
+\usepackage[cache=false]{minted}
+% \usepackage[outputdir=cache-minted]{minted}
+% \usepackage{minted}
 
 % \usemintedstyle{xcode}
 \usemintedstyle{colorful}
 % matches knitr background
 % \definecolor{gqlbg}{rgb}{0.9686,0.9686,0.9686}
-\definecolor{gqlbg}{rgb}{0.97,0.97,0.97}
+% \definecolor{gqlbg}{rgb}{0.97,0.97,0.97}
+\definecolor{gqlbg}{RGB}{247,247,247}
 \newminted{cpp}{bgcolor=gqlbg, samepage=true, baselinestretch=1}
 \newmintinline{cpp}{bgcolor=gqlbg, samepage=true}
 \newminted{r}{bgcolor=gqlbg, samepage=true, baselinestretch=1}

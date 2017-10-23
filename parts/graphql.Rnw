@@ -554,7 +554,7 @@ The same result will occur using the Fragments below.
 # GraphQL; Query
 {
   duchess: cat(name: "Duchess") {
-    ..catFields
+    ...catFields
   }
   rajah: cat(name: "Rajah") {
     ...catFields
@@ -742,8 +742,7 @@ The example below creates a model schema that creates a linear model and a loess
 
 << setup_execute >>=
 
-"
-# GraphQL; Schema
+"# GraphQL; Schema
 scalar Data64
 type LinearModel { mse: Float!, ggnostic: Data64! }
 type LoessModel { mse: Float!, enp: Float! }
@@ -806,8 +805,7 @@ To see the Model schema in action, we can execute a request using the classic R 
 
 << execute_graphql >>=
 
-'
-# GraphQL; Query
+'# GraphQL; Query
 {
   linear(
     formula: "Petal.Length ~ Petal.Width",

@@ -1,6 +1,7 @@
 
 Add figures to all plots
-  include proper references to the next line with \fig{fig:geom_point}
+  refer to all figures instead of above / below
+    include proper references to the next line with \fig{fig:geom_point}
   << geom_point, fig.cap="testtest", fig.pos="H" >>=
   plot(1:10, 1:10)
   @
@@ -37,11 +38,6 @@ GraphQL
 
 Autocogs background
   add pictures to filtering
-
-
-Add citation links to each package in package description page
-
-Move all "background" chapters inside each bigger chapter (3 big sections)
 
 add intro
   2-3 paragraphs for each major section

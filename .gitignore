@@ -19,7 +19,8 @@ NAMESPACE
 _ignore
 cache
 _minted-schloerke_b_thesis
+cache-minted
 *.pyc
 *.egg-info
+parts/ex
 parts/example
-parts/appfiles
