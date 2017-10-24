@@ -45,7 +45,7 @@ Many of the common statistical graphics are a single layered plot.  A scatterplo
 
 Each plot consists of three components: the data, geom, and scales. Respectively, each of the component defines what is being displayed, how it is displayed and where it is being displayed.  By infering from the supplied data source and geom defaults, many plots can be displayed without much coding.
 
-<< geom_point, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in", fig.cap="Minimal coding scatterplot of \\rinline{tips} data." >>=
+<< geom_point, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in", fig.cap="Minimal coding for a scatterplot of \\rinline{tips} data." >>=
 p <- ggplot(tips, aes(total_bill, tip)) +
   geom_point()
 p
@@ -136,7 +136,7 @@ Facets are useful when looking at the interaction with the conditioning variable
 There are two types of faceting in \ggplot: facet wrap and facet grid.  Facet wrap displays each panel row by row from left to right then top to bottom.  The number of rows and/or columns can be specified to ease the guessing work made by \ggplot.  If no facet row or column counts are supplied, \ggplot~attempts to give each uses \pkg{grDevices}~\cite{r_project} algorithm, \rinline{n2mfrow(n)}, to determine a sensible number of rows and columns.  Plots are display starting in the top row, from left to right, working towards the bottom of the plotting area.
 
 
-<< facets1, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in", fig.cap = "$tip$ vs. $total_bill$ with facets or conditioning variables." >>=
+<< facets1, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in", fig.cap = "$tip$ vs $total\\_bill$ with facets or conditioning variables." >>=
 # TODO remove comments
 # p <- ggplot(iris, aes(Petal.Length, Petal.Width)) + geom_point()
 # p + labs(title = "Iris Petal Length vs Width")
@@ -145,12 +145,12 @@ p <- ggplot(tips, aes(total_bill, tip)) + geom_point()
 p +
   labs(title = "No Facets")
 @
-<< facets2, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in", fig.cap = "$tip$ vs. $total_bill$ faceted by $day$. Each panel belongs to a given day in the data." >>=
+<< facets2, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in", fig.cap = "$tip$ vs $total\\_bill$ faceted by $day$. Each panel belongs to a given day in the data." >>=
 p +
   facet_wrap(~ day, labeller = label_both) +
   labs(title = "Facet Wrap (~ day)")
 @
-<< facets3, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in", fig.cap = "$tip$ vs $total_bill$ faceted by all existing $day$ and $time$ combinations." >>=
+<< facets3, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in", fig.cap = "$tip$ vs $total\\_bill$ faceted by all existing $day$ and $time$ combinations." >>=
 p +
   facet_wrap(~ day + time, labeller = label_both) +
   labs(title = "Facet Wrap (~ day + time)")
@@ -160,7 +160,7 @@ p +
 
 Facet grid forces a two dimensional layout when faceting a plot.  The layout involves two sets of conditioning variables: the X conditioning and the Y conditioning variables.  These two sets of conditioning variables pre-determine how many rows (Y) and columns (X) are produced.
 
-<< facet_grid_example, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in", fig.cap = "$tip$ vs $total_bill$ faceted in a grid pattern with $time$ representing each row and $day$ representing each column." >>=
+<< facet_grid_example, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in", fig.cap = "$tip$ vs $total\\_bill$ faceted in a grid pattern with $time$ representing each row and $day$ representing each column." >>=
 p +
   facet_grid(time ~ day, labeller = label_both) +
   labs(title = "Facet Grid (time ~ day)")
@@ -169,7 +169,7 @@ p +
 The plot above displays \rinline{time} on the rows ($y$) and \rinline{day} on the columns ($x$).  The \rinline{facet_grid} formula follows a typical linear model formula of \rinline{y ~ x}.  Multiple columns can be used in either the $x$ position or the $y$ position.  This allows the user the dipslay a set column combinations against another set of column combinations.
 
 % do not change size
-<< facet_grid_multi, fig.cap = "$tip$ vs $total_bill$ faceted in a grid pattern with $sex$ and $smoker$ combinations representing each row and $time$ and $day$ combinations representing each column." >>=
+<< facet_grid_multi, fig.cap = "$tip$ vs $total\\_bill$ faceted in a grid pattern with $sex$ and $smoker$ combinations representing each row and $time$ and $day$ combinations representing each column." >>=
 p +
   geom_smooth(method = lm, se = FALSE) +
   facet_grid(sex + smoker ~ time + day, labeller = label_both)

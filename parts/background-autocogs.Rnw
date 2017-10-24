@@ -96,7 +96,7 @@ trelljs <- function(dt, name, ...) {
   ret
 }
 @
-<< trelliscopejs, screenshot.opts = list(vwidth = 700, vheight = 525), fig.cap = "Manually added cognostics are available in a \\trelliscopejs widget." >>=
+<< trelliscopejs, screenshot.opts = list(vwidth = 700, vheight = 525), fig.cap = "Manually added cognostics are available in a \\trelliscopejs~widget." >>=
 gapminder %>%
   group_by(country, continent) %>%
   # condense the data

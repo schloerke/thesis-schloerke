@@ -67,6 +67,7 @@
   % Reference: PU 16.
 \tableofcontents
 
+% TODO remove tables if non exist
   % If your thesis has tables, a list of tables is required.
   % The List of Tables will be automatically created for you using
   % information you supply in
@@ -98,6 +99,7 @@
   HTTP & Hypertext Transfer Protocol \cr
   REST & Representational State Transfer \cr
   RESTful & API that has REST qualities \cr
+  PDF & Portable Document Format \cr
   % bcf& billion cubic feet\cr
   % BMOC& big man on campus\cr
 \end{abbreviations}

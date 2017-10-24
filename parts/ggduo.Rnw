@@ -35,11 +35,11 @@ graphics::pairs(tips[c("total_bill", "tip", "smoker", "day")])
 
   Emerson et.al. discussed using a generalized pairs plot to handle the mix of variable types by providing different plotting layers for different data types.  The generalized pairs plot displays the same collection of data using different axes but allows for a mix of plotting methods and both continuous and discrete plot axes.  This addresses the issue of overplotting in discrete columns when only displaying data in a scatterplot matrix.  Below are the two default plotting methods to handle the overplotting issue.  The \pkg{gpairs}~\cite{r_gpairs} R package is printed using \pkg{lattice}~graphics, while the \GGally~R package prints using \ggplot~graphics.
 
-<< gpairs_intro, fig.cap = "Same \\rinline{tips} data, but the plot matrix is displayed using the \\pkg{gpairs}~R package" >>=
+<< gpairs_intro, fig.cap = "\\rinline{gpairs}~plot matrix from the \\pkg{gpairs}~R package displaying the \\rinline{tips} dataset." >>=
 gpairs::gpairs(tips[, c("total_bill", "tip", "smoker", "day")])
 @
 
-<< ggpairs_intro, fig.cap = "Same \\rinline{tips} data, but the plot matrix is displayed using the \\pkg{GGally}~R package" >>=
+<< ggpairs_intro, fig.cap = "\\rinline{ggpairs}~plot matrix from the \\GGally~R package displaying the \\rinline{tips} dataset." >>=
 pm <- ggpairs(tips, c("total_bill", "tip", "smoker", "day"))
 pm
 @
@@ -53,7 +53,7 @@ pm
   \item not displaying the plot matrix until the \rinline{print} command is executed
 \end{enumerate}
 
-<< add_custom_plot, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in", fig.cap = "Full \\ggplot plot object from the second row and first column." >>=
+<< add_custom_plot, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in", fig.cap = "Full \\ggplot~plot object from the second row and first column of a \\rinline{ggmatrix} plot matrix." >>=
 # retrieve the second row, first column sub plot
 #  of the tips plot matrix
 pm[2,1]
@@ -258,7 +258,7 @@ elec_median
 
   A time series plot displays the time axis on the X axis with multiple columns on the Y axis.  The \pkg{stats}~\cite{r_stats}~package has a \rinline{ts.plot} function that currently allows for multiple time series to be printed in a single panel sharing the same axes.  Displaying the data on the same axis does not make sense in all cases.  This can be seen when looking at half-hourly eelctricity demand for Victoria, Australia, in 2014.  The electricity demand and temperature should not be displayed on the same scales, as they do not have similar units.  Including the $WorkDay$ boolean does not add to the understanding of the plot.
 
-<< stats_ts, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in", fig.cap = "Stock R time series plot.  All variables are displayed on the same axis." >>=
+<< stats_ts, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in", fig.cap = "Stock \\pkg{stats}~R package time series plot.  All variables are displayed on the same axis." >>=
 stats::ts.plot(fpp2::elecdemand)
 @
 
