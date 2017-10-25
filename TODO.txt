@@ -4,9 +4,15 @@ silly words
   requestor
   respondor
 
+convert all titles to
+  chapters contain all caps
+  sections and sub sections only capitolize the "first" word
+
 add elec_median code to appendix
 
-change variable typing sectino to be about static vs dynamically typed languages
+wickham is not Dr. wickham.
+
+change variable typing section to be about static vs dynamically typed languages
 
 scatter plot -> scatterplot
 dataset -> data set

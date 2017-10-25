@@ -3,37 +3,59 @@
 %
 
 \chapter{Summary}
+~ 1/2 page
+
+In this thesis we have shown that
+  decribed three packages that i have worked on. (paraphrase the intro)
+    intro - ``we will do that''; ``we have done that''
+
+we have demonstrated....
+  repeat what you've done already
 
 This is the summary chapter.
   review each chapter ~ 1-2 paragraphs
   Remind how they integrate with each other
-  
 
 
 
-\section{Future Work}
-
-\subsection{\GGally}
-  implement matrix manipulations for ggmatrix
-    be able to subset a ggmatrix and produce a new ggmatrix
-    be able to insert a ggmatrix into a valid location
-  remove all options of labels
-
-\subsection{\autocogs}
-  Add cognostics for time series data
-  Add safety layer for the execution (try catch)
-  Add message similar to $facet_map$ to submit them to github
-  Add more pkg layer connections: rbokeh, plotly
-
-\subsection{\gqlr}
-  Add safety layer for each field's execution (try catch)
-  Explore more working examples rather than proof of concept
-  Add integration with trelliscopejs
 
 
 
-\section{Visualization Discussion}
+
+\section{Discussion}
+~ page
+
+However, there are some limitations when going to the browser.
 
 Everything is moving to the browser.
 need to address plots interactions between plots for non trivial data size within the browser
   crosstalk has been built for communication between applications, but it does not support data that does not fit within browser memory
+
+explain in detail the histogram issue
+
+have a couple more issues
+  only bring up things i can't fix.
+
+
+\section{Future Work}
+
+create a communication framework to R using gqlr.  this would allow to connect to the underlying data.  responses would be done in JSON and answers would follow the expected output.
+
+ask ryan?
+
+% \subsection{\GGally}
+%   implement matrix manipulations for ggmatrix
+%     be able to subset a ggmatrix and produce a new ggmatrix
+%     be able to insert a ggmatrix into a valid location
+%   remove all options of labels
+%
+% \subsection{\autocogs}
+%   Add cognostics for time series data
+%   Add safety layer for the execution (try catch)
+%   Add message similar to $facet_map$ to submit them to github
+%   Add more pkg layer connections: rbokeh, plotly
+%
+% \subsection{\gqlr}
+%   Add safety layer for each field's execution (try catch)
+%   Explore more working examples rather than proof of concept
+%   Add integration with trelliscopejs
