@@ -629,7 +629,7 @@ There are many more intricacies in the GraphQL language that are not in the scop
 
 \section{\gqlr: GraphQL R Server Implementation}
 
-\gqlr~is an R package that implements a GraphQL server.  \gqlr~handles Query and Mutation Requests and returns data in the proper format.  It is built upon the next evolution of class definitions in R, \pkg{R6}.
+\gqlr~is an R package that implements the GraphQL server specification.  \gqlr~handles Query and Mutation Requests and returns data in the proper format.  It is built upon the next evolution of class definitions in R, \pkg{R6}.
 
 \subsection{\pkg{R6}}
 

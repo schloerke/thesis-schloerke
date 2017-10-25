@@ -135,7 +135,7 @@ knitr::knit_hooks$set(document = function(x) {sub('\\usepackage[]{color}', '\\us
 
 
 
-\chapter{Plot Matrix for Two Grouped Data}
+\chapter{\rinline{ggduo}: Generalized Pairs Plot for Two Grouped Data}
 
 << part_ggplot2, child='parts/background-ggplot2.Rnw'>>=
 @
@@ -143,8 +143,7 @@ knitr::knit_hooks$set(document = function(x) {sub('\\usepackage[]{color}', '\\us
 << part_ggduo, child='parts/ggduo.Rnw'>>=
 @
 
-
-\chapter{Automatic Cognostics for Data Visualization}
+\chapter{\autocogs: Metrics Enabling Detailed Interactive Data Visualization}
 << part_background_autocogs, child='parts/background-autocogs.Rnw'>>=
 @
 << part_autocogs, child='parts/autocogs.Rnw'>>=
@@ -152,19 +151,13 @@ knitr::knit_hooks$set(document = function(x) {sub('\\usepackage[]{color}', '\\us
 
 
 
-\chapter{GraphQL R Server}
+\chapter{\gqlr: An R server GraphQL implementation}
 << part_graphql, child='parts/graphql.Rnw'>>=
 @
 
 
 << part_summary, child='parts/summary.Rnw'>>=
 @
-<< part_recommendations, child='parts/recommendations.Rnw'>>=
-@
-
-\include{parts/summary}
-
-\include{parts/recommendations}
 
 \bibliography{schloerke_b_thesis}
 
@@ -184,6 +177,7 @@ knitr::knit_hooks$set(document = function(x) {sub('\\usepackage[]{color}', '\\us
 % A vita is optional for masters theses
 % and required for doctoral dissertations.
 
-\include{parts/vita}
+<< part_summary, child='parts/vita.Rnw'>>=
+@
 
 \end{document}

@@ -1,4 +1,4 @@
-look at all TODO s to remove
+look at all TODO
 
 add elec_median code to appendix
 
@@ -7,15 +7,9 @@ change variable typing sectino to be about static vs dynamically typed languages
 scatter plot -> scatterplot
 dataset -> data set
 
+add transition paragraphs into the next chapter for each of the main chapters
 
-cognostics
-  Future work
-    Add cognostics for time series data
-    Add safety layer for the execution (try catch)
-    Add message similar to $facet_map$ to submit them to github
-    Add rbokeh layer connections
-    Add plotly layer connections
-
+Acknowledgement
 
 
 \section{Summary}
