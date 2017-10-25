@@ -2,16 +2,10 @@ look at all TODO s to remove
 
 add elec_median code to appendix
 
+change variable typing sectino to be about static vs dynamically typed languages
+
 scatter plot -> scatterplot
 dataset -> data set
-
-
-Add figures to all plots
-  refer to all figures instead of above / below
-    include proper references to the next line with \fig{fig:geom_point}
-  << geom_point, fig.cap="testtest", fig.pos="H" >>=
-  plot(1:10, 1:10)
-  @
 
 
 cognostics
