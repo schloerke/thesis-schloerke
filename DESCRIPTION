@@ -24,6 +24,7 @@ Imports:
   gridExtra,
   fpp2,
   purrr,
+  spelling,
   gapminder
 Remotes:
   schloerke/autocogs,

@@ -1,5 +1,9 @@
 look at all TODO
 
+silly words
+  requestor
+  respondor
+
 add elec_median code to appendix
 
 change variable typing sectino to be about static vs dynamically typed languages

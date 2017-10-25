@@ -9,7 +9,7 @@
 % with a Technology Control Plan, please contact
 % exportcontrols@purdue.edu before proceeding.
 %
-\documentclass[ece,dissertation]{puthesis}
+\documentclass[stat,dissertation]{puthesis}
 
 \usepackage{etoolbox}
 \makeatletter
@@ -20,7 +20,6 @@
 % line spacing for knitr output
 \usepackage{setspace}
 \renewenvironment{knitrout}{\setstretch{1}}{}
-
 
 <<knitr, echo = FALSE, cache = FALSE>>=
 options(width = 69)

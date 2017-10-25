@@ -177,7 +177,7 @@ auto_cog("univariate_discrete", gap_max$continent)
 
   \item Continuous Density Cognostics
 
-  Continuous density cognostics revolve around the shape of the density.  The maximum density value and its corresponding location are returned for comparison across cognostic calculations. Skew and kurtosis \cite{casella2002statistical} are readily available to help distinguish the density shape as well as the p value of Hartigans' dip test from \pkg{diptest}~\cite{r_diptest} for unimodality.  To help locate where the maximum density occurs, the max density value and location are also provided.  Finally, not by default due to slow calculation speed, the number of clusters may be calculated using the \pkg{mclust}~\cite{r_mclust_1} \cite{r_mclust_2} R package.
+  Continuous density cognostics revolve around the shape of the density.  The maximum density value and its corresponding location are returned for comparison across cognostic calculations. Skew and kurtosis \cite{casella2002statistical} are readily available to help distinguish the density shape as well as the p value of Hartigans' dip test from \pkg{diptest}~\cite{r_diptest} for unimodality.  To help locate where the maximum density occurs, the maximum density value and location are also provided.  Finally, not by default due to slow calculation speed, the number of clusters may be calculated using the \pkg{mclust}~\cite{r_mclust_1} \cite{r_mclust_2} R package.
 
 
 << cog_group_density_continuous >>=
@@ -231,8 +231,8 @@ Scatterplot scagnostics are pre-existing cognostic group for a continuous bivari
   \item Outlying: the proportion of the total edge length due to extremely long edges connected to points of single degree
   \item Skewed: the distribution of edge lengths of a minimum spanning tree gives us information about the relative density of points in a scattered configuration
   \item Clumpy: the Hartigan and Mohanty RUNT statistic is most easily understood in terms of the single-linkage hierarchical clustering tree called a dendrogram
-  \item Sparse, the 90\% quantile of the edge lengths of the minimum spaning tree
-  \item Striated: the sumation of angles over all adjacent edges of a MST
+  \item Sparse, the 90\% quantile of the edge lengths of the minimum spanning tree
+  \item Striated: the summation of angles over all adjacent edges of a MST
   \item Convex: the ratio of the area of the alpha hull and the area of the convex hull
   \item Skinny: the ratio of perimeter to area of a polygon measures
   \item Stringy: the ratio of width to length of a network
@@ -275,7 +275,7 @@ auto_cog("smooth_line", usa$year, usa$lifeExp)
 
 \item Linear Model Cognostics
 
-Linear Model cognostics leverage the vast array of existing statistics.  Knowning that the model will only be a simple linear model allows \autocogs~to return slope and intercept values and corresponding p values.  Many cognostics can be generated about the model fit using known diagnostic methods:
+Linear Model cognostics leverage the vast array of existing statistics.  Knowing that the model will only be a simple linear model allows \autocogs~to return slope and intercept values and corresponding p values.  Many cognostics can be generated about the model fit using known diagnostic methods:
   \begin{enumerate}
     \item $R^2$: fraction of variance explained by the model
     \item sigma: square root of the estimated residual variance
@@ -290,9 +290,9 @@ Linear Model cognostics leverage the vast array of existing statistics.  Knownin
 
   \begin{enumerate}
     \item Cook's Distance: a combination of each points leverage and residual value.  Values larger than $F_{p, n - p}(0.5)$ indicate influential data points in the model \cite{kutner_linear_models}.  The number of influential data points is reported.
-    \item Influence Points: the diagonal of the Hat Matrix is consided to be how much influce a point has on the model.  Each point is expected to equal $\dfrac{p}{n} = \dfrac{1}{n}$, with influential points having a value larger than $\dfrac{2 * p}{n} = \dfrac{2}{n}$ \cite{kutner_linear_models}.  The number reported is the sum of all influential points.
-    \item Shapiro-Wilk Test: when using a linear model, the residuals are assumed to come from a normal distribution.  The Shapiro-Wilk test tests the residuals agains the normal distribution \cite{kutner_linear_models}.  The corresponding p value is reported.
-    \item Box Cox power transformation: the lower and upper bounds of a 95\% confidence interval of the Box Cox power tranformation are reported. This transformation is useful when trying to stabilize the variance. If the confidence interval contains 0, a $ln$ transformation may be used. \cite{kutner_linear_models}
+    \item Influence Points: the diagonal of the Hat Matrix is considered to be how much influence a point has on the model.  Each point is expected to equal $\dfrac{p}{n} = \dfrac{1}{n}$, with influential points having a value larger than $\dfrac{2 * p}{n} = \dfrac{2}{n}$ \cite{kutner_linear_models}.  The number reported is the sum of all influential points.
+    \item Shapiro-Wilk Test: when using a linear model, the residuals are assumed to come from a normal distribution.  The Shapiro-Wilk test tests the residuals against the normal distribution \cite{kutner_linear_models}.  The corresponding p value is reported.
+    \item Box Cox power transformation: the lower and upper bounds of a 95\% confidence interval of the Box Cox power transformation are reported. This transformation is useful when trying to stabilize the variance. If the confidence interval contains 0, a $ln$ transformation may be used. \cite{kutner_linear_models}
   \end{enumerate}
 
 

@@ -35,7 +35,7 @@ tips <- reshape::tips %>%
 
 
 
-\subsection{Layered Grammer of Graphics}
+\subsection{Layered Grammar of Graphics}
 
 \ggplot, a data visualization R package, is based on a \emph{Layered Grammar of Graphics} (\cite{layered_grammar}).  During Dr. Wickham's studies at Iowa State University, he statistically consulted with many students and professors on how to produce visualizations for their studies. Dr. Wickham noticed many clients had trouble producing plots quickly and difficulty understanding how the plot was made.  This provided plenty of motivation to produce \ggplot, basing it on \emph{The Grammar of Graphics}.
 
@@ -43,7 +43,7 @@ tips <- reshape::tips %>%
 
 Many of the common statistical graphics are a single layered plot.  A scatterplot is made of a point layer and a boxplot as a boxplot layer.  There is no formal name for the data graphic where horizontally jittered points are displayed on top of a vertical boxplot.  Each layer is understood as a component to the plot, therefore the plot as a whole can be understood.  Wickham did state that while a layered grammar guides a well formed graphic \cite{layered_grammar}, he analogizes ``good grammar is just the first step in creating a good sentence'' \cite{layered_grammar}.
 
-Each plot consists of three components: the data, geom, and scales. Respectively, each of the component defines what is being displayed, how it is displayed and where it is being displayed.  By infering from the supplied data source and geom defaults, many plots can be displayed without much coding.
+Each plot consists of three components: the data, geom, and scales. Respectively, each of the component defines what is being displayed, how it is displayed and where it is being displayed.  By inferring from the supplied data source and geom defaults, many plots can be displayed without much coding.
 
 << geom_point, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in", fig.cap="Minimal coding for a scatterplot of \\rinline{tips} data." >>=
 p <- ggplot(tips, aes(total_bill, tip)) +
@@ -51,7 +51,7 @@ p <- ggplot(tips, aes(total_bill, tip)) +
 p
 @
 
-Typically, each layer of the plot uses the same original data source to help better explore the data frame.  Multi-layered plots may use multiple data sources where it would not be appriate to combine data sources.  Added data sources are usally display contextual information, such as a map, or summary statistics, such as a mean or linear model.
+Typically, each layer of the plot uses the same original data source to help better explore the data frame.  Multi-layered plots may use multiple data sources where it would not be appropriate to combine data sources.  Added data sources are usally display contextual information, such as a map, or summary statistics, such as a mean or linear model.
 
 << tip_lm, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in", fig.cap = "Scatterplot with manual linear model line added to the panel." >>=
 tip_lm <- broom::tidy(lm(tip ~ total_bill, data = tips))$estimate

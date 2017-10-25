@@ -3,9 +3,9 @@
 
   R \cite{R03} is the most widely used open source programming language and quickly becoming the top ranked data analysis tool \cite{r4stats_popularity} \cite{ieee_top_programming}. R is different from most other popular programming languages in that it is an interpretable language, rather than a compiled language.  Code is source and executed at run time, rather than precompiled for faster execution and type checking.
 
-  R has over 11,000 active, user submited packages (as of Sept. 2017 \cite{r_packages}) and countless more on GitHub \cite{github}.  Among these packages are \GGally, \gqlr, \autocogs, and \trelliscopejs.  These are a few of the R packages I will describe in greater detail.
+  R has over 11,000 active, user submitted packages (as of Sept. 2017 \cite{r_packages}) and countless more on GitHub \cite{github}.  Among these packages are \GGally, \gqlr, \autocogs, and \trelliscopejs.  These are a few of the R packages I will describe in greater detail through this thesis.
 
-  One of the most notible R packages is \ggplot, a data visualization package.  It was originally written by Hadley Wickham in 2005.  Since then, \ggplot~has become one of the most impactful R packages with over 6 million downloads \cite{depsy_ggplot2}.
+  % One of the most notible R packages is \ggplot, a data visualization package.  It was originally written by Hadley Wickham in 2005.  Since then, \ggplot~has become one of the most impactful R packages with over 6 million downloads \cite{depsy_ggplot2}.
 
 
 %
@@ -30,7 +30,7 @@
 
 \section{\pkg{lattice}: Trellis Graphics for R}
 
-``A powerful and elegant high-level data visualization system inspired by Trellis graphics, with an emphasis on multivariate data. Lattice is sufficient for typical graphics needs, and is also flexible enough to handle most nonstandard requirements.'' \cite{r_lattice}
+``A powerful and elegant high-level data visualization system inspired by Trellis graphics, with an emphasis on multivariate data. Lattice is sufficient for typical graphics needs, and is also flexible enough to handle most non-standard requirements.'' \cite{r_lattice}
 
 
 \section{\trelliscopejs: Create Interactive Trelliscope Displays}

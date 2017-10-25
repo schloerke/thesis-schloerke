@@ -74,7 +74,7 @@ gapminder %>%
     ylim(20, 85) + labs(title = "Two countries with lower life expectancy")
 @
 
-The first plot above displays two longer living countries, Japan and Switzerland.  Japan has a higher max life expectancy, but Switzerland had a higher starting life expectancy.  The second plot displays two lower life expectancy countries, Afghanistan and Rwanda.  Afghanistan has a lower maximum life expectancy, but steadily increases over time.  Rwanda's life expectancy steadily increased until the 1980's when it plumited and recovered by the 2000's.
+The first plot above displays two longer living countries, Japan and Switzerland.  Japan has a higher maximum life expectancy, but Switzerland had a higher starting life expectancy.  The second plot displays two lower life expectancy countries, Afghanistan and Rwanda.  Afghanistan has a lower maximum life expectancy, but steadily increases over time.  Rwanda's life expectancy steadily increased until the 1980's when it plumited and recovered by the 2000's.
 
 Summary statistics are great in ingesting information using less data.  However, summary statistics, by their nature, do not convey the full story.
 

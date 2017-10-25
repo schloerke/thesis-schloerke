@@ -343,7 +343,7 @@ ggnostic(
 % currently printing n*m plots takes time.
 %
 %
-% Link up with the javascript packages for interactive plot matricies. Would be great to add a one more line of code to turn it into an interactive plot.
+% Link up with the javascript packages for interactive plot matrices. Would be great to add a one more line of code to turn it into an interactive plot.
 
 
 % \section[Discussion]{Discussion}

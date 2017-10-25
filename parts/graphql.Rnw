@@ -11,17 +11,17 @@ Since 2012, Facebook has developed GraphQL: ``a query language for APIs and a ru
 
 \section{Application Protocol Interfaces}
 
-Application Protocol Interfaces (APIs) are the fundamental backbone of communication between machines.  They enable manchines to communicate with each other without needing to know how the responding machine comes to its answer.  Two convensions for an API: simple API and custom API.  Each API style has their own advantages and disadvantages.  GraphQL was created to address the disadvantages while keeping the advantages at the cost of strong typing the request.
+Application Protocol Interfaces (APIs) are the fundamental backbone of communication between machines.  They enable machines to communicate with each other without needing to know how the responding machine comes to its answer.  Two conventions for an API: simple API and custom API.  Each API style has their own advantages and disadvantages.  GraphQL was created to address the disadvantages while keeping the advantages at the cost of strong typing the request.
 
 
 There are two parties involved in every API communication: the requestor who submits a query and respondor who returns an answer.  The requestor submits a query, and the responder returns an answer that can be interpreted by the requestor.  The key point to the communication transaction is that the requestor does not need to know how the responder calculates their answer.
 
-This layer of abstraction shields the requestor from knowing the nitty gritty implementation details of the responder.  It allows the responder to behave like a black box that will only respond to particular requests or queries.
+This layer of abstraction shields the requestor from knowing the nitty-gritty implementation details of the responder.  It allows the responder to behave like a black box that will only respond to particular requests or queries.
 
 
 In this thesis, I will address single response APIs as I am concerned with the request, not the response.  A single response API is an API that returns only one response to one answer.  I will not discuss streaming APIs in this thesis.
 
-Throughout this section, I will use a calculator, `Calc', as my example responder.  The calulator will be have four internal functions: add, subtract, multiply, and divide.  These four internal function behave just like a regular calculator, but the true implementation of the calculator is hidden.
+Throughout this section, I will use a calculator, `Calc', as my example responder.  The calculator will be have four internal functions: add, subtract, multiply, and divide.  These four internal function behave just like a regular calculator, but the true implementation of the calculator is hidden.
 
 \subsection{Simple API}
 
@@ -34,7 +34,7 @@ type Calculator {
   add(A: Float, B: Float): Float,
   subtract(A: Float, B: Float): Float,
   multiply(A: Float, B: Float): Float,
-  devide(A: Float, B: Float): Float
+  divide(A: Float, B: Float): Float
 }
 \end{graphqlcode}
 
@@ -86,7 +86,7 @@ Each person has an ``id'', ``name'', ``age'', ``sex'', and a list of person id's
 
 In the case of the internet, however, two major constraints exist.  The two major constraints are the number of parallel requests that can be made at one time and the amount of time it takes for your request to reach a responding server.
 
-HTTP 1.1 specification states that ``A single-user client SHOULD NOT maintain more than 2 connections with any server or proxy'' \cite{http_connections}.  In practice, this is a little larger, maxing out at 13 parallel connections to the same host \cite{browserscope}.  Limiting the number of server connections reduces the amount of simultanious requests on the network and improves overall response time.
+HTTP 1.1 specification states that ``A single-user client SHOULD NOT maintain more than 2 connections with any server or proxy'' \cite{http_connections}.  In practice, this is a little larger, maxing out at 13 parallel connections to the same host \cite{browserscope}.  Limiting the number of server connections reduces the amount of simultaneous requests on the network and improves overall response time.
 
 Once a request is allowed to be made, there is some physical limitations on how fast the response can be made.  On average, it takes still takes over 200 ms for a request to make a round trip to the responding server and back to the user's browser \cite{internetweathermap}.
 
@@ -147,13 +147,13 @@ Let's recap the advantages and disadvantages of the two different styles of APIs
 
 % It is a balancing act to use a simple API, which causes more requests, and a
 
-Developers balance between minimal engineering time and minimal execution time.  Typically the final result falls somewhere inbetween, using a custom API for high execution time queries and using a simple API for smaller queries.
+Developers balance between minimal engineering time and minimal execution time.  Typically the final result falls somewhere in-between, using a custom API for high execution time queries and using a simple API for smaller queries.
 
 
 
 \section{Variable Typing}
 
-Programing languages know the type of objects in two ways: stong typed and weakly typed.  Strong typed languages know ``whenever an object is passed from a calling function to a called function, its type must be compatible with the type declared in the called function.'' \cite{Liskov74programmingwith}.  Weakly typed languages allow a programmer to passively use a invalid type as if it was correct.  Using Javascript, we can define a function that returns the square of an object's key $key$. The function does not define any requirements about the variable $x$.  The \emph{hope} is that the function will only be called with a valid object type.
+Programing languages know the type of objects in two ways: strong typed and weakly typed.  Strong typed languages know ``whenever an object is passed from a calling function to a called function, its type must be compatible with the type declared in the called function.'' \cite{Liskov74programmingwith}.  Weakly typed languages allow a programmer to passively use a invalid type as if it was correct.  Using Javascript, we can define a function that returns the square of an object's key $key$. The function does not define any requirements about the variable $x$.  The \emph{hope} is that the function will only be called with a valid object type.
  % \cite{crockford2008javascript}.
 
 \begin{jscode}
@@ -190,9 +190,9 @@ int main() {
 
 \section{Database Storage}
 
-Similarly, databases can store objects in two ways: as a relational database or as a key-value database.  Relational databases know exactly what kind of object will be returned and can map one table to another with id values.  Key-value databases, on the other hand, do not inspect the values of the database.  The only requirement is that values are stored at a specific key.  Key-value databases are built for speed and scalibility over structure and relationships.
+Similarly, databases can store objects in two ways: as a relational database or as a key-value database.  Relational databases know exactly what kind of object will be returned and can map one table to another with id values.  Key-value databases, on the other hand, do not inspect the values of the database.  The only requirement is that values are stored at a specific key.  Key-value databases are built for speed and scalability over structure and relationships.
 
-While relational databases are already strongly typed (unless purposely stated as an unknown type), well designed key-value databases inherintly contain strong typed values.  Each value that is inserted into the database has a known shape and expected reponse type.  If data of an image is stored, audio data should never be returned from that same position.  Even if the image had different sizes and formats, it still can be understood as an image.
+While relational databases are already strongly typed (unless purposely stated as an unknown type), well designed key-value databases inherently contain strong typed values.  Each value that is inserted into the database has a known shape and expected response type.  If data of an image is stored, audio data should never be returned from that same position.  Even if the image had different sizes and formats, it still can be understood as an image.
 
 There are many more comparisons and cost / benefits to every database, however these implementation differences are not apart of the scope of this chapter.
 
@@ -207,7 +207,7 @@ GraphQL is comprised of two main parts, the Request and the Schema.
 \subsection{Schema}
 
 
-GraphQL Schemas are defined using Scalars, Types, Enumerations, Lists, Non-Null types, Interfaces, Unions, and Input types.  Each definition is used to define type or type abstractions that can be used when querying.  The Types represent the exepected return objects that the database already knows about.  Like most objects, each Type will contain fields that point to Scalars or more Types.  These fields can be queried recursively.
+GraphQL Schemas are defined using Scalars, Types, Enumerations, Lists, Non-Null types, Interfaces, Unions, and Input types.  Each definition is used to define type or type abstractions that can be used when querying.  The Types represent the expected return objects that the database already knows about.  Like most objects, each Type will contain fields that point to Scalars or more Types.  These fields can be queried recursively.
 
 \subsubsection{Object Type Definition}
 
@@ -221,19 +221,19 @@ type Dog {
 }
 \end{graphqlcode}
 
-The type definition for a \graphqlinline{Player} above is very readible, but has a lot going on.
+The type definition for a \graphqlinline{Player} above is very readable, but has a lot going on.
 
 \begin{enumerate}
   \item \graphqlinline{Dog} is a Object Type definition.  It has four fields:  \graphqlinline{name}, \graphqlinline{breed}, \graphqlinline{age}, and \graphqlinline{owner}.  These four fields are the only fields allowed when retrieving information from a \graphqlinline{Dog}.
   \item \graphqlinline{String} is a predefined Scalar type definition.  This would contain the dog's name, i.e. ``Clifford''.  Scalar fields do not contain any sub fields and are considered leafs in the Schema definition tree.
   \item \graphqlinline{String!} represents a Non-null String value.  This means that all \graphqlinline{Dog} objects will contain the \graphqlinline{breed} field and the result will always be a String.
-  \item \graphqlinline{[Person]} represents an array of Person objects that represent the owner of the Dog. By adding the \graphqlinline{!} outside the array to form \graphqlinline{[Person]!}, it will be gaurunteed to return an array for the field \graphqlinline{owner} and never a \graphqlinline{NULL} value.  By adding a \graphqlinline{!} to the Person (\graphqlinline{[ Person!]!}), the elements inside the position array will never be \graphqlinline{NULL}.  A length $0$ array is still allowed as the \graphqlinline{owner} value is not \graphqlinline{NULL} and all values are not \graphqlinline{NULL}.
+  \item \graphqlinline{[Person]} represents an array of Person objects that represent the owner of the Dog. By adding the \graphqlinline{!} outside the array to form \graphqlinline{[Person]!}, it will be guaranteed to return an array for the field \graphqlinline{owner} and never a \graphqlinline{NULL} value.  By adding a \graphqlinline{!} to the Person (\graphqlinline{[ Person!]!}), the elements inside the position array will never be \graphqlinline{NULL}.  A length $0$ array is still allowed as the \graphqlinline{owner} value is not \graphqlinline{NULL} and all values are not \graphqlinline{NULL}.
 \end{enumerate}
 
 
-\subsection{Argument and Input Type Defintions}
+\subsection{Argument and Input Type Definitions}
 
-Field definitions may include arguements.  These arguments can be simple Scalar definitions or Input Type definitions.
+Field definitions may include arguments.  These arguments can be simple Scalar definitions or Input Type definitions.
 
 \begin{graphqlcode}
 # GraphQL; Schema
@@ -273,7 +273,7 @@ Scalar Types are the leafs of the Schema.  Unlike Object Types, Scalars do not h
   \item \graphqlinline{Integer}: A signed 32-bit integer
   \item \graphqlinline{Float}: A signed double-precision floating point value
   \item \graphqlinline{String}: A UTF-8 character sequence
-  \item \graphqlinline{ID}: \graphqlinline{ID} performs the same as a \graphqlinline{String}, but it is intended to be machine readible only as a unique identifier
+  \item \graphqlinline{ID}: \graphqlinline{ID} performs the same as a \graphqlinline{String}, but it is intended to be machine readable only as a unique identifier
 \end{enumerate}
 
 New scalars can be defined in a Schema as long as the server running the GraphQL understands how to handle them.
@@ -320,7 +320,7 @@ type Dog implements Pet {
 }
 type Cat implements Pet {
   name: String
-  meowVolumn: Int
+  meowVolume: Int
   owners: [Person!]!
 }
 \end{graphqlcode}
@@ -407,7 +407,7 @@ schema {
 
 \subsection{Queries}
 
-Every object in the Schema definition can be queried.  A query on an object type must include at least one field.  Object types are not considered leafs in the Schema definition tree as they are guarenteed to have at least one field.
+Every object in the Schema definition can be queried.  A query on an object type must include at least one field.  Object types are not considered leafs in the Schema definition tree as they are guaranteed to have at least one field.
 
 % \begin{tabular}{p{0.45\textwidth} p{0.45\textwidth}}
 
@@ -433,7 +433,7 @@ Every object in the Schema definition can be queried.  A query on an object type
 
 % \end{tabular}
 
-Queries have the same shape has the result.  The only difference occurs when a result is an array of information.  Using an \graphqlinline{name} arugment below, we can look at Jim Dear's pets from the movie ``Lady and the Tramp'' \cite{jimdear}.
+Queries have the same shape has the result.  The only difference occurs when a result is an array of information.  Using an \graphqlinline{name} argument below, we can look at Jim Dear's pets from the movie ``Lady and the Tramp'' \cite{jimdear}.
 
 % \begin{tabular}{p{0.45\textwidth} p{0.45\textwidth}}
 
@@ -732,7 +732,7 @@ obj$name <- "Dog"
 
 \subsection{Execution}
 
-At first glance, R and GraphQL seem like an unlikely combination.  R is a weakly typed language while GraphQL is a strong typed language.  R is not necessarliy known for its raw speed and one of GraphQLs goals is to reduce execution time.
+At first glance, R and GraphQL seem like an unlikely combination.  R is a weakly typed language while GraphQL is a strong typed language.  R is not necessarily known for its raw speed and one of GraphQL's goals is to reduce execution time.
 
 However, R is known for its statistical models, statistical graphics, and its very fast iteration speed \cite{r_about}.  Leveraging the 11,000+ packages \cite{r_packages} available to R, R users do not have to rewrite the wheel.  \gqlr~is built to help small projects provide proof of concept or developers to mock full backend systems locally.
 
@@ -830,7 +830,7 @@ result
 result
 @
 
-While R users might not find the query and output very compelling (as they can be done in a regular R session), it is good to remember that any web service with access to the Model Schema above can execute a similar command and get an answer that is executed by R.  During the request execution, \emph{any} R package can be used.  Being able to open the flood gates to R's extensive package list is very powerful. This means that javascript in the browser and a python program can retrieve full R plots and R model outputs without having to implement the methods in the local language while using the same API.
+While R users might not find the query and output very compelling (as they can be done in a regular R session), it is good to remember that any web service with access to the Model Schema above can execute a similar command and get an answer that is executed by R.  During the request execution, \emph{any} R package can be used.  Being able to open the flood gates to R's extensive package list is very powerful. This means that Javascript in the browser and a python program can retrieve full R plots and R model outputs without having to implement the methods in the local language while using the same API.
 
 This schema can also be executed in a local GraphQL server session or on a production GraphQL server.  Both the local and production servers have the same schema, so each service will return the same shapes.  Each programming language will have the same query string and receive the same shaped response.
 
