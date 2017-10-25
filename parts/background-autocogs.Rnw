@@ -135,8 +135,11 @@ Cognostics can be simple summary statistics such as \rinline{mean} or \rinline{m
 
 In \trelliscopejs, cognostics eventually are displayed as two types: continuous or discrete.  Continuous values can be filtered using open or closed ranges.  An example of a open range would include the \rinline{gapminder} country panels being filtered by maximum life expectancy values which are less than 70 years.  A closed range example would have both a \emph{from} and a \emph{to} in the selection range, i.e. within 50 to 65 years of age. Currently, \trelliscopejs~does not support more than one range selection per variable.
 
-% TODO show less than 70 years
-% \includegraphics{}
+\begin{figure}
+  \centering
+  \includegraphics[height=2.5in]{./figs/tjs_filter_70.png}
+  \caption{A cropped view of \trelliscopejs~filtering on countries whose maximum life expectancy is lower than 70 years old.}
+\end{figure}
 
 
 With \trelliscopejs, Discrete values are handled using regular expressions or by manually selecting values.  When using regular expressions, matching values are displayed immediately.  The immediate feedback confirms whether the regular expression was successful or needs to be updated.

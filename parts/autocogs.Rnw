@@ -106,7 +106,7 @@ Once all the cognostics have been produced for a given plot, they are reduced to
 
 Each set of cognostics is returned in a cognostic group.  This is similar to scagnostics.  Scagnostics all pertain to scatterplots.  Likewise, the number of non-NA X, non-NA Y, and non-NA X and Y points are pertain to non-NA counts of the displayed data.  These groups can be extended to each type of graphical display: box plot, histogram, linear model, etc.
 
-The cognostics produced in the autocog gapminder example (TODO LINK TO EXAMPLE) were:
+The cognostics produced in the \autocogs~\rinline{gapminder} linear model example \label{subsec:linear_model} were:
 \begin{enumerate}
   \item \rinline{_smooth}: Two cognostics pertaining to a ``smooth'' line being added to the panel.
   \item \rinline{_lm}: Nineteen cognostics pertaining to the linear model line added to the panel.
