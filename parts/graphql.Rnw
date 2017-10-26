@@ -211,7 +211,7 @@ GraphQL Schemas are defined using Scalars, Types, Enumerations, Lists, Non-Null 
 
 \subsubsection{Object Type Definition}
 
-For example, we can setup a Schema for a professional baseball player.
+For example, we can setup a Schema for a pet dog.
 
 \begin{graphqlcode}
 type Dog {
@@ -221,7 +221,7 @@ type Dog {
 }
 \end{graphqlcode}
 
-The type definition for a \graphqlinline{Player} above is very readable, but has a lot going on.
+The type definition for a \graphqlinline{Dog} above is very readable, but has a lot going on.
 
 \begin{enumerate}
   \item \graphqlinline{Dog} is a Object Type definition.  It has four fields:  \graphqlinline{name}, \graphqlinline{breed}, \graphqlinline{age}, and \graphqlinline{owner}.  These four fields are the only fields allowed when retrieving information from a \graphqlinline{Dog}.
