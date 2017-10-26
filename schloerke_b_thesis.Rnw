@@ -152,7 +152,7 @@ knitr::knit_hooks$set(document = function(x) {sub('\\usepackage[]{color}', '\\us
 
 
 
-\chapter{\gqlr: An R server GraphQL implementation}
+\chapter{\gqlr: An R Server GraphQL implementation}
 << part_graphql, child='parts/graphql.Rnw'>>=
 @
 

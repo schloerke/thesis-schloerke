@@ -37,7 +37,7 @@ have a couple more issues
   only bring up things i can't fix.
 
 
-\section{Future Work}
+\section{Future work}
 
 create a communication framework to R using gqlr.  this would allow to connect to the underlying data.  responses would be done in JSON and answers would follow the expected output.
 

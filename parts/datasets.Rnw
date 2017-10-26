@@ -12,21 +12,21 @@
 % }
 % @
 %
-\chapter{Datasets}
+\chapter{Data Sets}
 
-\subsubsection{Restaurant Tips}
+\subsubsection{Restaurant tips}
 
 << print_tips >>=
 reshape::tips %>% as_data_frame()
 @
 
-\subsubsection{Psychological and Academic Data}
+\subsubsection{Psychological and academic data}
 
 << print_psychademic >>=
 psychademic %>% as_data_frame()
 @
 
-\subsubsection{Election Demand}
+\subsubsection{Election demand}
 
 << appendix_elec_demand >>=
 fpp2::elecdemand %>% head()
@@ -57,4 +57,10 @@ GGally::flea %>% as_data_frame()
 
 << print_gapminder >>=
 gapminder::gapminder %>% as_data_frame()
+@
+
+\subsubsection{Iris flower}
+
+<< print_gapminder >>=
+iris %>% as_data_frame()
 @

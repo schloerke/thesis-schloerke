@@ -1,10 +1,10 @@
 
-\section{Plot Matrix}
+\section{Plot matrix}
 
 \rinline{ggduo} is continuation of prior work in the \GGally~R package.  In this section, I will cover background on the scatterplot matrix and generalized pairs plot matrix, and the \rinline{ggmatrix} object that generalized the plot matrix used in \rinline{ggduo}.
 
 
-\subsection{Pairs Plot}
+\subsection{Pairs plot}
 
   As mentioned earlier in the chapter, \ggplot~is designed to allow plots to be built layer by layer and not rendered until a final print command is executed.  \ggplot~plot objects has some implementation rules it follows when facet'ing a plot.
 
@@ -29,17 +29,17 @@
 
   Until the discussion of the Generalized Pairs Plot with Emerson et. al., all plots shared the same plot layers to utilize the idea of a small multiple.  However, this was not appropriate for discrete data being displayed by it's mapped numeric value.  In a discrete data versus discrete data plot, all of the points would be overplotted onto the unique discrete combinations.  This overplotting renders the discrete only pairs combinations unuseable.  The bottom right plots of $smoker$ and $day$ both display eight unique points, but do not convey that they really contain \Sexpr{nrow(tips)} points.
 
-<< original_pairs, fig.cap = "Stock R graphics scatterplot matrix displaying the \\rinline{tips} dataset." >>=
+<< original_pairs, fig.cap = "Stock R graphics scatterplot matrix displaying the \\rinline{tips} data set." >>=
 graphics::pairs(tips[c("total_bill", "tip", "smoker", "day")])
 @
 
   Emerson et.al. discussed using a generalized pairs plot to handle the mix of variable types by providing different plotting layers for different data types.  The generalized pairs plot displays the same collection of data using different axes but allows for a mix of plotting methods and both continuous and discrete plot axes.  This addresses the issue of overplotting in discrete columns when only displaying data in a scatterplot matrix.  Below are the two default plotting methods to handle the overplotting issue.  The \pkg{gpairs}~\cite{r_gpairs} R package is printed using \pkg{lattice}~graphics, while the \GGally~R package prints using \ggplot~graphics.
 
-<< gpairs_intro, fig.cap = "\\rinline{gpairs}~plot matrix from the \\pkg{gpairs}~R package displaying the \\rinline{tips} dataset." >>=
+<< gpairs_intro, fig.cap = "\\rinline{gpairs}~plot matrix from the \\pkg{gpairs}~R package displaying the \\rinline{tips} data set." >>=
 gpairs::gpairs(tips[, c("total_bill", "tip", "smoker", "day")])
 @
 
-<< ggpairs_intro, fig.cap = "\\rinline{ggpairs}~plot matrix from the \\GGally~R package displaying the \\rinline{tips} dataset." >>=
+<< ggpairs_intro, fig.cap = "\\rinline{ggpairs}~plot matrix from the \\GGally~R package displaying the \\rinline{tips} data set." >>=
 pm <- ggpairs(tips, c("total_bill", "tip", "smoker", "day"))
 pm
 @
@@ -79,7 +79,7 @@ pm
 
 The \rinline{ggmatrix} object is used to handle two main situations: handle mixed plot scales and contain the necessary information for displaying a plot matrix.
 
-\subsubsection{Plot Scales}
+\subsubsection{Plot scales}
 
 \ggplot~prevents discrete scales from being mixed with continuous scales.  Two different scales for the same axis is not possible in a single panel plot and \ggplot~is built on the small multiple princple of displaying similar scales in every faceted panel.   The ability to display different axes natively in the same plot matrix is not possible with \ggplot.  Only one scale type is used per ggmatrix panel.  This keeps the original `per panel' logic intact. Before the \rinline{ggmatrix} object, to produce two, related mixed axes plots in the same graphic could only be achieved using the \pkg{gridExtra}~\cite{gridExtra} or \pkg{grid}~\cite{r_project} R packages.  Both of these existing methods behaved like a side by side print method, rather than a native plot matrix.
 
@@ -92,7 +92,7 @@ gridExtra::grid.arrange(p1, p2, ncol = 1)
 \rinline{ggmatrix} allows for arbitrary scales per panel. When used properly, independently produced sub plots deliver common axes within each row and column.  This displays a cohesive and interpretable plot matrix structure.
 
 
-\subsubsection{Display Information}
+\subsubsection{Display information}
 
 The necessary information includes the number of rows and columns, label information, \ggplot~display theme information,  how plot strips should be displayed, default plot data, and individual plot information.
 
@@ -100,7 +100,7 @@ The necessary information includes the number of rows and columns, label informa
 str(pm)
 @
 
-For memory optimization, each plot is stored as a function that will produce the \ggplot~plot at print time.  To do so, the dataset provided at \rinline{ggpairs} inception sets a default dataset to be used at print time.  If a new sub plot is stored after inception, the  full plot \ggplot~object is stored directly.
+For memory optimization, each plot is stored as a function that will produce the \ggplot~plot at print time.  To do so, the data set provided at \rinline{ggpairs} inception sets a default data set to be used at print time.  If a new sub plot is stored after inception, the  full plot \ggplot~object is stored directly.
 
 
 
@@ -124,7 +124,7 @@ pm + ggplot2::theme(legend.position = "bottom")
 @
 
 
-\section{\rinline{ggduo}: Plot matrix for Two Grouped Data}
+\section{\rinline{ggduo}: Plot matrix for two grouped data}
 
 A definition of the pairs plot is that every column of the data is displayed against every other column.  This is great for full data exploration.  If a data frame had columns $A$, $B$, and $C$, there would be $3^2 = 9$ combinations produced: $A:A$, $A:B$, $A:C$, $B:A$, $B:B$, etc.. A pairs plot matrix can be generalized one step further by pairing two column groups against each other.
 
@@ -185,7 +185,7 @@ ggduo(
 @
 
 
-\subsection{User Defined Functions}
+\subsection{User defined functions}
 
 There are many default plotting functions are provided by the GGally package, however they are not all encompassing.  The user may supply their own plotting functions for each panel type.  This allows for complete customization of every panel.  The violin plot is a combination style plot that is not included by default.  A user may create their own function that uses the function call API of \rinline{function(data, mapping, ...) { ... }}.  A sample custom function example is provided below.
 
@@ -206,11 +206,11 @@ ggduo(
 
 
 
-\section{\rinline{ggduo} in Practice}
+\section{\rinline{ggduo} in practice}
 
 
 
-\subsection{Canonical Correlation Analysis}
+\subsection{Canonical correlation analysis}
 % * CCA
 
   Canonical correlation analysis (CCA) is a method to analyize the correlation between two matrices \cite{hotelling36cca}.  CCA can be directly displayed with \rinline{ggduo}.  Before \rinline{ggduo}, canonical correlation analysis did not have a cohesive plotting mechanism to visually display the associations of two sets of mixed type variables.  Before \rinline{ggduo}, examples used \rinline{ggpairs} to display all pairs of columns when only a subset of combinations are needed.  \rinline{ggpairs} is a perfect candidate for \emph{within} correlation for the explanatory variables and the response variables.  Whereas \rinline{ggduo} can be used to check the correlation \emph{between} the explanatory and response variables.
@@ -234,7 +234,7 @@ ggduo(
 
 
 
-  \subsection{Multiple Time Series Analysis}
+  \subsection{Multiple time series analysis}
   % * Time Series
   %   * break temporal components
 
@@ -287,7 +287,7 @@ ggts(
 @
 
 
-\subsection{Multiple Regression Diagnostics}
+\subsection{Multiple regression diagnostics}
 
 % * Regression
 %   * marginal model
@@ -297,7 +297,7 @@ ggts(
 
 With the basis of \rinline{ggduo} displaying each row of the data in every panel with different functions, \rinline{ggduo} quickly extends to model diagnostics. There are many readily available diagnostics that can be calculated for each row of explanatory data. By default, \rinline{ggnostic} (a function that wraps around \rinline{ggduo}) looks at the residuals, leave one out sigma value, leverage points, and Cook's Distance. Each diagnostic information is plotted against all explanatory variables used in the model.
 
-Using the flea dataset from the \GGally~package, we can try to fit a model to determine the size of the flea's head.  Using \rinline{stats::step} to determine a good fitting model, the default model diagnostics are displayed against $species$, $tars1$, $tars2$, and $aede$. The residuals have a 95\% confidence interval in dashed lines and a solid line at 0. The leave one out sigma value displays a solid line for the current model's sigma value. The leverage points (diagonal of the hat matrix) are centered around the solid, expected line at $p / n$ and have a dashed, significance line at $2 * p / n$ \cite{kutner_linear_models}. Finally, the Cooks's distance has a grey dashed, significance line at $F_{p, n - p}(0.5)$ \cite{kutner_linear_models}. Each solid line corresponds to the expected value and each dashed line corresponds to a signifigance cuttoff value. The asterisks in the $X$ axis strips corresponding to the significance of an anova $F$ test.
+Using the flea data set from the \GGally~package, we can try to fit a model to determine the size of the flea's head.  Using \rinline{stats::step} to determine a good fitting model, the default model diagnostics are displayed against $species$, $tars1$, $tars2$, and $aede$. The residuals have a 95\% confidence interval in dashed lines and a solid line at 0. The leave one out sigma value displays a solid line for the current model's sigma value. The leverage points (diagonal of the hat matrix) are centered around the solid, expected line at $p / n$ and have a dashed, significance line at $2 * p / n$ \cite{kutner_linear_models}. Finally, the Cooks's distance has a grey dashed, significance line at $F_{p, n - p}(0.5)$ \cite{kutner_linear_models}. Each solid line corresponds to the expected value and each dashed line corresponds to a signifigance cuttoff value. The asterisks in the $X$ axis strips corresponding to the significance of an anova $F$ test.
 
 << ggnostic, fig.cap = "Linear model diagnostics for a model predicting the maximal head with in millimeters." >>=
 flea_model <- step(lm(head ~ ., data = flea), trace = FALSE)

@@ -3,22 +3,23 @@ silly words
   requestor
   respondor
 
-convert all titles to
-  chapters contain all caps
-  sections and sub sections only capitolize the "first" word
-
-add elec_median code to appendix
-
-wickham is not Dr. wickham.
-
-change variable typing section to be about static vs dynamically typed languages
+change variable typing section in graphql chapter
 
 scatter plot -> scatterplot
 dataset -> data set
 
 add transition paragraphs into the next chapter for each of the main chapters
 
+Introduction
+
+Conclusion
+
+
 Acknowledgement
+
+Vita
+
+
 
 
 \section{Summary}

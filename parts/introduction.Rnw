@@ -43,7 +43,7 @@ This is the introduction.
 The first paragraph after a heading is not indented.
 
 
-\section{\rinline{ggduo}: generalized pairs plot for two grouped data}
+\section{\rinline{ggduo}: Generalized pairs plot for two grouped data}
 
 The R package \GGally~provides several amalgam plots that build on the basic \ggplot~plotting system. Functions produce multivariate plots like generalised scatterplot matrices, and parallel coordinate plots are provided, network plots, survival models and glyph maps for spatiotemporal data. This new work introduces a function, ggduo, to produce generalized plots for two groups of variables (e.g. a matrix of $X$ variables and a matrix of $Y$ variables), as might be modeled by multivariate regression, canonical correlation analysis or even multivariate time series. It builds on the structure of the ggmatrix functions used to produce the generalized pairs plot. The new function will help analysts to look at their data to support better modeling.
 
@@ -69,7 +69,7 @@ Since 2012, Facebook has developed GraphQL: a backend agnostic data query langua
 
 
 
-\section{Thesis Structure}
+\section{Thesis structure}
 
 % TODO
 in this section I outline the structure of this thesis.  In chapter 1 I will discuss... In chapter 2....

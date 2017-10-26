@@ -4,7 +4,7 @@
 
 \trelliscopejs~is built to handle more panels than the current plotting frameworks. \ggplot's \rinline{facet_wrap} can feasibly hold 10s - 100s of displays in one plot.  Since \ggplot~does not paginate, you are limited to the number of panels you can fit on a screen.  \pkg{lattice}~does paginate, so this number can be increased by 100-1000 times.  \pkg{lattice}~outputs can be saved to PDF and manually inspected page by page.  This method is efficient in detecting small visual differences between plots.  However, there is a limit to how many plots a human can ingest manually.  If 1000 pages were ingested at two pages a second, it would take over 8 minutes to manually flip through each page.  This does not scale when there are millions of pages to flips through.
 
-\subsection{Data Size}
+\subsection{Data size}
 
 ``Big Data'' is a great buzzword, but a poor definition.  Many people use it in completely different contexts with very different meanings.  For this chapter, I will define the usage of different sizes of data in this section.  There are three main sizes of data:  Small Data, Medium Data, and Large Data.
 
@@ -20,7 +20,7 @@ Each class of data balances speed and size to achieve the final goal.  These def
 
 The split-apply-combine \cite{plyr} approach for data computation is applicable for all three types of data.  As the name states, there are three main steps: split the data, apply a function, combine the results.  These three steps may be scaled as necessary given computational powers.
 
-Split.  Data is conditioned on some identifying, or conditioning columns.  This can include the row number (each row is treated uniquely) or may include many existing columns in the dataset.  Like faceting in \ggplot, all conditioning values are considered discrete values.  Once the conditioning columns have been selected, the data is split into groups where the conditioning values match.
+Split.  Data is conditioned on some identifying, or conditioning columns.  This can include the row number (each row is treated uniquely) or may include many existing columns in the data set.  Like faceting in \ggplot, all conditioning values are considered discrete values.  Once the conditioning columns have been selected, the data is split into groups where the conditioning values match.
 
 Apply.  Once the data frame has been split into independent subsets, a function is applied to each subset.  The same function will be applied to all subsets and a similar result will be returned from each functino execution.
 
@@ -56,7 +56,7 @@ The split-apply-combine paradigm applies to each data type.
 
 Each package implements the split-apply-combine approach to data computation using computational tools built for each sinearo.  Small data is processed using R.  Medium data is processed in a database that is built to handle information larger than memory can hold and results are returned to R.  Finally, Large data is executed in the distributed environment and results are stored in the distributed environment.  If memory allows, distributed results may be returned to R.
 
-\subsection{Gampinder Example}
+\subsection{Gampinder example}
 
 
 The prior \rinline{gapminder} example found the maximum life expectancy for the 142 countries.  They were then displayed in a plot colored according to the country's continent.  A lot of information can be gleaned from the maximum life expectancy summary plot, but a summary plot does not tell the full story.
@@ -80,7 +80,7 @@ Summary statistics are great in ingesting information using less data.  However,
 
 \trelliscopejs~allows users to plot full plot detail while allowing users to change how many panels are displayed on the screen at one time, sort the panel ordering, and filter out unwanted panels.  \trelliscopejs~achieves this by obtaining a plot for every conditioning combination and suplimentary metrics for each plot.
 
-The example below uses the \rinline{gapminder} dataset.  The \rinline{gapminder} dataset contains an ``Excerpt of the Gapminder data on life expectancy, GDP per capita, and population by country.''  The 142 countries have data from 1952 to 2007.  The example will only use the life expectancy variable.
+The example below uses the \rinline{gapminder} data set.  The \rinline{gapminder} data set contains an ``Excerpt of the Gapminder data on life expectancy, GDP per capita, and population by country.''  The 142 countries have data from 1952 to 2007.  The example will only use the life expectancy variable.
 
 << trelljs, echo = FALSE, verbose = FALSE, cache = FALSE >>=
 trelljs <- function(dt, name, ...) {

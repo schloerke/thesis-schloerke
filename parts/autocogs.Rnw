@@ -1,4 +1,4 @@
-\section{Automatic Cognostics for Data Visualization}
+\section{Automatic cognostics for data visualization}
 
 From a data plotting perspective, we should be able to utilize what is already being displayed in the plot to sort and filter the panels of a 	relliscopejs~widget.  This display information is not readily available as it is calculated within the plotting mechanism.
 
@@ -38,7 +38,7 @@ The amount of work to retrieve information that can be readily seen or calculate
 
 
 
-\subsection{Linear Model Example}
+\subsection{Linear model example}
 \label{subsec:linear_model}
 
 
@@ -102,7 +102,7 @@ Once all the cognostics have been produced for a given plot, they are reduced to
 
 
 
-\subsection{Cognostic Groups}
+\subsection{Cognostic groups}
 
 Each set of cognostics is returned in a cognostic group.  This is similar to scagnostics.  Scagnostics all pertain to scatterplots.  Likewise, the number of non-NA X, non-NA Y, and non-NA X and Y points are pertain to non-NA counts of the displayed data.  These groups can be extended to each type of graphical display: box plot, histogram, linear model, etc.
 
@@ -135,13 +135,13 @@ Each cognostic group column contains a single row data frame nested in each cell
 
 
 
-\section{Cognostic Groups}
+\section{Cognostic groups}
 
 There are three main types of cognostic groups: Univariate group, Bivariate group, and the Counts group.  Each type of cognostic group will explain in detail their corresponding cognostic groups in detail throughout this section.
 
 \subsection{Univariate}
 
-The univariate cognostic groups will explore the same dataset of the maximum life expectancy of the \rinline{gapminder} data set.
+The univariate cognostic groups will explore the same data set of the maximum life expectancy of the \rinline{gapminder} data set.
 
 <<>>=
 gapminder %>%
@@ -202,7 +202,7 @@ auto_cog("quantile_quantile", gap_max$lifeExp)
 
 \subsection{Bivariate}
 
-The cognostic groups below will be calculated using the \rinline{gapminder} dataset where continent equals \rinline{"Americas"}, (\rinline{americas}), or where country equals \rinline{"United States"}, (\rinline{usa}).
+The cognostic groups below will be calculated using the \rinline{gapminder} data set where continent equals \rinline{"Americas"}, (\rinline{americas}), or where country equals \rinline{"United States"}, (\rinline{usa}).
 
 << gap_americas >>=
 americas <- gapminder %>% filter(continent == "Americas")
@@ -389,7 +389,7 @@ options(width = 69)
 \end{enumerate}
 
 
-\section{\ggplot~Layer Matching}
+\section{\ggplot~layer matching}
 
 \ggplot~has already been integrated into the \autocogs~R package by default.  This integration contains the necessary information for which cognostic groups will be displayed for the existing layer types of each \ggplot~layer.  Each plotting framework has its own data personality and can display cognostics how it sees fit.
 
@@ -402,9 +402,9 @@ Below is a mapping of each \ggplot~geom layer to each of the univariate cognosti
 
 In this section, I will explore a simple \ggplot~bar chart and a more advanced example involving a \ggplot~scatterplot and linear model combination.
 
-\subsection{Bar Plot}
+\subsection{Bar plot}
 
-First, let us create the dataset containing each of the panels.  Each panel will display a histogram chart of the life expectancy over time for each continent. Figure \ref{fig:continent_hist} displays the panel where continent is \rinline{"Americas"}.
+First, let us create the data set containing each of the panels.  Each panel will display a histogram chart of the life expectancy over time for each continent. Figure \ref{fig:continent_hist} displays the panel where continent is \rinline{"Americas"}.
 
 << continent_hist, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in", fig.cap = "The \\rinline{\"Americas\"} histogram of life expectancy." >>=
 gapminder %>%
@@ -436,7 +436,7 @@ The output above displays all the cognostics that apply to a univariate histogra
 While this amount of information is a little overwhelming, keep in mind the goal of the \autocogs~R package is to provide as many ways to filter and sort data that can not readily be seen.
 
 
-\subsection{Linear Model and Scatterplot}
+\subsection{Linear model and scatterplot}
 
 In the next example, we will perform a similar workflow, but the panel will contain two layers: point and a linear model line.  Each layer is derived from the same original data, but will help produce a very different set of cognostics.
 
@@ -505,7 +505,7 @@ In less than ten lines of code we went from a single data set to a full fledge v
 %
 %
 %
-% Using the \rinline{gapminder} dataset as an example, we can explore the linear model trend of the life expectancy over time.
+% Using the \rinline{gapminder} data set as an example, we can explore the linear model trend of the life expectancy over time.
 %
 % %	relliscopejs~has integrated functionality with \ggplot, so we will reduce the amount of code using the function \rinline{facet_trelliscope}.
 %
