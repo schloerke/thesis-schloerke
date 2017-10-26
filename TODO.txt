@@ -1,10 +1,4 @@
 
-silly words
-  requestor
-  respondor
-
-change variable typing section in graphql chapter
-
 scatter plot -> scatterplot
 dataset -> data set
 

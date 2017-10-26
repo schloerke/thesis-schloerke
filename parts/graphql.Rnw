@@ -14,22 +14,21 @@ Since 2012, Facebook has developed GraphQL: ``a query language for APIs and a ru
 Application Protocol Interfaces (APIs) are the fundamental backbone of communication between machines.  They enable machines to communicate with each other without needing to know how the responding machine comes to its answer.  Two conventions for an API: simple API and custom API.  Each API style has their own advantages and disadvantages.  GraphQL was created to address the disadvantages while keeping the advantages at the cost of typing the request.
 
 
-There are two parties involved in every API communication: the requestor who submits a query and respondor who returns an answer.  The requestor submits a query, and the responder returns an answer that can be interpreted by the requestor.  The key point to the communication transaction is that the requestor does not need to know how the responder calculates their answer.
+There are two parts involved in every API communication: the request and response.  The request submits a query, and the response returns an answer that should be understood by the requesting entity.  The key point to the communication transaction is that the request does not need to know how the response calculates the answer.
 
-This layer of abstraction shields the requestor from knowing the nitty-gritty implementation details of the responder.  It allows the responder to behave like a black box that will only respond to particular requests or queries.
+This layer of abstraction shields the request from knowing the nitty-gritty implementation details of the response.  This allows the response to behave like a black box that will only respond to particular requests or queries.
 
 
 In this thesis, I will address single response APIs as I am concerned with the request, not the response.  A single response API is an API that returns only one response to one answer.  I will not discuss streaming APIs in this thesis.
 
-Throughout this section, I will use a calculator, `Calc', as my example responder.  The calculator will be have four internal functions: add, subtract, multiply, and divide.  These four internal function behave just like a regular calculator, but the true implementation of the calculator is hidden.
+Throughout this section, I will use a calculator, `Calculator', as my example server.  The calculator will be have four internal functions: add, subtract, multiply, and divide.  These four internal function behave just like a regular calculator, but the true implementation of the calculator is hidden.
 
 \subsection{Simple API}
 
 There are two common styles of single response APIs: simple and custom response.
-A simple API has a single end point, or place to send a request, for each style of question it knows how to answer.  The Calculator would contain four end points: add, subtract, multiply, and divide.  Each end point would require two numeric values as inputs and would respond with a single numeric value.  To concisely define a RESTful Calculator, we may state the following:
+A simple API has a single end point, or place to send a request, for each style of question it knows how to answer.  The Calculator would contain four end points: add, subtract, multiply, and divide.  Each routine requires two numeric values as inputs and responds with a single numeric value.  To concisely define a RESTful Calculator, we may state the following schema:
 
 \begin{graphqlcode}
-# GraphQL; Schema
 type Calculator {
   add(A: Float, B: Float): Float,
   subtract(A: Float, B: Float): Float,
@@ -109,7 +108,7 @@ The disadvantages come from the amount of engineering time is required to implem
 
 Using the Calculator example, calculating the $1 + 2 + 3 + 4 + 5$ example could be done in a single custom request called ``1add2add3add4add5''.  It would solve the answer in a single request, but the server would have to implement many, many responses for all the funtionality of a Calculator.
 
-The custom response is now tied directly to the requesting website.  This creates little separation between the website and the responding server.  By coupling the data server with the requesting service makes advancement by the requestor very slow and difficult.  Users making the requests can not move ahead until a new custom response has been enabled.
+The custom response is now tied directly to the requesting website.  This creates little separation between the website and the responding server.  By coupling the data server with the requesting service makes advancements in the requests slow and difficult.  Users making the requests can not move ahead until a new custom response has been enabled.
 
 \subsection{Balancing act}
 
