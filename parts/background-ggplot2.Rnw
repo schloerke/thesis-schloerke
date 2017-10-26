@@ -137,10 +137,6 @@ There are two types of faceting in \ggplot: facet wrap and facet grid.  Facet wr
 
 
 << facets1, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in", fig.cap = "$tip$ vs $total\\_bill$ with facets or conditioning variables." >>=
-# TODO remove comments
-# p <- ggplot(iris, aes(Petal.Length, Petal.Width)) + geom_point()
-# p + labs(title = "Iris Petal Length vs Width")
-# p + facet_wrap(~ Species) + labs(title = "Iris Petal Length vs Width per Species")
 p <- ggplot(tips, aes(total_bill, tip)) + geom_point()
 p +
   labs(title = "No Facets")

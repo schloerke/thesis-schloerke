@@ -149,10 +149,6 @@ gapminder %>%
   summarise(lifeExp = max(lifeExp)) %>%
   print() ->
 gap_max
-# TODO remove comments?
-# ggplot(gap_max, aes(lifeExp, fill = continent)) +
-#   geom_histogram(binwidth = 1) +
-#   labs(x = "max(lifeExp)")
 @
 
 \begin{enumerate}

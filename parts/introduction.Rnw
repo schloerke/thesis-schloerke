@@ -17,7 +17,7 @@ In this work, we fill this gap by BLAH using packages A, B, C.
 
 3x more sentances describing each package
   ggduo does a gen pairs plot
-  autcogs does X and addresses Y
+  autocogs does X and addresses Y
   gqlr does A and bridges the gap of B
 
 stress the importance of the contribution
