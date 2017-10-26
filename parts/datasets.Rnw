@@ -22,7 +22,7 @@ reshape::tips %>% as_data_frame()
 
 \subsubsection{Psychological and Academic Data}
 
-<< print_tips >>=
+<< print_psychademic >>=
 psychademic %>% as_data_frame()
 @
 
