@@ -8,10 +8,14 @@ Introduction
 
 Conclusion
 
-
 Acknowledgement
 
 Vita
+
+Autocogs background
+  add pictures to filtering
+
+look at all TODO values before submission
 
 
 
@@ -34,11 +38,6 @@ GraphQL
   ? Introduction paragraph
   - conclusion / wrap up paragraph
 
-
-Autocogs background
-  add pictures to filtering
-
-look at all TODO values before submission
 
 
 
