@@ -1,0 +1,76 @@
+\chapter{R Packages}
+
+
+\section{\pkg{GGally}}
+
+\begin{itemize}
+  \tick \rinline{+.gg}: Modify a ggmatrix object by adding an \ggplot~object to all plots \newline This operator allows you to add \ggplot~objects to a \rinline{ggmatrix} object.
+  \tick \rinline{broomify}: Broomify a model \newline \rinline{broom::augment} a model and add \rinline{broom::glance} and \rinline{broom::tidy} output as attributes. $X$ and $Y$ variables are also added.
+  \tick \rinline{find_plot_type}: Find Plot Types \newline Retrieves the type of plot for the specific columns.
+  \tick \rinline{fn_switch}: Function switch \newline Function that allows you to call different functions based upon an aesthetic variable value.
+  \tick \rinline{ggally_barDiag}: Plots the Bar Plots Along the Diagonal \newline Plots the bar plots along the diagonal of a \rinline{ggpairs} plot.
+  \tick \rinline{ggally_blank}, \rinline{ggally_blankDiag}: Blank Plot \newline Draws nothing.
+  \tick \rinline{ggally_box}, \rinline{ggally_box_no_facet}: Box Plot \newline Make a box plot with a given data set. \rinline{ggally_box_no_facet} will be a single panel plot, while \rinline{ggally_box} will be a faceted plot.
+  \tick \rinline{ggally_cor}: Correlation from the Scatter Plot \newline Estimate the correlation from the provided data.
+  \tick \rinline{ggally_density}: Scatter Density Plot \newline Produce a scatter density plot from a provided data.
+  \tick \rinline{ggally_densityDiag}: Density Plot Along the Diagonal \newline Produce density plot along the diagonal.
+  \tick \rinline{ggally_denstrip}: Tile Plot with Facets \newline Facet a tile plot using the provided data.
+  \tick \rinline{ggally_dot}, \rinline{ggally_dot_no_facet}: Dot Plot with Facets \newline Facet a dot plot using the provided data.
+  \tick \rinline{ggally_facetbar}: Bar Plot with Facets \newline $X$ variables are plotted using \rinline{ggplot2::geom_bar} and faceted by the $Y$ variable.
+  \tick \rinline{ggally_facetdensity}: Density Plot with Facets \newline Facet a density plot using the provided data.
+  \tick \rinline{ggally_facethist}: Histogram Plot with Facets \newline Facet a histogram plot using the provided data.
+  \tick \rinline{ggally_na}, \rinline{ggally_naDiag}: \rinline{NA} plot \newline Draws a large \rinline{NA} in the middle of the plotting area. This plot is useful when all $X$ or $Y$ data is \rinline{NA}.
+  \tick \rinline{ggally_nostic_cooksd}: \rinline{ggnostic} - Cook’s Distance \newline A function to display \rinline{stats::cooks.distance}.
+  \tick \rinline{ggally_nostic_hat}: \rinline{ggnostic} - Leverage Points \newline A function to display \rinline{stats::influence}’s hat information against a given explanatory variable.
+  \tick \rinline{ggally_nostic_line}: \rinline{ggnostic} - Background Line with Geom \newline If a non-null linePosition value is given, a line will be drawn before the given \rinline{continuous_geom} or \rinline{combo_geom} is added to the plot.
+  \tick \rinline{ggally_nostic_resid}: \rinline{ggnostic} - Residuals \newline If non-null p-value and sigma values are given, confidence interval lines will be added to the plot at the specified p-value percentiles of a $N(0, \sigma)$ distribution.
+  \tick \rinline{ggally_nostic_se_fit}: \rinline{ggnostic} - Fitted Value Standard Error \newline A function to display \rinline{stats::predict}’s standard errors.
+  \tick \rinline{ggally_nostic_sigma}: \rinline{ggnostic} - Leave One Out Model Sigma \newline A function to display \rinline{stats::influence}’s sigma value.
+  \tick \rinline{ggally_nostic_std_resid}: \rinline{ggnostic} - Standardized Residuals \newline If non-null p-value and sigma values are given, confidence interval lines will be added to the plot at the specified p-value locations of a $N(0, 1)$ distribution.
+  \tick \rinline{ggally_points}: Scatter Plot \newline Produces a scatter plot using the provided data.
+  \tick \rinline{ggally_ratio}: Mosaic Plot \newline Produces a mosaic plot using fluctuation.
+  \tick \rinline{ggally_smooth}, \rinline{ggally_smooth_loess}, \rinline{ggally_smooth_lm}: Scatter Plot with Smoothing \newline Produces a smoothed line on top of a scatter plot.
+  \tick \rinline{ggally_text}: Text Plot \newline Display text in the middle of a plot while maintaining a background scales.
+  \tick \rinline{ggduo}: A \ggplot~Generalized Pairs Plot for Two Columns Sets of a \rinline{data.frame} \newline Make a matrix of plots with a given data set with two different column sets.
+  \tick \rinline{ggfacet}: Single \ggplot~Plot Matrix with \rinline{facet_grid} \newline Produce a single \ggplot~object using \rinline{ggplot2::facet_grid}.
+  \tick \rinline{gglegend}: Legend of Plot Function \newline Only display the legend of a plot.  Use this function to retrieve the only legend.
+  \tick \rinline{ggmatrix}: A\ggplot Plot Matrix \newline Make a generic plot matrix of \ggplot~plots.
+  \tick \rinline{ggmatrix_gtable}: Compute the \rinline{ggmatrix} \rinline{gtable} \newline This functino builds all plots necessary for displaying the plot matrix and stores them in a \ggplot~plot \rinline{gtable}.
+  \tick \rinline{ggnostic}: Statistical Model Diagnostics Plot Matrix \newline Display commonly known linear model diagnostics against model predictor variables in a \rinline{ggmatrix}.
+  \tick \rinline{ggpairs}:  A \ggplot Generalized Pairs Plot \newline Produce plots of all variable combinations with different plot types for the upper triangle, lower triangle, and diagonal of the plot matrix.
+  \tick \rinline{ggts}: Multiple Time Series \newline GGally implementation of ts.plot. Wraps around the ggduo function and removes the column strips.
+  \tick \rinline{grab_legend}: Extract a \ggplot~Legend \newline Extract the legend of a \ggplot~object to be drawn at a later time.
+  \tick \rinline{print.ggmatrix}: Print a \rinline{ggmatrix} object \newline Print method altered from \rinline{ggplot2:::print.ggplot} to accomodate a ggmatrix object
+  \tick \rinline{v1_ggmatrix_theme}: Original \rinline{ggmatrix} Layout \rinline{theme} \newline Modify a ggmatrix object by adding an ggplot2 object to all plots
+  \tick \rinline{wrap}, \rinline{wrapp}, \rinline{wrap_fn_with_params}, \rinline{wrap_fn_with_param_arg}: Wrap a Function with Different Parameter Values \newline Wraps a function with the supplied parameters to force different default behavior. This is useful for functions that are supplied to \rinline{ggpairs}. It allows you to change the behavior of one function, rather than creating multiple functions with different parameter settings.
+\end{itemize}
+
+
+
+\section{\pkg{autocogs}}
+
+\begin{itemize}
+  \tick \rinline{add_cog_group}: Add a Cognostic Group \newline Add a new cognostic to be used when calculating automatic cognostics.
+  \tick \rinline{add_layer_cogs}: Add Plot Layer Cognostics \newline Add a new set of cognostic groups for a given plot layer. If the plot layer is found, the corresponding cognostic groups will be calculated.
+  \tick \rinline{auto_cog}: Cognostic Group Function \newline Calculate an automatic cognostic function given a cognostic group name.
+  \tick \rinline{cog_desc}: Cognostic and Description \newline Add a description to a cognostic.
+  \tick \rinline{cog_group_df}: Cognostic Group data frame \newline Make a cognostics group data frame to be passed into \rinline{add_layer_cogs}
+  \tick \rinline{field_info}: Field Type Info \newline
+  \tick \rinline{layer_count}: Number of Layers in Plot \newline Retrieve the number of layers in a given plot
+  \tick \rinline{layer_info}: Plot Layer Information List \newline Retrieve the data and parameter information for all layers of a plot.
+  \tick \rinline{panel_cogs}, \rinline{add_panel_cogs}: Calculate Panel Cognostics \newline Return or concatinate panel cognostics. For each panel (plot) in the panel column, cognostics will be calculated for each panel. The result will be returned in a nested \rinline{tibble::tibble}.
+  \tick \rinline{plot_class}: Plot Class \newline First class of the plot object. Exception is ggplot2 as many objects are of class ’gg’.
+\end{itemize}
+
+
+\section{\pkg{gqlr}}
+
+\begin{itemize}
+  \tick \rinline{as_R6}: As R6 \newline Debug method that strips all gqlr classes and assigns the class as 'R6'
+  \tick \rinline{ErrorList}: ErrorList \newline Handles all errors that occur during query validation. This object is returned from execute request function (\rinline{ans <- execute_request(query, schema)}) under the field \rinline{’error_list’} (\rinline{ans$error_list}).
+  \tick \rinline{execute_request}: Execute GraphQL server response \newline Executes a GraphQL server request with the provided request.
+  \tick \rinline{gqlr_schema}: Create Schema definitions \newline Creates a Schema object from the defined GraphQL string and inserts the provided descriptions, resolve methods, and \rinline{resolve_type} methods into the appropriate place.
+  \tick \rinline{parse_ast}: Parse AST \newline This is a helper function for Scalars. Given a particular kind and a resolve function, it produces a function that will only parse values of a particular kind.
+  \tick \rinline{Schema}: GraphQL Schema object \newline Manages a GraphQL schema definition. A Schema can add more GraphQL type definitions, assist in determining definition types, retrieve particular definitions, and can combine with other schema definitions. \newline Typically, Schema class objects are created using \rinline{gqlr_schema}. Creating a \rinline{Schema$new()} object should be reserved for when multiple Schema objects are combined.
+  \tick \rinline{Schema}: Run basic GraphQL server \newline Run a basic GraphQL server with the jug package. This server is provided to show basic interaction with GraphQL. The server will run until the function execution is canceled.
+\end{itemize}

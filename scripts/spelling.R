@@ -4,6 +4,8 @@ bad_spelling <- spelling::spell_check_files("schloerke_b_thesis.tex", ignore = c
   "aes",
   "americas",
   "args",
+  "ast",
+  "AST",
   "barDiag",
   "barkVolume",
   "barret",
