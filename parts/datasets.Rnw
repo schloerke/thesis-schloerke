@@ -61,6 +61,6 @@ gapminder::gapminder %>% as_data_frame()
 
 \subsubsection{Iris flower}
 
-<< print_gapminder >>=
+<< print_iris >>=
 iris %>% as_data_frame()
 @

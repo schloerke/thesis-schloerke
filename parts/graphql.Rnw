@@ -191,7 +191,7 @@ Developers balance between minimal engineering time and minimal execution time. 
 
 Databases can store objects in one of two common paradigms: as a relational database or as a key-value database.  Relational databases know exactly what kind of object will be returned and can map one table to another with id values.  Key-value databases, on the other hand, do not inspect the values of the database.  The only requirement is that values are stored at a specific key.  Key-value databases are built for speed and scalability over structure and relationships.
 
-While relational databases are already inherintly typed (unless purposely stated as an unknown type), well designed key-value databases inherently contain typed values.  Each value that is inserted into the database has a known shape and expected response type.  If data of an image is stored, audio data should never be returned from that same position.  Even if the image had different sizes and formats, it still can be understood as an image.
+While relational databases are already inherently typed (unless purposely stated as an unknown type), well designed key-value databases inherently contain typed values.  Each value that is inserted into the database has a known shape and expected response type.  If data of an image is stored, audio data should never be returned from that same position.  Even if the image had different sizes and formats, it still can be understood as an image.
 
 There are many more comparisons and cost / benefits to every database, however these implementation differences are not apart of the scope of this chapter.
 
