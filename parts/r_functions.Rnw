@@ -1,7 +1,7 @@
 \chapter{R Packages}
 
 
-\section{\pkg{GGally}}
+\section{\GGally}
 
 \begin{itemize}
   \tick \rinline{+.gg}: Modify a ggmatrix object by adding an \ggplot~object to all plots \newline This operator allows you to add \ggplot~objects to a \rinline{ggmatrix} object.
@@ -47,14 +47,14 @@
 
 
 
-\section{\pkg{autocogs}}
+\section{\autocogs}
 
 \begin{itemize}
   \tick \rinline{add_cog_group}: Add a Cognostic Group \newline Add a new cognostic to be used when calculating automatic cognostics.
   \tick \rinline{add_layer_cogs}: Add Plot Layer Cognostics \newline Add a new set of cognostic groups for a given plot layer. If the plot layer is found, the corresponding cognostic groups will be calculated.
   \tick \rinline{auto_cog}: Cognostic Group Function \newline Calculate an automatic cognostic function given a cognostic group name.
   \tick \rinline{cog_desc}: Cognostic and Description \newline Add a description to a cognostic.
-  \tick \rinline{cog_group_df}: Cognostic Group data frame \newline Make a cognostics group data frame to be passed into \rinline{add_layer_cogs}
+  \tick \rinline{cog_group_df}: Cognostic Group \rinline{data.frame} \newline Make a cognostics group data frame to be passed into \rinline{add_layer_cogs}
   \tick \rinline{field_info}: Field Type Info \newline
   \tick \rinline{layer_count}: Number of Layers in Plot \newline Retrieve the number of layers in a given plot
   \tick \rinline{layer_info}: Plot Layer Information List \newline Retrieve the data and parameter information for all layers of a plot.
@@ -63,7 +63,19 @@
 \end{itemize}
 
 
-\section{\pkg{gqlr}}
+\section{\trelliscopejs}
+
+\begin{itemize}
+  \tick \rinline{+.gg} \ggplot Add Method \newline Add method for \rinline{gg} / \rinline{facet_trelliscope}.
+  \tick \rinline{as_cognostics} As Cognostics \newline Cast a data frame as a cognostics \rinline{data.frame}.
+  \tick \rinline{facet_trelliscope} \trelliscopejs~Faceting \newline Facet using a \trelliscopejs~wigit.  This function uses \rinline{ggplot2::facet_wrap} and \rinline{ggplot2::facet_grid} like syntax.
+  \tick \rinline{print.facet_trelliscope} Print a \rinline{facet_trelliscope} Object \newline Prints a \trelliscopejs~wigit by saving the necessary files to disk.  Like \ggplot, this allows for all plot alterations to be executed independently before print time.
+  \tick \rinline{trelliscope} Create a \trelliscopejs~Display \newline Creates a \trelliscopejs display by writing all necessary files to disk.
+\end{itemize}
+
+
+
+\section{\gqlr}
 
 \begin{itemize}
   \tick \rinline{as_R6}: As R6 \newline Debug method that strips all gqlr classes and assigns the class as 'R6'
