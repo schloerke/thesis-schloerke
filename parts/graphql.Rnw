@@ -11,7 +11,7 @@ Since 2012, Facebook has developed GraphQL: ``a query language for APIs and a ru
 
 \section{Application protocol interfaces}
 
-Application Protocol Interfaces (APIs) are the fundamental backbone of communication between machines.  They enable machines to communicate with each other without needing to know how the responding machine comes to its answer.  Two conventions for an API: simple API and custom API.  Each API style has their own advantages and disadvantages.  GraphQL was created to address the disadvantages while keeping the advantages at the cost of strong typing the request.
+Application Protocol Interfaces (APIs) are the fundamental backbone of communication between machines.  They enable machines to communicate with each other without needing to know how the responding machine comes to its answer.  Two conventions for an API: simple API and custom API.  Each API style has their own advantages and disadvantages.  GraphQL was created to address the disadvantages while keeping the advantages at the cost of typing the request.
 
 
 There are two parties involved in every API communication: the requestor who submits a query and respondor who returns an answer.  The requestor submits a query, and the responder returns an answer that can be interpreted by the requestor.  The key point to the communication transaction is that the requestor does not need to know how the responder calculates their answer.
@@ -151,48 +151,48 @@ Developers balance between minimal engineering time and minimal execution time. 
 
 
 
-\section{Variable typing}
-
-Programing languages know the type of objects in two ways: strong typed and weakly typed.  Strong typed languages know ``whenever an object is passed from a calling function to a called function, its type must be compatible with the type declared in the called function.'' \cite{Liskov74programmingwith}.  Weakly typed languages allow a programmer to passively use a invalid type as if it was correct.  Using Javascript, we can define a function that returns the square of an object's key $key$. The function does not define any requirements about the variable $x$.  The \emph{hope} is that the function will only be called with a valid object type.
- % \cite{crockford2008javascript}.
-
-\begin{jscode}
-// javascript
-square_key = function(x) {
-  return x.key * x.key;
-}
-square_key({key: 5})
-// 25
-square_key(5)
-// NaN
-\end{jscode}
-
-In a strong typed C++ example, an integer is not cast into a \cppinline{KeyVal} object. By requiring variable types for inputs and outputs, the variable class is known at compile time and the program may be checked for type errors.
-
-\begin{cppcode}
-// C++
-struct KeyVal {
-  double key;
-};
-double square_key(KeyVal x) {
-  return x.key * x.key;
-};
-int main() {
-  KeyVal x;
-  x.key = 5;
-  std::cout << square_key(x); // Would print "25"
-  std::cout << square_key(5); // Causes compile error
-}
-// In function 'int main()':
-// 12:26: error: could not convert '5' from 'int' to 'KeyVal'
-\end{cppcode}
+% \section{Variable typing}
+%
+% Programing languages know the type of objects in two ways: strong typed and weakly typed.  Strong typed languages know ``whenever an object is passed from a calling function to a called function, its type must be compatible with the type declared in the called function.'' \cite{Liskov74programmingwith}.  Weakly typed languages allow a programmer to passively use a invalid type as if it was correct.  Using Javascript, we can define a function that returns the square of an object's key $key$. The function does not define any requirements about the variable $x$.  The \emph{hope} is that the function will only be called with a valid object type.
+%  % \cite{crockford2008javascript}.
+%
+% \begin{jscode}
+% // javascript
+% square_key = function(x) {
+%   return x.key * x.key;
+% }
+% square_key({key: 5})
+% // 25
+% square_key(5)
+% // NaN
+% \end{jscode}
+%
+% In a strong typed C++ example, an integer is not cast into a \cppinline{KeyVal} object. By requiring variable types for inputs and outputs, the variable class is known at compile time and the program may be checked for type errors.
+%
+% \begin{cppcode}
+% // C++
+% struct KeyVal {
+%   double key;
+% };
+% double square_key(KeyVal x) {
+%   return x.key * x.key;
+% };
+% int main() {
+%   KeyVal x;
+%   x.key = 5;
+%   std::cout << square_key(x); // Would print "25"
+%   std::cout << square_key(5); // Causes compile error
+% }
+% // In function 'int main()':
+% // 12:26: error: could not convert '5' from 'int' to 'KeyVal'
+% \end{cppcode}
 
 
 \section{Database storage}
 
-Similarly, databases can store objects in two ways: as a relational database or as a key-value database.  Relational databases know exactly what kind of object will be returned and can map one table to another with id values.  Key-value databases, on the other hand, do not inspect the values of the database.  The only requirement is that values are stored at a specific key.  Key-value databases are built for speed and scalability over structure and relationships.
+Databases can store objects in one of two common paradigms: as a relational database or as a key-value database.  Relational databases know exactly what kind of object will be returned and can map one table to another with id values.  Key-value databases, on the other hand, do not inspect the values of the database.  The only requirement is that values are stored at a specific key.  Key-value databases are built for speed and scalability over structure and relationships.
 
-While relational databases are already strongly typed (unless purposely stated as an unknown type), well designed key-value databases inherently contain strong typed values.  Each value that is inserted into the database has a known shape and expected response type.  If data of an image is stored, audio data should never be returned from that same position.  Even if the image had different sizes and formats, it still can be understood as an image.
+While relational databases are already inherintly typed (unless purposely stated as an unknown type), well designed key-value databases inherently contain typed values.  Each value that is inserted into the database has a known shape and expected response type.  If data of an image is stored, audio data should never be returned from that same position.  Even if the image had different sizes and formats, it still can be understood as an image.
 
 There are many more comparisons and cost / benefits to every database, however these implementation differences are not apart of the scope of this chapter.
 
@@ -728,11 +728,11 @@ obj$name <- "Dog"
 @
 
 
-\gqlr~uses these active fields to accomplish strong typed language properties while executing in a weakly typed language of R.  This has an unnatural feeling during coding, but is highly effective in implementing GraphQL.
+\gqlr~uses these active fields to accomplish typed language properties while executing in a weakly typed language of R.  This has an unnatural feeling during coding, but is highly effective in implementing GraphQL.
 
 \subsection{Execution}
 
-At first glance, R and GraphQL seem like an unlikely combination.  R is a weakly typed language while GraphQL is a strong typed language.  R is not necessarily known for its raw speed and one of GraphQL's goals is to reduce execution time.
+At first glance, R and GraphQL seem like an unlikely combination.  R is an untyped (dynamically typed) language while GraphQL is a typed language.  R is not known for its raw speed and one of GraphQL's goals is to reduce execution time.
 
 However, R is known for its statistical models, statistical graphics, and its very fast iteration speed \cite{r_about}.  Leveraging the 11,000+ packages \cite{r_packages} available to R, R users do not have to rewrite the wheel.  \gqlr~is built to help small projects provide proof of concept or developers to mock full backend systems locally.
 
