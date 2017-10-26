@@ -1,0 +1,60 @@
+% << xtable, echo = FALSE >>=
+% xtable <- function(x, file = "", ...){
+%   table <- xtable::xtable(x, ...)
+%   print(table, floating = F, hline.after = NULL,
+%     add.to.row = list(
+%       pos = list(-1,0, nrow(x)),
+%       command = c('\\toprule\n ','\\midrule\n  ','\\bottomrule\n')
+%     ),
+%     include.rownames = FALSE,
+%     file = file
+%   )
+% }
+% @
+%
+\chapter{Datasets}
+
+\subsubsection{Restaurant Tips}
+
+<< print_tips >>=
+reshape::tips %>% as_data_frame()
+@
+
+\subsubsection{Psychological and Academic Data}
+
+<< print_tips >>=
+psychademic %>% as_data_frame()
+@
+
+\subsubsection{Election Demand}
+
+<< appendix_elec_demand >>=
+fpp2::elecdemand %>% head()
+
+fpp2::elecdemand %>%
+  as_data_frame() %>%
+  mutate(
+    WorkDay = factor(c("No", "Yes")[WorkDay + 1], levels = c("Yes", "No")),
+    # Time = zoo::as.Date(zoo::as.Date(time(elecdemand)))
+    Year = 2014,
+    Day = rep(1:365, each = 48),
+    HighUsage = c("below", "above")[(Demand > median(Demand)) + 1]
+  ) %>%
+  filter(Day <= 100) %>%
+  mutate(Time = as.Date(Day, origin = "2014-01-01")) ->
+elec_median
+
+elec_median
+@
+
+\subsubsection{Flea}
+
+<< print_flea >>=
+GGally::flea %>% as_data_frame()
+@
+
+\subsubsection{Gapminder}
+
+<< print_gapminder >>=
+gapminder::gapminder %>% as_data_frame()
+@

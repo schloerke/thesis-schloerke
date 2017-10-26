@@ -167,6 +167,9 @@ knitr::knit_hooks$set(document = function(x) {sub('\\usepackage[]{color}', '\\us
 \appendices
 % \appendix
 
+<< part_r_functions, child='parts/datasets.Rnw'>>=
+@
+
 << part_r_functions, child='parts/r_functions.Rnw'>>=
 @
 

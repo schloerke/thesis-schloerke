@@ -1,4 +1,3 @@
-look at all TODO
 
 silly words
   requestor
@@ -44,6 +43,11 @@ GraphQL
 Autocogs background
   add pictures to filtering
 
+look at all TODO values before submission
+
+
+
+
 add intro
   2-3 paragraphs for each major section
   include a "final" picture for each section
@@ -56,9 +60,6 @@ add conclusion
     ~ 3 pages in total. Not too much.
     take a step back and talk about broader topics.  This would be "I've talked a lot about graphics... graphics today are missing blah blah blah interactivity and crosstalk and cohesive environments"
   should be shorter than intro
-
-after done with intro / conclusion
-  add "index" enumerate of each major package of mine
 
 
 

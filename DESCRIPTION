@@ -25,6 +25,8 @@ Imports:
   fpp2,
   purrr,
   spelling,
+  xtable,
+  reshape,
   gapminder
 Remotes:
   schloerke/autocogs,
