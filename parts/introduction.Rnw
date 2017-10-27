@@ -15,7 +15,7 @@ what is missing?
 we address this missing by...?
 In this work, we fill this gap by BLAH using packages A, B, C.
 
-3x more sentances describing each package
+3x more sentences describing each package
   ggduo does a gen pairs plot
   autocogs does X and addresses Y
   gqlr does A and bridges the gap of B

@@ -1,65 +1,65 @@
 \section{\trelliscopejs}
 
-\trelliscopejs~is an R package used to visualize data with many conditioning combinations.  \trelliscopejs~conditions on columns within the data and displays a plot or piece of information for each plot in an independent panel.
+\trelliscopejs~is an R package used to visualize data with many conditioning combinations.  \trelliscopejs~conditions on columns within the data set and displays a plot, image, or html object for each plot in an independent display panel.
 
-\trelliscopejs~is built to handle more panels than the current plotting frameworks. \ggplot's \rinline{facet_wrap} can feasibly hold 10s - 100s of displays in one plot.  Since \ggplot~does not paginate, you are limited to the number of panels you can fit on a screen.  \pkg{lattice}~does paginate, so this number can be increased by 100-1000 times.  \pkg{lattice}~outputs can be saved to PDF and manually inspected page by page.  This method is efficient in detecting small visual differences between plots.  However, there is a limit to how many plots a human can ingest manually.  If 1000 pages were ingested at two pages a second, it would take over 8 minutes to manually flip through each page.  This does not scale when there are millions of pages to flips through.
+\trelliscopejs~is built to handle more panels than the current plotting frameworks in R. \ggplot's \rinline{facet_wrap} can feasibly hold 10s - 100s of displays in one plot.  Since \ggplot~does not paginate (print over multiple pages), the size of the computer screen limits how many panels may be displayed.  A core feautre of \pkg{lattice}~is its ability to paginate panels of a plot.  This allows the number of panels to scale 100-1000 times.  \pkg{lattice}~outputs can be saved to PDF and manually inspected page by page.  This method is efficient in detecting small visual differences between plots due to the strucutre of small multiples.  However, there is a limit to how many plots a human can manually ingest.  If 1000 pages were visually inspected at a rate of two pages per second, it would take over 8 minutes to manually flip through each page.  Pagination does not scale with large data when there are millions of pages to flip through.
 
 \subsection{Data size}
 
-``Big Data'' is a great buzzword, but a poor definition.  Many people use it in completely different contexts with very different meanings.  For this chapter, I will define the usage of different sizes of data in this section.  There are three main sizes of data:  Small Data, Medium Data, and Large Data.
+``Big Data'' is a great buzzword, but a poor definition.  It is commonly used in different contexts with different meanings.  For this chapter, I will define the usage of different sizes of data in this section.  Will define three main sizes of data:  Small Data, Medium Data, and Large Data.
 
-Small Data (Memory Data) consists of in memory data only.  This includes \rinline{data.frames} in R and Excel files.  The advantages are they have the fastest response time when retrieving information and are immediately retrievable.  The major disadvantage to Small Data is the size is limited to the amount of memory on a machine.  \rinline{data.frames} may only get as big as memory can store.  Current machines configurations allow for hundreds of gigabytes of memory.
+Small Data (Memory Data) consists of in memory data only.  This includes \rinline{data.frames} in R and Excel files.  Small data excels at very fast response time when retrieving information.  The major disadvantage to Small Data is the size is limited to the amount of memory on a machine.  \rinline{data.frames} can only get as big as memory can handle.  Current machines configurations allow for hundreds of gigabytes of memory.
 
 Medium Data (Disk Data) extends the capabilities of the memory to the storage capacity of the computer.  Data is read to and from disk using memory as a buffer.  Hard drives today can store multiple terabytes of information.  However, retrieving data is much slower as data must be read into memory to be processed.  The gain in size comes at a cost of speed.
 
-Finally, Large Data (Cluster Data) is data that is spread across multiple machines.  Many machines may be used in a cluster to house Large Data.  Large data is the slowest in response time, as data must travel between machines for calculations.  Each machine may store the data in memory or on disk.  Typically each machine stores Medium Data locally, but functions as a cohesive unit globally.  Large Data typically involves a master computer (master node) to determine where a piece of data exists and which cluster computer should be contacted.
+Finally, Large Data (Cluster Data) is data that is spread across multiple machines. Many machines may be used in a cluster to house Large Data.  Large data is the slowest in response time, as data is communicated between machines for calculations.  How the data is stored on each machine is up to the data base architecture.  Typically each machine stores Medium Data locally, but functions as a cohesive unit globally.
+%Large Data is typically involves a master computer (master node) to determine where a piece of data exists and which cluster computer should be contacted.
 
-Each class of data balances speed and size to achieve the final goal.  These definitions allow for exponential advancement in computing power according to Moore's Law \cite{Moore1965}.
+Each class of data balances speed and size to achieve the final goal.  These definitions allow for exponential advancement in computing power according to Moore's Law \cite{Moore1965} as time advances.
 
 \subsection{Computation}
 
-The split-apply-combine \cite{plyr} approach for data computation is applicable for all three types of data.  As the name states, there are three main steps: split the data, apply a function, combine the results.  These three steps may be scaled as necessary given computational powers.
+The split-apply-combine \cite{plyr} approach for data computation is applicable for all three types of data.  As the name states, there are three main steps: split the data, apply a function to the data subsets, and combine the function results.  These three steps may be scaled as necessary given computational powers.
 
-Split.  Data is conditioned on some identifying, or conditioning columns.  This can include the row number (each row is treated uniquely) or may include many existing columns in the data set.  Like faceting in \ggplot, all conditioning values are considered discrete values.  Once the conditioning columns have been selected, the data is split into groups where the conditioning values match.
+\begin{enumerate}
+  \item Split.  Data is conditioned on some identifying, or conditioning, columns.  This can include the row number (each row is treated uniquely) or may include many existing columns in the data set.  Like faceting in \ggplot, all conditioning values are considered discrete values.  Once the conditioning columns have been selected, the data is split into groups where the conditioning values match.
+  \item Apply.  Once the data frame has been split into independent subsets, a function is applied to each subset.  The same function will be applied to all subsets and a similar result will be returned from each functino execution.
+  \item Combine. With similarly shaped results from each subset, the results will be combined into a final result for further analysis.  The uniformity in the result shape makes result combination easy to achieve.
+\end{enumerate}
 
-Apply.  Once the data frame has been split into independent subsets, a function is applied to each subset.  The same function will be applied to all subsets and a similar result will be returned from each functino execution.
+The R package \pkg{plyr}~\cite{plyr} implemented the split-apply-combine approach for many kinds of data shapes: \rinline{array}, \rinline{list}, \rinline{vector}, and \rinline{data.frame}.  \pkg{dplyr}~\cite{r_dplyr}~has many specific routines to interact with a \rinline{data.frame}.  Examples in this chapter will be using the \pkg{dplyr}~package functions.
 
-Combine. With similarly shaped results from each subset, the results will be combined into a final result for further analysis.  The uniformity in the result shape makes result combination easy to achieve.
-
-The R package \pkg{plyr}~implemented the split-apply-combine approach for many kinds of data shapes: \rinline{array}, \rinline{list}, \rinline{vector}, and \rinline{data.frame}.  \pkg{dplyr}~\cite{r_dplyr}~has many specific routines to interact with a \rinline{data.frame}.  Examples will be using the \pkg{dplyr}~package functions.
-
-<< plyr_example, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in", fig.cap = "Each country's maximum life expectancy value displayed as a histogram with each color representing a continent." >>=
+<< dplyr_example, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in", fig.cap = "Each country's maximum life expectancy value displayed as a histogram with each color representing a continent." >>=
 library(dplyr)
 library(gapminder)
 gapminder
-# input a data.frame
-# output a data.frame
-# condition on "year"
-# summarise the result of total homeruns
 gapminder %>%
+  # group by unique country and continent combinations
   group_by(country, continent) %>%
+  # calculate the maximum lifeExp for each combination
   summarise(
     max_lifeExp = max(lifeExp)
   ) %>%
+  # print the data.frame
   print() %>%
+  # display a histogram plot of the maximum life expectancies
   ggplot(aes(max_lifeExp, fill = continent)) +
     geom_histogram(binwidth = 1)
 @
 
-The split-apply-combine paradigm applies to each data type.
+The split-apply-combine paradigm applies to each data size type.
 
 \begin{enumerate}
-  \item Small, In Memory Data: Can use the \pkg{plyr}~pacakge for computation.
-  \item Medium, On Disk Data: The R package \pkg{dplyr}~can be used to connect to a MySQL database stored on disk.  Results are executed within the MySQL environment, but returned to the R execution environment.  There are many other data bases that can be connected to R to handle this situation.
-  \item Large, Distributed Data: The R package \pkg{Rhipe}~\cite{r_rhipe}~can be used to execute R commands across multiple compute nodes in a cluster.
+  \item Small, In Memory Data: Can use the \pkg{plyr}~package for computation.
+  \item Medium, On Disk Data: The R package \pkg{dplyr}~can be used to connect to a MySQL database stored on disk.  Results are executed within the MySQL environment, but returned to the R execution environment.  Many other data bases can be connected to R to handle medium sized data.
+  \item Large, Distributed Data: The R package \pkg{Rhipe}~\cite{r_rhipe} or \pkg{sparklyr}~\cite{r_sparklyr} can be used to execute R commands across multiple compute nodes in a cluster.
 \end{enumerate}
 
-Each package implements the split-apply-combine approach to data computation using computational tools built for each sinearo.  Small data is processed using R.  Medium data is processed in a database that is built to handle information larger than memory can hold and results are returned to R.  Finally, Large data is executed in the distributed environment and results are stored in the distributed environment.  If memory allows, distributed results may be returned to R.
+Each package implements the split-apply-combine approach to data computation using computational tools built for each scenario.  Small data is processed using R.  Medium data is processed in a database that is built to handle information larger than memory can hold and results are returned to R.  Finally, Large data is executed in the distributed environment and results are stored in the distributed environment.  If memory allows, distributed results may be returned to R.
 
-\subsection{Gampinder example}
+\subsection{Summary statistics}
 
-
-The prior \rinline{gapminder} example found the maximum life expectancy for the 142 countries.  They were then displayed in a plot colored according to the country's continent.  A lot of information can be gleaned from the maximum life expectancy summary plot, but a summary plot does not tell the full story.
+The \rinline{gapminder} data set is an ``Excerpt of the Gapminder data on life expectancy, GDP per capita, and population by country'' \cite{r_gapminder}.  The 142 countries have data from 1952 to 2007.  Figure \ref{fig:dplyr_example} finds the maximum life expectancy for the 142 countries. They are then displayed in a plot colored according to the country's continent.  A lot of information may be gleaned from the maximum life expectancy summary plot in figure \ref{fig:dplyr_example}, but a summary plot does not tell the full story of each country's life expectancy over time.
 
 << gapminder_best_worst, fig.width = 8, fig.height = 4, out.width = "5in", out.height = "2.5in", fig.cap = "Both higher life expectancy countries display linear model trends over time." >>=
 gapminder %>%
@@ -74,13 +74,13 @@ gapminder %>%
     ylim(20, 85) + labs(title = "Two countries with lower life expectancy")
 @
 
-The first plot above displays two longer living countries, Japan and Switzerland.  Japan has a higher maximum life expectancy, but Switzerland had a higher starting life expectancy.  The second plot displays two lower life expectancy countries, Afghanistan and Rwanda.  Afghanistan has a lower maximum life expectancy, but steadily increases over time.  Rwanda's life expectancy steadily increased until the 1980's when it plumited and recovered by the 2000's.
+Figure \ref{fig:gapminder_best_worst} displays two longer living countries, Japan and Switzerland.  Japan has a higher maximum life expectancy, but Switzerland had a higher starting life expectancy.  Figure \ref{fig:gapminder_best_worst2} displays two lower life expectancy countries, Afghanistan and Rwanda.  Afghanistan has a lower maximum life expectancy, but steadily increases over time.  Rwanda's life expectancy steadily increased until the 1980's when it dips and recoveres by the 2000's.
 
-Summary statistics are great in ingesting information using less data.  However, summary statistics, by their nature, do not convey the full story.
+Summary statistics are great in interpreting information using less data.  However, summary statistics, by their nature, do not convey the full story. % TODO wording.  don't say ``full story''
 
-\trelliscopejs~allows users to plot full plot detail while allowing users to change how many panels are displayed on the screen at one time, sort the panel ordering, and filter out unwanted panels.  \trelliscopejs~achieves this by obtaining a plot for every conditioning combination and suplimentary metrics for each plot.
+\trelliscopejs~allows users to plot full plot detail while allowing users to change how many panels are displayed on the screen at one time, sort the panel ordering, and filter to a smaller subset of panels.  \trelliscopejs~achieves these actions by obtaining a plot for every conditioning combination and suplimentary metrics for each plot.
 
-The example below uses the \rinline{gapminder} data set.  The \rinline{gapminder} data set contains an ``Excerpt of the Gapminder data on life expectancy, GDP per capita, and population by country.''  The 142 countries have data from 1952 to 2007.  The example will only use the life expectancy variable.
+Using the \rinline{gapminder} data set in figure \ref{fig:trelliscopejs}, life expectancy is explore over time with the supplimentary metrics of minimum and maximum life expectancy.
 
 << trelljs, echo = FALSE, verbose = FALSE, cache = FALSE >>=
 trelljs <- function(dt, name, ...) {
@@ -96,7 +96,7 @@ trelljs <- function(dt, name, ...) {
   ret
 }
 @
-<< trelliscopejs, screenshot.opts = list(vwidth = 700, vheight = 525), fig.cap = "Manually added cognostics are available in a \\trelliscopejs~widget." >>=
+<< trelliscopejs, screenshot.opts = list(vwidth = 700, vheight = 525), fig.cap = "Full data exploration with manually added cognostics are made available in a \\trelliscopejs~widget." >>=
 gapminder %>%
   group_by(country, continent) %>%
   # condense the data
@@ -105,9 +105,8 @@ gapminder %>%
 gapminder_condensed
 
 gapminder_condensed %>%
-  # add metrics and plots
+  # add metrics and plots for every conditioning combination
   mutate(
-    # for every subset,
     min_lifeExp = purrr::map_dbl(data, function(dt) min(dt$lifeExp)),
     max_lifeExp = purrr::map_dbl(data, function(dt) max(dt$lifeExp)),
     panel = trelliscopejs::map_plot(data, function(dt) {
@@ -124,27 +123,43 @@ gap_trellis
 gap_trellis %>% trelljs("gapminder")
 @
 
-This \trelliscopejs~html widget in the example above displays three rows and five columns of panels.  There are \rinline{142} panels in total, making 10 pages of panels in total.  While this example does not display millions of panels, it does convey the capabilities of the widget.  Icons on the left open foldout displays for layout control, turning labels on and off, filtering using metrics, and panel sorting.
+The \trelliscopejs~html widget in \ref{fig:trelliscopejs} displays three rows and five columns of panels.  There are \rinline{142} panels in total, making 10 pages of panels in total.  While this example does not display millions of panels, it does convey the capabilities of the html widget.  Icons on the left, as in figure \ref{fig:tjs_sidebar}, open foldout displays for panel layout control, turning panel labels on and off, filtering panels using metrics, and panel sorting.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[height=2.5in]{./figs/tjs_sidebar.png}
+  \caption{The sidebar on the left side of a \trelliscopejs~html widget can be opened for panel layout control, displaying panel labels, filtering panels, and sorting panels.}
+  \label{fig:tjs_sidebar}
+\end{figure}
+
 
 
 \section{Cognostics}
 
 Displaying panels alone has already been solved with \ggplot~and \pkg{lattice}.  Scaling panels beyond \pkg{lattice}'s limits is still limited without the use of sorting and filtering the panels.  \trelliscopejs's power is leveraging subset metrics to organize the panels.  These subset metrics are called \emph{cognostics}.  Cognostics are univariate statistics calculated for every independent subset of the conditioned data.
 
-Cognostics can be simple summary statistics such as \rinline{mean} or \rinline{median}, or can be meta data information such as a URL or census information.  Tukey and Tukey first proposed calculating univariate metrics for scatterplots called scagnostics \cite{Tukey1985} as a way to describe a scatterplot.  Wilkinson et. al. \cite{scagnostics} implemented Tukeys' scagnostic definitions in the R package \pkg{scagnostics}~\cite{r_scagnostics}. Scagnostics can be repurposed as cognostics when applied to every panel containing a scatterplot.  These cognostic groupings may then be compared, filtered, and sorted accross different subset panels.
+Cognostics can be simple summary statistics such as \rinline{mean} or \rinline{median}, or can be meta data information such as a URL or census information for a conditioned county.  Tukey and Tukey first proposed calculating univariate metrics for scatterplots called scagnostics \cite{Tukey1985} as a way to describe a scatterplot.  Wilkinson et. al. \cite{scagnostics} implemented Tukeys' scagnostic definitions in the R package \pkg{scagnostics}~\cite{r_scagnostics}. Scagnostics can be repurposed as cognostics when applied to every panel containing a scatterplot.  These cognostic groupings may then be shown, filtered, and sorted accross the different subset panels.
 
-In \trelliscopejs, cognostics eventually are displayed as two types: continuous or discrete.  Continuous values can be filtered using open or closed ranges.  An example of a open range would include the \rinline{gapminder} country panels being filtered by maximum life expectancy values which are less than 70 years.  A closed range example would have both a \emph{from} and a \emph{to} in the selection range, i.e. within 50 to 65 years of age. Currently, \trelliscopejs~does not support more than one range selection per variable.
+In \trelliscopejs, cognostics are displayed as two types of metrics: continuous or discrete.  Continuous valued cognostics are filtered using open or closed ranges.  Figure \ref{fig:gap_seventy} shows an open range using the \rinline{gapminder} country panels that contain a maximum life expectancy value less than or equal to 70 years of age.  A closed range example would have both a \emph{from} and a \emph{to} in the selection range, i.e. within 50 to 65 years of age. Currently, \trelliscopejs~does not support more than one range selection for each cognostic variable.
 
-\begin{figure}
+\begin{figure}[H]
   \centering
   \includegraphics[height=2.5in]{./figs/tjs_filter_70.png}
   \caption{A cropped view of \trelliscopejs~filtering on countries whose maximum life expectancy is lower than 70 years old.}
+  \label{fig:gap_seventy}
 \end{figure}
 
 
-With \trelliscopejs, Discrete values are handled using regular expressions or by manually selecting values.  When using regular expressions, matching values are displayed immediately.  The immediate feedback confirms whether the regular expression was successful or needs to be updated.
+With \trelliscopejs, discrete values are handled using regular expressions or by manually selecting values.  When using regular expressions, matching values are displayed immediately.  Figure \ref{fig:gap_regex} displays the immedate results of regular expression on a continent.  The immediate feedback confirms whether the regular expression was successful or needs to be updated.
 
-All of the cognostic filters are applied as a collective, logical \emph{and}.  Multiple filters are a part of the data analysis process and are embraced in \trelliscopejs.
+\begin{figure}[H]
+  \centering
+  \includegraphics[height=2.5in]{./figs/tjs_filter_as.png}
+  \caption{A cropped view of \trelliscopejs~filtering on continent who matches the regular expression ``as''.}
+  \label{fig:gap_regex}
+\end{figure}
 
 
-\trelliscopejs~allows for cognostics to be any univariate value.  This may also include a URL.  While filtering is not effective for a URL, linking to external websites for a particular panel can be useful.  For example, when looking at the housing sales for every county in the United States, a URL can be linked to the website Zillow that displays all current housing sales on the Zillow website for that particular county.
+Multiple filters are a part of the data analysis process and are embraced in \trelliscopejs.  All of the cognostic filters are applied as a collective, logical \emph{and}.
+
+% \trelliscopejs~allows for cognostics to be any univariate value.  This may also include a URL.  While filtering is not effective for a URL, linking to external websites for a particular panel can be useful.  For example, when looking at the housing sales for every county in the United States, a URL can be linked to the website Zillow that displays all current housing sales on the Zillow website for that particular county.

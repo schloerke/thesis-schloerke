@@ -8,14 +8,21 @@ download_files:
 
 compile:
 	make clean
+	make compile_knitr
+	make clean
+	make copy_compile
+	make spelling
+
+compile_knitr:
 	mkdir -p figure
 	Rscript -e "knitr::knit(\"schloerke_b_thesis.Rnw\"); warnings(); invisible();"
 	Rscript -e "Sys.setenv(PDFLATEX = \"pdflatex --shell-escape --halt-on-error\"); tools::texi2pdf(\"schloerke_b_thesis.tex\");"
 	Rscript -e "Sys.setenv(PDFLATEX = \"pdflatex --shell-escape\"); tools::texi2pdf(\"schloerke_b_thesis.tex\");"
-	make clean
+
+
+copy_compile:
 	cp schloerke_b_thesis.tex _build/schloerke_b_thesis.tex
 	cp schloerke_b_thesis.pdf _build/schloerke_b_thesis.pdf
-	Rscript -e "source(file.path('scripts', 'spelling.R'));"
 
 
 clean:
@@ -33,6 +40,9 @@ dotbuild:
 			echo "skipping: $$FILE.pdf"; \
 		fi \
 	done
+
+spelling:
+	Rscript -e "source(file.path('scripts', 'spelling.R'));"
 
 reset:
 	make clean

@@ -17,6 +17,7 @@ look at all TODO values before submission
   scatter plot -> scatterplot
   dataset -> data set
   alpha sort all abbreviations and glossary items
+  p value -> p-value
   from top to bottom in pages, work on spacing so the code is next to the figure.
 
 
@@ -27,7 +28,7 @@ look at all TODO values before submission
   talked about what you can do with X
   motivate how X works with the next Chapter
 
-  The following intro doesn't necessaraly need to integrate with the prior chapter
+  The following intro doesn't necessarily need to integrate with the prior chapter
 
   summary
     ggduo only works for small datasets
