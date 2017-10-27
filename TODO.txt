@@ -1,6 +1,4 @@
 
-scatter plot -> scatterplot
-dataset -> data set
 
 add transition paragraphs into the next chapter for each of the main chapters
 
@@ -16,6 +14,10 @@ Autocogs background
   add pictures to filtering
 
 look at all TODO values before submission
+  scatter plot -> scatterplot
+  dataset -> data set
+  alpha sort all abbreviations and glossary items
+  from top to bottom in pages, work on spacing so the code is next to the figure.
 
 
 

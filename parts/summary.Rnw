@@ -33,6 +33,9 @@ need to address plots interactions between plots for non trivial data size withi
 
 explain in detail the histogram issue
 
+
+explain about a cohesive syntax between all visualization packages.  ggplot2 has the syntax, just define a new print method for each package. ggplotly has done this for plotly, but it is not extendible to remaining visualization packages.
+
 have a couple more issues
   only bring up things i can't fix.
 

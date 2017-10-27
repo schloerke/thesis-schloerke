@@ -16,10 +16,18 @@
 \preto{\@verbatim}{\topsep=-20pt \partopsep=0pt }
 \makeatother
 \AtBeginEnvironment{alltt}{\setlength{\topsep}{0pt}\setlength{\partopsep}{0pt}}
+\AtEndEnvironment{knitrout}{\vspace{-15pt}}
+
 
 % line spacing for knitr output
 \usepackage{setspace}
 \renewenvironment{knitrout}{\setstretch{1}}{}
+
+% https://tex.stackexchange.com/questions/23313/how-can-i-reduce-padding-after-figure
+% line spacing for figures
+\setlength{\textfloatsep}{-50pt} % \textfloatsep: space between last top float or first bottom float and the text (20.0pt plus 2.0pt minus 4.0pt).
+\setlength{\abovecaptionskip}{-10pt} % \abovecaptionskip: space above caption (10.0pt).
+\setlength{\belowcaptionskip}{-5pt} % \belowcaptionskip: space below caption (0.0pt).
 
 <<knitr, echo = FALSE, cache = FALSE>>=
 options(width = 69)
@@ -29,7 +37,8 @@ knitr::opts_chunk$set(
   width = 69,
   fig.width = 8,
   fig.height = 6,
-  fig.pos = "H", fig.align = "center",
+  fig.pos = "H",
+  fig.align = "center",
   warning=FALSE,
   message=FALSE,
   size = "small",
