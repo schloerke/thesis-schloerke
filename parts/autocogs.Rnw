@@ -405,8 +405,9 @@ continent_hists$panel[[americas_pos]]
 With a nested \rinline{data.frame} full of panels, we add the cognostics to the \rinline{data.frame}.
 
 << continent_hists_cogs >>=
-continent_hists_cogs <- autocogs::add_panel_cogs(continent_hists)
-continent_hists_cogs %>% print()
+continent_hists_cogs <- autocogs::add_panel_cogs(continent_hists) %>%
+  print()
+
 as.list(continent_hists_cogs[americas_pos, 3:6])
 @
 
@@ -434,7 +435,7 @@ gapminder %>%
       geom_smooth(method = "lm")
   ) ->
 country_model
-usa_pos <- which(country_model$country == "United States") %>% print()
+usa_pos <- which(country_model$country == "United States")
 country_model$panel[[usa_pos]]
 @
 
@@ -442,6 +443,7 @@ The \rinline{"United States"} panel is displayed in figure \ref{fig:country_mode
 
 << country_model_cogs >>=
 country_model_cogs <- autocogs::add_panel_cogs(country_model) %>% print()
+
 as.list(country_model_cogs[usa_pos, 4:10])
 @
 
@@ -462,7 +464,7 @@ Revisiting the Linear Model Example \ref{subsec:linear_model}, we have now expos
 \begin{figure}[H]
   \centering
   \includegraphics[height=4in]{./figs/tjs_country_r2.png}
-  \caption{A \trelliscopejs widget of country life expectancy over time where the panel ordering is displayed according to ascending $R^2$ value of each panels linear model.}
+  \caption{A \trelliscopejs~widget of country life expectancy over time where the panel ordering is displayed according to ascending $R^2$ value of each panels linear model.}
   \label{fig:country_model_r2}
 \end{figure}
 
