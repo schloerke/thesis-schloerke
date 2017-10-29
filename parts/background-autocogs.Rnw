@@ -1,6 +1,6 @@
 \section{\trelliscopejs}
 
-\trelliscopejs~is an R package used to visualize data with many conditioning combinations.  \trelliscopejs~conditions on columns within the data set and displays a plot, image, or html object for each plot in an independent display panel.
+\trelliscopejs~is an R package used to visualize data with many conditioning combinations.  \trelliscopejs~conditions on columns within the data set and displays a plot, image, or html object for each plot in an independent display panel.  However, \trelliscopejs is built to more panels from conditioning combinations than current plotting architectures.
 
 \trelliscopejs~is built to handle more panels than the current plotting frameworks in R. \ggplot's \rinline{facet_wrap} can feasibly hold 10s - 100s of displays in one plot.  Since \ggplot~does not paginate (print over multiple pages), the size of the computer screen limits how many panels may be displayed.  A core feautre of \pkg{lattice}~is its ability to paginate panels of a plot.  This allows the number of panels to scale 100-1000 times.  \pkg{lattice}~outputs can be saved to PDF and manually inspected page by page.  This method is efficient in detecting small visual differences between plots due to the strucutre of small multiples.  However, there is a limit to how many plots a human can manually ingest.  If 1000 pages were visually inspected at a rate of two pages per second, it would take over 8 minutes to manually flip through each page.  Pagination does not scale with large data when there are millions of pages to flip through.
 

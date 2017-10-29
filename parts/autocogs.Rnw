@@ -472,6 +472,14 @@ Revisiting the Linear Model Example \ref{subsec:linear_model}, we have now expos
 
 In less than ten lines of code we went from a single data set to a full fledge visualization application with multiple cognostics explaining the plot used with each conditioned subset.
 
+
+\section{Summary}
+
+  Automatic cognostics with the \autocogs~R package allow users to enable common univariate metrics that correspond to the plots displayed in a \trelliscopejs~html widget. \autocogs~provides users with the ability to retrieve statistical metrics that are displayed or utilized in a plot.  Prior examples generated cognostics for simple bar charts to multiple layered, linear model and scatterplot plots. Maintaining a common set of cognostics provides a cohesive cognostic framework to be used by any plotting architecture.
+
+  % TODO hard to transition into graphql
+
+
 % TODO add transition / conclusion paragraph
 
 

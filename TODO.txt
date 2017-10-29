@@ -1,17 +1,12 @@
 
 
-add transition paragraphs into the next chapter for each of the main chapters
+Introduction chapter
 
-Introduction
-
-Conclusion
+Conclusion chapter
 
 Acknowledgement
 
 Vita
-
-Autocogs background
-  add pictures to filtering
 
 look at all TODO values before submission
   scatter plot -> scatterplot
@@ -28,21 +23,9 @@ look at all TODO values before submission
   talked about what you can do with X
   motivate how X works with the next Chapter
 
-  The following intro doesn't necessarily need to integrate with the prior chapter
-
   summary
     ggduo only works for small datasets
       trelliscope can scale up to the larger data sets
-
-  Intro
-    trelliscope is built to handle all types of data sizes when faceting on variables.
-
-GraphQL
-  ? Introduction paragraph
-  - conclusion / wrap up paragraph
-
-
-
 
 
 add intro
@@ -95,3 +78,9 @@ add conclusion
   * Conclusions
     * Why impactful
     * Future direction
+
+* \chapter{Regular chapter}
+  * \section{Summary}
+    * talked about X
+    * talked about what you can do with X
+    * motivate how X works with the next Chapter
