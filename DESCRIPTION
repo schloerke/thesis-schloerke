@@ -27,6 +27,7 @@ Imports:
   spelling,
   xtable,
   reshape,
+  datasauRus,
   gapminder
 Remotes:
   schloerke/autocogs,

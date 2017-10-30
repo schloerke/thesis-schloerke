@@ -1,6 +1,10 @@
 
 all: compile
 
+dino:
+	Rscript -e "source('scripts/dino.R')"
+
+
 download_files:
 	mkdir -p rpkg
 	wget -N -O rpkg/gqlr.pdf https://cloud.r-project.org/web/packages/gqlr/gqlr.pdf
@@ -8,6 +12,7 @@ download_files:
 
 compile:
 	make clean
+	make dino
 	make compile_knitr
 	make clean
 	make copy_compile

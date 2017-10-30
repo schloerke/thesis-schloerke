@@ -20,7 +20,7 @@ digraph G {
 			/*node [style=filled,color=white];*/
 
 			subgraph cluster_ggplot2 {
-				style=dotted;
+				style=solid;
 				color = black;
 				bgcolor = white;
 
@@ -59,7 +59,7 @@ digraph G {
 				fillcolor = "#e6f5c9";
 				subgraph cluster_widget {
 					label = "htmlwidgets";
-					style=dotted;
+					style=solid;
 					color = black;
 					bgcolor = white;
 					trelliscopejs [shape=box];

@@ -815,13 +815,10 @@ A simple web server is included in \gqlr, but extending the web server to other 
 
 
 \section{Summary}
-  talked about X
-  talked about what you can do with X
-  motivate how X works with the next Chapter
 
+  \gqlr~leverages the GraphQL language to effectively and efficiently communicate custom defined queries to and from the server.  \gqlr~provides users the ability to rapidly iterate in a local R environment to mock large production-scale data backends.  Combining R's fast iteration speed with R's ability to connect to many different existing backend services saves developers time and effort while keeping the data API communication consistent.
 
-
-
+  % TODO add more?
 
 
 

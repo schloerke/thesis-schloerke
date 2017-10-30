@@ -47,6 +47,7 @@ bad_spelling <- spelling::spell_check_files("schloerke_b_thesis.tex", ignore = c
   "ggduo",
   "ggmatrix",
   "ggnostic",
+  "ggpairs",
   "ggplot",
   "ggsave",
   "gqlr",
