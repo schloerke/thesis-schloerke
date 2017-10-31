@@ -10,13 +10,15 @@ download_files:
 	wget -N -O rpkg/gqlr.pdf https://cloud.r-project.org/web/packages/gqlr/gqlr.pdf
 	wget -N -O rpkg/GGally.pdf https://cloud.r-project.org/web/packages/GGally/GGally.pdf
 
+
 compile:
 	make clean
-	make dino
+	# make dino
 	make compile_knitr
 	make clean
 	make copy_compile
 	make spelling
+
 
 compile_knitr:
 	mkdir -p figure
