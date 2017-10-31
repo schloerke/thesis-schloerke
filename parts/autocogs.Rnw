@@ -384,9 +384,9 @@ Below is a mapping of each \ggplot~geom layer to each of the univariate cognosti
 
 
 
-In this section, I will explore a simple \ggplot~bar chart and a more advanced example involving a \ggplot~scatterplot and linear model.
+In this section, I will explore a simple \ggplot~histogram and a more advanced example involving a \ggplot~scatterplot and linear model.
 
-\subsection{Bar plot}
+\subsection{Histogram}
 
 First, let us create the data set containing each of the panels.  Each panel will display a histogram chart of the life expectancy over time for each continent. Figure \ref{fig:continent_hist} displays the panel where continent is equal to \rinline{"Americas"}.
 
@@ -475,7 +475,7 @@ In less than ten lines of code we went from a single data set to a full fledge v
 
 \section{Summary}
 
-  Automatic cognostics with the \autocogs~R package allow users to enable common univariate metrics that correspond to the plots displayed in a \trelliscopejs~html widget. \autocogs~provides users with the ability to retrieve statistical metrics that are displayed or utilized in a plot.  Prior examples generated cognostics for simple bar charts to multiple layered, linear model and scatterplot plots. Maintaining a common set of cognostics provides a cohesive cognostic framework to be used by any plotting architecture.
+  Automatic cognostics with the \autocogs~R package allow users to enable common univariate metrics that correspond to the plots displayed in a \trelliscopejs~html widget. \autocogs~provides users with the ability to retrieve statistical metrics that are displayed or utilized in a plot.  Prior examples generated cognostics for simple histograms to multiple layered, linear model and scatterplot plots. Maintaining a common set of cognostics provides a cohesive cognostic framework to be used by any plotting architecture.
 
   % TODO hard to transition into graphql
 

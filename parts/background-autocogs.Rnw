@@ -136,7 +136,7 @@ The \trelliscopejs~html widget in \ref{fig:trelliscopejs} displays three rows an
 
 \section{Cognostics}
 
-Displaying panels alone has already been solved with \ggplot~and \pkg{lattice}.  Scaling panels beyond \pkg{lattice}'s limits is still limited without the use of sorting and filtering the panels.  \trelliscopejs's power is leveraging subset metrics to organize the panels.  These subset metrics are called \emph{cognostics}.  Cognostics are univariate statistics calculated for every independent subset of the conditioned data.
+Displaying panels alone has already been solved with \ggplot~and \pkg{lattice}.  Scaling panels beyond \pkg{lattice}'s limits is still limited without the use of sorting and filtering the panels.  \trelliscopejs's power is leveraging subset metrics to organize the panels.  These subset metrics are called \emph{cognostics} \cite{Tukey1985}.  Cognostics are univariate statistics calculated for every independent subset of the conditioned data.
 
 Cognostics can be simple summary statistics such as \rinline{mean} or \rinline{median}, or can be meta data information such as a URL or census information for a conditioned county.  Tukey and Tukey first proposed calculating univariate metrics for scatterplots called scagnostics \cite{Tukey1985} as a way to describe a scatterplot.  Wilkinson et. al. \cite{scagnostics} implemented Tukeys' scagnostic definitions in the R package \pkg{scagnostics}~\cite{r_scagnostics}. Scagnostics can be repurposed as cognostics when applied to every panel containing a scatterplot.  These cognostic groupings may then be shown, filtered, and sorted accross the different subset panels.
 

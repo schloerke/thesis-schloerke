@@ -6,7 +6,7 @@
 
 \subsection{Pairs plot}
 
-  As mentioned earlier in the chapter, \ggplot~is designed to allow plots to be built layer by layer and not rendered until a final print command is executed.  \ggplot~plot objects has some implementation rules it follows when faceting a plot.
+  As mentioned earlier in the chapter, \ggplot~is designed to allow plots to be built layer by layer and not rendered until a final print command is executed.  \ggplot~plot objects has some implementation rules it follows when faceting a plot:
 
   \begin{enumerate}
     \item Each faceted panel must share the same original $X$ and $Y$ columns.
@@ -14,9 +14,9 @@
     \item Each plot must be created with the same layers.
   \end{enumerate}
 
-  Following these rules allows for the implementation of small multiples.  Small multiples are repetitions of plots with identical layers, but each plot is comprised of different data.  Small multiples were popularized by Dr. Edward Tufte in his 1983 paper Visual Display of Quantitative Information \cite{tufte_display_info}.  The \rinline{facet_wrap} and \rinline{facet_grid} functions will produce a multi-panel output in the form of small multiples.
+  Following these rules allows for the implementation of small multiples.  Small multiples are repetitions of plots with identical layers, but each plot is comprised of different data.  Small multiples were popularized by \emph{Edward Tufte} in his 1983 paper Visual Display of Quantitative Information \cite{tufte_display_info}.  The \rinline{facet_wrap} and \rinline{facet_grid} functions will produce a multi-panel output in the form of small multiples.
 
-  A pairs plot, originaly refered to as a ``draftsman's plot'' \cite{GraphicalMethods},  violates all three principles of a small multiple.
+  A pairs plot, originally referred to as a ``draftsman's plot'' \cite{GraphicalMethods},  violates all three principles of a small multiple:
 
   \begin{enumerate}
     \item Each panel is comprised of a different $X$ and $Y$ combination.
