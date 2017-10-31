@@ -35,16 +35,17 @@ clean:
 	Rscript -e "unlink(file.path(\"parts\", \"*.c\"))"
 	Rscript -e "unlink(file.path(\"graphqllexer\", \"*.pyc\"))"
 
+
 dotbuild:
 	VALS=`ls dot | grep .dot | sed s/\.dot$$//` ; \
 	for FILE in $$VALS; do \
-		if [ ! -f "dot/$$FILE.pdf" ]; then \
-			dot "dot/$$FILE.dot" -Tpdf -o "dot/$$FILE.pdf" ; \
+		if [ ! -f "dot/$$FILE.png" ]; then \
 			dot "dot/$$FILE.dot" -Tpng -o "dot/$$FILE.png" ; \
-		else \
-			echo "skipping: $$FILE.pdf"; \
-		fi \
+		fi; \
 	done
+	# if [ ! -f "dot/$$FILE.pdf" ]; then \
+	# 	dot "dot/$$FILE.dot" -Tpdf -o "dot/$$FILE.pdf" ; \
+	# fi; \
 
 spelling:
 	Rscript -e "source(file.path('scripts', 'spelling.R'));"
