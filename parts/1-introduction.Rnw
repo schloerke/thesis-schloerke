@@ -76,11 +76,37 @@ To examine the difference between independent subsets of the same dataset, Edwar
 These multi-panel display systems have proven to be very effective tools for visualizing complex data sets in detail.   However, when the count of data subsets becomes very large, it is often the case that there are too many panels for the analyst to consume at one time.  A simple idea put forth by John Tukey \cite{Tukey1985} is to compute \emph{cognostics}, metrics that help bring different, interesting sets of panels in a display to the analyst's attention and allow the analyst to interactively sort and filter the panels.  Cognostics can include statistical summaries, descriptive variables, goodness-of-fit metrics, etc.
 
 Groups of cognostics and ggplot2 layers are intimately connected.  For instance, a simple histogram in \ggplot~is created via a single histogram layer and is associated with four cognostic groups: univariate continuous cognostics, density cognostics, histogram cognostics, and count cognostics.
-In the second part of this thesis, I develop \autocogs~\cite{r_autocogs}, an R package which automatically produces sets of standard cognostic groups that would be commonly useful to the data analyst given their supplied visualization objects.
+In the second part of this thesis, I develop \autocogs~\cite{github_autocogs}, an R package which automatically produces sets of standard cognostic groups that would be commonly useful to the data analyst given their supplied visualization objects.
 TODO - Figure … shows a  …. (TODO) (Figure here of the figure and output figure  + table?).
 As an application, we demonstrate how autocogs can greatly enhance the functionalities of  \trelliscopejs~\cite{r_trelliscopejs}.
 TODO - explanation of  \trelliscopejs
 While it is possible to manually specify all the cognostics in \trelliscopejs, \autocogs~greatly simplifies the user experience by automatically providing default groups of cognostics complimentary to the panel visualization.
+
+\renewcommand{\arraystretch}{0.55} % Default value: 1
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.75\textwidth]{figs/intro_cogs.png}
+  % \subfigure[Caption of subfigure 2]{
+  \subfigure{
+    \small
+<< part_background_autocogs, child='../figs/intro_cogs_1.tex'>>=
+@
+    \label{fig:sub_cog_table1}
+  }
+  % \subfigure[Caption of subfigure 3]{
+  \subfigure{
+    \small
+<< part_background_autocogs, child='../figs/intro_cogs_2.tex'>>=
+@
+    \label{fig:sub_cog_table2}
+  }
+\caption{TODO explain plot and autocogs}
+\label{fig:intro_autocogs}
+\end{figure}
+\renewcommand{\arraystretch}{1} % Default value: 1
+
+
+
 
 
 \section{gqlr}

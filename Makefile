@@ -2,7 +2,10 @@
 all: compile
 
 dino:
-	Rscript -e "source('scripts/dino.R')"
+	Rscript scripts/dino.R
+
+introcogs:
+	Rscript scripts/cognostics.R
 
 
 download_files:
@@ -14,6 +17,7 @@ download_files:
 compile:
 	make clean
 	# make dino
+	make introcogs
 	make compile_knitr
 	make clean
 	make copy_compile
@@ -50,7 +54,7 @@ dotbuild:
 	# fi; \
 
 spelling:
-	Rscript -e "source(file.path('scripts', 'spelling.R'));"
+	Rscript scripts/spelling.R
 
 reset:
 	make clean

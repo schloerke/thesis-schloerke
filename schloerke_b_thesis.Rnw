@@ -147,6 +147,8 @@ knitr::knit_hooks$set(document = function(x) {sub('\\usepackage[]{color}', '\\us
 
 \newcommand{\tick}{\item[-]}
 
+\usepackage{subfigure}
+
 
 \begin{document}
 
