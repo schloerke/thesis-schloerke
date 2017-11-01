@@ -154,15 +154,15 @@ knitr::knit_hooks$set(document = function(x) {sub('\\usepackage[]{color}', '\\us
 
 % Front matter (dedication, etc.).
 
-<< part_front, child='parts/front.Rnw'>>=
+<< part_front, child='parts/0-front.Rnw'>>=
 @
-<< part_intro, child='parts/introduction.Rnw'>>=
+<< part_intro, child='parts/1-introduction.Rnw'>>=
 @
 
 % Put chapter \include commands here.
 
 \chapter{R Package Descriptions} \label{chapter:pkgs}
-<< part_pkg_summaries, child='parts/package_summaries.Rnw'>>=
+<< part_pkg_summaries, child='parts/2-package_summaries.Rnw'>>=
 @
 
 
@@ -170,28 +170,28 @@ knitr::knit_hooks$set(document = function(x) {sub('\\usepackage[]{color}', '\\us
 
 \chapter{\rinline{ggduo}: Generalized Pairs Plot for Two Grouped Data} \label{chapter:ggduo}
 
-<< part_ggplot2, child='parts/background-ggplot2.Rnw'>>=
+<< part_ggplot2, child='parts/3_1-background-ggplot2.Rnw'>>=
 @
 
-<< part_ggduo, child='parts/ggduo.Rnw'>>=
+<< part_ggduo, child='parts/3_2-ggduo.Rnw'>>=
 @
 
 \chapter{\autocogs: Metrics Enabling Detailed Interactive Data Visualization} \label{chapter:autocogs}
 
-<< part_background_autocogs, child='parts/background-autocogs.Rnw'>>=
+<< part_background_autocogs, child='parts/4_1-background-autocogs.Rnw'>>=
 @
-<< part_autocogs, child='parts/autocogs.Rnw'>>=
+<< part_autocogs, child='parts/4_2-autocogs.Rnw'>>=
 @
 
 
 
 \chapter{\gqlr: An R Server GraphQL implementation} \label{chapter:gqlr}
 
-<< part_graphql, child='parts/graphql.Rnw'>>=
+<< part_graphql, child='parts/5-graphql.Rnw'>>=
 @
 
 
-<< part_summary, child='parts/summary.Rnw'>>=
+<< part_summary, child='parts/6-summary.Rnw'>>=
 @
 
 \bibliography{schloerke_b_thesis}
@@ -201,15 +201,15 @@ knitr::knit_hooks$set(document = function(x) {sub('\\usepackage[]{color}', '\\us
 \appendices
 % \appendix
 
-<< part_datasets, child='parts/datasets.Rnw'>>=
+<< part_datasets, child='parts/7_1-datasets.Rnw'>>=
 @
 
-<< part_r_functions, child='parts/r_functions.Rnw'>>=
+<< part_r_functions, child='parts/7_2-r_functions.Rnw'>>=
 @
 
 % A vita is optional for masters theses
 % and required for doctoral dissertations.
-<< part_vita, child='parts/vita.Rnw'>>=
+<< part_vita, child='parts/8-vita.Rnw'>>=
 @
 
 \end{document}
