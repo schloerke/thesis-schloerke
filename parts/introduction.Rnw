@@ -29,7 +29,7 @@ stress the importance of the contribution
 
 Statistical visualizations of large-scale data has become an increasingly irreplaceable task in the era of \emph{big data}. In particular, exploratory data analysis and visualization is the first step to in-depth statistical modeling and analysis. Since its release in 2000, the R programming language and environment \cite{r_project} has arose as a powerful and convenient platform for performing data analysis and visualization. Various successful implementations have achieved in building a scientific visualization library in R, including \pkg{lattice}~\cite{r_lattice}, \ggplot~\cite{r_ggplot2}, \pkg{rbokeh}~\cite{r_bokeh}, and \pkg{plotly}~\cite{r_plotly}, to name a few.
 \pkg{lattice}~implements \emph{trellis} graphics for R with powerful yet elegant high-level data visualization functions emphasizing on mutivariate displays.
-\ggplot~deconstructs the high level plots into a low level grammar of layered graphics which facilitate publication ready data visualization.
+\ggplot~deconstructs higher level plots into a lower level of data visualization grammar using layered graphics which facilitate publication-ready data visualization.
 % \ggplot's modular static layer design has provided interactive web visualization R packages \pkg{rbokeh} and \pkg{plotly} a solid grammar foundation upon which to build from.
 In this thesis, I develop
   (i) \rinline{ggduo}, an R function that produces generalized plots for two groups of variables,
@@ -89,7 +89,7 @@ In 2012, Facebook began development of GraphQL, a backend agnostic data query la
 For instance, when inspecting the names of a person's friends of their friends, it would normally require $O(n^2)$ query commands to finally realize the full answer.  With GraphQL, the dynamic query structure allows for the full request to be sent to the server and a single, albeit, larger answer is returned.  The submitted query command is separated from the actual backend service, moving the implementation complexity to the data backend service rather than the query submission process.
 Figure \ref{figs:intro_graphql} displays the reduction in communication between a web browser client and the data server for both a Naive \emph{REST} implementation and a GraphQL implementation.  the naive rest implementation requires $O(n^2)$ communications with the data server, while GraphQL executes a single communication with a single return value.
 By decoupling the data servers with web pages, the development cycles of both the web pages and data servers are improved.
-However, there is no prior interface of GraphQL to R. Therefore, in the third part of this thesis, I develop the \gqlr R package, which implements a full GraphQL server within R.  \gqlr~allows R users to supply their own functions to satisfy the data requirements of a submitted GraphQL query, thus enjoying the rapid iteration time of R and production iteration time of GraphQL.
+However, there is no prior interface of GraphQL to R. Therefore, in the third part of this thesis, I develop the \gqlr~R package, which implements a full GraphQL server within R.  \gqlr~allows R users to supply their own functions to satisfy the data requirements of a submitted GraphQL query, thus enjoying the rapid iteration time of R and production iteration time of GraphQL.
 
 
 \begin{figure}

@@ -19,7 +19,7 @@ This is the summary chapter.
 
 
 
-
+explain the large data with subset linear models displayed as ggnostic plots.  limited by trelliscopejs's functionality.  Should be integrated ...
 
 
 \section{Discussion}

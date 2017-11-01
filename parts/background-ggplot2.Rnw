@@ -37,7 +37,7 @@ tips <- reshape::tips %>%
 
 \subsection{\emph{Layered Grammar of Graphics}}
 
-The R data visualization package \ggplot is based on a \emph{Layered Grammar of Graphics} \cite{layered_grammar}.  During consulting meetings with students and faculty in helping them produce statistical visualizations of their data, the authors of the package noticed that many clients had trouble producing plots quickly and have difficulties understanding how the plots were generated.  This motivated them to develop the \ggplot package, which is based on the foundations of \emph{The Grammar of Graphics} \cite{}.
+The R data visualization package \ggplot~is based on a \emph{Layered Grammar of Graphics} \cite{layered_grammar}.  During consulting meetings with students and faculty in helping them produce statistical visualizations of their data, the authors of the package noticed that many clients had trouble producing plots quickly and have difficulties understanding how the plots were generated.  This motivated them to develop the \ggplot~package, which is based on the foundations of \emph{The Grammar of Graphics} \cite{}.
 
 \subsection{\ggplot~layers}
 
