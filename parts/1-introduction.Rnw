@@ -47,7 +47,7 @@ One important functionality in \GGally is \rinline{ggpairs}. \rinline{ggpairs} a
 In the first part of this thesis, I introduce a new function, \rinline{ggduo} that builds on the structure of the \rinline{ggmatrix} function used to produce the generalized pairs plot, \rinline{ggpairs}.
 Specifically, \rinline{ggduo} produces generalized plots for two groups of variables (e.g. a matrix of $X$ variables and a matrix of $Y$ variables), as might be modeled by multivariate regression diagnostics, canonical correlation analysis, or even multivariate time series.  For the case of multivariate regression diagnostics, I develop \rinline{ggnostic} which displays common linear model diagnostic data against each of the model's explanatory variables. Figure \ref{fig:intro_ggnostic} shows an example of \rinline{ggnostic}.  This plot would not have been possible in either \pkg{lattice}~or \ggplot~due to the mixture of axis scales and would have been uninformative if rendered using \rinline{ggpairs}. I believe that the new function \rinline{ggduo} will help analysts to look at their data to support better modeling.
 
-<< intro_ggnostic, echo = FALSE, fig.cap = "asdfasdf" >>=
+<< intro_ggnostic, echo = FALSE, fig.scap = "Model diagnostics are displayed in the plot matrix above using the \\GGally~function \\rinline{ggnostic}", fig.cap = "Model diagnostics are displayed in the plot matrix above using the \\GGally~function \\rinline{ggnostic}, which calls \\rinline{ggduo}.  Each panel of the plot matrix displays the same original data with different combinations of response and explanatory variables in each panel.  Significance lines are displayed as dashed lines while solid lines represent expected values." >>=
 GGally::ggnostic(
   step(lm(head ~ ., data = GGally::flea), trace = FALSE),
   mapping = ggplot2::aes(color = species),
@@ -77,9 +77,8 @@ These multi-panel display systems have proven to be very effective tools for vis
 
 Groups of cognostics and ggplot2 layers are intimately connected.  For instance, a simple histogram in \ggplot~is created via a single histogram layer and is associated with four cognostic groups: univariate continuous cognostics, density cognostics, histogram cognostics, and count cognostics.
 In the second part of this thesis, I develop \autocogs~\cite{github_autocogs}, an R package which automatically produces sets of standard cognostic groups that would be commonly useful to the data analyst given their supplied visualization objects.
-TODO - Figure … shows a  …. (TODO) (Figure here of the figure and output figure  + table?).
-As an application, we demonstrate how autocogs can greatly enhance the functionalities of  \trelliscopejs~\cite{r_trelliscopejs}.
-TODO - explanation of  \trelliscopejs
+Figure \ref{fig:intro_autocogs} displays four groups of cognostics for the single layer (histogram) plot in two side-by-side tables.  Eighteen cognostics in total are calculated.  As an application, we demonstrate how autocogs can greatly enhance the functionalities of  \trelliscopejs~\cite{r_trelliscopejs}.
+\trelliscopejs is an html widget that plot panels in an interactive trellis display which allows for sorting and filtering plot panels according to supplied cognostics.
 While it is possible to manually specify all the cognostics in \trelliscopejs, \autocogs~greatly simplifies the user experience by automatically providing default groups of cognostics complimentary to the panel visualization.
 
 \renewcommand{\arraystretch}{0.55} % Default value: 1
@@ -100,7 +99,7 @@ While it is possible to manually specify all the cognostics in \trelliscopejs, \
 @
     \label{fig:sub_cog_table2}
   }
-\caption{TODO explain plot and autocogs}
+\caption[\autocogs~automatically produces four cognostic groups for a single layer (histogram) plot]{\autocogs~automatically produces four cognostic groups for a single layer (histogram) plot shown above. These cognostic groups are shown in the two tables describing the cognostic group, name, and value.  All eighteen cognostics may be used within a \trelliscopejs~html widget to aid in sorting and filtering plot panels.}
 \label{fig:intro_autocogs}
 \end{figure}
 \renewcommand{\arraystretch}{1} % Default value: 1
@@ -121,7 +120,7 @@ However, there is no prior interface of GraphQL to R. Therefore, in the third pa
 \begin{figure}
   \centering
   \includegraphics[width=\textwidth]{./figs/graphql_communication.pdf}
-  \caption{Time passes from top to bottom in this communication graph.  In ``friends of my friends'' example, the Naive REST implementation requires $O(n^2)$ queries, while the GraphQL implementation solves the example query in a single communication to the data server.}
+  \caption[``Friends of my friends'' communication graph]{Time passes from top to bottom in this communication graph.  In ``friends of my friends'' example, the Naive REST implementation requires $O(n^2)$ queries, while the GraphQL implementation solves the example query in a single communication to the data server.}
   \label{figs:intro_graphql}
   % \vspace{10pt}
   \bigskip
@@ -169,6 +168,6 @@ However, there is no prior interface of GraphQL to R. Therefore, in the third pa
 \begin{figure}
   \centering
   \includegraphics[width=\textwidth]{./dot/intro_hierarchy.png}
-  \caption{Thesis Structure}
+  \caption[Thesis Structure]{Thesis Structure.  Shaded areas represent different contexts within the R environment.  Black bordered square boxes represent R packages.  \ggplot~is required by \GGally, hence the nested R package.  Ellipses within the \GGally~represent package functions.  Solid arrows represent function dependencies or R package interactions.  Dashed arrows represent possible future interactions.  The bolded R packages and \GGally~functions comprise different chapters within this thesis.}
   \label{fig:structure}
 \end{figure}

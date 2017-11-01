@@ -3,6 +3,7 @@
 %
 
 \chapter{Summary}
+
 ~ 1/2 page
 
 In this thesis we have shown that
@@ -12,9 +13,9 @@ In this thesis we have shown that
 we have demonstrated....
   repeat what you've done already
 
-This is the summary chapter.
-  review each chapter ~ 1-2 paragraphs
-  Remind how they integrate with each other
+% This is the summary chapter.
+%   review each chapter ~ 1-2 paragraphs
+%   Remind how they integrate with each other
 
 
 
