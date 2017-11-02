@@ -133,7 +133,7 @@ However, there is no prior interface of GraphQL to R. Therefore, in the third pa
 %
 %
 %
-\section{Thesis Structure} - TODO
+\section{Thesis Structure}
 
 In this section, I will outline the structure of this thesis.  There are three main, bolded sections to this thesis as displayed in~\ref{fig:structure}: displaying two grouped plot matrices using \rinline{ggduo} in \GGally~\cite{r_ggally}, adding automatic cognostics with \autocogs~\cite{github_autocogs}, and communicating data between services with \gqlr~\cite{r_gqlr}.
 
