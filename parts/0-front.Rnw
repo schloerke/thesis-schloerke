@@ -140,5 +140,42 @@
   % and \majorprof.
   % Reference: PU 17.
 \begin{abstract}
-  This is the abstract.
+  % problem is important?
+  % what have people done?
+  %   2-3 sentences
+  % what is missing?
+  %   However, ...
+  % we address this missing by...?
+  % In this work, we fill this gap by BLAH using packages A, B, C.
+  %
+  % 3x more sentences describing each package
+  %   ggduo does a gen pairs plot
+  %   autocogs does X and addresses Y
+  %   gqlr does A and bridges the gap of B
+  %
+  % stress the importance of the contribution
+  %   These three packages will address issues....
+
+  % problem is important?
+  Statistical visualizations of large-scale data has become an increasingly irreplaceable task in the era of \emph{big data}.
+  In particular, exploratory data analysis and visualization is the first step to in-depth statistical modeling and analysis.
+  % what have people done?
+  %   2-3 sentences
+  The R package \ggplot~created a layered grammar of graphics which laid the foundation to extend and customize data visualization within R.  Utilizing \trelliscopejs~with \ggplot~allows \ggplot~visualizations to extend to larger sizes of data.
+  % what is missing?
+  %   However, ...
+  However, there are restrictions and lack of communication within both packages.  \ggplot~does not allow for both continuous and discrete scales to be displayed in a plot matrix and \trelliscopejs~requires all cognostics used for panel interactions to be supplied manually.  With the data being stored in R, many web data queries scale linearly with data size rather than remaining constant with query requirements.
+  % we address this missing by...?
+  %   In this work, we fill this gap by BLAH using packages A, B, C.
+  In this work, I fill these gaps by developing three R packages and their functions: \GGally, \autocogs, and \gqlr.
+  % 3x more sentences describing each package
+  %   ggduo does a gen pairs plot
+  %   autocogs does X and addresses Y
+  %   gqlr does A and bridges the gap of B
+  Within \GGally, the R function, \rinline{ggduo} produces a generalized plot matrix for two grouped data which displays all combinations of two sets of variables within a data set.
+  \autocogs~aids in visualization panel exploration within \trelliscopejs~by automatically generating standard cognostic groups determined by the visualization layers in each \trelliscopejs~panel.
+  Finally, \gqlr~implements a GraphQL server runtime to minimize data queries while benefiting from the rapid iteration time of R and production iteration time of GraphQL.
+  % stress the importance of the contribution
+  %   These three packages will address issues....
+  These three packages address the increasing size and complexity of today's data exploration requirements.
 \end{abstract}

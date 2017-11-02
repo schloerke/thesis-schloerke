@@ -2,27 +2,6 @@
 %  revised  introduction.tex  2011-09-02  Mark Senn  http://engineering.purdue.edu/~mark
 %  created  introduction.tex  2002-06-03  Mark Senn  http://engineering.purdue.edu/~mark
 %
-%  This is the introduction chapter for a simple, example thesis.
-%
-
-Abstract
-
-problem is important?
-what have people done?
-  2-3 sentences
-what is missing?
-  However, ...
-we address this missing by...?
-In this work, we fill this gap by BLAH using packages A, B, C.
-
-3x more sentences describing each package
-  ggduo does a gen pairs plot
-  autocogs does X and addresses Y
-  gqlr does A and bridges the gap of B
-
-stress the importance of the contribution
-  These three packages will address issues....
-
 
 
 \chapter{Introduction}
