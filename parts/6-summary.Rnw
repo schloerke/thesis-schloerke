@@ -2,64 +2,86 @@
 %  summary.tex  2007-02-06  Mark Senn  http://www.ecn.purdue.edu/~mark
 %
 
-\chapter{Summary}
+\chapter{Summary} % ~ 2 pages in total
 
-~ 1/2 page
-
-In this thesis we have shown that
-  decribed three packages that i have worked on. (paraphrase the intro)
-    intro - ``we will do that''; ``we have done that''
-
-we have demonstrated....
-  repeat what you've done already
-
+% ~ 1/2 page
+%
+% In this thesis we have shown that
+%   decribed three packages that i have worked on. (paraphrase the intro)
+%     intro - ``we will do that''; ``we have done that''
+%
+% we have demonstrated....
+%   repeat what you've done already
+%
 % This is the summary chapter.
 %   review each chapter ~ 1-2 paragraphs
 %   Remind how they integrate with each other
 
 
+% In this thesis we have shown that
+%   decribed three packages that i have worked on. (paraphrase the intro)
+%     intro - ``we will do that''; ``we have done that''
 
+In this thesis, I have shown
+\begin{enumerate}[i)]
+  \item \rinline{ggduo}, an R function that produces generalized plot matricies for two groups of variables,
+  \item \autocogs, an R package that automatically generates cognostics for a set of plots, and
+  \item \gqlr, an R package which implements the GraphQL data query application protocol interface.
+\end{enumerate}
 
-explain the large data with subset linear models displayed as ggnostic plots.  limited by trelliscopejs's functionality.  Should be integrated ...
+\rinline{ggduo} extended the application of the generalized pairs plot to a generalized plot matrix for two grouped data.  This function has direct application to canonical correlation analysis and was extended by \rinline{ggnostic} to produce a generalized plot matrix for model diagnostics and \rinline{ggts} to produce a generalized plot matrix for time series data.  These \ggplot~style plot matricies are implemented using the \rinline{ggmatrix} plot object in \GGally.
 
+\autocogs~implemented multiple standard cognostic groups to be automatically produced given the different plot layers of a \ggplot~visualization. Each layer within a plot is connected to multiple cognostic groups.  These sets of cognostics are then leveraged within a \trelliscopejs~HTML widget to aid in its data panel exploration.  These cognostics alleviate the user from creating each cognostic value manually in the data set speeding up the data exploration process.
+
+\gqlr~implemented the GraphQL server and runtime within the R environment.  The GraphQL query language minimized the number of incoming data requests.  By decoupling the web sites and the stored data, iteration speed is increased in both web site development and data storage development.  \gqlr~exposed multiple R statistical model algorithms in an example using the GraphQL query language.
 
 \section{Discussion}
-~ page
 
-However, there are some limitations when going to the browser.
+\subsubsection{Interactive data exploration}
 
-Everything is moving to the browser.
-need to address plots interactions between plots for non trivial data size within the browser
-  crosstalk has been built for communication between applications, but it does not support data that does not fit within browser memory
+Data size is increasing at a rapid rate.  \pkg{htmlwidgets} has opened a new form of interactive visualization tools for R by leveraging javascript in the web browser.  There are two limitations that quickly occur: the amount of memory provisioned for the widget and the amount of data that is transferred to the web page.  Both web browser limitations restrict web pages to host only small sized (in memory only) data. \pkg{crosstalk}~\cite{r_crosstalk} currently handles communication between \pkg{htmlwidgets}~that use small data.
 
-explain in detail the histogram issue
+An example to showcase the memory limitations can be exposed with two density curves and scatter plot careated from the same original data set.  If the data set is already considered small data, there should be little difficulty calculating and displaying density curves within the web page and diplaying all three graphs.  Selecting regions of any visualization panel could highlight the selected subset of information in the remaining visualizations.  However, if the data is not small data and is too large to fit in memory, it requires an approach that must sacrifice either data quantity or the ability to interact within the browser to produce similar results.  If the data \emph{must} be kept in the browser, a sample of the population data could be used.  If all visualizations can be redered outside of the web browser, the difficulty of the data visualization can be outsourced to where the data is located.  Neither of these situations allow for native interactive data exploration within the browser on the full, raw data set.
 
+An argument could be made for calculating very thin binwidth histograms to generate the density curves and using very small square or hexagonal bins for the scatterplot.  These summary statistics could be made small enough to fit within memory.  While this is true, it is a different solution which does not display the true underlying data.
 
-explain about a cohesive syntax between all visualization packages.  ggplot2 has the syntax, just define a new print method for each package. ggplotly has done this for plotly, but it is not extendible to remaining visualization packages.
+\subsubsection{Visualization syntax}
 
-have a couple more issues
-  only bring up things i can't fix.
+Two of the latest interactive visualization systems within R have integrated with existing, non-R visualization libraries: \pkg{rbokeh} and \pkg{plotly}.  Both R packages execute commands within the R session to produce a single json specification that is understood by the visualization library.  Unfortunately, each of the R packages reinvented the wheel when it came to adding layers to their respective plots.  \ggplot~has proved it is an effective R package at creating visualizations.  However, I would like to see the generation of data visualization objects and the displaying of said visualization objects have integratable plotting routines.
 
+For example, a plot could be created using ``\ggplot~syntax'' and displayed using the Bokeh~\cite{bokeh} visualization library.  The ``\ggplot~syntax'' package would calculate
+\begin{itemize}
+  \item how data should be displayed,
+  \item the range of each axes and where the break points are,
+  \item what is displayed within each legend, and
+  \item any extra annotation material such as a title or caption.
+\end{itemize}
+This plot constuction information would then be passed to a thin ``display only'' data visualization library needed to reproduce the visualization within the respective library.  An example implementation is shown below using a theoretical ``\ggplot~syntax'' R package \rinline{ggsyntax} and a theoretical ``display only'' packages \rinline{display_bokeh} for Bokeh and \rinline{display_plotly} for Plotly.
+
+<< ggplot_bokeh, eval = FALSE >>=
+# create a plot object
+#   add all x,y data as points
+#   calculate and add a linear model on x,y data
+p <- ggsyntax::setup(example_data, ggsyntax::aes(x, y)) +
+  ggsyntax::geom_point() +
+  ggsyntax::geom_smooth(method = "lm")
+
+# display using the Bokeh visualization library
+display_bokeh::from_ggsyntax(p)
+# display using the Plotly visualization library
+display_plotly::from_ggsyntax(p)
+@
+
+The same plot object could be utilized by many different data visualization packages within R.  This allows users to ingrain a consistent coding behavior when using any visualziation library.
+
+It could be argued that after a \ggplot~plot is built, not drawn,
+<< after_built, eval = FALSE >>=
+after_built <- ggplot_build(p)
+@
+\noindent the plot object could then be transformed to be used in a different visualization library.  While this is not impossible, the currently built \ggplot~plot object does not readily contain all necessary information to be displayed by another library.  Some internal routines are still needed to finalize the plot's production information.
 
 \section{Future work}
 
 create a communication framework to R using gqlr.  this would allow to connect to the underlying data.  responses would be done in JSON and answers would follow the expected output.
 
 ask ryan?
-
-% \subsection{\GGally}
-%   implement matrix manipulations for ggmatrix
-%     be able to subset a ggmatrix and produce a new ggmatrix
-%     be able to insert a ggmatrix into a valid location
-%   remove all options of labels
-%
-% \subsection{\autocogs}
-%   Add cognostics for time series data
-%   Add safety layer for the execution (try catch)
-%   Add message similar to $facet_map$ to submit them to github
-%   Add more pkg layer connections: rbokeh, plotly
-%
-% \subsection{\gqlr}
-%   Add safety layer for each field's execution (try catch)
-%   Explore more working examples rather than proof of concept
-%   Add integration with trelliscopejs

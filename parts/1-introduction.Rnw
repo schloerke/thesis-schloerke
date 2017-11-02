@@ -15,7 +15,7 @@ Various successful implementations have achieved in building a scientific visual
 % \ggplot's modular static layer design has provided interactive web visualization R packages \pkg{rbokeh} and \pkg{plotly} a solid grammar foundation upon which to build from.
 In this thesis, I develop
 \begin{enumerate}[i)]
-  \item \rinline{ggduo}, an R function that produces generalized plots for two groups of variables,
+  \item \rinline{ggduo}, an R function in \GGally~that produces generalized plot matricies for two groups of variables,
   \item \autocogs, an R package that automatically generates cognostics for a set of plots, and
   \item \gqlr, an R package which implements the GraphQL data query application protocol interface.
 \end{enumerate}
