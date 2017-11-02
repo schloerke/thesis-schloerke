@@ -1,6 +1,5 @@
 
-
-Introduction chapter
+Abstract
 
 Conclusion chapter
 
@@ -8,11 +7,18 @@ Acknowledgement
 
 Vita
 
+Add autocogs to package descriptions
+Add htmlwidgets to package descriptions
+
+Add dataset help descriptions
+
 look at all TODO values before submission
   scatter plot -> scatterplot
   dataset -> data set
   alpha sort all abbreviations and glossary items
-  p value -> p-value
+  p-value -> p value
+  ~\ref{}
+  ~\cite{}
   from top to bottom in pages, work on spacing so the code is next to the figure.
 
 
@@ -26,21 +32,6 @@ look at all TODO values before submission
   summary
     ggduo only works for small datasets
       trelliscope can scale up to the larger data sets
-
-
-add intro
-  2-3 paragraphs for each major section
-  include a "final" picture for each section
-  include a hierarchy tree for all chapters of information (graphviz)
-
-add conclusion
-  couple paragraphs?
-
-  add a future work section
-    ~ 3 pages in total. Not too much.
-    take a step back and talk about broader topics.  This would be "I've talked a lot about graphics... graphics today are missing blah blah blah interactivity and crosstalk and cohesive environments"
-  should be shorter than intro
-
 
 
 

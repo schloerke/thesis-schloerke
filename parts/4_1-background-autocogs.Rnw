@@ -1,6 +1,6 @@
 \section{\trelliscopejs}
 
-\trelliscopejs~is an R package used to visualize data with many conditioning combinations.  \trelliscopejs~conditions on columns within the data set and displays a plot, image, or html object for each plot in an independent display panel.  However, \trelliscopejs is built to more panels from conditioning combinations than current plotting architectures.
+\trelliscopejs~is an R package used to visualize data with many conditioning combinations.  \trelliscopejs~conditions on columns within the data set and displays a plot, image, or HTML object for each plot in an independent display panel.  However, \trelliscopejs is built to more panels from conditioning combinations than current plotting architectures.
 
 \trelliscopejs~is built to handle more panels than the current plotting frameworks in R. \ggplot's \rinline{facet_wrap} can feasibly hold 10s - 100s of displays in one plot.  Since \ggplot~does not paginate (print over multiple pages), the size of the computer screen limits how many panels may be displayed.  A core feautre of \pkg{lattice}~is its ability to paginate panels of a plot.  This allows the number of panels to scale 100-1000 times.  \pkg{lattice}~outputs can be saved to PDF and manually inspected page by page.  This method is efficient in detecting small visual differences between plots due to the strucutre of small multiples.  However, there is a limit to how many plots a human can manually ingest.  If 1000 pages were visually inspected at a rate of two pages per second, it would take over 8 minutes to manually flip through each page.  Pagination does not scale with large data when there are millions of pages to flip through.
 
@@ -15,11 +15,11 @@ Medium Data (Disk Data) extends the capabilities of the memory to the storage ca
 Finally, Large Data (Cluster Data) is data that is spread across multiple machines. Many machines may be used in a cluster to house Large Data.  Large data is the slowest in response time, as data is communicated between machines for calculations.  How the data is stored on each machine is up to the data base architecture.  Typically each machine stores Medium Data locally, but functions as a cohesive unit globally.
 %Large Data is typically involves a master computer (master node) to determine where a piece of data exists and which cluster computer should be contacted.
 
-Each class of data balances speed and size to achieve the final goal.  These definitions allow for exponential advancement in computing power according to Moore's Law \cite{Moore1965} as time advances.
+Each class of data balances speed and size to achieve the final goal.  These definitions allow for exponential advancement in computing power according to Moore's Law~\cite{Moore1965} as time advances.
 
 \subsection{Computation}
 
-The split-apply-combine \cite{plyr} approach for data computation is applicable for all three types of data.  As the name states, there are three main steps: split the data, apply a function to the data subsets, and combine the function results.  These three steps may be scaled as necessary given computational powers.
+The split-apply-combine~\cite{plyr} approach for data computation is applicable for all three types of data.  As the name states, there are three main steps: split the data, apply a function to the data subsets, and combine the function results.  These three steps may be scaled as necessary given computational powers.
 
 \begin{enumerate}
   \item Split.  Data is conditioned on some identifying, or conditioning, columns.  This can include the row number (each row is treated uniquely) or may include many existing columns in the data set.  Like faceting in \ggplot, all conditioning values are considered discrete values.  Once the conditioning columns have been selected, the data is split into groups where the conditioning values match.
@@ -59,7 +59,7 @@ Each package implements the split-apply-combine approach to data computation usi
 
 \subsection{Summary statistics}
 
-The \rinline{gapminder} data set is an ``Excerpt of the Gapminder data on life expectancy, GDP per capita, and population by country'' \cite{r_gapminder}.  The 142 countries have data from 1952 to 2007.  Figure \ref{fig:dplyr_example} finds the maximum life expectancy for the 142 countries. They are then displayed in a plot colored according to the country's continent.  A lot of information may be gleaned from the maximum life expectancy summary plot in figure \ref{fig:dplyr_example}, but a summary plot does not tell the full story of each country's life expectancy over time.
+The \rinline{gapminder} data set is an ``Excerpt of the Gapminder data on life expectancy, GDP per capita, and population by country''~\cite{r_gapminder}.  The 142 countries have data from 1952 to 2007.  Figure~\ref{fig:dplyr_example} finds the maximum life expectancy for the 142 countries. They are then displayed in a plot colored according to the country's continent.  A lot of information may be gleaned from the maximum life expectancy summary plot in figure~\ref{fig:dplyr_example}, but a summary plot does not tell the full story of each country's life expectancy over time.
 
 << gapminder_best_worst, fig.width = 8, fig.height = 4, out.width = "5in", out.height = "2.5in", fig.cap = "Both higher life expectancy countries display linear model trends over time." >>=
 gapminder %>%
@@ -74,13 +74,13 @@ gapminder %>%
     ylim(20, 85) + labs(title = "Two countries with lower life expectancy")
 @
 
-Figure \ref{fig:gapminder_best_worst} displays two longer living countries, Japan and Switzerland.  Japan has a higher maximum life expectancy, but Switzerland had a higher starting life expectancy.  Figure \ref{fig:gapminder_best_worst2} displays two lower life expectancy countries, Afghanistan and Rwanda.  Afghanistan has a lower maximum life expectancy, but steadily increases over time.  Rwanda's life expectancy steadily increased until the 1980's when it dips and recoveres by the 2000's.
+Figure~\ref{fig:gapminder_best_worst} displays two longer living countries, Japan and Switzerland.  Japan has a higher maximum life expectancy, but Switzerland had a higher starting life expectancy.  Figure~\ref{fig:gapminder_best_worst2} displays two lower life expectancy countries, Afghanistan and Rwanda.  Afghanistan has a lower maximum life expectancy, but steadily increases over time.  Rwanda's life expectancy steadily increased until the 1980's when it dips and recoveres by the 2000's.
 
 Summary statistics are great in interpreting information using less data.  However, summary statistics, by their nature, do not convey the full story. % TODO wording.  don't say ``full story''
 
 \trelliscopejs~allows users to plot full plot detail while allowing users to change how many panels are displayed on the screen at one time, sort the panel ordering, and filter to a smaller subset of panels.  \trelliscopejs~achieves these actions by obtaining a plot for every conditioning combination and suplimentary metrics for each plot.
 
-Using the \rinline{gapminder} data set in figure \ref{fig:trelliscopejs}, life expectancy is explore over time with the supplimentary metrics of minimum and maximum life expectancy.
+Using the \rinline{gapminder} data set in figure~\ref{fig:trelliscopejs}, life expectancy is explore over time with the supplimentary metrics of minimum and maximum life expectancy.
 
 << trelljs, echo = FALSE, verbose = FALSE, cache = FALSE >>=
 trelljs <- function(dt, name, ...) {
@@ -123,12 +123,12 @@ gap_trellis
 gap_trellis %>% trelljs("gapminder")
 @
 
-The \trelliscopejs~html widget in \ref{fig:trelliscopejs} displays three rows and five columns of panels.  There are \rinline{142} panels in total, making 10 pages of panels in total.  While this example does not display millions of panels, it does convey the capabilities of the html widget.  Icons on the left, as in figure \ref{fig:tjs_sidebar}, open foldout displays for panel layout control, turning panel labels on and off, filtering panels using metrics, and panel sorting.
+The \trelliscopejs~HTML widget in~\ref{fig:trelliscopejs} displays three rows and five columns of panels.  There are \rinline{142} panels in total, making 10 pages of panels in total.  While this example does not display millions of panels, it does convey the capabilities of the HTML widget.  Icons on the left, as in figure~\ref{fig:tjs_sidebar}, open foldout displays for panel layout control, turning panel labels on and off, filtering panels using metrics, and panel sorting.
 
 \begin{figure}[H]
   \centering
   \includegraphics[height=2.5in]{./figs/tjs_sidebar.png}
-  \caption{The sidebar on the left side of a \trelliscopejs~html widget can be opened for panel layout control, displaying panel labels, filtering panels, and sorting panels.}
+  \caption{The sidebar on the left side of a \trelliscopejs~HTML widget can be opened for panel layout control, displaying panel labels, filtering panels, and sorting panels.}
   \label{fig:tjs_sidebar}
 \end{figure}
 
@@ -136,11 +136,11 @@ The \trelliscopejs~html widget in \ref{fig:trelliscopejs} displays three rows an
 
 \section{Cognostics}
 
-Displaying panels alone has already been solved with \ggplot~and \pkg{lattice}.  Scaling panels beyond \pkg{lattice}'s limits is still limited without the use of sorting and filtering the panels.  \trelliscopejs's power is leveraging subset metrics to organize the panels.  These subset metrics are called \emph{cognostics} \cite{Tukey1985}.  Cognostics are univariate statistics calculated for every independent subset of the conditioned data.
+Displaying panels alone has already been solved with \ggplot~and \pkg{lattice}.  Scaling panels beyond \pkg{lattice}'s limits is still limited without the use of sorting and filtering the panels.  \trelliscopejs's power is leveraging subset metrics to organize the panels.  These subset metrics are called \emph{cognostics}~\cite{Tukey1985}.  Cognostics are univariate statistics calculated for every independent subset of the conditioned data.
 
-Cognostics can be simple summary statistics such as \rinline{mean} or \rinline{median}, or can be meta data information such as a URL or census information for a conditioned county.  Tukey and Tukey first proposed calculating univariate metrics for scatterplots called scagnostics \cite{Tukey1985} as a way to describe a scatterplot.  Wilkinson et. al. \cite{scagnostics} implemented Tukeys' scagnostic definitions in the R package \pkg{scagnostics}~\cite{r_scagnostics}. Scagnostics can be repurposed as cognostics when applied to every panel containing a scatterplot.  These cognostic groupings may then be shown, filtered, and sorted accross the different subset panels.
+Cognostics can be simple summary statistics such as \rinline{mean} or \rinline{median}, or can be meta data information such as a URL or census information for a conditioned county.  Tukey and Tukey first proposed calculating univariate metrics for scatterplots called scagnostics~\cite{Tukey1985} as a way to describe a scatterplot.  Wilkinson et. al.~\cite{scagnostics} implemented Tukeys' scagnostic definitions in the R package \pkg{scagnostics}~\cite{r_scagnostics}. Scagnostics can be repurposed as cognostics when applied to every panel containing a scatterplot.  These cognostic groupings may then be shown, filtered, and sorted accross the different subset panels.
 
-In \trelliscopejs, cognostics are displayed as two types of metrics: continuous or discrete.  Continuous valued cognostics are filtered using open or closed ranges.  Figure \ref{fig:gap_seventy} shows an open range using the \rinline{gapminder} country panels that contain a maximum life expectancy value less than or equal to 70 years of age.  A closed range example would have both a \emph{from} and a \emph{to} in the selection range, i.e. within 50 to 65 years of age. Currently, \trelliscopejs~does not support more than one range selection for each cognostic variable.
+In \trelliscopejs, cognostics are displayed as two types of metrics: continuous or discrete.  Continuous valued cognostics are filtered using open or closed ranges.  Figure~\ref{fig:gap_seventy} shows an open range using the \rinline{gapminder} country panels that contain a maximum life expectancy value less than or equal to 70 years of age.  A closed range example would have both a \emph{from} and a \emph{to} in the selection range, i.e. within 50 to 65 years of age. Currently, \trelliscopejs~does not support more than one range selection for each cognostic variable.
 
 \begin{figure}[H]
   \centering
@@ -150,7 +150,7 @@ In \trelliscopejs, cognostics are displayed as two types of metrics: continuous 
 \end{figure}
 
 
-With \trelliscopejs, discrete values are handled using regular expressions or by manually selecting values.  When using regular expressions, matching values are displayed immediately.  Figure \ref{fig:gap_regex} displays the immedate results of regular expression on a continent.  The immediate feedback confirms whether the regular expression was successful or needs to be updated.
+With \trelliscopejs, discrete values are handled using regular expressions or by manually selecting values.  When using regular expressions, matching values are displayed immediately.  Figure~\ref{fig:gap_regex} displays the immedate results of regular expression on a continent.  The immediate feedback confirms whether the regular expression was successful or needs to be updated.
 
 \begin{figure}[H]
   \centering

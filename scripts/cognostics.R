@@ -17,6 +17,7 @@ tex_save_files <- file.path("figs", c("intro_cogs_1.tex", "intro_cogs_2.tex"))
 plot_save_file <- file.path("figs", "intro_cogs.png")
 
 if (
+  # TRUE ||
   !all(file.exists(c(tex_save_files, plot_save_file)))
 ) {
   library(dplyr)
@@ -52,10 +53,10 @@ if (
   cog_table %>%
     mutate(
       group = ifelse(!duplicated(group), group, "")
-    ) %>%
-    mutate(
-      group = stringr::str_replace_all(group, c("^_" = "", "_" = " ")),
-      cog = stringr::str_replace_all(cog, c("_" = " ")),
+    # ) %>%
+    # mutate(
+    #   group = stringr::str_replace_all(group, c("^_" = "", "_" = " ")),
+    #   cog = stringr::str_replace_all(cog, c("_" = " ")),
     ) ->
   cog_table
 
@@ -69,9 +70,10 @@ if (
       mutate(group = paste(left, group)) %>%
       xtable(file = save_file)
 
-    # fix the backslash
+    # fix the backslash and make the header regular text
     readLines(save_file) %>%
       gsub(bigskip, "\\bigskip", ., fixed = TRUE) %>%
+      gsub("group & cog & value", "\\textnormal{group} & \\textnormal{cog} & \\textnormal{value}", ., fixed = TRUE) %>%
       writeLines(save_file)
   }
 

@@ -2,7 +2,7 @@
 
 From a data plotting perspective, we should be able to utilize what is already being displayed in the plot to sort and filter the panels of a \trelliscopejs~widget.  This plot information is not readily available as it is calculated within each plotting mechanism.
 
-Using the prior \trelliscopejs~example in figure \ref{fig:trelliscopejs}, the minimum and maximum values for each country's life expectancy were calculated manually.  While the prior example only retrieved the minimum and maximum life expectancy values for each panel, the median and mean values may be of interest as well. These statistics are only looking at the $Y$ variable.  There are many more statistics involving both the $Y$ variable and the $X$ variable.  In figure \ref{fig:add_metrics}, the $X$ and $Y$ covariance and correlation are added.  A linear model (\rinline{geom_smooth(method = "lm")}) is also added to visually detect linear trend deviations.
+Using the prior \trelliscopejs~example in figure~\ref{fig:trelliscopejs}, the minimum and maximum values for each country's life expectancy were calculated manually.  While the prior example only retrieved the minimum and maximum life expectancy values for each panel, the median and mean values may be of interest as well. These statistics are only looking at the $Y$ variable.  There are many more statistics involving both the $Y$ variable and the $X$ variable.  In figure~\ref{fig:add_metrics}, the $X$ and $Y$ covariance and correlation are added.  A linear model (\rinline{geom_smooth(method = "lm")}) is also added to visually detect linear trend deviations.
 
 << add_metrics, screenshot.opts = list(vwidth = 700, vheight = 525), fig.cap = "More cognostics are added to the original example.  As more cognostics are added, the percentage of final code written is more about cognostics and not data visualization." >>=
 gapminder_condensed %>%
@@ -101,7 +101,7 @@ Once all the cognostics have been produced for a given plot, the cognostic group
 
 Each set of cognostics is returned in a cognostic group.  This is similar to scagnostics.  All scagnostics pertain to scatterplots.  Likewise, the number of non-NA $X$, non-NA $Y$, and non-NA $X$ and $Y$ points pertain to non-NA counts of the displayed data.  These groups can be extended to each type of statistical display: box plot, histogram, linear model, etc.
 
-The cognostics produced in the \autocogs~\rinline{gapminder} linear model example in subsection \ref{subsec:linear_model} were:
+The cognostics produced in the \autocogs~\rinline{gapminder} linear model example in subsection~\ref{subsec:linear_model} were:
 \begin{itemize}
   \item \rinline{_smooth}: Two cognostics pertaining to a ``smooth'' line being added to the panel.
   \item \rinline{_lm}: Nineteen cognostics pertaining to the linear model line added to the panel.
@@ -110,13 +110,13 @@ The cognostics produced in the \autocogs~\rinline{gapminder} linear model exampl
   \item \rinline{_n} Five cognostics pertaining only to counts of X and Y values.
 \end{itemize}
 
-Each cognostic group column contains a single row \rinline{data.frame} nested in each cell.  Nesting data structures as list-columns \cite{r4ds} is considered an advanced R technique, but by nesting the cognostic \rinline{data.frame}s in each cell, \autocogs~maintains the tidy data input with tidy data cognostics.  Tidy data is defined to have variables in each column, observations for each row and each cell contains a value.  The value does not need to conform to atomic values which allows for complex structures as long as the ``tidy data'' rules are maintained.
+Each cognostic group column contains a single row \rinline{data.frame} nested in each cell.  Nesting data structures as list-columns~\cite{r4ds} is considered an advanced R technique, but by nesting the cognostic \rinline{data.frame}s in each cell, \autocogs~maintains the tidy data input with tidy data cognostics.  Tidy data is defined to have variables in each column, observations for each row and each cell contains a value.  The value does not need to conform to atomic values which allows for complex structures as long as the ``tidy data'' rules are maintained.
 
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.9\textwidth]{figs/tidy.png}
-  \caption{Figure courtesy of \cite{r4ds}. There are three rules to tidy data: columns contain variables, rows contain observations, and cells contain values.}
+  \caption{Figure courtesy of~\cite{r4ds}. There are three rules to tidy data: columns contain variables, rows contain observations, and cells contain values.}
 \end{figure}
 
 
@@ -166,7 +166,7 @@ auto_cog("univariate_discrete", gap_max$continent)
 
   \subsubsection{Continuous Density Cognostics}
 
-  Continuous density cognostics revolve around the shape of the density.  The maximum density value and its corresponding location are returned for comparison across cognostic calculations. Skew and kurtosis \cite{casella2002statistical} are computed to help distinguish the density shape.  The p-value of Hartigans' dip test from \pkg{diptest}~\cite{r_diptest} for unimodality is reported as well.  To help locate where the maximum density occurs, the maximum density value and location are provided.  Finally, the number of clusters may be calculated using the \pkg{mclust}~\cite{r_mclust_1} \cite{r_mclust_2} R package.  Cluster calculations are not included by default due to their slower computational speed.
+  Continuous density cognostics revolve around the shape of the density.  The maximum density value and its corresponding location are returned for comparison across cognostic calculations. Skew and kurtosis~\cite{casella2002statistical} are computed to help distinguish the density shape.  The p value of Hartigans' dip test from \pkg{diptest}~\cite{r_diptest} for unimodality is reported as well.  To help locate where the maximum density occurs, the maximum density value and location are provided.  Finally, the number of clusters may be calculated using the \pkg{mclust}~\cite{r_mclust_1}~\cite{r_mclust_2} R package.  Cluster calculations are not included by default due to their slower computational speed.
 
 
 << cog_group_density_continuous >>=
@@ -211,7 +211,7 @@ auto_cog("bivariate_continuous", usa$year, usa$lifeExp)
 
 \subsubsection{Scagnostics Cognostics}
 
-Scatterplot scagnostics are a pre-existing cognostic group for a continuous bivariate plot. The following scagnostics are explained in more detail in \cite{scagnostics}.
+Scatterplot scagnostics are a pre-existing cognostic group for a continuous bivariate plot. The following scagnostics are explained in more detail in~\cite{scagnostics}.
 
 \begin{itemize}
   \item Outlying: the proportion of the total edge length due to extremely long edges connected to points of single degree.
@@ -275,10 +275,10 @@ Linear Model cognostics leverage many existing statistics.  Knowing that the mod
   There are a few extra diagnostics that perform extra calculations to conform to the univariate requirement of a cognostic.
 
   \begin{itemize}
-    \item Cook's distance: a combination of each points leverage and residual value.  Values larger than $F_{p, n - p}(0.5)$ indicate influential data points in the model \cite{kutner_linear_models}.  The number of influential data points is reported.
-    \item Influence points: the diagonal of the Hat Matrix is how much influence a point has on the model.  Each point is expected to equal $\dfrac{p}{n} = \dfrac{1}{n}$, with influential points having a value larger than $\dfrac{2 * p}{n} = \dfrac{2}{n}$ \cite{kutner_linear_models}.  The sum of all influential points is reported.
-    \item Shapiro-Wilk test: when using a linear model, the residuals are assumed to come from a normal distribution. The Shapiro-Wilk test tests the residuals against the normal distribution \cite{kutner_linear_models}.  The corresponding p value is reported.
-    \item Box Cox power transformation: the lower and upper bounds of the 95\% confidence interval of the Box Cox power transformation are reported. This transformation is used to  stabilize the variance of a linear model. If the confidence interval contains 0, a $ln$ transformation may be used \cite{kutner_linear_models}.
+    \item Cook's distance: a combination of each points leverage and residual value.  Values larger than $F_{p, n - p}(0.5)$ indicate influential data points in the model~\cite{kutner_linear_models}.  The number of influential data points is reported.
+    \item Influence points: the diagonal of the Hat Matrix is how much influence a point has on the model.  Each point is expected to equal $\dfrac{p}{n} = \dfrac{1}{n}$, with influential points having a value larger than $\dfrac{2 * p}{n} = \dfrac{2}{n}$~\cite{kutner_linear_models}.  The sum of all influential points is reported.
+    \item Shapiro-Wilk test: when using a linear model, the residuals are assumed to come from a normal distribution. The Shapiro-Wilk test tests the residuals against the normal distribution~\cite{kutner_linear_models}.  The corresponding p value is reported.
+    \item Box Cox power transformation: the lower and upper bounds of the 95\% confidence interval of the Box Cox power transformation are reported. This transformation is used to  stabilize the variance of a linear model. If the confidence interval contains 0, a $ln$ transformation may be used~\cite{kutner_linear_models}.
   \end{itemize}
 
 
@@ -388,7 +388,7 @@ In this section, I will explore a simple \ggplot~histogram and a more advanced e
 
 \subsection{Histogram}
 
-First, let us create the data set containing each of the panels.  Each panel will display a histogram chart of the life expectancy over time for each continent. Figure \ref{fig:continent_hist} displays the panel where continent is equal to \rinline{"Americas"}.
+First, let us create the data set containing each of the panels.  Each panel will display a histogram chart of the life expectancy over time for each continent. Figure~\ref{fig:continent_hist} displays the panel where continent is equal to \rinline{"Americas"}.
 
 << continent_hist, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in", fig.cap = "The \\rinline{\"Americas\"} histogram of life expectancy." >>=
 gapminder %>%
@@ -439,7 +439,7 @@ usa_pos <- which(country_model$country == "United States")
 country_model$panel[[usa_pos]]
 @
 
-The \rinline{"United States"} panel is displayed in figure \ref{fig:country_model}.  The life expectancy has a fairly linear trend that increases over time. Next, we add the cognostics to the panel \rinline{data.frame}.
+The \rinline{"United States"} panel is displayed in figure~\ref{fig:country_model}.  The life expectancy has a fairly linear trend that increases over time. Next, we add the cognostics to the panel \rinline{data.frame}.
 
 << country_model_cogs >>=
 country_model_cogs <- autocogs::add_panel_cogs(country_model) %>% print()
@@ -459,7 +459,7 @@ As expected, many cognostics were added to the country panel \rinline{data.frame
   \item \rinline{`_n`}: and bivariate count information.
 \end{itemize}
 
-Revisiting the Linear Model Example \ref{subsec:linear_model}, we have now exposed the linear model metrics (as well as many other metrics) to be used as cognostics within the \trelliscopejs~widget.  \trelliscopejs~will process the nested \rinline{data.frame}s as grouped cognostics and display them in the application.  Each linear model's $R^2$ value is now available for sorting.  By opening the ``Sort'' tab in the widget and selecting \emph{ascending} \rinline{r2}, all countries will be displayed in increasing order of the $R^2$ value.  Figure \ref{fig:country_model_r2} displays the countries whose life expectancy can not be not explained by a linear model.
+Revisiting the Linear Model Example~\ref{subsec:linear_model}, we have now exposed the linear model metrics (as well as many other metrics) to be used as cognostics within the \trelliscopejs~widget.  \trelliscopejs~will process the nested \rinline{data.frame}s as grouped cognostics and display them in the application.  Each linear model's $R^2$ value is now available for sorting.  By opening the ``Sort'' tab in the widget and selecting \emph{ascending} \rinline{r2}, all countries will be displayed in increasing order of the $R^2$ value.  Figure~\ref{fig:country_model_r2} displays the countries whose life expectancy can not be not explained by a linear model.
 
 \begin{figure}[H]
   \centering
@@ -475,7 +475,7 @@ In less than ten lines of code we went from a single data set to a full fledge v
 
 \section{Summary}
 
-  Automatic cognostics with the \autocogs~R package allow users to enable common univariate metrics that correspond to the plots displayed in a \trelliscopejs~html widget. \autocogs~provides users with the ability to retrieve statistical metrics that are displayed or utilized in a plot.  Prior examples generated cognostics for simple histograms to multiple layered, linear model and scatterplot plots. Maintaining a common set of cognostics provides a cohesive cognostic framework to be used by any plotting architecture.
+  Automatic cognostics with the \autocogs~R package allow users to enable common univariate metrics that correspond to the plots displayed in a \trelliscopejs~HTML widget. \autocogs~provides users with the ability to retrieve statistical metrics that are displayed or utilized in a plot.  Prior examples generated cognostics for simple histograms to multiple layered, linear model and scatterplot plots. Maintaining a common set of cognostics provides a cohesive cognostic framework to be used by any plotting architecture.
 
   % TODO hard to transition into graphql
 

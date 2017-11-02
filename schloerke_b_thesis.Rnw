@@ -78,6 +78,8 @@ knitr::knit_hooks$set(document = function(x) {sub('\\usepackage[]{color}', '\\us
 \usepackage{hyperref} % actual links % TODO make colors less weird / red
 \usepackage{xcolor}   % custom colors
 \usepackage{booktabs} % pretty tables
+\usepackage[shortlabels]{enumitem} % easy enum types
+
 
 % \def\imagetop#1{\vtop{\null\hbox{#1}}}
 
@@ -163,12 +165,6 @@ knitr::knit_hooks$set(document = function(x) {sub('\\usepackage[]{color}', '\\us
 
 % Put chapter \include commands here.
 
-\chapter{R Package Descriptions} \label{chapter:pkgs}
-<< part_pkg_summaries, child='parts/2-package_summaries.Rnw'>>=
-@
-
-
-
 
 \chapter{\rinline{ggduo}: Generalized Pairs Plot for Two Grouped Data} \label{chapter:ggduo}
 
@@ -187,7 +183,7 @@ knitr::knit_hooks$set(document = function(x) {sub('\\usepackage[]{color}', '\\us
 
 
 
-\chapter{\gqlr: An R Server GraphQL implementation} \label{chapter:gqlr}
+\chapter{\gqlr: An R Server GraphQL Implementation} \label{chapter:gqlr}
 
 << part_graphql, child='parts/5-graphql.Rnw'>>=
 @
@@ -202,6 +198,10 @@ knitr::knit_hooks$set(document = function(x) {sub('\\usepackage[]{color}', '\\us
 % appendix.
 \appendices
 % \appendix
+
+<< part_pkg_summaries, child='parts/2-package_summaries.Rnw'>>=
+@
+
 
 << part_datasets, child='parts/7_1-datasets.Rnw'>>=
 @

@@ -27,25 +27,34 @@ stress the importance of the contribution
 
 \chapter{Introduction}
 
-Statistical visualizations of large-scale data has become an increasingly irreplaceable task in the era of \emph{big data}. In particular, exploratory data analysis and visualization is the first step to in-depth statistical modeling and analysis. Since its release in 2000, the R programming language and environment \cite{r_project} has arose as a powerful and convenient platform for performing data analysis and visualization. Various successful implementations have achieved in building a scientific visualization library in R, including \pkg{lattice}~\cite{r_lattice}, \ggplot~\cite{r_ggplot2}, \pkg{rbokeh}~\cite{r_bokeh}, and \pkg{plotly}~\cite{r_plotly}, to name a few.
-\pkg{lattice}~implements \emph{trellis} graphics for R with powerful yet elegant high-level data visualization functions emphasizing on mutivariate displays.
+Statistical visualizations of large-scale data has become an increasingly irreplaceable task in the era of \emph{big data}.
+In particular, exploratory data analysis and visualization is the first step to in-depth statistical modeling and analysis.
+Since its release in 2000, the R programming language and environment~\cite{r_project} has becoming the top ranked open source data analysis tool~\cite{r4stats_popularity}~\cite{ieee_top_programming} and has arose as a powerful and convenient platform for performing data analysis and visualization with over 11,000 active, user submitted packages (as of Sept. 2017~\cite{r_packages}) and a number of more packages are in development on GitHub~\cite{github}.
+Various successful implementations have achieved in building a scientific visualization library in R, including \pkg{lattice}~\cite{r_lattice}, \ggplot~\cite{r_ggplot2}, \pkg{rbokeh}~\cite{r_bokeh}, and \pkg{plotly}~\cite{r_plotly}, to name a few.
+\pkg{lattice}~implements \emph{trellis} graphics for R with powerful yet elegant high-level data visualization functions emphasizing on multivariate displays.
 \ggplot~deconstructs higher level plots into a lower level of data visualization grammar using layered graphics which facilitate publication-ready data visualization.
 % \ggplot's modular static layer design has provided interactive web visualization R packages \pkg{rbokeh} and \pkg{plotly} a solid grammar foundation upon which to build from.
 In this thesis, I develop
-  (i) \rinline{ggduo}, an R function that produces generalized plots for two groups of variables,
-  (ii) \autocogs, an R package that automatically generates cognostics for a set of plots, and
-  (iii) \gqlr, an R package which implements the GraphQL data query application protocol interface.
+\begin{enumerate}[i)]
+  \item \rinline{ggduo}, an R function that produces generalized plots for two groups of variables,
+  \item \autocogs, an R package that automatically generates cognostics for a set of plots, and
+  \item \gqlr, an R package which implements the GraphQL data query application protocol interface.
+\end{enumerate}
+
+    % In this thesis, I develop and contribute to several R packages for providing effective visualizations of large-scale data sets to aid further statistical analysis, which include \GGally, \autocogs, \gqlr, and \trelliscopejs.  These packages will be described in greater detail throughout this thesis, but here I provide a brief summary and overview of their different functionalities.
 
 
-\section{\rinline{ggduo}}
+\section{\rinline{ggduo}: Generalized pairs plot for two grouped data}
 
-\ggplot~offers a powerful graphics language for creating elegant and complex plots, however it has certain limitations. For instance, it does not allow the displaying of datasets with mixed scales (e.g., simultaneously display discrete and continuous scales) on the same axis.
+
+
+\ggplot~offers a powerful graphics language for creating elegant and complex plots, however it has certain limitations. For instance, it does not allow the displaying of data sets with mixed scales (e.g., simultaneously display discrete and continuous scales) on the same axis.
 To incorporate this functionality, the R package \GGally~provides several composite plots (i.e., multi-layered plots) that build on the basic \ggplot~\cite{r_ggplot2}~plotting framework. %  and combine to produce mixed variable type plot matricies
 \GGally~functions produce multivariate plots such as generalized scatterplot matrices, and parallel coordinate plots are provided, as well as network plots, survival models, and glyph maps for spatiotemporal data.
-One important functionality in \GGally is \rinline{ggpairs}. \rinline{ggpairs} an implementation of the generalized pairs plot which displays a plot matrix (all bivariate combinations of a single set of variables) that allows for a mixture of both continuous and discrete variable types using the \ggplot plotting framework. \rinline{ggpairs}'s plot matrix was generalized one step further to a generalized plot matrix which handles arbitrary \ggplot~plot objects in a variable number of rows and columns.
+One important functionality in \GGally~is \rinline{ggpairs}. \rinline{ggpairs} an implementation of the generalized pairs plot~\cite{emerson2013gpp}.  The generalized pairs plot displays a plot matrix (all bivariate combinations of a single set of variables) that allows for a mixture of both continuous and discrete variable types using the \ggplot~plotting framework. Furthermore, \rinline{ggpairs}'s plot matrix was generalized one step further to a generalized plot matrix which handles arbitrary \ggplot~plot objects in a variable number of rows and columns.
 
 In the first part of this thesis, I introduce a new function, \rinline{ggduo} that builds on the structure of the \rinline{ggmatrix} function used to produce the generalized pairs plot, \rinline{ggpairs}.
-Specifically, \rinline{ggduo} produces generalized plots for two groups of variables (e.g. a matrix of $X$ variables and a matrix of $Y$ variables), as might be modeled by multivariate regression diagnostics, canonical correlation analysis, or even multivariate time series.  For the case of multivariate regression diagnostics, I develop \rinline{ggnostic} which displays common linear model diagnostic data against each of the model's explanatory variables. Figure \ref{fig:intro_ggnostic} shows an example of \rinline{ggnostic}.  This plot would not have been possible in either \pkg{lattice}~or \ggplot~due to the mixture of axis scales and would have been uninformative if rendered using \rinline{ggpairs}. I believe that the new function \rinline{ggduo} will help analysts to look at their data to support better modeling.
+Specifically, \rinline{ggduo} produces generalized plots for two groups of variables (e.g. a matrix of $X$ variables and a matrix of $Y$ variables), as might be modeled by multivariate regression diagnostics, canonical correlation analysis, or even multivariate time series.  For the case of multivariate regression diagnostics, I develop \rinline{ggnostic} which displays common linear model diagnostic data against each of the model's explanatory variables. Figure~\ref{fig:intro_ggnostic} contains an example of \rinline{ggnostic} using a linear model of \rinline{flea} data where each plot displays model diagnostic information against each model explanatory variable.  This plot would not have been possible in either \pkg{lattice}~or \ggplot~due to the mixture of axis scales and would have been uninformative if rendered using \rinline{ggpairs}. I believe that the new function \rinline{ggduo} will help analysts to look at their data to support better modeling.
 
 << intro_ggnostic, echo = FALSE, fig.scap = "Model diagnostics are displayed in the plot matrix above using the \\GGally~function \\rinline{ggnostic}", fig.cap = "Model diagnostics are displayed in the plot matrix above using the \\GGally~function \\rinline{ggnostic}, which calls \\rinline{ggduo}.  Each panel of the plot matrix displays the same original data with different combinations of response and explanatory variables in each panel.  Significance lines are displayed as dashed lines while solid lines represent expected values." >>=
 GGally::ggnostic(
@@ -70,15 +79,15 @@ GGally::ggnostic(
 
 
 
-\section{\autocogs}
+\section{\autocogs: Metrics enabling detailed interactive data visualization}
 
-To examine the difference between independent subsets of the same dataset, Edward Tufte  introduced the notion of \emph{small multiples} using \emph{trellis displays} \cite{small_multiples}. In trellis displays, data are separated into independent subsets and a consistent visualization method is applied to each subset. The result is a set of panels that are displayed in a grid, resembling a garden trellis.
-These multi-panel display systems have proven to be very effective tools for visualizing complex data sets in detail.   However, when the count of data subsets becomes very large, it is often the case that there are too many panels for the analyst to consume at one time.  A simple idea put forth by John Tukey \cite{Tukey1985} is to compute \emph{cognostics}, metrics that help bring different, interesting sets of panels in a display to the analyst's attention and allow the analyst to interactively sort and filter the panels.  Cognostics can include statistical summaries, descriptive variables, goodness-of-fit metrics, etc.
+To examine the difference between independent subsets of the same data set, Edward Tufte  introduced the notion of \emph{small multiples} using \emph{trellis displays}~\cite{small_multiples}. In trellis displays, data are separated into independent subsets and a consistent visualization method is applied to each subset. The result is a set of panels that are displayed in a grid, resembling a garden trellis.
+These multi-panel display systems have proven to be very effective tools for visualizing complex data sets in detail.   However, when the count of data subsets becomes very large, it is often the case that there are too many panels for the analyst to consume at one time.  A simple idea put forth by John Tukey~\cite{Tukey1985} is to compute \emph{cognostics}, metrics that help bring different, interesting sets of panels in a display to the analyst's attention and allow the analyst to interactively sort and filter the panels.  Cognostics can include statistical summaries, descriptive variables, goodness-of-fit metrics, etc.
 
 Groups of cognostics and ggplot2 layers are intimately connected.  For instance, a simple histogram in \ggplot~is created via a single histogram layer and is associated with four cognostic groups: univariate continuous cognostics, density cognostics, histogram cognostics, and count cognostics.
 In the second part of this thesis, I develop \autocogs~\cite{github_autocogs}, an R package which automatically produces sets of standard cognostic groups that would be commonly useful to the data analyst given their supplied visualization objects.
-Figure \ref{fig:intro_autocogs} displays four groups of cognostics for the single layer (histogram) plot in two side-by-side tables.  Eighteen cognostics in total are calculated.  As an application, we demonstrate how autocogs can greatly enhance the functionalities of  \trelliscopejs~\cite{r_trelliscopejs}.
-\trelliscopejs is an html widget that plot panels in an interactive trellis display which allows for sorting and filtering plot panels according to supplied cognostics.
+Figure~\ref{fig:intro_autocogs} displays four groups of cognostics for the single layer (histogram) plot in two side-by-side tables.  Eighteen cognostics in total are calculated.  As an application, we demonstrate how autocogs can greatly enhance the functionalities of  \trelliscopejs~\cite{r_trelliscopejs}.
+\trelliscopejs is an HTML widget that plot panels in an interactive trellis display which allows for sorting and filtering plot panels according to supplied cognostics.
 While it is possible to manually specify all the cognostics in \trelliscopejs, \autocogs~greatly simplifies the user experience by automatically providing default groups of cognostics complimentary to the panel visualization.
 
 \renewcommand{\arraystretch}{0.55} % Default value: 1
@@ -87,19 +96,19 @@ While it is possible to manually specify all the cognostics in \trelliscopejs, \
   \includegraphics[width=0.75\textwidth]{figs/intro_cogs.png}
   % \subfigure[Caption of subfigure 2]{
   \subfigure{
-    \small
+    \small\ttfamily
 << part_background_autocogs, child='../figs/intro_cogs_1.tex'>>=
 @
     \label{fig:sub_cog_table1}
   }
   % \subfigure[Caption of subfigure 3]{
   \subfigure{
-    \small
+    \small\ttfamily
 << part_background_autocogs, child='../figs/intro_cogs_2.tex'>>=
 @
     \label{fig:sub_cog_table2}
   }
-\caption[\autocogs~automatically produces four cognostic groups for a single layer (histogram) plot]{\autocogs~automatically produces four cognostic groups for a single layer (histogram) plot shown above. These cognostic groups are shown in the two tables describing the cognostic group, name, and value.  All eighteen cognostics may be used within a \trelliscopejs~html widget to aid in sorting and filtering plot panels.}
+\caption[\autocogs~automatically produces four cognostic groups for a single layer (histogram) plot]{\autocogs~automatically produces four cognostic groups for a single layer (histogram) plot shown above. These cognostic groups are shown in the two tables describing the cognostic group, name, and value.  All eighteen cognostics may be used within a \trelliscopejs~HTML widget to aid in sorting and filtering plot panels.}
 \label{fig:intro_autocogs}
 \end{figure}
 \renewcommand{\arraystretch}{1} % Default value: 1
@@ -108,11 +117,11 @@ While it is possible to manually specify all the cognostics in \trelliscopejs, \
 
 
 
-\section{gqlr}
+\section{\gqlr: An R server GraphQL implementation}
 
 In 2012, Facebook began development of GraphQL, a backend agnostic data query language and runtime.  Data query API that allows data to be queried without requiring knowledge how the data is stored.  In doing so, GraphQL drastically reduces the number of server requests created by the browser by using a dynamic and nested query structure.
-For instance, when inspecting the names of a person's friends of their friends, it would normally require $O(n^2)$ query commands to finally realize the full answer.  With GraphQL, the dynamic query structure allows for the full request to be sent to the server and a single, albeit, larger answer is returned.  The submitted query command is separated from the actual backend service, moving the implementation complexity to the data backend service rather than the query submission process.
-Figure \ref{figs:intro_graphql} displays the reduction in communication between a web browser client and the data server for both a Naive \emph{REST} implementation and a GraphQL implementation.  the naive rest implementation requires $O(n^2)$ communications with the data server, while GraphQL executes a single communication with a single return value.
+For instance, when inspecting the names of a person's friends of their friends, it would normally require $O(n^2)$ query commands to finally realize the full answer where $n$ is the number of friends for each person.  With GraphQL, the dynamic query structure allows for the full request to be sent to the server and a single, albeit, larger answer is returned.  The submitted query command is separated from the actual backend service, moving the implementation complexity to the data backend service rather than the query submission process.
+Figure~\ref{figs:intro_graphql} displays the reduction in communication between a web browser client and the data server for both a naive REST implementation and a GraphQL implementation (see section~\ref{sect:asdfasdf}).  The naive REST implementation requires $O(n^2)$ communications with the data server, while GraphQL executes a single communication with a single return value.
 By decoupling the data servers with web pages, the development cycles of both the web pages and data servers are improved.
 However, there is no prior interface of GraphQL to R. Therefore, in the third part of this thesis, I develop the \gqlr~R package, which implements a full GraphQL server within R.  \gqlr~allows R users to supply their own functions to satisfy the data requirements of a submitted GraphQL query, thus enjoying the rapid iteration time of R and production iteration time of GraphQL.
 
@@ -120,7 +129,7 @@ However, there is no prior interface of GraphQL to R. Therefore, in the third pa
 \begin{figure}
   \centering
   \includegraphics[width=\textwidth]{./figs/graphql_communication.pdf}
-  \caption[``Friends of my friends'' communication graph]{Time passes from top to bottom in this communication graph.  In ``friends of my friends'' example, the Naive REST implementation requires $O(n^2)$ queries, while the GraphQL implementation solves the example query in a single communication to the data server.}
+  \caption[``Friends of my friends'' GraphQL communication graph]{Time passes from top to bottom in this communication graph.  In ``friends of my friends'' example, the Naive REST implementation requires $O(n^2)$ queries (where $n$ is the number of friends for each person), while the GraphQL implementation solves the example query in a single communication to the data server.}
   \label{figs:intro_graphql}
   % \vspace{10pt}
   \bigskip
@@ -145,29 +154,25 @@ However, there is no prior interface of GraphQL to R. Therefore, in the third pa
 %
 %
 %
-% \section{Thesis structure}
-%
-% % TODO
-% in this section I outline the structure of this thesis.  In chapter 1 I will discuss... In chapter 2...
-%
-% % TODO refer to the figture in the main text
-% % TODO mention things in bold are topics
-%
-% There are three main components to this thesis as displayed in \ref{fig:structure}: displaying two grouped plot matrices using \rinline{ggduo} in \GGally, adding automatic cognostics with \autocogs, and communicating data between services with \gqlr.
-%
-% In chapter \ref{chapter:ggduo}, I will blah.
-%
-% In chapter \ref{chapter:autocogs}, autocogs.
-%
-% In chapter \ref{chapter:gqlr}, gqlr.
-%
-% % TODO explain all figure stucture information, ie arrow types and dotted boxes... basically explain the whole picture without the picture.
-%
+\section{Thesis Structure} - TODO
+
+In this section, I will outline the structure of this thesis.  There are three main, bolded sections to this thesis as displayed in~\ref{fig:structure}: displaying two grouped plot matrices using \rinline{ggduo} in \GGally~\cite{r_ggally}, adding automatic cognostics with \autocogs~\cite{github_autocogs}, and communicating data between services with \gqlr~\cite{r_gqlr}.
+
+All components of this thesis are applied within the R programming language and environment displayed .  While many of R's packages perform only data analysis calculations, two main chapters (chapters~\ref{chapter:ggduo} and~\ref{chapter:autocogs}) involve visualizing data using R.
+
+The largest white rectangle in Figure~\ref{fig:structure} represents the \ggplot R package. \ggplot~is a layered plotting framework that \GGally~utilizes for visualizing data.  Each plot within the cell of a \rinline{ggmatrix} plot matrix is a fully defined \ggplot~plot object.  Using \rinline{ggmatrix} as a plot matrix foundation, two main functions apply different variable combinations to produce different plot matrices: \rinline{ggpairs}, a generalized pairs plot, and \rinline{ggduo}, a generalized plot matrix for two grouped data.  \rinline{ggduo} is further extended by \rinline{ggnostic}, a generalized plot matrix for model diagnostics, and \rinline{ggts}, a generalized plot matrix for time series data.  In chapter~\ref{chapter:ggduo}, I develop the generalized plot matrix for two grouped data and its extensions.
+
+In chapter~\ref{chapter:autocogs}, I develop \autocogs. \autocogs~is an R package built to inspect a plot's data visualization layers to produce standard groups of cognostics.  Currently, \ggplot~plot objects are understood by \autocogs.  In the future, \autocogs~will be able to understand how to automatically produce cognostics for plot objects produced by the R package plotting libraries: \pkg{plotly}, \pkg{lattice}, and \pkg{rbokeh}.  Once the cognostic groups are produced, the cognostic groups may be utilized within the interactive HTML widget \trelliscopejs~to sort and filter visualization panels.  The R package \pkg{htmlwidgets}~\cite{r_htmlwidgets} generates HTML widgets which facilitate interactive web visualizations in R.
+\trelliscopejs~can display data visualization panels from many R packages, of which include \ggplot, \pkg{plotly}, \pkg{lattice}, and \pkg{rbokeh}.
+
+In chapter~\ref{chapter:gqlr}, I explore the GraphQL data query API and develop the R package \gqlr.  GraphQL was originally built to provide a consistent communication link between websites in the browser and data servers.  \gqlr~implements a GraphQL data server within the R environment.  \gqlr~was originally pursued to aid \trelliscopejs~in its data communication requirements with R and will be integrated within \trelliscopejs~as development is continued.
+% While not tied directly to any \pkg{htmlwidget},
+\gqlr~is built to handle GraphQL data queries and expose statistical routines provided by R and its packages.
 
 
 \begin{figure}
   \centering
   \includegraphics[width=\textwidth]{./dot/intro_hierarchy.png}
-  \caption[Thesis Structure]{Thesis Structure.  Shaded areas represent different contexts within the R environment.  Black bordered square boxes represent R packages.  \ggplot~is required by \GGally, hence the nested R package.  Ellipses within the \GGally~represent package functions.  Solid arrows represent function dependencies or R package interactions.  Dashed arrows represent possible future interactions.  The bolded R packages and \GGally~functions comprise different chapters within this thesis.}
+  \caption[Thesis Structure]{Thesis Structure.  Shaded areas represent different contexts within the R environment.  Black bordered square boxes represent R packages.  \ggplot~is required by \GGally, hence the nested R package.  Ellipses within the \GGally~represent package functions.  Solid arrows represent function dependencies or R package interactions.  Dashed arrows represent possible future interactions.  The bolded R packages and \GGally~functions comprise different chapters within this thesis.  Summaries of these packages descriptions are in Appendix~\ref{chapter:pkgs}.}
   \label{fig:structure}
 \end{figure}
