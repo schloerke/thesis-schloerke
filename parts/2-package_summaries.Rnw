@@ -3,21 +3,6 @@
 
   The following package descriptions are excerpts from their \emph{DESCRIPTION} files.
 
-  % One of the most notible R packages is \ggplot, a data visualization package.  It was originally written by Hadley Wickham in 2005.  Since then, \ggplot~has become one of the most impactful R packages with over 6 million downloads~\cite{depsy_ggplot2}.
-
-
-%
-%   S, a programming language created by John Chambers, is a
-%   The R language is an interactive programming language derived from the S programming language.  S, like SAS, is a closed source platform.  John Chambers, the original for S, created R R is open source
-%
-% R
-%   created from S language
-%     Original S author is John Chambers while at Bell Labs
-%     S is closed source, R is open source
-%   R Core Development Team (includes John Chambers)
-%   built for statistical computing
-%   FUBU ... but statisticians
-
 \subsubsection{\pkg{lattice}: ``Trellis graphics for R''}
 
 ``A powerful and elegant high-level data visualization system inspired by Trellis graphics, with an emphasis on multivariate data. Lattice is sufficient for typical graphics needs, and is also flexible enough to handle most non-standard requirements.''~\cite{r_lattice}
@@ -44,8 +29,17 @@
 
 \subsubsection{\pkg{rbokeh}: ``R interface for Bokeh''}
 
-``A native R plotting library that provides a flexible declarative interface for creating interactive web-based graphics, backed by the Bokeh visualization library \url{http://bokeh.pydata.org/}.''~\cite{r_bokeh}
+``A native R plotting library that provides a flexible declarative interface for creating interactive web-based graphics, backed by the Bokeh visualization library \url{http://bokeh.pydata.org/}.''~\cite{r_bokeh}~\cite{github_bokeh}
 
 \subsubsection{\pkg{plotly}: ``Create Interactive Web Graphics via `plotly.js'\,''}
 
-``Easily translate \ggplot~graphs to an interactive web-based version and / or create custom web-based visualizations directly from R. Once uploaded to a `plotly' account~\cite{plotly}, `plotly' graphs (and the data behind them) can be viewed and modified in a web browser.''~\cite{r_plotly}
+``Easily translate \ggplot~graphs to an interactive web-based version and / or create custom web-based visualizations directly from R. Once uploaded to a `plotly' account~\cite{plotly}, `plotly' graphs (and the data behind them) can be viewed and modified in a web browser.''~\cite{r_plotly}~\cite{github_plotly}
+
+\subsubsection{\autocogs: ``Automatic Cognostic Summaries''}
+
+``Automatically calculates cognostic groups for plot objects and list column plot objects.  Results are returned in a nested data frame.''~\cite{github_autocogs}
+
+
+\subsubsection{\pkg{htmlwidgets}: ``HTML Widgets for R''}
+
+``A framework for creating HTML widgets that render in various contexts including the R console, 'R Markdown' documents, and 'Shiny' web applications.''~\cite{r_htmlwidgets}~\cite{github_htmlwidgets}
