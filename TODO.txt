@@ -1,6 +1,12 @@
 
 Abstract
 
+two-grouped
+
+clean up custom response
+
+
+
 Conclusion chapter
   future work
 
@@ -18,7 +24,12 @@ look at all TODO values before submission
   scatter plot -> scatterplot
   dataset -> data set
   alpha sort all abbreviations and glossary items
+  fix all missing references
   p-value -> p value
+  matricies -> matrices
+  remove runtime
+  \frenchspacing ?
+  chapter -> Chapter
   ~\ref{}
   ~\cite{}
   from top to bottom in pages, work on spacing so the code is next to the figure.

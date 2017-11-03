@@ -6,8 +6,8 @@
 
 \chapter{Introduction}
 
-Statistical visualizations of large-scale data has become an increasingly irreplaceable task in the era of \emph{big data}.
-In particular, exploratory data analysis and visualization is the first step to in-depth statistical modeling and analysis.
+Statistical visualizations of large-scale data has become an increasingly essential task in the era of \emph{big data}.
+In particular, exploratory data analysis and visualization is the first step towards any in-depth statistical modeling and analysis.
 Since its release in 2000, the R programming language and environment~\cite{r_project} has becoming the top ranked open source data analysis tool~\cite{r4stats_popularity}~\cite{ieee_top_programming} and has arose as a powerful and convenient platform for performing data analysis and visualization with over 11,000 active, user submitted packages (as of Sept. 2017~\cite{r_packages}) and a number of more packages are in development on GitHub~\cite{github}.
 Various successful implementations have achieved in building a scientific visualization library in R, including \pkg{lattice}~\cite{r_lattice}, \ggplot~\cite{r_ggplot2}, \pkg{rbokeh}~\cite{r_bokeh}, and \pkg{plotly}~\cite{r_plotly}, to name a few.
 \pkg{lattice}~implements \emph{trellis} graphics for R with powerful yet elegant high-level data visualization functions emphasizing on multivariate displays.
@@ -133,25 +133,30 @@ However, there is no prior interface of GraphQL to R. Therefore, in the third pa
 %
 %
 %
-\section{Thesis Structure}
+\section{Thesis Organization}
 
-In this section, I will outline the structure of this thesis.  There are three main, bolded sections to this thesis as displayed in~\ref{fig:structure}: displaying two grouped plot matrices using \rinline{ggduo} in \GGally~\cite{r_ggally}, adding automatic cognostics with \autocogs~\cite{github_autocogs}, and communicating data between services with \gqlr~\cite{r_gqlr}.
+The structure of this thesis is presented in Figure~\ref{fig:structure}.
+The main contributions of this thesis include:
+\begin{enumerate}[i)]
+  \item \rinline{ggduo}, an R function in \GGally~that produces generalized plot matrices for two groups of variables (Chapter \ref{chapter:ggduo}),
+  \item \autocogs, an R package that automatically generates cognostics for a set of plots  (Chapter \ref{chapter:autocogs}), and
+  \item \gqlr, an R package which implements the GraphQL data query application protocol interface (Chapter \ref{chapter:gqlr}).
+\end{enumerate}
 
-All components of this thesis are applied within the R programming language and environment displayed .  While many of R's packages perform only data analysis calculations, two main chapters (chapters~\ref{chapter:ggduo} and~\ref{chapter:autocogs}) involve visualizing data using R.
+All components of this thesis are developed within the R environment and relate to the visualization and exploration of data.
 
-The largest white rectangle in Figure~\ref{fig:structure} represents the \ggplot R package. \ggplot~is a layered plotting framework that \GGally~utilizes for visualizing data.  Each plot within the cell of a \rinline{ggmatrix} plot matrix is a fully defined \ggplot~plot object.  Using \rinline{ggmatrix} as a plot matrix foundation, two main functions apply different variable combinations to produce different plot matrices: \rinline{ggpairs}, a generalized pairs plot, and \rinline{ggduo}, a generalized plot matrix for two grouped data.  \rinline{ggduo} is further extended by \rinline{ggnostic}, a generalized plot matrix for model diagnostics, and \rinline{ggts}, a generalized plot matrix for time series data.  In chapter~\ref{chapter:ggduo}, I develop the generalized plot matrix for two grouped data and its extensions.
+Building on a grammar of graphics, \ggplot~is a layered plotting framework that \GGally~utilizes for visualizing data.  Each plot within the cell of a \rinline{ggmatrix} plot matrix is a fully defined \ggplot~plot object.  Using \rinline{ggmatrix} as a plot matrix foundation, two main functions apply different variable combinations to produce different plot matrices: \rinline{ggpairs}, a generalized pairs plot, and \rinline{ggduo}, a generalized plot matrix for two grouped data.  \rinline{ggduo} is further extended by \rinline{ggnostic}, a generalized plot matrix for model diagnostics, and \rinline{ggts}, a generalized plot matrix for time series data.  In Chapter~\ref{chapter:ggduo}, I develop the generalized plot matrix for two grouped data and its extensions.
 
-In chapter~\ref{chapter:autocogs}, I develop \autocogs. \autocogs~is an R package built to inspect a plot's data visualization layers to produce standard groups of cognostics.  Currently, \ggplot~plot objects are understood by \autocogs.  In the future, \autocogs~will be able to understand how to automatically produce cognostics for plot objects produced by the R package plotting libraries: \pkg{plotly}, \pkg{lattice}, and \pkg{rbokeh}.  Once the cognostic groups are produced, the cognostic groups may be utilized within the interactive HTML widget \trelliscopejs~to sort and filter visualization panels.  The R package \pkg{htmlwidgets}~\cite{r_htmlwidgets} generates HTML widgets which facilitate interactive web visualizations in R.
+In Chapter~\ref{chapter:autocogs}, I develop \autocogs, an R package that inspects a plot's data visualization layers to produce standard groups of cognostics.  Currently, \ggplot~plot objects are understood by \autocogs; in future work, \autocogs~will be able to understand how to automatically produce cognostics for plot objects produced by the popular R plotting libraries \pkg{plotly}, \pkg{lattice}, and \pkg{rbokeh}.  Once the cognostic groups are produced, they may be utilized within the interactive HTML widget \trelliscopejs~to sort and filter visualization panels.  The R package \pkg{htmlwidgets}~\cite{r_htmlwidgets} generates HTML widgets which facilitate interactive web visualizations in R.
 \trelliscopejs~can display data visualization panels from many R packages, of which include \ggplot, \pkg{plotly}, \pkg{lattice}, and \pkg{rbokeh}.
 
-In chapter~\ref{chapter:gqlr}, I explore the GraphQL data query API and develop the R package \gqlr.  GraphQL was originally built to provide a consistent communication link between websites in the browser and data servers.  \gqlr~implements a GraphQL data server within the R environment.  \gqlr~was originally pursued to aid \trelliscopejs~in its data communication requirements with R and will be integrated within \trelliscopejs~as development is continued.
+In chapter~\ref{chapter:gqlr}, I explore the GraphQL data query API and develop the R package \gqlr.  GraphQL was originally built to provide a consistent communication link between websites in the browser and data servers. The package  \gqlr~implements a GraphQL data server within the R environment. \gqlr~is built to handle GraphQL data queries and expose statistical routines provided by R and its packages. While \gqlr~was originally pursued to aid data extraction with \trelliscopejs, it will be integrated within \trelliscopejs~as development is continued.
 % While not tied directly to any \pkg{htmlwidget},
-\gqlr~is built to handle GraphQL data queries and expose statistical routines provided by R and its packages.
 
 
 \begin{figure}
+  \label{fig:structure}
   \centering
   \includegraphics[width=\textwidth]{./dot/intro_hierarchy.png}
-  \caption[Thesis Structure]{Thesis Structure.  Shaded areas represent different contexts within the R environment.  Black bordered square boxes represent R packages.  \ggplot~is required by \GGally, hence the nested R package.  Ellipses within the \GGally~represent package functions.  Solid arrows represent function dependencies or R package interactions.  Dashed arrows represent possible future interactions.  The bolded R packages and \GGally~functions comprise different chapters within this thesis.  Summaries of these packages descriptions are in Appendix~\ref{chapter:pkgs}.}
-  \label{fig:structure}
+  \caption[Thesis Organization]{Thesis Organization.  Shaded regions represent different contexts within the R environment.  Black bordered square boxes represent R packages.   \GGally~is built upon \ggplot, and ellipses within \GGally~represent package functions.  Solid arrows represent functional dependencies or R package interactions.  Dashed arrows represent possible future interactions.  The bolded R packages and \GGally~functions correspond to different chapters within this thesis.  Summary descriptions of these packages are provided in Appendix~\ref{chapter:pkgs}.}
 \end{figure}
