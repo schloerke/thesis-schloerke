@@ -191,7 +191,7 @@ ggduo(
 
 \subsection{User defined functions}
 
-There are many plotting functions are provided by the GGally package, however they are not all encompassing.  The user may supply their own plotting functions for each panel type.  This allows for complete customization of every panel. For example, a violin plot is a combination style plot that is not included by default.  A user may create their own function that uses the function call API of \rinline{function(data, mapping, ...) { ... }}.  A sample custom function example is provided below in Figure~\ref{fig:user_defined}.
+There are many plotting functions are provided by the \GGally~package, however they are not all encompassing.  The user may supply their own plotting functions for each panel type.  This allows for complete customization of every panel. For example, a violin plot is a combination style plot that is not included by default.  A user may create their own function that uses the function call API of \rinline{function(data, mapping, ...) { ... }}.  A sample custom function example is provided below in Figure~\ref{fig:user_defined}.
 
 << user_defined, fig.width = 6, fig.height = 3.75, out.width = "5in", out.height = "3in", fig.cap = "Use a custom function to display a plot within a \\rinline{ggduo} plot matrix." >>=
 my_violin <- function(data, mapping, ...) {

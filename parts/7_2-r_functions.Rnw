@@ -38,7 +38,7 @@
   \tick \rinline{ggmatrix_gtable}: Compute the \rinline{ggmatrix} \rinline{gtable} \newline This functino builds all plots necessary for displaying the plot matrix and stores them in a \ggplot~plot \rinline{gtable}.
   \tick \rinline{ggnostic}: Statistical Model Diagnostics Plot Matrix \newline Display commonly known linear model diagnostics against model predictor variables in a \rinline{ggmatrix}.
   \tick \rinline{ggpairs}:  A \ggplot Generalized Pairs Plot \newline Produce plots of all variable combinations with different plot types for the upper triangle, lower triangle, and diagonal of the plot matrix.
-  \tick \rinline{ggts}: Multiple Time Series \newline GGally implementation of ts.plot. Wraps around the ggduo function and removes the column strips.
+  \tick \rinline{ggts}: Multiple Time Series \newline \GGally implementation of ts.plot. Wraps around the ggduo function and removes the column strips.
   \tick \rinline{grab_legend}: Extract a \ggplot~Legend \newline Extract the legend of a \ggplot~object to be drawn at a later time.
   \tick \rinline{print.ggmatrix}: Print a \rinline{ggmatrix} object \newline Print method altered from \rinline{ggplot2:::print.ggplot} to accomodate a ggmatrix object
   \tick \rinline{v1_ggmatrix_theme}: Original \rinline{ggmatrix} Layout \rinline{theme} \newline Modify a ggmatrix object by adding an ggplot2 object to all plots
@@ -78,7 +78,7 @@
 \section{\gqlr}
 
 \begin{itemize}
-  \tick \rinline{as_R6}: As R6 \newline Debug method that strips all gqlr classes and assigns the class as 'R6'
+  \tick \rinline{as_R6}: As R6 \newline Debug method that strips all \gqlr~classes and assigns the class as 'R6'
   \tick \rinline{ErrorList}: ErrorList \newline Handles all errors that occur during query validation. This object is returned from execute request function (\rinline{ans <- execute_request(query, schema)}) under the field \rinline{’error_list’} (\rinline{ans$error_list}).
   \tick \rinline{execute_request}: Execute GraphQL server response \newline Executes a GraphQL server request with the provided request.
   \tick \rinline{gqlr_schema}: Create Schema definitions \newline Creates a Schema object from the defined GraphQL string and inserts the provided descriptions, resolve methods, and \rinline{resolve_type} methods into the appropriate place.

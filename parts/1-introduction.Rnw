@@ -12,7 +12,7 @@ Since its release in 2000, the R programming language and environment~\cite{r_pr
 Various successful implementations have achieved in building a scientific visualization library in R, including \pkg{lattice}~\cite{r_lattice}, \ggplot~\cite{r_ggplot2}, \pkg{rbokeh}~\cite{r_bokeh}, and \pkg{plotly}~\cite{r_plotly}, to name a few.
 \pkg{lattice}~implements \emph{trellis} graphics for R with powerful yet elegant high-level data visualization functions emphasizing on multivariate displays.
 \ggplot~deconstructs higher level plots into a lower level of data visualization grammar using layered graphics which facilitate publication-ready data visualization.
-% \ggplot's modular static layer design has provided interactive web visualization R packages \pkg{rbokeh} and \pkg{plotly} a solid grammar foundation upon which to build from.
+% \ggplot's modular static layer design has provided interactive web visualization R packages \pkg{rbokeh}~and \pkg{plotly}~a solid grammar foundation upon which to build from.
 In this thesis, I develop
 \begin{enumerate}[i)]
   \item \rinline{ggduo}, an R function in \GGally~that produces generalized plot matrices for two groups of variables,
@@ -63,9 +63,9 @@ GGally::ggnostic(
 To examine the difference between independent subsets of the same data set, Edward Tufte  introduced the notion of \emph{small multiples} using \emph{trellis displays}~\cite{small_multiples}. In trellis displays, data are separated into independent subsets and a consistent visualization method is applied to each subset. The result is a set of panels that are displayed in a grid, resembling a garden trellis.
 These multi-panel display systems have proven to be very effective tools for visualizing complex data sets in detail.   However, when the count of data subsets becomes very large, it is often the case that there are too many panels for the analyst to consume at one time.  A simple idea put forth by John Tukey~\cite{Tukey1985} is to compute \emph{cognostics}, metrics that help bring different, interesting sets of panels in a display to the analyst's attention and allow the analyst to interactively sort and filter the panels.  Cognostics can include statistical summaries, descriptive variables, goodness-of-fit metrics, etc.
 
-Groups of cognostics and ggplot2 layers are intimately connected.  For instance, a simple histogram in \ggplot~is created via a single histogram layer and is associated with four cognostic groups: univariate continuous cognostics, density cognostics, histogram cognostics, and count cognostics.
+Groups of cognostics and \ggplot~layers are intimately connected.  For instance, a simple histogram in \ggplot~is created via a single histogram layer and is associated with four cognostic groups: univariate continuous cognostics, density cognostics, histogram cognostics, and count cognostics.
 In the second part of this thesis, I develop \autocogs~\cite{github_autocogs}, an R package which automatically produces sets of standard cognostic groups that would be commonly useful to the data analyst given their supplied visualization objects.
-Figure~\ref{fig:intro_autocogs} displays four groups of cognostics for the single layer (histogram) plot in two side-by-side tables.  Eighteen cognostics in total are calculated.  As an application, we demonstrate how autocogs can greatly enhance the functionalities of  \trelliscopejs~\cite{r_trelliscopejs}.
+Figure~\ref{fig:intro_autocogs} displays four groups of cognostics for the single layer (histogram) plot in two side-by-side tables.  Eighteen cognostics in total are calculated.  As an application, we demonstrate how \autocogs can greatly enhance the functionalities of  \trelliscopejs~\cite{r_trelliscopejs}.
 \trelliscopejs is an HTML widget that plot panels in an interactive trellis display which allows for sorting and filtering plot panels according to supplied cognostics.
 While it is possible to manually specify all the cognostics in \trelliscopejs, \autocogs~greatly simplifies the user experience by automatically providing default groups of cognostics complimentary to the panel visualization.
 

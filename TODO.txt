@@ -1,21 +1,17 @@
 
-Abstract
+Abstract approval
 
-clean up custom response
+TODO - Acknowledgement
 
+TODO - Vita
 
+TODO - Add autocogs to package descriptions
+TODO - Add htmlwidgets to package descriptions
 
-Acknowledgement
-
-Vita
-
-Add autocogs to package descriptions
-Add htmlwidgets to package descriptions
-
-Add dataset help descriptions
+double check all datasets are documented in alpha order
 
 look at all TODO values before submission
-  move all labels of figures to the top of the figure before the includegraphics
+  move all labels of figures to the top of the figure before the \includegraphics
   scatter plot -> scatterplot
   dataset -> data set
   alpha sort all abbreviations and glossary items
@@ -87,7 +83,7 @@ look at all TODO values before submission
 
 
 
-github:
+TODO - github:
 % \subsection{\GGally}
 %   implement matrix manipulations for ggmatrix
 %     be able to subset a ggmatrix and produce a new ggmatrix

@@ -155,7 +155,7 @@ Developers balance between minimal engineering time and minimal execution time. 
 
 % \section{Variable typing}
 %
-% Programing languages know the type of objects in two ways: strong typed and weakly typed.  Strong typed languages know ``whenever an object is passed from a calling function to a called function, its type must be compatible with the type declared in the called function.''~\cite{Liskov74programmingwith}.  Weakly typed languages allow a programmer to passively use a invalid type as if it was correct.  Using Javascript, we can define a function that returns the square of an object's key $key$. The function does not define any requirements about the variable $x$.  The \emph{hope} is that the function will only be called with a valid object type.
+% Programming languages know the type of objects in two ways: strong typed and weakly typed.  Strong typed languages know ``whenever an object is passed from a calling function to a called function, its type must be compatible with the type declared in the called function.''~\cite{Liskov74programmingwith}.  Weakly typed languages allow a programmer to passively use a invalid type as if it was correct.  Using Javascript, we can define a function that returns the square of an object's key $key$. The function does not define any requirements about the variable $x$.  The \emph{hope} is that the function will only be called with a valid object type.
 %  %~\cite{crockford2008javascript}.
 %
 % \begin{jscode}
@@ -627,7 +627,7 @@ The example above does not update the value of A to \rinline{FALSE} as the value
 
 \pkg{R6}~allows for objects to be altered inside functions that they have been passed to without any changes in assignment method.  This is similar to a ``pass by reference'' coding paradigm.  An \pkg{R6}~object is passed to a function and the function alters the value.  The same \pkg{R6}~object outside of the function is altered as well.  This is not expected R behavior.
 
-\pkg{R6}~is built upon the use of Classes.  \pkg{R6} classes are similar to Javascript's ES6 classes.  There is a constructor, methods, and values for each class.  The methods and values can be both private (only able to be seen internally) and public (available to anything).  Like Javascript, there is a notion of the ``this'' value or an object representing itself.  \pkg{R6}~uses the \rinline{self} object in this case.  Internal object values are retrieved using \rinline{value <- self\$key}.  The example below defines a new object \rinline{barret} with the name of \rinline{"Barret"}.  Unlike regular R behavior, the name is changed globally to \rinline{"Schloerke"} by calling the function \rinline{update_name_to_schloerke}.
+\pkg{R6}~is built upon the use of Classes.  \pkg{R6}~classes are similar to Javascript's ES6 classes.  There is a constructor, methods, and values for each class.  The methods and values can be both private (only able to be seen internally) and public (available to anything).  Like Javascript, there is a notion of the ``this'' value or an object representing itself.  \pkg{R6}~uses the \rinline{self} object in this case.  Internal object values are retrieved using \rinline{value <- self\$key}.  The example below defines a new object \rinline{barret} with the name of \rinline{"Barret"}.  Unlike regular R behavior, the name is changed globally to \rinline{"Schloerke"} by calling the function \rinline{update_name_to_schloerke}.
 
 << library_r6, echo = FALSE, cache = FALSE >>=
 library(R6)
@@ -711,13 +711,12 @@ At first glance, R and GraphQL seem like an unlikely combination.  R is an untyp
 
 However, R is known for its statistical models, statistical graphics, and its very fast iteration speed~\cite{r_about}.  \gqlr~is built to help small projects provide proof of concepts and for developers to mock full backend systems locally.  Being able to submit the same style of request string for the production server and local development increases the productivity of the web development cycle.
 
-The example below creates a model schema that creates a linear model and a loess model.  Both models return the mean squared error (\rinline{mse}) for their respective models.  The linear model also returns a GGally's ggnostic plot which is data64 encoded for data portability.  The loess model also returns the effective number of parameters (\rinline{enp}).
+The example below creates a model schema that creates a linear model and a loess model.  Both models return the mean squared error (\rinline{mse}) for their respective models.  The linear model also returns a \GGally's \rinline{ggnostic} plot which is base64 encoded~\cite{josefsson2006base16} for data portability.  The loess model also returns the effective number of parameters (\rinline{enp}).
 
 << setup_execute >>=
-
 "# GraphQL; Schema
-scalar ImageData64
-type LinearModel { mse: Float!, ggnostic: ImageData64! }
+scalar ImageBase64
+type LinearModel { mse: Float!, ggnostic: ImageBase64! }
 type LoessModel { mse: Float!, enp: Float! }
 type Model {
   linear(formula: String, data_name: String): LinearModel
@@ -726,11 +725,12 @@ type Model {
 schema { query: Model }
 " %>%
   gqlr::gqlr_schema(
-    ImageData64 = function(p, schema) {
+    ImageBase64 = function(p, schema) {
       tmp_file <- tempfile(fileext = ".png")
       on.exit(unlink(tmp_file))
       ggplot2::ggsave(tmp_file, p)
       knitr::image_uri(tmp_file) %>%
+        # shorten for display purposes
         substr(start = 1, stop = 40) %>%
         paste0("...")
     },
@@ -757,7 +757,6 @@ schema { query: Model }
         loess = model_(stats::loess)
       )}) ->
 model_schema
-
 @
 
 In about 40 lines of code, a schema definition and execution methods can be implemented.  To build a strong typed API and its corresponding implementation in less than 100 lines is not an easy task.  With \gqlr, we are able to do it in less than half the lines of code.

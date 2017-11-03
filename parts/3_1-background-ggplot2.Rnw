@@ -51,7 +51,7 @@ p <- ggplot(tips, aes(total_bill, tip)) +
 p
 @
 
-Typically, each layer of a plot uses the same data source to explore different aspects of the data set.  Multi-layered plots may use multiple data sources where it would not be appropriate to combine into a single data source.  Added data sources usally display contextual information (such as a map) or summary statistics (such as a mean or linear model).
+Typically, each layer of a plot uses the same data source to explore different aspects of the data set.  Multi-layered plots may use multiple data sources where it would not be appropriate to combine into a single data source.  Added data sources usually display contextual information (such as a map) or summary statistics (such as a mean or linear model).
 
 << tip_lm, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in", fig.cap = "Scatterplot with a linear model line added using a different data source." >>=
 tip_lm <- broom::tidy(lm(tip ~ total_bill, data = tips))$estimate
