@@ -1,5 +1,6 @@
 \chapter{R Packages}
 
+The following sections contain publically exported functions where I created or have made significant contributions.
 
 \section{\GGally}
 

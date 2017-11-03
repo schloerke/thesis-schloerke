@@ -1,25 +1,22 @@
 
 \chapter{R Package Descriptions} \label{chapter:pkgs}
 
-  The following package descriptions are excerpts from their \emph{DESCRIPTION} files.
+  The following alphabetically sorted package descriptions are excerpts from their \emph{DESCRIPTION} files.
 
-\subsubsection{\pkg{lattice}: ``Trellis graphics for R''}
 
-``A powerful and elegant high-level data visualization system inspired by Trellis graphics, with an emphasis on multivariate data. Lattice is sufficient for typical graphics needs, and is also flexible enough to handle most non-standard requirements.''~\cite{r_lattice}
+\subsubsection{\autocogs: ``Automatic Cognostic Summaries''}
 
-% \pkg{lattice} was the first R package to extend the graphing capabilities of R and internalize the trellis display~\cite{trellisdisplay} at its core.  The Trellis display framework graphs variables conditioned on one or more variables across rows, columns, and pages.  This framework received its name for its visual similarity to a ``garden trellis'' layout.
+``Automatically calculates cognostic groups for plot objects and list column plot objects.  Results are returned in a nested data frame.''~\cite{github_autocogs}
 
-\subsubsection{\ggplot: ``Create elegant data visualisations using `The Grammar of Graphics'\,''}
-% What is ggplot2
-  ``\ggplot~is a system for declaratively creating graphics, based on \emph{The Grammar of Graphics}. You provide the data, tell \ggplot~how to map variables to aesthetics, what graphical primitives to use, and it takes care of the details.''~\cite{github_ggplot2}~\cite{r_ggplot2}
 
 \subsubsection{\GGally: ``Extension to \ggplot''}
 % What is ggplot2
   ``The R package \ggplot~is a plotting system based on the grammar of graphics. \GGally~extends \ggplot~by adding several functions to reduce the complexity of combining geometric objects with transformed data. Some of these functions include a pairwise plot matrix, a two group pairwise plot matrix, a parallel coordinates plot, a survival plot, and several functions to plot networks.''~\cite{r_ggally}~\cite{github_ggally}
 
-\subsubsection{\trelliscopejs: ``Create interactive Trelliscope displays''}
 
-``Trelliscope is a scalable, flexible, interactive approach to visualizing data. This package provides methods that make it easy to create a Trelliscope display specification for \trelliscopejs. High-level functions are provided for creating displays from within \pkg{dplyr}~or \ggplot~workflows. Low-level functions are also provided for creating new interfaces.''~\cite{github_trelliscopejs}
+\subsubsection{\ggplot: ``Create elegant data visualisations using `The Grammar of Graphics'\,''}
+% What is ggplot2
+  ``\ggplot~is a system for declaratively creating graphics, based on \emph{The Grammar of Graphics}. You provide the data, tell \ggplot~how to map variables to aesthetics, what graphical primitives to use, and it takes care of the details.''~\cite{github_ggplot2}~\cite{r_ggplot2}
 
 
 \subsubsection{\gqlr: ``GraphQL server in R''}
@@ -27,19 +24,28 @@
 ``Server implementation of `GraphQL'~\cite{graphql_spec}, a query language created by Facebook for describing data requirements on complex application data models.  Visit \url{http://graphql.org}~\cite{graphql_org} to learn more about `GraphQL'.''~\cite{r_gqlr}~\cite{github_gqlr}
 
 
-\subsubsection{\pkg{rbokeh}: ``R interface for Bokeh''}
+\subsubsection{\pkg{lattice}: ``Trellis graphics for R''}
 
-``A native R plotting library that provides a flexible declarative interface for creating interactive web-based graphics, backed by the Bokeh visualization library \url{http://bokeh.pydata.org/}.''~\cite{r_bokeh}~\cite{github_bokeh}
+``A powerful and elegant high-level data visualization system inspired by Trellis graphics, with an emphasis on multivariate data. Lattice is sufficient for typical graphics needs, and is also flexible enough to handle most non-standard requirements.''~\cite{r_lattice}
 
-\subsubsection{\pkg{plotly}: ``Create Interactive Web Graphics via `plotly.js'\,''}
-
-``Easily translate \ggplot~graphs to an interactive web-based version and / or create custom web-based visualizations directly from R. Once uploaded to a `plotly' account~\cite{plotly}, `plotly' graphs (and the data behind them) can be viewed and modified in a web browser.''~\cite{r_plotly}~\cite{github_plotly}
-
-\subsubsection{\autocogs: ``Automatic Cognostic Summaries''}
-
-``Automatically calculates cognostic groups for plot objects and list column plot objects.  Results are returned in a nested data frame.''~\cite{github_autocogs}
+% \pkg{lattice} was the first R package to extend the graphing capabilities of R and internalize the trellis display~\cite{trellisdisplay} at its core.  The Trellis display framework graphs variables conditioned on one or more variables across rows, columns, and pages.  This framework received its name for its visual similarity to a ``garden trellis'' layout.
 
 
 \subsubsection{\pkg{htmlwidgets}: ``HTML Widgets for R''}
 
 ``A framework for creating HTML widgets that render in various contexts including the R console, 'R Markdown' documents, and 'Shiny' web applications.''~\cite{r_htmlwidgets}~\cite{github_htmlwidgets}
+
+
+\subsubsection{\pkg{plotly}: ``Create Interactive Web Graphics via `plotly.js'\,''}
+
+``Easily translate \ggplot~graphs to an interactive web-based version and / or create custom web-based visualizations directly from R. Once uploaded to a `plotly' account~\cite{plotly}, `plotly' graphs (and the data behind them) can be viewed and modified in a web browser.''~\cite{r_plotly}~\cite{github_plotly}
+
+
+\subsubsection{\pkg{rbokeh}: ``R interface for Bokeh''}
+
+``A native R plotting library that provides a flexible declarative interface for creating interactive web-based graphics, backed by the Bokeh visualization library \url{http://bokeh.pydata.org/}.''~\cite{r_bokeh}~\cite{github_bokeh}
+
+
+\subsubsection{\trelliscopejs: ``Create interactive Trelliscope displays''}
+
+``Trelliscope is a scalable, flexible, interactive approach to visualizing data. This package provides methods that make it easy to create a Trelliscope display specification for \trelliscopejs. High-level functions are provided for creating displays from within \pkg{dplyr}~or \ggplot~workflows. Low-level functions are also provided for creating new interfaces.''~\cite{github_trelliscopejs}

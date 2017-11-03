@@ -5,8 +5,17 @@ TODO - Acknowledgement
 
 TODO - Vita
 
-TODO - Add autocogs to package descriptions
-TODO - Add htmlwidgets to package descriptions
+TODO - Add autocogs to cran
+TODO - update autocogs citations
+TODO - update
+  autocogs
+  trelliscopejs
+  ggally on cran
+TODO - update citations for
+  autocogs
+  trelliscopejs
+  ggally on cran
+
 
 double check all datasets are documented in alpha order
 
