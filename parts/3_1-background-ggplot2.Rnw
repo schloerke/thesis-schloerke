@@ -163,7 +163,7 @@ p +
   labs(title = "Facet Grid (time ~ day)")
 @
 
-Figure~\ref{facet_grid_example} displays $time$ on the rows ($Y$) and $day$ on the columns ($X$).  The \rinline{facet_grid} formula follows the R \rinline{stats::lm} linear model formula of \rinline{y ~ x}.  Multiple variables can be used in either the $X$ position or the $Y$ position.  This allows the user to dipslay a column combination set against another column combination set.
+Figure~\ref{facet_grid_example} displays $time$ on the rows ($Y$) and $day$ on the columns ($X$).  The \rinline{facet_grid} formula follows the R \rinline{stats::lm} linear model formula of \rinline{y ~ x}.  Multiple variables can be used in either the $X$ position or the $Y$ position.  This allows the user to display a column combination set against another column combination set.  Using multiple conditioning variables within facet grid in Figure~\ref{facet_grid_multi}, both Male and Female smokers during Sunday Dinner tip value does not follow a positive linear trend as the total bill increases.
 
 % do not change size
 << facet_grid_multi, fig.cap = "$tip$ vs $total\\_bill$ faceted in a grid pattern with $sex$ and $smoker$ combinations representing each row and $time$ and $day$ combinations representing each column." >>=
@@ -171,6 +171,3 @@ p +
   geom_smooth(method = lm, se = FALSE) +
   facet_grid(sex + smoker ~ time + day, labeller = label_both)
 @
-
-% TODO include?
-Using multiple conditioning variables within facet grid in Figure~\ref{facet_grid_multi}, both Male and Female smokers during Sunday Dinner do not follow a positive linear trend.

@@ -337,4 +337,4 @@ ggnostic(
 
   \rinline{ggduo} generalizes the two group plot matrix by allowing multiple plot types within each panel of the plot matrix.  Similar to \ggplot, \rinline{ggduo} is programatically extended with the \rinline{ggts} and \rinline{ggnostic} functions to produce plot matrices for different contexts.  \rinline{ggnostic} showcases \rinline{ggduo}'s ability to accept user defined functions to display data for each type of scale combination: continuous, discrete, and combination. \rinline{ggduo} is built upon the modular \rinline{ggmatrix} allowing sub plots to be retrieved and replaced on command.  This modularity and ability to display complex plots with \rinline{ggduo} enables users to explore the same data within different sub plots in a cohesive matrix display.
 
-  % TODO hard to motivate how it works with autocogs, as it is not directly connected
+  
