@@ -76,7 +76,7 @@ gapminder %>%
 
 Figure~\ref{fig:gapminder_best_worst} displays two longer living countries, Japan and Switzerland.  Japan has a higher maximum life expectancy, but Switzerland had a higher starting life expectancy.  Figure~\ref{fig:gapminder_best_worst2} displays two lower life expectancy countries, Afghanistan and Rwanda.  Afghanistan has a lower maximum life expectancy, but steadily increases over time.  Rwanda's life expectancy steadily increased until the 1980's when it dips and recoveres by the 2000's.
 
-Summary statistics are great in interpreting information using less data.  However, summary statistics, by their nature, do not convey the full story. % TODO wording.  don't say ``full story''
+Summary statistics are great in interpreting information using less data.  However, summary statistics, by their nature, do not convey the full data story and are complimented by data visualization.
 
 \trelliscopejs~allows users to plot full plot detail while allowing users to change how many panels are displayed on the screen at one time, sort the panel ordering, and filter to a smaller subset of panels.  \trelliscopejs~achieves these actions by obtaining a plot for every conditioning combination and suplimentary metrics for each plot.
 

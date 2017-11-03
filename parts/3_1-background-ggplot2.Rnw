@@ -51,7 +51,7 @@ p <- ggplot(tips, aes(total_bill, tip)) +
 p
 @
 
-Typically, each layer of a plot uses the same data source to explore different aspects of the data set.  Multi-layered plots may use multiple data sources where it would not be appropriate to combine into a single data source.  Added data sources usually display contextual information (such as a map) or summary statistics (such as a mean or linear model).
+Typically, each layer of a plot uses the same data source to explore different aspects of the data set.  Multi-layered plots may use multiple data sources where it would not be appropriate to combine into a single data source.  Added data sources usually display contextual information (such as a map) or summary statistics (such as a mean or linear model).  Figure~\ref{fig:tip_lm} manually adds a linear model line on top of a scatterplot.
 
 << tip_lm, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in", fig.cap = "Scatterplot with a linear model line added using a different data source." >>=
 tip_lm <- broom::tidy(lm(tip ~ total_bill, data = tips))$estimate
@@ -89,7 +89,7 @@ No layers are displayed as none have been provided.  However, the scales have be
 
 \subsection{Comparison}
 
-Building the plot up layer by layer and storing it as an R object until printed does not follow the existing patterns in standard R graphics.  The R core package \pkg{graphics}~\cite{r_project} displays information in a plot immediately upon function call.  There is no ability to delay the display of the plot after the initial plot function has been called when using the \pkg{graphics}~package.
+Building the plot up layer by layer and storing it as an R object until printed does not follow the existing patterns in standard R graphics.  In Figure~\ref{fig:graphics_plot}, the R core package \pkg{graphics}~\cite{r_project} displays information in a plot immediately upon function call.  There is no ability to delay the display of the plot after the initial plot function has been called when using the \pkg{graphics}~package.
 
 << graphics_plot, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in", fig.cap = "Stock R scatterplot using the \\pkg{graphics}~package is printed immediately." >>=
 g <- graphics::plot(tip ~ total_bill, data = tips)
@@ -97,7 +97,7 @@ g <- graphics::plot(tip ~ total_bill, data = tips)
 g
 @
 
-\pkg{lattice}~graphics meets in between \ggplot~and \pkg{graphics}, as all layers must be supplied at plot creation, but the plot is not displayed until print time.  Two prior \ggplot~examples, Figure~\ref{fig:geom_point} and Figure~\ref{fig:minimal_gg}, both displayed the ability to delay the printing of the \ggplot~plot object.  \pkg{lattice}~graphics can also delay the display of the plot object as both \pkg{lattice}~and \ggplot~convert their plot objects to be displayed using the \pkg{grid}~package at print time.  The \pkg{grid}~package does not implement full statistical plots, but rather it implements a R plotting framework to be used by other packages like \ggplot~and \pkg{lattice}.
+\pkg{lattice}~graphics meets in between \ggplot~and \pkg{graphics}, as all layers must be supplied at plot creation, but the plot is not displayed until print time.  Two prior \ggplot~examples, Figure~\ref{fig:geom_point} and Figure~\ref{fig:minimal_gg}, both displayed the ability to delay the printing of the \ggplot~plot object.  \pkg{lattice}~graphics can also delay the display of the plot object as shown in Figure~\ref{fig:lattice_xyplot}.  At print time, both \pkg{lattice}~and \ggplot~convert their internal plot objects to be displayed using the \pkg{grid}~package.  The \pkg{grid}~package does not implement full statistical plots, but rather it implements a R plotting framework to be used by other packages like \ggplot~and \pkg{lattice}.
 
 << lattice_xyplot, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in", fig.cap = "\\pkg{lattice}~scatterplot displaying using the \\pkg{grid}~framework." >>=
 l <- lattice::xyplot(tip ~ total_bill, data = tips)
@@ -105,7 +105,7 @@ l <- lattice::xyplot(tip ~ total_bill, data = tips)
 l
 @
 
-Finally after executing the \pkg{graphics}~and \pkg{lattice}~code above, we can add a point layer to the minimal \ggplot~plot example.
+Finally, after executing the \pkg{graphics}~and \pkg{lattice}~examples, we can add a point layer to the minimal \ggplot~plot example in Figure~\ref{fig:minimal_point}.
 
 << minimal_point, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in", fig.cap = "Adding a `point' layer to the base \\ggplot~plot object created in an earlier code chunk." >>=
 # layer added after plot inception
@@ -134,7 +134,7 @@ Facets are useful when looking at the interaction of conditioning variables.  On
 
 \subsection{Facet wrap}
 
-There are two types of faceting in \ggplot: facet wrap and facet grid.  Facet wrap displays each panel starting from the top row to the bottom row and left to right within each row.  The number of rows and / or columns can be specified to ease the guessing work made by \ggplot.  If no facet row or column counts are supplied, \ggplot~uses \pkg{grDevices}~\cite{r_project} algorithm, \rinline{n2mfrow(n)}, to determine a sensible number of rows and columns.
+There are two types of faceting in \ggplot: facet wrap and facet grid.  Facet wrap displays each panel starting from the top row to the bottom row and left to right within each row.  The number of rows and / or columns can be specified to ease the guessing work made by \ggplot.  If no facet row or column counts are supplied, \ggplot~uses \pkg{grDevices}~\cite{r_project} algorithm, \rinline{n2mfrow(n)}, to determine a sensible number of rows and columns.  Figure~\ref{fig:facets1} contains no faceting variables, while Figure~\ref{fig:facets2} and Figure~\ref{fig:facets3} condition on one and two variables respectively.
 
 
 << facets1, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in", fig.cap = "$tip$ vs $total\\_bill$ with facets or conditioning variables." >>=
@@ -163,7 +163,7 @@ p +
   labs(title = "Facet Grid (time ~ day)")
 @
 
-The plot above displays $time$ on the rows ($Y$) and $day$ on the columns ($X$).  The \rinline{facet_grid} formula follows the R \rinline{stats::lm} linear model formula of \rinline{y ~ x}.  Multiple variables can be used in either the $X$ position or the $Y$ position.  This allows the user to dipslay a column combination set against another column combination set.
+Figure~\ref{facet_grid_example} displays $time$ on the rows ($Y$) and $day$ on the columns ($X$).  The \rinline{facet_grid} formula follows the R \rinline{stats::lm} linear model formula of \rinline{y ~ x}.  Multiple variables can be used in either the $X$ position or the $Y$ position.  This allows the user to dipslay a column combination set against another column combination set.
 
 % do not change size
 << facet_grid_multi, fig.cap = "$tip$ vs $total\\_bill$ faceted in a grid pattern with $sex$ and $smoker$ combinations representing each row and $time$ and $day$ combinations representing each column." >>=
@@ -173,4 +173,4 @@ p +
 @
 
 % TODO include?
-The plot above displays that both Male and Female smokers on Sunday Dinner do not follow a positive linear trend.
+Using multiple conditioning variables within facet grid in Figure~\ref{facet_grid_multi}, both Male and Female smokers during Sunday Dinner do not follow a positive linear trend.

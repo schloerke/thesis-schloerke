@@ -223,7 +223,7 @@ type Dog {
 }
 \end{graphqlcode}
 
-The type definition for a \graphqlinline{Dog} above is very readable, but has a lot going on.
+The type definition for a \graphqlinline{Dog} is very readable, but has a lot going on.
 
 \begin{enumerate}
   \item \graphqlinline{Dog} is a Object Type definition.  It has four fields:  \graphqlinline{name}, \graphqlinline{breed}, \graphqlinline{age}, and \graphqlinline{owners}.  These four fields are the only fields defined for retrieving information from a \graphqlinline{Dog}.
@@ -537,7 +537,7 @@ Aliases can be used to query the same object field multiple times.
 
 \subsubsection{Fragments}
 
-For conciseness, the query above can be made using Fragments.  Fragments can be used when repeated fields are called on similar objects.
+For conciseness, the multiple cat query can be made using Fragments.  Fragments can be used when repeated fields are called on similar objects.
 
 The same result will occur using the Fragments below.
 
@@ -623,7 +623,7 @@ update_A_to_false(my_list)
 my_list
 @
 
-The example above does not update the value of A to \rinline{FALSE} as the value \rinline{my_list} was copied at the beginning of the function \rinline{update_A_to_false}.
+This R example does not update the value of A to \rinline{FALSE} as the value \rinline{my_list} was copied at the beginning of the function \rinline{update_A_to_false}.
 
 \pkg{R6}~allows for objects to be altered inside functions that they have been passed to without any changes in assignment method.  This is similar to a ``pass by reference'' coding paradigm.  An \pkg{R6}~object is passed to a function and the function alters the value.  The same \pkg{R6}~object outside of the function is altered as well.  This is not expected R behavior.
 
@@ -800,7 +800,7 @@ result
 result
 @
 
-While R users might not find the query and output very compelling (as they can be done in a regular R session), it is good to remember that any web service with access to the Model Schema above can execute a similar command and get an answer that is executed by R.  During the request execution, \emph{any} R package can be used.  Being able to open the flood gates to R's extensive package list is very powerful. This allows Javascript in the browser and Python programs to retrieve full R plots and R model outputs using the same GraphQL API.
+While R users might not find the query and output very compelling (as they can be done in a regular R session), it is good to remember that any web service with access to the R \rinline{Model} schema can execute a similar command and get an answer that is executed by R.  During the request execution, \emph{any} R package can be used.  Being able to open the flood gates to R's extensive package list is very powerful. This allows Javascript in the browser and Python programs to retrieve full R plots and R model outputs using the same GraphQL API.
 
 This schema can also be executed in a local GraphQL server session or on a production GraphQL server.  Both the local and production servers have the same schema, so each service will return the same shapes.  Each querying programming language will have the same query string and receive the same shaped response.
 

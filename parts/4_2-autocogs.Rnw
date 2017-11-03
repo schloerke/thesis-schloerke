@@ -77,8 +77,7 @@ Each univariate grouping is labeled to provide context as to what is calculated 
 
 \subsection{Framework}
 
-% TODO should other packages be talked about here?
-\autocogs~package is built to provide a consistent framework for calculating cognostics independent of the class of the plotting object supplied.  Ideally, it should work for \ggplot, \pkg{rbokeh}~\cite{r_bokeh}, \pkg{plotly}~\cite{r_plotly}, etc. and produce the same result for similar plot displayed in the different plotting packages.  Currently, only \ggplot~hooks have been installed, but \pkg{rbokeh}~and \pkg{plotly}~can be added using the publically available functions in the \autocogs~package.
+\autocogs~package is built to provide a consistent framework for calculating cognostics independent of the class of the plotting object supplied.  Ideally, it should work for all major layer-based visualization packages (such as \ggplot, \pkg{rbokeh}~\cite{r_bokeh}, and \pkg{plotly}~\cite{r_plotly}) and produce the same result for similar plot displayed in the different plotting packages.  Currently, only \ggplot~hooks have been installed, but \pkg{rbokeh}~and \pkg{plotly}~can be added using the publically available functions in the \autocogs~package.
 
 
 By definition, each subset panel within a \trelliscopejs~widget will contain the same plotting layers, but with different data.  Addressing each layer will produce the same group of output cognostics but with different values.  There is a ``one to many'' mapping from plot to plot layers and a ``one to many'' mapping from each plot layer to the cognostic groups.  The same final cognostics may be produced from many different layers as shown in Figure~\ref{fig:cog_fig_layer}.
@@ -89,7 +88,7 @@ By definition, each subset panel within a \trelliscopejs~widget will contain the
   \caption{Theoretical framework of how multiple cognostic groups can be connected to multiple plot layers.}
 \end{figure}
 
-Once all the cognostics have been produced for a given plot, the cognostic groups are reduced to keep only the unique cognostic name and value combinations.  Using the diagram above, the cognostic groups $\left\{A, B, ..., M\right\}$ will only be returned once.
+Once all the cognostics have been produced for a given plot, the cognostic groups are reduced to keep only the unique cognostic name and value combinations.  Using Figure~\ref{fig:cog_fig_layer}, the cognostic groups $\left\{A, B, ..., M\right\}$ will only be returned once.
 
 
 
@@ -420,7 +419,7 @@ continent_hists_cogs <- autocogs::add_panel_cogs(continent_hists) %>%
 as.list(continent_hists_cogs[americas_pos, 3:6])
 @
 
-The output above displays all the cognostics that apply to a univariate histogram.  For a \ggplot~histogram, \autocogs~creates:
+The above R output contains all cognostic groups that apply to a univariate histogram.  For a \ggplot~histogram, \autocogs~creates:
 \begin{itemize}
   \item \rinline{`_x`}: univariate continuous cognostics using the $X$ data,
   \item \rinline{`_density_x`}: continuous density cognostics using the $X$ data,
@@ -485,75 +484,3 @@ In less than ten lines of code we went from a single data set to a full fledge v
 \section{Summary}
 
   Automatic cognostics with the \autocogs~R package allow users to enable common univariate metrics that correspond to the plots displayed in a \trelliscopejs~HTML widget. \autocogs~provides users with the ability to retrieve statistical metrics that are displayed or utilized in a plot.  Prior examples generated cognostics for simple histograms to multiple layered, linear model and scatterplot plots. Maintaining a common set of cognostics provides a cohesive cognostic framework to be used by any plotting architecture.
-
-  % TODO hard to transition into graphql
-
-
-% TODO add transition / conclusion paragraph
-
-
-% \subsection{Caluclations}
-%
-%
-%
-%
-%
-%
-%
-%
-%
-%
-%
-%
-%
-%
-%
-%
-%
-%
-%
-%
-%
-%
-%
-%
-%
-%
-% Using the \rinline{gapminder} data set as an example, we can explore the linear model trend of the life expectancy over time.
-%
-% %\trelliscopejs~has integrated functionality with \ggplot, so we will reduce the amount of code using the function \rinline{facet_trelliscope}.
-%
-% << all_info  >>=
-% gapminder_condensed %>%
-%   mutate(
-%     # add metrics
-%     min_lifeExp = purrr::map_dbl(data, function(dt) min(dt$lifeExp)),
-%     max_lifeExp = purrr::map_dbl(data, function(dt) max(dt$lifeExp)),
-%     # add panel
-%     panel = map_plot(data, function(dt) {
-%       # display a line plot of X:year, Y:life expectancy
-%       ggplot(dt, aes(year, lifeExp)) +
-%         geom_smooth(method = "lm") +
-%         geom_line() +
-%         ylim(20, 85)
-%     })
-%   ) %>%
-%   # remove the condensed data
-%   select(-data) %>%
-%   print() ->
-% gap_trellis
-%
-% # display the plots and metrics in trelliscopejs
-% gap_trellis %>%
-%   trelliscope("gapminder", nrow = 3, ncol = 5, path = "ex/gapminder")
-% @
-%
-% << lm_facet >>=
-% gapminder %>%
-%   ggplot(aes(year, lifeExp)) +
-%     geom_line() +
-%     geom_smooth(method = "lm") +
-%     facet_trelliscope(~ continent + country, nrow = 3, ncol = 5, path = "ex/gapminder_facet")
-% @
-%
-% Each panel contains a linear model that can be used to interpret each countries' life expectancy over time.  The linear model information contained within each panel is not calculated until \ggplot~displays the plot.  Information within each model can be useful when sorting panels within \trelliscopejs.  This
