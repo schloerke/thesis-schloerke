@@ -156,25 +156,35 @@
   %   These three packages will address issues....
 
   % problem is important?
-Statistical visualization of large-scale data sets has become an increasingly essential task in the era of \emph{big data}.
+Statistical visualization of large-scale data has become an increasingly essential task in the era of \emph{big data}.
   In particular, exploratory data analysis and visualization is the first step towards any in-depth statistical modeling and analysis.
+Being able to rapidly specify and generate visualizations regardless of data-scale is crucial.
   % what have people done?
   %   2-3 sentences
-Building on the concept of a \emph{grammar of graphics}, the R package \ggplot~laid the foundation for creating customized data visualizations within R.  The distributed multi-panel display provided by the \trelliscopejs~R package further enables \ggplot~visualizations to be scaled up to large data sets.
+Trelliscope handles data visualization at scale by attaching cognostics (univariate metrics) to each panel aiding in the organization of panels of interest.
+%-old- Building on the concept of a \emph{grammar of graphics}, the R package \ggplot~laid the foundation for creating customized data visualizations within R.  The distributed multi-panel display provided by the \trelliscopejs~R package further enables \ggplot~visualizations to be scaled up to large data sets.
   % what is missing?
   %   However, ...
-  However, there are restrictions and lack of communication among the development of both packages. For instance, \ggplot~does not allow for both continuous and discrete scales to be displayed in a single plot matrix, while \trelliscopejs~requires all cognostics used for panel interactions to be supplied manually.  With the data being stored in R, many web data queries scale linearly with data size rather than remaining constant with query requirements.
+  While Trelliscope provides a general framework for visualizing data at scale, there are several aspects that can be improved to help users generate displays more rapidly (such as cognostics, axis scales, etc.).
+  When visually modeling complex data with Trelliscope, traditional two-grouped plot matrices do not allow for a mixed-scale axis to display both continuous and discrete data natively.
+  Web-based visualization systems like Trelliscope, that retrieve information from a back-end service such as R, must maximize performance for an engaging user experience.
+%-old- However, there are restrictions and lack of communication among the development of both packages. For instance, \ggplot~does not allow for both continuous and discrete scales to be displayed in a single plot matrix, while \trelliscopejs~requires all cognostics used for panel interactions to be supplied manually.  With the data being stored in R, many web data queries scale linearly with data size rather than remaining constant with query requirements.
   % we address this missing by...?
   %   In this work, we fill this gap by BLAH using packages A, B, C.
-  In this work, I fill these gaps by enhancing and developing three R packages: \GGally, \autocogs, and \gqlr.
+  %-old- In this work, I fill these gaps by enhancing and developing three R packages: \GGally, \autocogs, and \gqlr.
   % 3x more sentences describing each package
   %   ggduo does a gen pairs plot
   %   autocogs does X and addresses Y
   %   gqlr does A and bridges the gap of B
-  Within \GGally, the function \rinline{ggduo} produces a generalized plot matrix for two-grouped data which displays all combinations of two sets of variables within a data set.
-  Complimenting \trelliscopejs, the package \autocogs~aids in visualization panel exploration~by automatically generating standard cognostic groups for each \trelliscopejs~panel.
-  Finally, the package \gqlr~implements a GraphQL server to minimize the required number of queries needed to perform data extraction while allowing the user to benefit from the rapid development iteration time of R and production iteration time of GraphQL.
+Addressing the mixed-scale plot matrix axis, a generalized plot matrix is developed for two-grouped data which displays both continuous and discrete data using appropriate visualization methods for each panel.
+To compliment Trelliscope's panel organization, automatic cognostic summaries are developed by mapping the context of what is visualized to classes of metrics that are meaningful for each type of visualization layer at no additional user effort.
+Finally, communication from web-based visualization systems to back-end R services can be greatly improved by leveraging the GraphQL query language which minimizes the number of required data queries needed to perform data extraction.
+% Together, these three contributions reduce the required user effort and enhance the user experience of today's increasing complexity and scale of data visualization.
+Together, these three contributions curtail the increasing complexity and scale of data visualization.
+  %-old- Within \GGally, the function \rinline{ggduo} produces a generalized plot matrix for two-grouped data which displays all combinations of two sets of variables within a data set.
+  %-old- Complimenting \trelliscopejs, the package \autocogs~aids in visualization panel exploration~by automatically generating standard cognostic groups for each \trelliscopejs~panel.
+  %-old- Finally, the package \gqlr~implements a GraphQL server to minimize the required number of queries needed to perform data extraction while allowing the user to benefit from the rapid development iteration time of R and production iteration time of GraphQL.
   % stress the importance of the contribution
   %   These three packages will address issues....
-  Together, these three packages address the increasing scale and complexity of today's data visualization demands.
+  %-old- Together, these three packages address the increasing scale and complexity of today's data visualization demands.
 \end{abstract}

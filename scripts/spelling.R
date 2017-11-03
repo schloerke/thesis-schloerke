@@ -129,6 +129,7 @@ bad_spelling <- spelling::spell_check_files("schloerke_b_thesis.tex", lang = "en
   "th",
   "tmp",
   "ToyInput",
+  "trelliscope",
   "Trelliscope",
   "Tufte",
   "uri",
