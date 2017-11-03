@@ -25,13 +25,13 @@
   \end{enumerate}
 
 
-  The original scatterplot matrix was only displayed using a scatterplot for each sub panel.  \emph{The Generalized Pairs Plot} by Emerson et. al., suggested that a pairs plot should not be restricted to just continuous scatterplots.  A pairs plot should be generalized to allow for discrete data to be displayed as well as continuous data.  A scatterplot matrix is not appropriate for discrete data.  In a discrete data versus discrete data plot, all of the data points would be overplotted onto the unique discrete combinations.  This overplotting renders the discrete only pairs plot combinations uninterpretable.  The bottom right quadrant of the pairs plot in~\ref{fig:original_pairs} display eight unique points between $smoker$ and $day$, but do not convey that they really contain \Sexpr{nrow(tips)} points.
+  The original scatterplot matrix was only displayed using a scatterplot for each sub panel.  \emph{The Generalized Pairs Plot} by Emerson et. al., suggested that a pairs plot should not be restricted to just continuous scatterplots.  A pairs plot should be generalized to allow for discrete data to be displayed as well as continuous data.  A scatterplot matrix is not appropriate for discrete data.  In a discrete data versus discrete data plot, all of the data points would be overplotted onto the unique discrete combinations.  This overplotting renders the discrete only pairs plot combinations uninterpretable.  The bottom right quadrant of the pairs plot in Figure~\ref{fig:original_pairs} display eight unique points between $smoker$ and $day$, but do not convey that they really contain \Sexpr{nrow(tips)} points.
 
 << original_pairs, fig.cap = "Stock R graphics scatterplot matrix displaying the \\rinline{tips} data set." >>=
 graphics::pairs(tips[c("total_bill", "tip", "smoker", "day")])
 @
 
-  Emerson et.al. discussed using a generalized pairs plot to handle the mix of variable types by providing different plotting layers for different data types.  The generalized pairs plot displays the same collection of data using different axes but allows for a mix of plotting methods with both continuous and discrete plot axes.  This addresses the issue of overplotting in discrete columns when displaying data in a scatterplot matrix.  Figure~\ref{fig:gpairs_intro} and~\ref{fig:ggpairs_intro} are two plotting methods to handle the discrete data overplotting issue.  The \pkg{gpairs}~\cite{r_gpairs} R package is printed using \pkg{lattice}~graphics (figure~\ref{fig:gpairs_intro}), while the \GGally~R package prints using \ggplot~graphics (figure~\ref{fig:ggpairs_intro}).
+  Emerson et.al. discussed using a generalized pairs plot to handle the mix of variable types by providing different plotting layers for different data types.  The generalized pairs plot displays the same collection of data using different axes but allows for a mix of plotting methods with both continuous and discrete plot axes.  This addresses the issue of overplotting in discrete columns when displaying data in a scatterplot matrix.  Figure~\ref{fig:gpairs_intro} and Figure~\ref{fig:ggpairs_intro} are two plotting methods to handle the discrete data overplotting issue.  The \pkg{gpairs}~\cite{r_gpairs} R package is printed using \pkg{lattice}~graphics (Figure~\ref{fig:gpairs_intro}), while the \GGally~R package prints using \ggplot~graphics (Figure~\ref{fig:ggpairs_intro}).
 
 << gpairs_intro, fig.cap = "\\rinline{gpairs}~plot matrix from the \\pkg{gpairs}~R package displaying the \\rinline{tips} data set." >>=
 gpairs::gpairs(tips[, c("total_bill", "tip", "smoker", "day")])
@@ -47,8 +47,8 @@ pm
 \GGally's \rinline{ggpairs} addressed the portability and modularization by
 \begin{enumerate}
   \item making each sub plot an independently functioning \ggplot~plot.  Figure~\ref{fig:add_custom_plot} displays how a sub plot may be retrieved.
-  \item allowing each sub plot to be replaced after the initial plot matrix is created.  Figure~\ref{fig:add_custom_plot2} creates a new plot that is placed inside the matrix in figure~\ref{fig:add_custom_plot3}.
-  \item and not displaying the plot matrix until the \rinline{print} command is executed.  Similar to earlier \ggplot~examples, the displaying of a \GGally~plot matrix is delayed until print time as in figure~\ref{fig:add_custom_plot3}.
+  \item allowing each sub plot to be replaced after the initial plot matrix is created.  Figure~\ref{fig:add_custom_plot2} creates a new plot that is placed inside the matrix in Figure~\ref{fig:add_custom_plot3}.
+  \item and not displaying the plot matrix until the \rinline{print} command is executed.  Similar to earlier \ggplot~examples, the displaying of a \GGally~plot matrix is delayed until print time as in Figure~\ref{fig:add_custom_plot3}.
 \end{enumerate}
 
 << add_custom_plot, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in", fig.cap = "Full \\ggplot~plot object from the second row and first column of a \\rinline{ggmatrix} plot matrix." >>=
@@ -122,13 +122,13 @@ pm + ggplot2::theme(legend.position = "bottom")
 @
 
 
-\section{\rinline{ggduo}: Plot matrix for two grouped data}
+\section{\rinline{ggduo}: Plot matrix for two-grouped data}
 
 A pairs plot is defined as displaying every column of the data against every other column in the data.  This is effective in full data exploration.  If a data set has columns $A$, $B$, and $C$, $3^2 = 9$ combinations produced in a corresponding pairs plot: $A:A$, $A:B$, $A:C$, $B:A$, $B:B$, etc.. A pairs plot matrix can be generalized one step further by pairing two column groups against each other.
 
-For the example just described, column set $\left\{ A, B, C\right\}$ is paired against the column set $\left\{ A, B, C\right\}$.  As expected, this produces a pairs plot.  However, this generalization allows us to produce a plot matrix of the combinations of $\left\{ A, B, C\right\}$ and $\left\{ D, E\right\}$, or any combination of two column sets.  Using the same underlying \rinline{ggmatrix} functionality, \rinline{ggduo} produces plot combinations of two grouped data.
+For the example just described, column set $\left\{ A, B, C\right\}$ is paired against the column set $\left\{ A, B, C\right\}$.  As expected, this produces a pairs plot.  However, this generalization allows us to produce a plot matrix of the combinations of $\left\{ A, B, C\right\}$ and $\left\{ D, E\right\}$, or any combination of two column sets.  Using the same underlying \rinline{ggmatrix} functionality, \rinline{ggduo} produces plot combinations of two-grouped data.
 
-As a quick example, let us look at the Australian students' fifth grade $Math$, $Reading$, and $Science$ scores against their $gender$ and how many hours of $homework$ each student completed each week in figure~\ref{fig:ggmatrix_scores}.
+As a quick example, let us look at the Australian students' fifth grade $Math$, $Reading$, and $Science$ scores against their $gender$ and how many hours of $homework$ each student completed each week in Figure~\ref{fig:ggmatrix_scores}.
 
 << ggmatrix_scores, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in", fig.cap = "$5^{th}$ grade Australian student scholasitc scores vs their $sex$ and hours of weekly homework." >>=
 ggduo(
@@ -156,8 +156,8 @@ Comparing these two groups if we are interested in knowing if there is any diffe
 The default plotting behavior for discrete vs. discrete, or `discrete plot', is to summarize the data and display it as a ratio plot.  A ratio plot displays rectangles whose size is proportional to the counts of the value combination in both the $X$ and $Y$ direction.
 
 
-The third group, continuous vs. discrete, is refered to as a `combination plot'. \rinline{ggduo} makes a distinction between the two possible combination plots: continuous vs. discrete (vertical combination plot) and discrete vs. continuous (horizontal combination plot). By default, \rinline{ggduo} displays grouped histograms for a horizontal combination plot and grouped box plots for a vertical combination plot as in figure~\ref{fig:ggduo_types}.
-\rinline{ggpairs} is able to handle the combination plot differently for the upper and lower triangle using the the \rinline{upper} and \rinline{lower} arguments as in figure~\ref{fig:ggpairs_types}.  Unlike \rinline{ggpairs}, a distiction between a horizontal and vertical combination plot is made as there are no upper and lower triangle plot matrix sections in a \rinline{ggduo} plot as in figure~\ref{fig:ggduo_types2}.
+The third group, continuous vs. discrete, is refered to as a `combination plot'. \rinline{ggduo} makes a distinction between the two possible combination plots: continuous vs. discrete (vertical combination plot) and discrete vs. continuous (horizontal combination plot). By default, \rinline{ggduo} displays grouped histograms for a horizontal combination plot and grouped box plots for a vertical combination plot as in Figure~\ref{fig:ggduo_types}.
+\rinline{ggpairs} is able to handle the combination plot differently for the upper and lower triangle using the the \rinline{upper} and \rinline{lower} arguments as in Figure~\ref{fig:ggpairs_types}.  Unlike \rinline{ggpairs}, a distiction between a horizontal and vertical combination plot is made as there are no upper and lower triangle plot matrix sections in a \rinline{ggduo} plot as in Figure~\ref{fig:ggduo_types2}.
 
 << ggpairs_types, fig.cap = "Altering the \\rinline{ggpairs} upper and lower \\rinline{combo} plot types." >>=
 ggpairs(
@@ -168,7 +168,7 @@ ggpairs(
 )
 @
 
-<< ggduo_types, fig.width = 6, fig.height = 3.75, out.width = "5in", out.height = "3in", fig.cap = "Two grouped plot matrix using \\rinline{ggduo} with no upper or lower triangle areas." >>=
+<< ggduo_types, fig.width = 6, fig.height = 3.75, out.width = "5in", out.height = "3in", fig.cap = "two-grouped plot matrix using \\rinline{ggduo} with no upper or lower triangle areas." >>=
 ggduo(
   tips,
   c("total_bill", "smoker", "day"),
@@ -191,7 +191,7 @@ ggduo(
 
 \subsection{User defined functions}
 
-There are many plotting functions are provided by the GGally package, however they are not all encompassing.  The user may supply their own plotting functions for each panel type.  This allows for complete customization of every panel. For example, a violin plot is a combination style plot that is not included by default.  A user may create their own function that uses the function call API of \rinline{function(data, mapping, ...) { ... }}.  A sample custom function example is provided below in figure~\ref{fig:user_defined}.
+There are many plotting functions are provided by the GGally package, however they are not all encompassing.  The user may supply their own plotting functions for each panel type.  This allows for complete customization of every panel. For example, a violin plot is a combination style plot that is not included by default.  A user may create their own function that uses the function call API of \rinline{function(data, mapping, ...) { ... }}.  A sample custom function example is provided below in Figure~\ref{fig:user_defined}.
 
 << user_defined, fig.width = 6, fig.height = 3.75, out.width = "5in", out.height = "3in", fig.cap = "Use a custom function to display a plot within a \\rinline{ggduo} plot matrix." >>=
 my_violin <- function(data, mapping, ...) {
@@ -260,14 +260,14 @@ elec_median
 @
 
 
-A multiple time series plot displays the time axis on the $X$ axis with multiple columns on the $Y$ axis.  The \pkg{stats}~\cite{r_stats}~package contains the \rinline{ts.plot} function that allows for multiple time series to be printed in a single panel sharing the same axes.  Displaying the data on the same vertical axis does not make sense for most situations as is shown in figure~\ref{fig:stats_ts}.  This is showcased when looking at the first 6 months of half-hourly recorded elctricity demand for Victoria, Australia, in 2014.  The electricity demand and temperature should not be displayed on the same scales, as they do not have similar units.  Including the $WorkDay$ boolean value does not add to the understanding of the data in the plot.
+A multiple time series plot displays the time axis on the $X$ axis with multiple columns on the $Y$ axis.  The \pkg{stats}~\cite{r_project}~package contains the \rinline{ts.plot} function that allows for multiple time series to be printed in a single panel sharing the same axes.  Displaying the data on the same vertical axis does not make sense for most situations as is shown in Figure~\ref{fig:stats_ts}.  This is showcased when looking at the first 6 months of half-hourly recorded elctricity demand for Victoria, Australia, in 2014.  The electricity demand and temperature should not be displayed on the same scales, as they do not have similar units.  Including the $WorkDay$ boolean value does not add to the understanding of the data in the plot.
 
 << stats_ts, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in", fig.cap = "Stock \\pkg{stats}~R package time series plot.  All variables are displayed on the same axis." >>=
 stats::ts.plot(fpp2::elecdemand)
 @
 
 
-By splitting the multiple time series plot along the $Y$ axis, we can display multiple panels with different $Y$ axes that share the same $X$ axis using \rinline{ggduo}. This can be done with the function \rinline{ggts} which wraps to \rinline{ggduo}.  The $X$ column label is turned off by default and has an $X$ label of `time'.  An extra column of the counts of above or below median demand has been added to display mixed $Y$ axes in figure~\ref{fig:ggudo_ts}.
+By splitting the multiple time series plot along the $Y$ axis, we can display multiple panels with different $Y$ axes that share the same $X$ axis using \rinline{ggduo}. This can be done with the function \rinline{ggts} which wraps to \rinline{ggduo}.  The $X$ column label is turned off by default and has an $X$ label of `time'.  An extra column of the counts of above or below median demand has been added to display mixed $Y$ axes in Figure~\ref{fig:ggduo_ts}.
 
 
 << ggduo_ts, fig.cap = "Same \\rinline{elec_median} data, but the data is displayed using the \\rinline{ggts} function which calls \\rinline{ggduo}." >>=
@@ -301,14 +301,14 @@ ggts(
 
 With the basis of \rinline{ggduo} displaying each row of the data in every panel with different functions, \rinline{ggduo} quickly extends to model diagnostics. There are many readily available diagnostics that can be calculated for each row of explanatory data. By default, \rinline{ggnostic} (a function that displays a \rinline{ggduo} plot matrix) looks at the residuals, leave one out sigma value, leverage points, and Cook's Distance against all model predictor variables.  Each piece of diagnostic information is plotted against every explanatory variables used in the model.
 
-Using the flea data set from the \GGally~package, we fit a model to determine the size of the flea's head.  Using \rinline{stats::step} to determine a good fitting model, the default model diagnostics are displayed against $species$, $tars1$, $tars2$, and $aede$.  The model diagnostics are displayed in~\ref{fig:ggnostic} below. Residual panels contain dashed 95\% confidence interval lines and a solid line at the expect 0 value. Leave one out sigma value panels display a solid line for the current model's sigma value. Leverage point (diagonal of the hat matrix) panels are centered around the solid, expected line at $p / n$ and have a dashed, \emph{significance} line at $2 * p / n$~\cite{kutner_linear_models}. Finally, the Cooks's distance has a grey dashed, \emph{significance} line at $F_{p, n - p}(0.5)$~\cite{kutner_linear_models}. Each solid line corresponds to the expected value and each dashed line corresponds to a \emph{signifigance} cuttoff value. The asterisks in the $X$ axis strips correspond to the significance of an anova $F$ test.
+Using the flea data set from the \GGally~package, we fit a model to determine the size of the flea's head.  Using \rinline{stats::step} to determine a good fitting model, the default model diagnostics are displayed against $species$, $tars1$, $tars2$, and $aede$.  The model diagnostics are displayed in Figure~\ref{fig:ggnostic} below. Residual panels contain dashed 95\% confidence interval lines and a solid line at the expect 0 value. Leave one out sigma value panels display a solid line for the current model's sigma value. Leverage point (diagonal of the hat matrix) panels are centered around the solid, expected line at $p / n$ and have a dashed, \emph{significance} line at $2 * p / n$~\cite{kutner_linear_models}. Finally, the Cooks's distance has a grey dashed, \emph{significance} line at $F_{p, n - p}(0.5)$~\cite{kutner_linear_models}. Each solid line corresponds to the expected value and each dashed line corresponds to a \emph{signifigance} cuttoff value. The asterisks in the $X$ axis strips correspond to the significance of an anova $F$ test.
 
 << ggnostic, fig.cap = "Linear model diagnostics for a model predicting the maximal head with in millimeters." >>=
 flea_model <- step(lm(head ~ ., data = flea), trace = FALSE)
 ggnostic(flea_model)
 @
 
-The model diagnostics can be extended further by coloring and grouping according to $species$ and displaying the fitted values as in figure~\ref{fig:ggnostic_complex}.
+The model diagnostics can be extended further by coloring and grouping according to $species$ and displaying the fitted values as in Figure~\ref{fig:ggnostic_complex}.
 
 << ggnostic_complex, fig.cap = "Each plot is colored according to $species$.  Extra row diagnostics ($head$, $fitted$, and $se fit$) are added to the dianostic plot matrix." >>=
 ggnostic(
@@ -335,6 +335,6 @@ ggnostic(
 
 \section{Summary}
 
-  \rinline{ggduo} generalizes the two group plot matrix by allowing multiple plot types within each panel of the plot matrix.  Similar to \ggplot, \rinline{ggduo} is programatically extended with the \rinline{ggts} and \rinline{ggnostic} functions to produce plot matricies for different contexts.  \rinline{ggnostic} showcases \rinline{ggduo}'s ability to accept user defined functions to display data for each type of scale combination: continuous, discrete, and combination. \rinline{ggduo} is built upon the modular \rinline{ggmatrix} allowing sub plots to be retrieved and replaced on command.  This modularity and ability to display complex plots with \rinline{ggduo} enables users to explore the same data within different sub plots in a cohesive matrix display.
+  \rinline{ggduo} generalizes the two group plot matrix by allowing multiple plot types within each panel of the plot matrix.  Similar to \ggplot, \rinline{ggduo} is programatically extended with the \rinline{ggts} and \rinline{ggnostic} functions to produce plot matrices for different contexts.  \rinline{ggnostic} showcases \rinline{ggduo}'s ability to accept user defined functions to display data for each type of scale combination: continuous, discrete, and combination. \rinline{ggduo} is built upon the modular \rinline{ggmatrix} allowing sub plots to be retrieved and replaced on command.  This modularity and ability to display complex plots with \rinline{ggduo} enables users to explore the same data within different sub plots in a cohesive matrix display.
 
   % TODO hard to motivate how it works with autocogs, as it is not directly connected

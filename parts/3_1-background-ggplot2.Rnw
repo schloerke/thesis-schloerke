@@ -97,7 +97,7 @@ g <- graphics::plot(tip ~ total_bill, data = tips)
 g
 @
 
-\pkg{lattice}~graphics meets in between \ggplot~and \pkg{graphics}, as all layers must be supplied at plot creation, but the plot is not displayed until print time.  Two prior \ggplot~examples,~\ref{fig:geom_point} and~\ref{fig:minimal_gg}, both displayed the ability to delay the printing of the \ggplot~plot object.  \pkg{lattice}~graphics can also delay the display of the plot object as both \pkg{lattice}~and \ggplot~convert their plot objects to be displayed using the \pkg{grid}~package at print time.  The \pkg{grid}~package does not implement full statistical plots, but rather it implements a R plotting framework to be used by other packages like \ggplot~and \pkg{lattice}.
+\pkg{lattice}~graphics meets in between \ggplot~and \pkg{graphics}, as all layers must be supplied at plot creation, but the plot is not displayed until print time.  Two prior \ggplot~examples, Figure~\ref{fig:geom_point} and Figure~\ref{fig:minimal_gg}, both displayed the ability to delay the printing of the \ggplot~plot object.  \pkg{lattice}~graphics can also delay the display of the plot object as both \pkg{lattice}~and \ggplot~convert their plot objects to be displayed using the \pkg{grid}~package at print time.  The \pkg{grid}~package does not implement full statistical plots, but rather it implements a R plotting framework to be used by other packages like \ggplot~and \pkg{lattice}.
 
 << lattice_xyplot, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in", fig.cap = "\\pkg{lattice}~scatterplot displaying using the \\pkg{grid}~framework." >>=
 l <- lattice::xyplot(tip ~ total_bill, data = tips)

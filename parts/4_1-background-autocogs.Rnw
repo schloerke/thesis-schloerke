@@ -59,7 +59,7 @@ Each package implements the split-apply-combine approach to data computation usi
 
 \subsection{Summary statistics}
 
-The \rinline{gapminder} data set is an ``Excerpt of the Gapminder data on life expectancy, GDP per capita, and population by country''~\cite{r_gapminder}.  The 142 countries have data from 1952 to 2007.  Figure~\ref{fig:dplyr_example} finds the maximum life expectancy for the 142 countries. They are then displayed in a plot colored according to the country's continent.  A lot of information may be gleaned from the maximum life expectancy summary plot in figure~\ref{fig:dplyr_example}, but a summary plot does not tell the full story of each country's life expectancy over time.
+The \rinline{gapminder} data set is an ``Excerpt of the Gapminder data on life expectancy, GDP per capita, and population by country''~\cite{r_gapminder}.  The 142 countries have data from 1952 to 2007.  Figure~\ref{fig:dplyr_example} finds the maximum life expectancy for the 142 countries. They are then displayed in a plot colored according to the country's continent.  A lot of information may be gleaned from the maximum life expectancy summary plot in Figure~\ref{fig:dplyr_example}, but a summary plot does not tell the full story of each country's life expectancy over time.
 
 << gapminder_best_worst, fig.width = 8, fig.height = 4, out.width = "5in", out.height = "2.5in", fig.cap = "Both higher life expectancy countries display linear model trends over time." >>=
 gapminder %>%
@@ -80,7 +80,7 @@ Summary statistics are great in interpreting information using less data.  Howev
 
 \trelliscopejs~allows users to plot full plot detail while allowing users to change how many panels are displayed on the screen at one time, sort the panel ordering, and filter to a smaller subset of panels.  \trelliscopejs~achieves these actions by obtaining a plot for every conditioning combination and suplimentary metrics for each plot.
 
-Using the \rinline{gapminder} data set in figure~\ref{fig:trelliscopejs}, life expectancy is explore over time with the supplimentary metrics of minimum and maximum life expectancy.
+Using the \rinline{gapminder} data set in Figure~\ref{fig:trelliscopejs}, life expectancy is explore over time with the supplimentary metrics of minimum and maximum life expectancy.
 
 << trelljs, echo = FALSE, verbose = FALSE, cache = FALSE >>=
 trelljs <- function(dt, name, ...) {
@@ -123,13 +123,13 @@ gap_trellis
 gap_trellis %>% trelljs("gapminder")
 @
 
-The \trelliscopejs~HTML widget in~\ref{fig:trelliscopejs} displays three rows and five columns of panels.  There are \rinline{142} panels in total, making 10 pages of panels in total.  While this example does not display millions of panels, it does convey the capabilities of the HTML widget.  Icons on the left, as in figure~\ref{fig:tjs_sidebar}, open foldout displays for panel layout control, turning panel labels on and off, filtering panels using metrics, and panel sorting.
+The \trelliscopejs~HTML widget in Figure~\ref{fig:trelliscopejs} displays three rows and five columns of panels.  There are \rinline{142} panels in total, making 10 pages of panels in total.  While this example does not display millions of panels, it does convey the capabilities of the HTML widget.  Icons on the left, as in Figure~\ref{fig:tjs_sidebar}, open foldout displays for panel layout control, turning panel labels on and off, filtering panels using metrics, and panel sorting.
 
 \begin{figure}[H]
+  \label{fig:tjs_sidebar}
   \centering
   \includegraphics[height=2.5in]{./figs/tjs_sidebar.png}
   \caption{The sidebar on the left side of a \trelliscopejs~HTML widget can be opened for panel layout control, displaying panel labels, filtering panels, and sorting panels.}
-  \label{fig:tjs_sidebar}
 \end{figure}
 
 
@@ -143,20 +143,20 @@ Cognostics can be simple summary statistics such as \rinline{mean} or \rinline{m
 In \trelliscopejs, cognostics are displayed as two types of metrics: continuous or discrete.  Continuous valued cognostics are filtered using open or closed ranges.  Figure~\ref{fig:gap_seventy} shows an open range using the \rinline{gapminder} country panels that contain a maximum life expectancy value less than or equal to 70 years of age.  A closed range example would have both a \emph{from} and a \emph{to} in the selection range, i.e. within 50 to 65 years of age. Currently, \trelliscopejs~does not support more than one range selection for each cognostic variable.
 
 \begin{figure}[H]
+  \label{fig:gap_seventy}
   \centering
   \includegraphics[height=2.5in]{./figs/tjs_filter_70.png}
   \caption{A cropped view of \trelliscopejs~filtering on countries whose maximum life expectancy is lower than 70 years old.}
-  \label{fig:gap_seventy}
 \end{figure}
 
 
 With \trelliscopejs, discrete values are handled using regular expressions or by manually selecting values.  When using regular expressions, matching values are displayed immediately.  Figure~\ref{fig:gap_regex} displays the immedate results of regular expression on a continent.  The immediate feedback confirms whether the regular expression was successful or needs to be updated.
 
 \begin{figure}[H]
+  \label{fig:gap_regex}
   \centering
   \includegraphics[height=2.5in]{./figs/tjs_filter_as.png}
   \caption{A cropped view of \trelliscopejs~filtering on continent who matches the regular expression ``as''.}
-  \label{fig:gap_regex}
 \end{figure}
 
 

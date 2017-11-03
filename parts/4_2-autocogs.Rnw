@@ -2,7 +2,7 @@
 
 From a data plotting perspective, we should be able to utilize what is already being displayed in the plot to sort and filter the panels of a \trelliscopejs~widget.  This plot information is not readily available as it is calculated within each plotting mechanism.
 
-Using the prior \trelliscopejs~example in figure~\ref{fig:trelliscopejs}, the minimum and maximum values for each country's life expectancy were calculated manually.  While the prior example only retrieved the minimum and maximum life expectancy values for each panel, the median and mean values may be of interest as well. These statistics are only looking at the $Y$ variable.  There are many more statistics involving both the $Y$ variable and the $X$ variable.  In figure~\ref{fig:add_metrics}, the $X$ and $Y$ covariance and correlation are added.  A linear model (\rinline{geom_smooth(method = "lm")}) is also added to visually detect linear trend deviations.
+Using the prior \trelliscopejs~example in Figure~\ref{fig:trelliscopejs}, the minimum and maximum values for each country's life expectancy were calculated manually.  While the prior example only retrieved the minimum and maximum life expectancy values for each panel, the median and mean values may be of interest as well. These statistics are only looking at the $Y$ variable.  There are many more statistics involving both the $Y$ variable and the $X$ variable.  In Figure~\ref{fig:add_metrics}, the $X$ and $Y$ covariance and correlation are added.  A linear model (\rinline{geom_smooth(method = "lm")}) is also added to visually detect linear trend deviations.
 
 << add_metrics, screenshot.opts = list(vwidth = 700, vheight = 525), fig.cap = "More cognostics are added to the original example.  As more cognostics are added, the percentage of final code written is more about cognostics and not data visualization." >>=
 gapminder_condensed %>%
@@ -81,9 +81,13 @@ Each univariate grouping is labeled to provide context as to what is calculated 
 \autocogs~package is built to provide a consistent framework for calculating cognostics independent of the class of the plotting object supplied.  Ideally, it should work for \ggplot, \pkg{rbokeh}~\cite{r_bokeh}, \pkg{plotly}~\cite{r_plotly}, etc. and produce the same result for similar plot displayed in the different plotting packages.  Currently, only \ggplot~hooks have been installed, but \pkg{rbokeh}~and \pkg{plotly}~can be added using the publically available functions in the \autocogs~package.
 
 
-By definition, each subset panel within a \trelliscopejs~widget will contain the same plotting layers, but with different data.  Addressing each layer will produce the same group of output cognostics but with different values.  There is a ``one to many'' mapping from plot to plot layers and a ``one to many'' mapping from each plot layer to the cognostic groups.  The same final cognostics may be produced from many different layers.
+By definition, each subset panel within a \trelliscopejs~widget will contain the same plotting layers, but with different data.  Addressing each layer will produce the same group of output cognostics but with different values.  There is a ``one to many'' mapping from plot to plot layers and a ``one to many'' mapping from each plot layer to the cognostic groups.  The same final cognostics may be produced from many different layers as shown in Figure~\ref{fig:cog_fig_layer}.
 
-\includegraphics[width = \textwidth ]{./dot/plot_layers.png}
+\begin{figure}[H]
+  \label{fig:cog_fig_layer}
+  \includegraphics[width = \textwidth ]{./dot/plot_layers.png}
+  \caption{Theoretical framework of how multiple cognostic groups can be connected to multiple plot layers.}
+\end{figure}
 
 Once all the cognostics have been produced for a given plot, the cognostic groups are reduced to keep only the unique cognostic name and value combinations.  Using the diagram above, the cognostic groups $\left\{A, B, ..., M\right\}$ will only be returned once.
 
@@ -110,10 +114,11 @@ The cognostics produced in the \autocogs~\rinline{gapminder} linear model exampl
   \item \rinline{_n} Five cognostics pertaining only to counts of X and Y values.
 \end{itemize}
 
-Each cognostic group column contains a single row \rinline{data.frame} nested in each cell.  Nesting data structures as list-columns~\cite{r4ds} is considered an advanced R technique, but by nesting the cognostic \rinline{data.frame}s in each cell, \autocogs~maintains the tidy data input with tidy data cognostics.  Tidy data is defined to have variables in each column, observations for each row and each cell contains a value.  The value does not need to conform to atomic values which allows for complex structures as long as the ``tidy data'' rules are maintained.
+Each cognostic group column contains a single row \rinline{data.frame} nested in each cell.  Nesting data structures as list-columns~\cite{r4ds} is considered an advanced R technique, but by nesting the cognostic \rinline{data.frame}s in each cell, \autocogs~maintains the tidy data input with tidy data cognostics.  Tidy data is defined to have variables in each column, observations for each row and each cell contains a value.  The value does not need to conform to atomic values which allows for complex structures as long as the ``tidy data'' rules are maintained as shown in Figure~\ref{fig:tidy_data}.
 
 
 \begin{figure}[H]
+  \label{fig:tidy_data}
   \centering
   \includegraphics[width=0.9\textwidth]{figs/tidy.png}
   \caption{Figure courtesy of~\cite{r4ds}. There are three rules to tidy data: columns contain variables, rows contain observations, and cells contain values.}
@@ -377,9 +382,13 @@ auto_cog("hex_counts", americas$year, americas$lifeExp, bins = 6)
 
 \ggplot~has already been integrated into the \autocogs~R package.  This integration contains the mapping of each cognostic group to each \ggplot~geom layer.  Each plotting framework has its own data personality and may display cognostics how it sees fit.
 
-Below is a mapping of each \ggplot~geom layer to each of the univariate cognostics.  Geoms that do not map to any cognostic groups are considered building block geoms and do not produce any cognostics when added as a layer.
+Figure~\ref{fig:geom_mapping} is a mapping of each \ggplot~geom layer to each of the univariate cognostics.  Geoms that do not map to any cognostic groups are considered building block geoms and do not produce any cognostics when added as a layer.
 
-\includegraphics[width=\textwidth]{./dot/ggplot_cognostics.png}
+\begin{figure}
+  \label{fig:geom_mapping}
+  \includegraphics[width=\textwidth]{./dot/ggplot_cognostics.png}
+  \caption{Mapping of \ggplot~geoms to Univariate, Bivariate, and Count cognostic groups}
+\end{figure}
 
 
 
@@ -426,7 +435,7 @@ While this amount of information is a little overwhelming, keep in mind the goal
 
 In the next example, we will perform a similar workflow, but the panel will contain two layers: points and a linear model line.  Each layer is derived from the same original data, but will help produce a different sets of cognostics.
 
-<< contry_model, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in", fig.cap = "The \\rinline{\"United States\"} life expectancy over time displayed as a linear model and scatterplot combination." >>=
+<< country_model, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in", fig.cap = "The \\rinline{\"United States\"} life expectancy over time displayed as a linear model and scatterplot combination." >>=
 gapminder %>%
   group_by(country, continent) %>%
   do(
@@ -439,7 +448,7 @@ usa_pos <- which(country_model$country == "United States")
 country_model$panel[[usa_pos]]
 @
 
-The \rinline{"United States"} panel is displayed in figure~\ref{fig:country_model}.  The life expectancy has a fairly linear trend that increases over time. Next, we add the cognostics to the panel \rinline{data.frame}.
+The \rinline{"United States"} panel is displayed in Figure~\ref{fig:country_model}.  The life expectancy has a fairly linear trend that increases over time. Next, we add the cognostics to the panel \rinline{data.frame}.
 
 << country_model_cogs >>=
 country_model_cogs <- autocogs::add_panel_cogs(country_model) %>% print()
@@ -462,10 +471,10 @@ As expected, many cognostics were added to the country panel \rinline{data.frame
 Revisiting the Linear Model Example~\ref{subsec:linear_model}, we have now exposed the linear model metrics (as well as many other metrics) to be used as cognostics within the \trelliscopejs~widget.  \trelliscopejs~will process the nested \rinline{data.frame}s as grouped cognostics and display them in the application.  Each linear model's $R^2$ value is now available for sorting.  By opening the ``Sort'' tab in the widget and selecting \emph{ascending} \rinline{r2}, all countries will be displayed in increasing order of the $R^2$ value.  Figure~\ref{fig:country_model_r2} displays the countries whose life expectancy can not be not explained by a linear model.
 
 \begin{figure}[H]
+  \label{fig:country_model_r2}
   \centering
   \includegraphics[height=4in]{./figs/tjs_country_r2.png}
   \caption{A \trelliscopejs~widget of country life expectancy over time where the panel ordering is displayed according to ascending $R^2$ value of each panels linear model.}
-  \label{fig:country_model_r2}
 \end{figure}
 
 

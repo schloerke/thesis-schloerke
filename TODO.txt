@@ -1,14 +1,9 @@
 
 Abstract
 
-two-grouped
-
 clean up custom response
 
 
-
-Conclusion chapter
-  future work
 
 Acknowledgement
 
@@ -20,15 +15,15 @@ Add htmlwidgets to package descriptions
 Add dataset help descriptions
 
 look at all TODO values before submission
-  move all labels of figures to the top of the figure before the inclugegraphics
+  move all labels of figures to the top of the figure before the includegraphics
   scatter plot -> scatterplot
   dataset -> data set
   alpha sort all abbreviations and glossary items
   fix all missing references
   p-value -> p value
   matricies -> matrices
-  remove runtime
-  \frenchspacing ?
+  remove runtime ?
+  \frenchspacing ? - no
   chapter -> Chapter
   ~\ref{}
   ~\cite{}
