@@ -113,7 +113,7 @@ if (Sys.getenv("TRAVIS") == "") {
 % Title of thesis (used on cover and in abstract).
 % \title{Divide and Recombine for Statistical Graphics}
 % \title{Data extraction, Display, and Communication of Data}
-\title{Generalized Plot Matrices, Automatic Cognostic Summaries, and Efficient Data Exploration}
+\title{Generalized Plot Matrices, Automatic Cognostic, and Efficient Data Exploration}
 % \title{An Example Thesis Done with LaTeX\\
 %   with a Very Long Title}
 

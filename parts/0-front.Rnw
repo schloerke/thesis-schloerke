@@ -177,8 +177,8 @@ Trelliscope handles data visualization at scale by attaching cognostics (univari
   %   autocogs does X and addresses Y
   %   gqlr does A and bridges the gap of B
 Addressing the mixed-scale plot matrix axis, a generalized plot matrix is developed for two-grouped data which displays both continuous and discrete data using appropriate visualization methods for each panel.
-To compliment Trelliscope's panel organization, automatic cognostic summaries are developed by mapping the context of what is visualized to classes of metrics that are meaningful for each type of visualization layer at no additional user effort.
-Finally, communication from web-based visualization systems to back-end R services can be greatly improved by leveraging the GraphQL query language which minimizes the number of required data queries needed to perform data extraction.
+To compliment Trelliscope's panel organization, automatic cognostic summaries are established by mapping the context of what is visualized to classes of metrics that are meaningful for each type of visualization layer at no additional user effort.
+Finally, communication from web-based visualization systems to back-end R services is greatly improved by leveraging the GraphQL query language which minimizes the number of required data queries needed to perform data extraction.
 % Together, these three contributions reduce the required user effort and enhance the user experience of today's increasing complexity and scale of data visualization.
 Together, these three contributions curtail the increasing complexity and scale of data visualization.
   %-old- Within \GGally, the function \rinline{ggduo} produces a generalized plot matrix for two-grouped data which displays all combinations of two sets of variables within a data set.
