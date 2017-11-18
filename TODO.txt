@@ -1,10 +1,4 @@
 
-Abstract approval
-
-TODO - Acknowledgement
-
-TODO - Vita
-
 TODO - Add autocogs to cran
 TODO - update autocogs citations
 TODO - update

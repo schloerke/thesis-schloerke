@@ -7,9 +7,9 @@
 ## Timeline
 
 * Nov 3rd
-  * Submit thesis to committee
+  * √ Submit thesis to committee
 * < Nov 28th
-  * Make defense slides
+  * √ Make defense slides
   * [Submit thesis acceptance form](http://www.purdue.edu/gradschool/documents/thesis/Student-Instructions-Thesis-Acceptance-Form.pdf)
 * Nov 29th - 10am - HAAS 111
   * Defense (~50m)
