@@ -8,5 +8,6 @@
 
 \begin{vita}
     % 1-3 paragraphs... like for a conference
-    [Put a brief autobiographical sketch here.]
+    Barret Schloerke was born in Ames, Iowa in 1988. He worked as a software engineer for the small startup Metmarkets in between earning his Bachelor of Science degree at Iowa State University in 2010, and a Master of Science degree in Mathematical Statistics from Purdue University 2014. His academic interests include data visualization, statistical computing, exploratory data analysis, large data, and computational statistics.
+
 \end{vita}
