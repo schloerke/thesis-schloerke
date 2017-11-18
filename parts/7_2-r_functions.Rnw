@@ -12,7 +12,7 @@ The following sections contain publically exported functions where I created or 
   \tick \rinline{ggally_barDiag}: Plots the Bar Plots Along the Diagonal \newline Plots the bar plots along the diagonal of a \rinline{ggpairs} plot.
   \tick \rinline{ggally_blank}, \rinline{ggally_blankDiag}: Blank Plot \newline Draws nothing.
   \tick \rinline{ggally_box}, \rinline{ggally_box_no_facet}: Box Plot \newline Make a box plot with a given data set. \rinline{ggally_box_no_facet} will be a single panel plot, while \rinline{ggally_box} will be a faceted plot.
-  \tick \rinline{ggally_cor}: Correlation from the Scatter Plot \newline Estimate the correlation from the provided data.
+  \tick \rinline{ggally_cor}: Correlation from the Scatterplot \newline Estimate the correlation from the provided data.
   \tick \rinline{ggally_density}: Scatter Density Plot \newline Produce a scatter density plot from a provided data.
   \tick \rinline{ggally_densityDiag}: Density Plot Along the Diagonal \newline Produce density plot along the diagonal.
   \tick \rinline{ggally_denstrip}: Tile Plot with Facets \newline Facet a tile plot using the provided data.
@@ -24,13 +24,13 @@ The following sections contain publically exported functions where I created or 
   \tick \rinline{ggally_nostic_cooksd}: \rinline{ggnostic} - Cook’s Distance \newline A function to display \rinline{stats::cooks.distance}.
   \tick \rinline{ggally_nostic_hat}: \rinline{ggnostic} - Leverage Points \newline A function to display \rinline{stats::influence}’s hat information against a given explanatory variable.
   \tick \rinline{ggally_nostic_line}: \rinline{ggnostic} - Background Line with Geom \newline If a non-null linePosition value is given, a line will be drawn before the given \rinline{continuous_geom} or \rinline{combo_geom} is added to the plot.
-  \tick \rinline{ggally_nostic_resid}: \rinline{ggnostic} - Residuals \newline If non-null p-value and sigma values are given, confidence interval lines will be added to the plot at the specified p-value percentiles of a $N(0, \sigma)$ distribution.
+  \tick \rinline{ggally_nostic_resid}: \rinline{ggnostic} - Residuals \newline If non-null p value and sigma values are given, confidence interval lines will be added to the plot at the specified p value percentiles of a $N(0, \sigma)$ distribution.
   \tick \rinline{ggally_nostic_se_fit}: \rinline{ggnostic} - Fitted Value Standard Error \newline A function to display \rinline{stats::predict}’s standard errors.
   \tick \rinline{ggally_nostic_sigma}: \rinline{ggnostic} - Leave One Out Model Sigma \newline A function to display \rinline{stats::influence}’s sigma value.
-  \tick \rinline{ggally_nostic_std_resid}: \rinline{ggnostic} - Standardized Residuals \newline If non-null p-value and sigma values are given, confidence interval lines will be added to the plot at the specified p-value locations of a $N(0, 1)$ distribution.
-  \tick \rinline{ggally_points}: Scatter Plot \newline Produces a scatter plot using the provided data.
+  \tick \rinline{ggally_nostic_std_resid}: \rinline{ggnostic} - Standardized Residuals \newline If non-null p value and sigma values are given, confidence interval lines will be added to the plot at the specified p value locations of a $N(0, 1)$ distribution.
+  \tick \rinline{ggally_points}: Scatterplot \newline Produces a scatterplot using the provided data.
   \tick \rinline{ggally_ratio}: Mosaic Plot \newline Produces a mosaic plot using fluctuation.
-  \tick \rinline{ggally_smooth}, \rinline{ggally_smooth_loess}, \rinline{ggally_smooth_lm}: Scatter Plot with Smoothing \newline Produces a smoothed line on top of a scatter plot.
+  \tick \rinline{ggally_smooth}, \rinline{ggally_smooth_loess}, \rinline{ggally_smooth_lm}: Scatterplot with Smoothing \newline Produces a smoothed line on top of a scatterplot.
   \tick \rinline{ggally_text}: Text Plot \newline Display text in the middle of a plot while maintaining a background scales.
   \tick \rinline{ggduo}: A \ggplot~Generalized Pairs Plot for Two Columns Sets of a \rinline{data.frame} \newline Make a matrix of plots with a given data set with two different column sets.
   \tick \rinline{ggfacet}: Single \ggplot~Plot Matrix with \rinline{facet_grid} \newline Produce a single \ggplot~object using \rinline{ggplot2::facet_grid}.

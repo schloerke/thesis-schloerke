@@ -1,4 +1,6 @@
 
+TODO - from top to bottom in pages, work on spacing so the code is next to the figure.
+
 TODO - Add autocogs to cran
 TODO - update autocogs citations
 TODO - update
@@ -11,22 +13,18 @@ TODO - update citations for
   ggally on cran
 
 
-double check all datasets are documented in alpha order
-
-look at all TODO values before submission
-  move all labels of figures to the top of the figure before the \includegraphics
-  scatter plot -> scatterplot
-  dataset -> data set
-  alpha sort all abbreviations and glossary items
-  fix all missing references
-  p-value -> p value
-  matricies -> matrices
-  remove runtime ?
-  \frenchspacing ? - no
-  chapter -> Chapter
-  ~\ref{}
-  ~\cite{}
-  from top to bottom in pages, work on spacing so the code is next to the figure.
+√ look at all TODO values before submission
+√ move all labels of figures to the top of the figure before the \includegraphics
+√ scatter plot -> scatterplot
+√ dataset -> data set
+√ alpha sort all abbreviations and glossary items
+√ fix all missing references
+√ p-value -> p value
+√ matricies -> matrices
+√ remove runtime ? - no
+√ chapter -> Chapter
+√ ~\ref{}
+√ ~\cite{}
 
 
 

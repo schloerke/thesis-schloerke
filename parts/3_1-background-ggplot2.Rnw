@@ -24,7 +24,7 @@ tips <- reshape::tips %>%
 
   % \subsection{The Grammar of Graphics}
 
-  % \emph{The Grammar of Graphics}~\cite{WilkinsonLeland2005TGoG} by Dr. Leland Wilkinson was originally released in 1999 and updated in 2005.  In his book, he ``presents a unique foundation for producing almost every quantitative graphic'' (\cite{WilkinsonLeland2005TGoG}).  Dr. Wilkinson's graphical foundation helped give book is used at the core philosophy of \ggplot~with
+  % \emph{The Grammar of Graphics}~\cite{WilkinsonLeland2005TGoG} by Dr. Leland Wilkinson was originally released in 1999 and updated in 2005.  In his book, he ``presents a unique foundation for producing almost every quantitative graphic''~\cite{WilkinsonLeland2005TGoG}.  Dr. Wilkinson's graphical foundation helped give book is used at the core philosophy of \ggplot~with
 
 
 % Grammar of graphics

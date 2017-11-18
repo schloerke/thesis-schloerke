@@ -1,4 +1,7 @@
 bad_spelling <- spelling::spell_check_files("schloerke_b_thesis.tex", lang = "en_US", ignore = c(
+  "Crabill",
+  "Doerge",
+  "Rebecca",
   "addToWealth",
   "aede",
   "aes",
