@@ -46,9 +46,15 @@
   % a brief statement of apreciation or recognition of special
   % assistance.
   % Reference: PU 16.
-% \begin{acknowledgments}
-%   This is the acknowledgments.
-% \end{acknowledgments}
+\begin{acknowledgments}
+  On the academic front, I would like to thank my co-chair advisors, Ryan Hafen and Bill Cleveland.  I am grateful for their consistent guidance and willingness to take risks on new ideas.  I would like to thank my long-time academic advisors: Di Cook and Hadley Wickham.  Without their encouragement and support over the past decade, I would not be where I am today.  \emph{If I have seen further, it is only by standing on the shoulders of giants.}
+
+  I am grateful to Purdue Statistics for providing an excellent environment for both learning and research.  Thank you Rebecca Doerge and Mark Ward for helping steer my early stages at Purdue and always lending me an ear.  Thank you Doug Crabill for his willingness to share his deep technical knowledge at any moment.  I am honored to have been able to attend numerous Wednesday Night Probability Seminars.
+
+  To my parents, I can not thank you enough for your unconditional love and support.  Whether it is your well timed advice or your nodding and smiles as I ramble about a topic, I can not tell you how much I appreciate it.
+
+  And to Tracy, from traveling all across the globe to spending late nights in the library, I am truly thankful for having you in my life.  Your never ending patience, encouragement, and love always makes me smile.
+\end{acknowledgments}
 
   % The preface is optional.
   % References: PU 16, TCMOS 1.49, WNNCD 927.
@@ -94,12 +100,12 @@
   % Reference: PU 17.
 \begin{abbreviations}
   API & Application Protocol Interface\cr
-  URL & Uniform Resource Locator\cr
+  CCA & Canonical Correlation Analysis \cr
   HTTP & Hypertext Transfer Protocol \cr
+  PDF & Portable Document Format \cr
   REST & Representational State Transfer \cr
   RESTful & API that has REST qualities \cr
-  PDF & Portable Document Format \cr
-  CCA & Canonical Correlation Analysis \cr
+  URL & Uniform Resource Locator\cr
   % bcf& billion cubic feet\cr
   % BMOC& big man on campus\cr
 \end{abbreviations}
@@ -114,22 +120,22 @@
   % Glossary is optional
   % Reference: PU 17.
 \begin{glossary}
-  overplotted & too many points are displayed to see the underlying structure \cr
-  Jittered & points slightly altered from their original position to help overcome overplotting \cr
-  Plot content & Plot area within the axes. \cr
-  Panel & plotting area.  This is not limited to the strips, axes, and plot content. When used in the context of a plot matrix, it refers to a single sub plot within the plot matrix.\cr
-  Plot & a statistical graphic displaying the relationship between variables.\cr
-  Axes & All axis areas of a plot. Typically only X and Y. \cr
-  Strip & panel label \cr
-  Browser & computer application that visits websites using the internet \cr
-  Server & machine that calculates, stores, retrieves, and communicates information \cr
-  Web Server & a server that returns websites or data related to a website \cr
-  Host & a web server with a unique URL \cr
-  URL, web address & Uniform Resource Locator. Also the address of a World Wide Web page \cr
-  Interface & a point where two systems, subjects, organizations, etc., meet and interact \cr
-  Directed Graph & A graph whose edges do not form a cir
   % chick& female, usually young\cr
   % dude& male, usually young\cr
+  Axes & All axis areas of a plot. Typically only X and Y. \cr
+  Browser & Computer application that visits websites using the internet \cr
+  Directed Graph & A graph whose edges have a defined start and end\cr
+  Host & a web server with a unique URL \cr
+  Interface & A point where two systems, subjects, organizations, etc., meet and interact \cr
+  Jittered & Points slightly altered from their original position to help overcome overplotting \cr
+  Overplotted & What occurs too many points are displayed to see the underlying structure \cr
+  Panel & Plotting area.  This is not limited to the strips, axes, and plot content. When used in the context of a plot matrix, it refers to a single sub plot within the plot matrix.\cr
+  Plot & A statistical graphic displaying the relationship between variables.\cr
+  Plot content & Plot area within the axes. \cr
+  Server & A machine that calculates, stores, retrieves, and communicates information \cr
+  Strip & A panel label \cr
+  Web Server & A server that returns websites or data related to a website \cr
+  URL, web address & Uniform Resource Locator. Also the address of a World Wide Web page \cr
 \end{glossary}
 
 % Abstract is required.
