@@ -142,11 +142,13 @@ p <- ggplot(tips, aes(total_bill, tip)) + geom_point()
 p +
   labs(title = "No Facets")
 @
+\newpage
 << facets2, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in", fig.cap = "$tip$ vs $total\\_bill$ faceted by $day$. Each panel belongs to a given day in the data." >>=
 p +
   facet_wrap(~ day, labeller = label_both) +
   labs(title = "Facet Wrap (~ day)")
 @
+\newpage
 << facets3, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in", fig.cap = "$tip$ vs $total\\_bill$ faceted by all existing $day$ and $time$ combinations." >>=
 p +
   facet_wrap(~ day + time, labeller = label_both) +
@@ -157,14 +159,16 @@ p +
 
 Facet grid forces a two dimensional, matrix-like layout when faceting a plot.  The layout involves two sets of conditioning variables: the X conditioning variables and the Y conditioning variables.  These two sets of conditioning variables pre-determine how many rows (Y) and columns (X) are presented.
 
+\newpage
 << facet_grid_example, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in", fig.cap = "$tip$ vs $total\\_bill$ faceted in a grid pattern with $time$ representing each row and $day$ representing each column." >>=
 p +
   facet_grid(time ~ day, labeller = label_both) +
   labs(title = "Facet Grid (time ~ day)")
 @
 
-Figure~\ref{facet_grid_example} displays $time$ on the rows ($Y$) and $day$ on the columns ($X$).  The \rinline{facet_grid} formula follows the R \rinline{stats::lm} linear model formula of \rinline{y ~ x}.  Multiple variables can be used in either the $X$ position or the $Y$ position.  This allows the user to display a column combination set against another column combination set.  Using multiple conditioning variables within facet grid in Figure~\ref{facet_grid_multi}, both Male and Female smokers during Sunday Dinner tip value does not follow a positive linear trend as the total bill increases.
+Figure~\ref{fig:facet_grid_example} displays $time$ on the rows ($Y$) and $day$ on the columns ($X$).  The \rinline{facet_grid} formula follows the R \rinline{stats::lm} linear model formula of \rinline{y ~ x}.  Multiple variables can be used in either the $X$ position or the $Y$ position.  This allows the user to display a column combination set against another column combination set.  Using multiple conditioning variables within facet grid in Figure~\ref{fig:facet_grid_multi}, both Male and Female smokers during Sunday Dinner tip value does not follow a positive linear trend as the total bill increases.
 
+\newpage
 % do not change size
 << facet_grid_multi, fig.cap = "$tip$ vs $total\\_bill$ faceted in a grid pattern with $sex$ and $smoker$ combinations representing each row and $time$ and $day$ combinations representing each column." >>=
 p +

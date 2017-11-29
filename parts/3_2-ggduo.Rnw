@@ -37,6 +37,7 @@ graphics::pairs(tips[c("total_bill", "tip", "smoker", "day")])
 gpairs::gpairs(tips[, c("total_bill", "tip", "smoker", "day")])
 @
 
+\newpage
 << ggpairs_intro, fig.cap = "\\rinline{ggpairs}~plot matrix from the \\GGally~R package displaying the \\rinline{tips} data set." >>=
 pm <- ggpairs(tips, c("total_bill", "tip", "smoker", "day"))
 pm
@@ -56,6 +57,7 @@ pm
 #  of the tips plot matrix
 pm[2,1]
 @
+\newpage
 << add_custom_plot2, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in", fig.cap = "Replacement plot displaying ``Replacement Plot'' in red." >>=
 replacement_plot <- ggally_text(
   "Replacement\nPlot",
@@ -64,6 +66,7 @@ replacement_plot <- ggally_text(
 )
 replacement_plot
 @
+\newpage
 << add_custom_plot3, fig.cap = "The replacement plot is placed in the second row and first column.  The updated plot matrix is displayed." >>=
 # insert the new plot into the second row, first column
 #  of the tips plot matrix
@@ -83,7 +86,7 @@ The \rinline{ggmatrix} object is used to handle two main situations: handle mixe
 
 Produce two related mixed-axes plots in the same graphic could only be achieved using the \pkg{gridExtra}~\cite{gridExtra} or \pkg{grid}~\cite{r_project} R packages before \rinline{ggmatrix}.  Both of these existing methods behaved like a side by side, fully printed plots, rather than a native plot matrix.
 
-<< grid_extra, fig.cap = "Two fully displayed \\ggplot~plot objects arranged using \\pkg{gridExtra}. Duplicate axes and labels are present.  The $X$ axis does not align as the plots are treated independently.  It appears as two independent plots in one display." >>=
+<< grid_extra, fig.width = 5, fig.height = 3.75, out.width = "4in", out.height = "3in", fig.cap = "Two fully displayed \\ggplot~plot objects arranged using \\pkg{gridExtra}. Duplicate axes and labels are present.  The $X$ axis does not align as the plots are treated independently.  It appears as two independent plots in one display." >>=
 p1 <- pm[1,4]
 p2 <- pm[2,4]
 gridExtra::grid.arrange(p1, p2, ncol = 1)
@@ -106,6 +109,7 @@ Similar to \ggplot's function \rinline{ggplot_gtable}, \rinline{ggmatrix_gtable}
 
 The resulting plot matrix is displayed with the exact same styling as \ggplot's \rinline{facet_grid}. This returns all the display theme styling and display constraints back onto \ggplot.  By displaying the \rinline{ggmatrix} as a \rinline{facet_grid} in \ggplot, titles, legends, and other common plot artifacts are able to be natively displayed.   Figure~\ref{fig:ggpairs_legend} displays a legend on the right side of the plot matrix using the legend from the sub plot at position $(3,1)$.  Figure~\ref{fig:ggpairs_legend_bottom} uses the \ggplot~theme functionality to move the legend to beneath the plot matrix panels.
 
+\newpage
 << ggpairs_legend, fig.cap = "\\rinline{ggmatrix}~displaying a color legend on the right (default) side of the plot matrix." >>=
 # color the plots according to smoker
 # display legend from the 3rd row, 1st column plot
@@ -116,6 +120,7 @@ pm <- ggpairs(
 )
 pm
 @
+\newpage
 << ggpairs_legend_bottom, fig.cap = "\\rinline{ggmatrix}~moving the legend to the bottom using \\ggplot's \\rinline{theme} function." >>=
 # display legend on bottom using ggplot2 theme
 pm + ggplot2::theme(legend.position = "bottom")
@@ -159,6 +164,7 @@ The default plotting behavior for discrete vs. discrete, or `discrete plot', is 
 The third group, continuous vs. discrete, is refered to as a `combination plot'. \rinline{ggduo} makes a distinction between the two possible combination plots: continuous vs. discrete (vertical combination plot) and discrete vs. continuous (horizontal combination plot). By default, \rinline{ggduo} displays grouped histograms for a horizontal combination plot and grouped box plots for a vertical combination plot as in Figure~\ref{fig:ggduo_types}.
 \rinline{ggpairs} is able to handle the combination plot differently for the upper and lower triangle using the the \rinline{upper} and \rinline{lower} arguments as in Figure~\ref{fig:ggpairs_types}.  Unlike \rinline{ggpairs}, a distiction between a horizontal and vertical combination plot is made as there are no upper and lower triangle plot matrix sections in a \rinline{ggduo} plot as in Figure~\ref{fig:ggduo_types2}.
 
+\newpage
 << ggpairs_types, fig.cap = "Altering the \\rinline{ggpairs} upper and lower \\rinline{combo} plot types." >>=
 ggpairs(
   tips,
@@ -168,6 +174,7 @@ ggpairs(
 )
 @
 
+\newpage
 << ggduo_types, fig.width = 6, fig.height = 3.75, out.width = "5in", out.height = "3in", fig.cap = "two-grouped plot matrix using \\rinline{ggduo} with no upper or lower triangle areas." >>=
 ggduo(
   tips,
@@ -176,6 +183,7 @@ ggduo(
 )
 @
 
+\newpage
 << ggduo_types2, fig.width = 6, fig.height = 3.75, out.width = "5in", out.height = "3in", fig.cap = "Updating the combination types in a \\rinline{ggduo} plot matrix." >>=
 ggduo(
   tips,
@@ -303,6 +311,7 @@ With the basis of \rinline{ggduo} displaying each row of the data in every panel
 
 Using the flea data set from the \GGally~package, we fit a model to determine the size of the flea's head.  Using \rinline{stats::step} to determine a good fitting model, the default model diagnostics are displayed against $species$, $tars1$, $tars2$, and $aede$.  The model diagnostics are displayed in Figure~\ref{fig:ggnostic} below. Residual panels contain dashed 95\% confidence interval lines and a solid line at the expect 0 value. Leave one out sigma value panels display a solid line for the current model's sigma value. Leverage point (diagonal of the hat matrix) panels are centered around the solid, expected line at $p / n$ and have a dashed, \emph{significance} line at $2 * p / n$~\cite{kutner_linear_models}. Finally, the Cook's distance panel has a grey dashed, \emph{significance} line at $F_{p, n - p}(0.5)$~\cite{kutner_linear_models}. Each solid line corresponds to the expected value and each dashed line corresponds to a \emph{signifigance} cuttoff value. The asterisks in the $X$ axis strips correspond to the significance of an anova $F$ test.
 
+\newpage
 << ggnostic, fig.cap = "Linear model diagnostics for a model predicting the maximal head with in millimeters." >>=
 flea_model <- step(lm(head ~ ., data = flea), trace = FALSE)
 ggnostic(flea_model)
@@ -310,6 +319,7 @@ ggnostic(flea_model)
 
 The model diagnostics can be extended further by coloring and grouping according to $species$ and displaying the fitted values as in Figure~\ref{fig:ggnostic_complex}.
 
+\newpage
 << ggnostic_complex, fig.cap = "Each plot is colored according to $species$.  Extra row diagnostics ($head$, $fitted$, and $se fit$) are added to the dianostic plot matrix." >>=
 ggnostic(
   flea_model,

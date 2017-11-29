@@ -80,7 +80,7 @@ Summary statistics are great in interpreting information using less data.  Howev
 
 \trelliscopejs~allows users to plot full plot detail while allowing users to change how many panels are displayed on the screen at one time, sort the panel ordering, and filter to a smaller subset of panels.  \trelliscopejs~achieves these actions by obtaining a plot for every conditioning combination and suplimentary metrics for each plot.
 
-Using the \rinline{gapminder} data set in Figure~\ref{fig:trelliscopejs}, life expectancy is explore over time with the supplimentary metrics of minimum and maximum life expectancy.
+Using the \rinline{gapminder} data set in Figure~\ref{fig:trelliscopejs_two}, life expectancy is explored over time with the supplimentary metrics of minimum and maximum life expectancy.
 
 << trelljs, echo = FALSE, verbose = FALSE, cache = FALSE >>=
 trelljs <- function(dt, name, ...) {
@@ -96,7 +96,7 @@ trelljs <- function(dt, name, ...) {
   ret
 }
 @
-<< trelliscopejs, screenshot.opts = list(vwidth = 700, vheight = 525), fig.cap = "Full data exploration with manually added cognostics are made available in a \\trelliscopejs~widget." >>=
+<< trelliscopejs >>=
 gapminder %>%
   group_by(country, continent) %>%
   # condense the data
@@ -118,12 +118,14 @@ gapminder_condensed %>%
   select(-data) %>%
   print() ->
 gap_trellis
-
+@
+\newpage
+<< trelliscopejs_two, screenshot.opts = list(vwidth = 700, vheight = 525), fig.cap = "Full data exploration with manually added cognostics are made available in a \\trelliscopejs~widget." >>=
 # display the plots and metrics in trelliscopejs
 gap_trellis %>% trelljs("gapminder")
 @
 
-The \trelliscopejs~HTML widget in Figure~\ref{fig:trelliscopejs} displays three rows and five columns of panels.  There are \rinline{142} panels in total, making 10 pages of panels in total.  While this example does not display millions of panels, it does convey the capabilities of the HTML widget.  Icons on the left, as in Figure~\ref{fig:tjs_sidebar}, open foldout displays for panel layout control, turning panel labels on and off, filtering panels using metrics, and panel sorting.
+The \trelliscopejs~HTML widget in Figure~\ref{fig:trelliscopejs_two} displays three rows and five columns of panels.  There are \rinline{142} panels in total, making 10 pages of panels in total.  While this example does not display millions of panels, it does convey the capabilities of the HTML widget.  Icons on the left, as in Figure~\ref{fig:tjs_sidebar}, open foldout displays for panel layout control, turning panel labels on and off, filtering panels using metrics, and panel sorting.
 
 \begin{figure}[H]
   \label{fig:tjs_sidebar}
