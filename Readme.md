@@ -10,11 +10,11 @@
   * √ Submit thesis to committee
 * < Nov 28th
   * √ Make defense slides
-  * [Submit thesis acceptance form](http://www.purdue.edu/gradschool/documents/thesis/Student-Instructions-Thesis-Acceptance-Form.pdf)
+  * √ [Submit thesis acceptance form](http://www.purdue.edu/gradschool/documents/thesis/Student-Instructions-Thesis-Acceptance-Form.pdf)
 * Nov 29th - 10am - HAAS 111
-  * Defense (~50m)
+  * √ Defense (~50m)
 * < Dec 3rd
-  * Make committee changes to thesis
+  * √ Make committee changes to thesis
 * <= Dec 3rd
   * Finalize thesis acceptance form, then
   * Submit thesis online to Graduate School
