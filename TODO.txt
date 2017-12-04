@@ -1,18 +1,4 @@
 
-TODO - from top to bottom in pages, work on spacing so the code is next to the figure.
-
-TODO - Add autocogs to cran
-TODO - update autocogs citations
-TODO - update
-  autocogs
-  trelliscopejs
-  ggally on cran
-TODO - update citations for
-  autocogs
-  trelliscopejs
-  ggally on cran
-
-
 √ look at all TODO values before submission
 √ move all labels of figures to the top of the figure before the \includegraphics
 √ scatter plot -> scatterplot
@@ -25,10 +11,26 @@ TODO - update citations for
 √ chapter -> Chapter
 √ ~\ref{}
 √ ~\cite{}
+√ - from top to bottom in pages, work on spacing so the code is next to the figure.
 
 
+√ - github:
+\subsection{\GGally}
+  implement matrix manipulations for ggmatrix
+    be able to subset a ggmatrix and produce a new ggmatrix
+    be able to insert a ggmatrix into a valid location
+  remove all options of labels
+\subsection{\autocogs}
+  Add cognostics for time series data
+  Add safety layer for the execution (try catch)
+  Add message similar to $facet_map$ to submit them to github
+  Add more pkg layer connections: rbokeh, plotly
+\subsection{\gqlr}
+  Add safety layer for each field's execution (try catch)
+  Explore more working examples rather than proof of concept
+  Add integration with trelliscopejs
 
-
+√
 \section{Summary}
   talked about X
   talked about what you can do with X
@@ -37,7 +39,6 @@ TODO - update citations for
   summary
     ggduo only works for small datasets
       trelliscope can scale up to the larger data sets
-
 
 
 
@@ -80,24 +81,3 @@ TODO - update citations for
     * talked about X
     * talked about what you can do with X
     * motivate how X works with the next Chapter
-
-
-
-
-TODO - github:
-% \subsection{\GGally}
-%   implement matrix manipulations for ggmatrix
-%     be able to subset a ggmatrix and produce a new ggmatrix
-%     be able to insert a ggmatrix into a valid location
-%   remove all options of labels
-%
-% \subsection{\autocogs}
-%   Add cognostics for time series data
-%   Add safety layer for the execution (try catch)
-%   Add message similar to $facet_map$ to submit them to github
-%   Add more pkg layer connections: rbokeh, plotly
-%
-% \subsection{\gqlr}
-%   Add safety layer for each field's execution (try catch)
-%   Explore more working examples rather than proof of concept
-%   Add integration with trelliscopejs
