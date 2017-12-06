@@ -1,6 +1,6 @@
 Feedback:
 √ Add Approved By section in page iii (name of dept. head)
-  TOC: make sure each title in the TOC is typed using ALL CAPS
+√ TOC: make sure each title in the TOC is typed using ALL CAPS
 
 
 √ look at all TODO values before submission
