@@ -12,7 +12,7 @@
 % }
 % @
 %
-\chapter{Data Sets}
+\chapter{DATA SETS}
 
 \subsubsection{Restaurant tips}
 

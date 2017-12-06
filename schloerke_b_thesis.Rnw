@@ -171,7 +171,7 @@ if (Sys.getenv("TRAVIS") == "") {
 % Put chapter \include commands here.
 
 
-\chapter{\rinline{ggduo}: Generalized Pairs Plot for Two-Grouped Data} \label{chapter:ggduo}
+\chapter{GGDUO: GENERALIZED PAIRS PLOT FOR TWO-GROUPED DATA} \label{chapter:ggduo}
 
 << part_ggplot2, child='parts/3_1-background-ggplot2.Rnw'>>=
 @
@@ -179,7 +179,7 @@ if (Sys.getenv("TRAVIS") == "") {
 << part_ggduo, child='parts/3_2-ggduo.Rnw'>>=
 @
 
-\chapter{\autocogs: Metrics Enabling Detailed Interactive Data Visualization} \label{chapter:autocogs}
+\chapter{AUTOCOGS: METRICS ENABLING DETAILED INTERACTIVE DATA VISUALIZATION} \label{chapter:autocogs}
 
 << part_background_autocogs, child='parts/4_1-background-autocogs.Rnw'>>=
 @
@@ -188,7 +188,7 @@ if (Sys.getenv("TRAVIS") == "") {
 
 
 
-\chapter{\gqlr: An R Server GraphQL Implementation} \label{chapter:gqlr}
+\chapter{GQLR: AN R SERVER GRAPHQL IMPLEMENTATION} \label{chapter:gqlr}
 
 << part_graphql, child='parts/5-graphql.Rnw'>>=
 @

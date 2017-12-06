@@ -1,4 +1,4 @@
-\chapter{R Packages}
+\chapter{R PACKAGES}
 
 The following sections contain publically exported functions where I created or have made significant contributions.
 

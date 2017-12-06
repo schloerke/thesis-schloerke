@@ -4,7 +4,7 @@
 %
 
 
-\chapter{Introduction}
+\chapter{INTRODUCTION}
 
 Statistical visualizations of large-scale data has become an increasingly essential task in the era of \emph{big data}.
 In particular, exploratory data analysis and visualization is the first step towards any in-depth statistical modeling and analysis.

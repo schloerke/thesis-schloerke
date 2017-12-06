@@ -1,5 +1,5 @@
 
-\chapter{R Package Descriptions} \label{chapter:pkgs}
+\chapter{R PACKAGE DESCRIPTIONS} \label{chapter:pkgs}
 
   The following alphabetically sorted package descriptions are excerpts from their \emph{DESCRIPTION} files.
 
