@@ -32,7 +32,7 @@
   \entry{Dr.~Ryan Hafen, Co-Chair}{Adjunct Assistant Professor of Statistics}
   \entry{Dr.~Bowei Xi}{Associate Professor of Statistics}
   \entry{Dr.~Vinayak Rao}{Assistant Professor of Statistics}
-  % \approvedby{Dr.~Buck Doe}{Head of the School Graduate Program}
+  \approvedby{Dr.~Hao Zhang}{Head of the Department of Statistics}
 \end{statement}
 
   % Dedication page is optional.

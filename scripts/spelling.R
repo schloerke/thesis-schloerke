@@ -2,6 +2,8 @@ bad_spelling <- spelling::spell_check_files("schloerke_b_thesis.tex", lang = "en
   "Crabill",
   "Doerge",
   "Rebecca",
+  "Hao",
+  "Zhang",
   "addToWealth",
   "aede",
   "aes",
