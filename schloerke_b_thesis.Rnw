@@ -188,7 +188,7 @@ if (Sys.getenv("TRAVIS") == "") {
 
 
 
-\chapter{GQLR: AN R SERVER GRAPHQL IMPLEMENTATION} \label{chapter:gqlr}
+\chapter{GQLR: A GRAPHQL R SERVER IMPLEMENTATION} \label{chapter:gqlr}
 
 << part_graphql, child='parts/5-graphql.Rnw'>>=
 @
